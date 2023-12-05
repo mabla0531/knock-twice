@@ -7,12 +7,14 @@ import {
   Money,
 } from '@shopify/hydrogen';
 import {useVariantUrl} from '~/utils';
+import {useState} from 'react';
+
 
 /**
  * @type {MetaFunction<typeof loader>}
  */
 export const meta = ({data}) => {
-  return [{title: `Hydrogen | ${data?.collection.title ?? ''} Collection`}];
+  return [{title: `KT | ${data?.collection.title ?? ''}`}];
 };
 
 /**
@@ -45,43 +47,101 @@ export default function Collection() {
   /** @type {LoaderReturnData} */
   const {collection} = useLoaderData();
 
-  return (
-    <div className="collection">
-      <h1>{collection.title}</h1>
-      <p className="collection-description">{collection.description}</p>
-      <Pagination connection={collection.products}>
-        {({nodes, isLoading, PreviousLink, NextLink}) => (
-          <>
-            <PreviousLink>
-              {isLoading ? 'Loading...' : <span>↑ Load previous</span>}
-            </PreviousLink>
-            <ProductsGrid products={nodes} />
-            <br />
-            <NextLink>
-              {isLoading ? 'Loading...' : <span>Load more ↓</span>}
-            </NextLink>
-          </>
-        )}
-      </Pagination>
-    </div>
-  );
-}
+  const [currentProduct, setCurrentProduct] = useState(0);
 
-/**
- * @param {{products: ProductItemFragment[]}}
- */
-function ProductsGrid({products}) {
+  const incrementProduct = () => {
+    if (currentProduct < collection.products.nodes.length - 1) {
+      setCurrentProduct(currentProduct + 1);
+    }
+  }
+
+  const decrementProduct = () => {
+    if (currentProduct > 0) {
+      setCurrentProduct(currentProduct - 1);
+    }
+  }
+
+  const products = collection.products.nodes.map((product) => {
+    return (<ProductItem product = {product}></ProductItem>);
+  })
+
   return (
-    <div className="products-grid">
-      {products.map((product, index) => {
-        return (
-          <ProductItem
-            key={product.id}
-            product={product}
-            loading={index < 8 ? 'eager' : undefined}
-          />
-        );
-      })}
+    <div
+      style={{
+        display: "block",
+      }}
+    >
+      <div
+        style={{
+          display: "flex",
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}
+      >
+        <h2>{collection.title}</h2>
+      </div>
+      
+      <div
+        style={{
+          display: "flex",
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}
+      >
+        <div style={{display: "block"}}>
+          {products[currentProduct]}
+        </div>
+      </div>
+        
+      <div
+        style={{
+          display: "flex",
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}
+      >
+        <div style={{display: "block", padding: 8}}><button onClick = {() => decrementProduct()}>←</button></div>
+        <div style={{display: "block", padding: 8}}><button onClick = {() => incrementProduct()}>→</button></div>
+      </div>
+
+      <div
+        style={{
+          display: "flex",
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}
+      >
+        <div style={{diplay: "block"}}>
+          <h4>
+            {collection.products.nodes[currentProduct].title}
+          </h4>
+          <hr/>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}
+          >
+            <Money data={collection.products.nodes[currentProduct].priceRange.minVariantPrice} />
+          </div>
+        </div>
+      </div>
+
+      <div
+        style={{
+          display: "flex",
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}
+      >
+        <div 
+          className="collection-description" 
+          style={{paddingTop: '16px'}}
+        >
+          [description] {collection.products.nodes[currentProduct].description}
+        </div>
+      </div>
     </div>
   );
 }
@@ -92,30 +152,31 @@ function ProductsGrid({products}) {
  *   loading?: 'eager' | 'lazy';
  * }}
  */
-function ProductItem({product, loading}) {
+function ProductItem({product}) {
   const variant = product.variants.nodes[0];
   const variantUrl = useVariantUrl(product.handle, variant.selectedOptions);
   return (
-    <Link
-      className="product-item"
-      key={product.id}
-      prefetch="intent"
-      to={variantUrl}
-    >
-      {product.featuredImage && (
-        <Image
-          alt={product.featuredImage.altText || product.title}
-          aspectRatio="1/1"
-          data={product.featuredImage}
-          loading={loading}
-          sizes="(min-width: 45em) 400px, 100vw"
-        />
-      )}
-      <h4>{product.title}</h4>
-      <small>
-        <Money data={product.priceRange.minVariantPrice} />
-      </small>
-    </Link>
+    <div style={{display: "flex", justifyContent: "center", alignItems: "center"}}>
+      <div style={{display: "block"}}>
+        <Link
+          key={product.id}
+          prefetch="intent"
+          to={variantUrl}
+        >
+          {product.featuredImage && (
+            <div style={{display: "flex", justifyContent: "center", alignItems: "center"}}>
+              <Image
+                alt={product.featuredImage.altText || product.title}
+                aspectRatio="1/1"
+                data={product.featuredImage}
+                width={256}
+                style={{display: "block"}}
+              />
+            </div>
+          )}
+        </Link>
+      </div>
+    </div>
   );
 }
 

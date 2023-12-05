@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["browser-route-module:../node_modules/@shopify/cli-hydrogen/dist/virtual-routes/routes/graphiql.jsx?browser"],
+  "sourcesContent": ["module.exports = {};"],
+  "mappings": ";;;;;AAAA;AAAA;AAAA,WAAO,UAAU,CAAC;AAAA;AAAA;",
+  "names": []
+}

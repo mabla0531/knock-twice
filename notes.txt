@@ -1,0 +1,2 @@
+can collections have a provided image?
+can items have a tag for size/color or do they need to be parsed from the name?
