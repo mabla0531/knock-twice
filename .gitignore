@@ -1,2 +1,4 @@
 .shopify
 node_modules
+.cache
+dist

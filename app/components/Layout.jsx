@@ -18,13 +18,15 @@ export function Layout({cart, children = null, footer, header, isLoggedIn}) {
       <CartAside cart={cart} />
       <SearchAside />
       <MobileMenuAside menu={header.menu} shop={header.shop} />
-      <Header header={header} cart={cart} isLoggedIn={isLoggedIn} />
-      <main>{children}</main>
-      <Suspense>
-        <Await resolve={footer}>
-          {(footer) => <Footer menu={footer.menu} shop={header.shop} />}
-        </Await>
-      </Suspense>
+      <div class="wrapper">
+        <Header header={header} cart={cart} isLoggedIn={isLoggedIn} />
+        <div class="main">{children}</div>
+        <Suspense>
+          <Await resolve={footer}>
+            {(footer) => <Footer menu={footer.menu} shop={header.shop} />}
+          </Await>
+        </Suspense>
+      </div>
     </>
   );
 }

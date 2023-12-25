@@ -69,7 +69,7 @@ function CollectionItem({collection, index}) {
     <Link
       className="collection-item"
       key={collection.id}
-      to={`/collections/${collection.handle}`}
+      to={`/collectioncarousel/${collection.handle}`}
       prefetch="intent"
     >
       {collection?.image && (

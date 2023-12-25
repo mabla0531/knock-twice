@@ -20,24 +20,24 @@ export default function Index() {
       <h2 className="whitespace-pre-wrap max-w-prose font-bold text-lead">
         Collections
       </h2>
-        {collections.nodes.map((collection) => {
-          return (
-              <Link to={`/collections/${collection.handle}`} key={collection.id}>
-                  <Image
-                    alt={`Image of ${collection.title}`}
-                    data={collection.image}
-                    key={collection.id}
-                    sizes="(max-width: 32em) 100vw, 33vw"
-                    width = {128}
-                    height = {128}
-                    crop="center"
-                  />
-                <div className="font-medium text-copy">
-                  {collection.title}
-                </div>
-              </Link>
-          );
-        })}
+      {collections.nodes.map((collection) => {
+        return (
+          <Link to={`/collectiongrid/${collection.handle}`} key={collection.id}>
+            <Image
+              alt={`Image of ${collection.title}`}
+              data={collection.image}
+              key={collection.id}
+              sizes="(max-width: 32em) 100vw, 33vw"
+              width = {128}
+              height = {128}
+              crop="center"
+            />
+            <div className="font-medium text-copy">
+              {collection.title}
+            </div>
+          </Link>
+        );
+      })}
     </section>
   );
 }
