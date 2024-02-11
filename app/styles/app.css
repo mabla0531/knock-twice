@@ -16,8 +16,17 @@ img {
   border-radius: 4px;
 }
 
-.wrapper .main {
+.wrapper {
+  display: block;
   height: 100%;
+}
+
+.main {
+  display: block;
+}
+
+.overlay {
+  width: 100%;
 }
 
 /*
@@ -148,7 +157,7 @@ aside li {
 }
 
 .header-menu-mobile-toggle {
-  @media (min-width: 48em) {
+  @media (min-width: 45em) {
     display: none;
   }
 }
@@ -160,12 +169,12 @@ aside li {
 }
 
 .header-menu-desktop {
-  display: none;
+  display: flex;
   grid-gap: 1rem;
-  @media (min-width: 45em) {
-    display: flex;
+  margin-left: 3rem;
+  @media (max-width: 45em) {
+    display: none;
     grid-gap: 1rem;
-    margin-left: 3rem;
   }
 }
 
@@ -187,11 +196,11 @@ aside li {
 */
 .footer {
   background: var(--color-dark);
-  left: 0;
+
   margin-top: 8px;
   padding: 0 1rem;
   position: sticky;
-  display: flex;
+  display: block;
   bottom: 0;
   z-index: 1;
 }
@@ -485,4 +494,40 @@ aside li {
 
 .account-logout {
   display: inline-block;
+}
+
+/*
+* --------------------------------------------------
+* routes/collectioncarousel.$handle.jsx
+* --------------------------------------------------
+*/
+.productInfo {
+  display: block;
+  @media (max-width: 45em) {
+    display: sticky;
+  }
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+}
+
+.productFilter {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.tabWrapper {
+  display: flex;
+}
+
+.collectionPanel {
+  display: inline-block;
+  width: 100%;
+  @media (min-width: 45em) {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 }

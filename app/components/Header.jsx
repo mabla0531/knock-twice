@@ -83,6 +83,7 @@ function HeaderCtas({isLoggedIn, cart}) {
   return (
     <nav className="header-ctas" role="navigation">
       <HeaderMenuMobileToggle />
+      <AboutToggle />
       <NavLink prefetch="intent" to="/account" style={activeLinkStyle}>
         {isLoggedIn ? 'Account' : 'Sign in'}
       </NavLink>
@@ -98,6 +99,10 @@ function HeaderMenuMobileToggle() {
       <h3>☰</h3>
     </a>
   );
+}
+
+function AboutToggle() {
+  return <a href='/policies'>About</a>;
 }
 
 function SearchToggle() {

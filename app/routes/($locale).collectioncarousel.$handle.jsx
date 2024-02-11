@@ -7,7 +7,9 @@ import {
   Money,
 } from '@shopify/hydrogen';
 import {useVariantUrl} from '~/utils';
-import {useState} from 'react';
+import * as React from 'react';
+import { Tab, Tabs, Box, Typography } from '@mui/material';
+
 
 
 /**
@@ -43,34 +45,14 @@ export async function loader({request, params, context}) {
   return json({collection});
 }
 
-export default function Collection() {
-  /** @type {LoaderReturnData} */
-  const {collection} = useLoaderData();
-
-  const [currentProduct, setCurrentProduct] = useState(0);
-
-  const incrementProduct = () => {
-    if (currentProduct < collection.products.nodes.length - 1) {
-      setCurrentProduct(currentProduct + 1);
-    }
-  }
-
-  const decrementProduct = () => {
-    if (currentProduct > 0) {
-      setCurrentProduct(currentProduct - 1);
-    }
-  }
+export function ProductInfo({collection}) {
 
   const products = collection.products.nodes.map((product) => {
     return (<ProductItem product = {product}></ProductItem>);
   })
 
   return (
-    <div
-      style={{
-        display: "block",
-      }}
-    >
+    <div className='productInfo'>
       <div>
         <Link prefetch='intent' to={`/collectiongrid/${collection.handle}`}>Grid View</Link>
       </div>
@@ -83,6 +65,43 @@ export default function Collection() {
       >
         <h2>{collection.title}</h2>
       </div>
+
+      <div
+        style={{
+          display: "flex",
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}
+      >
+        <div style={{display: "block"}}>
+          {products[0]}
+        </div>
+      </div>
+
+      <div
+        style={{
+          display: "flex",
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}
+      >
+        <div style={{display: "block"}}>
+          <h4>
+            {collection.products.nodes[0].title}
+          </h4>
+          <hr/>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}
+          >
+            <Money data={collection.products.nodes[0].priceRange.minVariantPrice} />
+          </div>
+        </div>
+      </div>
+
       <div
         style={{
           display: "flex",
@@ -97,52 +116,86 @@ export default function Collection() {
           {collection.description}
         </div>
       </div>
-      <div
-        style={{
-          display: "flex",
-          justifyContent: 'center',
-          alignItems: 'center',
-        }}
-      >
-        <div style={{display: "block"}}>
-          {products[currentProduct]}
-        </div>
-      </div>
-        
-      <div
-        style={{
-          display: "flex",
-          justifyContent: 'center',
-          alignItems: 'center',
-        }}
-      >
-        <div style={{display: "block", padding: 8}}><button onClick = {() => decrementProduct()}>←</button></div>
-        <div style={{display: "block", padding: 8}}><button onClick = {() => incrementProduct()}>→</button></div>
-      </div>
+    </div>
+  );
+}
 
-      <div
-        style={{
-          display: "flex",
-          justifyContent: 'center',
-          alignItems: 'center',
-        }}
-      >
-        <div style={{diplay: "block"}}>
-          <h4>
-            {collection.products.nodes[currentProduct].title}
-          </h4>
-          <hr/>
-          <div
-            style={{
-              display: "flex",
-              justifyContent: 'center',
-              alignItems: 'center',
-            }}
-          >
-            <Money data={collection.products.nodes[currentProduct].priceRange.minVariantPrice} />
-          </div>
-        </div>
+function CustomTabPanel(children, index, value) {
+
+  return (
+    <div
+      role="tabpanel"
+      hidden={value !== index}
+      id={`simple-tabpanel-${index}`}
+      aria-labelledby={`simple-tab-${index}`}
+    >
+      {value === index && (
+        <Box sx={{ p: 3 }}>
+          <Typography>{children}</Typography>
+        </Box>
+      )}
+    </div>
+  );
+}
+
+function a11yProps(index) {
+  return {
+    id: `simple-tab-${index}`,
+    'aria-controls': `simple-tabpanel-${index}`,
+  };
+}
+
+export function ProductFilter({collection}) {
+  const products = collection.products.nodes.map((product) => {
+    return (
+      <div style={{display: "flex", justifyContent: "center", alignItems: "center"}}>
+        <Image
+          alt={product.featuredImage.altText || product.title}
+          aspectRatio="1/1"
+          data={product.featuredImage}
+          width={256}
+          style={{display: "block"}}
+        />
       </div>
+    );
+  });
+
+  const [value, setValue] = React.useState(0);
+
+  const handleChange = (event, newValue) => {
+    setValue(newValue);
+  }
+
+  return (
+    <div className='productFilter'>
+      <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+        <div className='tabWrapper'>
+          <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
+            <Tab label="S"   {...a11yProps(0)} />
+            <Tab label="M"   {...a11yProps(1)} />
+            <Tab label="L"   {...a11yProps(2)} />
+            <Tab label="XL"  {...a11yProps(3)} />
+            <Tab label="XXL" {...a11yProps(4)} />
+          </Tabs>
+        </div>
+        <CustomTabPanel value={value} index={0}></CustomTabPanel>
+        <CustomTabPanel value={value} index={1}></CustomTabPanel>
+        <CustomTabPanel value={value} index={2}></CustomTabPanel>
+        <CustomTabPanel value={value} index={3}></CustomTabPanel>
+        <CustomTabPanel value={value} index={4}></CustomTabPanel>
+      </Box>
+    </div>
+  );
+}
+
+export default function Collection() {
+  /** @type {LoaderReturnData} */
+  const {collection} = useLoaderData();
+
+  return (
+    <div className="collectionPanel">
+      <ProductInfo collection={collection}></ProductInfo>
+      <ProductFilter collection={collection}></ProductFilter>
     </div>
   );
 }
@@ -170,7 +223,7 @@ function ProductItem({product}) {
                 alt={product.featuredImage.altText || product.title}
                 aspectRatio="1/1"
                 data={product.featuredImage}
-                width={256}
+                width={512}
                 style={{display: "block"}}
               />
             </div>
