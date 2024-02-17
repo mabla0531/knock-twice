@@ -8,8 +8,8 @@ import {
 } from '@shopify/hydrogen';
 import {useVariantUrl} from '~/utils';
 import * as React from 'react';
-import { Tab, Tabs, Box, Typography } from '@mui/material';
-
+import { Tab, Box } from '@mui/material';
+import {TabPanel, TabList, TabContext} from '@mui/lab'
 
 
 /**
@@ -120,31 +120,6 @@ export function ProductInfo({collection}) {
   );
 }
 
-function CustomTabPanel(children, index, value) {
-
-  return (
-    <div
-      role="tabpanel"
-      hidden={value !== index}
-      id={`simple-tabpanel-${index}`}
-      aria-labelledby={`simple-tab-${index}`}
-    >
-      {value === index && (
-        <Box sx={{ p: 3 }}>
-          <Typography>{children}</Typography>
-        </Box>
-      )}
-    </div>
-  );
-}
-
-function a11yProps(index) {
-  return {
-    id: `simple-tab-${index}`,
-    'aria-controls': `simple-tabpanel-${index}`,
-  };
-}
-
 export function ProductFilter({collection}) {
   const products = collection.products.nodes.map((product) => {
     return (
@@ -160,30 +135,34 @@ export function ProductFilter({collection}) {
     );
   });
 
-  const [value, setValue] = React.useState(0);
+  const [value, setValue] = React.useState("0");
 
-  const handleChange = (event, newValue) => {
+  const handleChange = (_, newValue) => {
     setValue(newValue);
   }
 
+  let panel_child = <b>HI!</b>;
+
   return (
     <div className='productFilter'>
-      <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-        <div className='tabWrapper'>
-          <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
-            <Tab label="S"   {...a11yProps(0)} />
-            <Tab label="M"   {...a11yProps(1)} />
-            <Tab label="L"   {...a11yProps(2)} />
-            <Tab label="XL"  {...a11yProps(3)} />
-            <Tab label="XXL" {...a11yProps(4)} />
-          </Tabs>
-        </div>
-        <CustomTabPanel value={value} index={0}></CustomTabPanel>
-        <CustomTabPanel value={value} index={1}></CustomTabPanel>
-        <CustomTabPanel value={value} index={2}></CustomTabPanel>
-        <CustomTabPanel value={value} index={3}></CustomTabPanel>
-        <CustomTabPanel value={value} index={4}></CustomTabPanel>
-      </Box>
+      <div className='productTabs'>
+        <TabContext value={value}>
+          <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+            <TabList onChange={handleChange} aria-label="collection items">
+              <Tab label="S"   value="0" />
+              <Tab label="M"   value="1" />
+              <Tab label="L"   value="2" />
+              <Tab label="XL"  value="3" />
+              <Tab label="XXL" value="4" />
+            </TabList>
+          </Box>
+          <TabPanel value="0">afsd</TabPanel>
+          <TabPanel value="1">fdas</TabPanel>
+          <TabPanel value="2">fds</TabPanel>
+          <TabPanel value="3">sdf</TabPanel>
+          <TabPanel value="4">fdssdsf</TabPanel>
+        </TabContext>
+      </div>
     </div>
   );
 }

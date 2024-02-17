@@ -49,7 +49,7 @@ export default function Collection() {
   const products = collection.products.nodes.map((product) => {
     return (
     <Grid item xs={3}>
-        <ProductTile product = {product}></ProductTile>
+        <ProductTile product={product}></ProductTile>
     </Grid>
     );
   })
@@ -93,7 +93,7 @@ export default function Collection() {
           alignItems: 'center',
         }}
       >
-        <div style={{display: "block"}}>
+        <div style={{display: "block", width: "50%"}}>
           <Grid container spacing={2}>
             {products}
           </Grid>
@@ -113,7 +113,7 @@ function ProductTile({product}) {
   const variant = product.variants.nodes[0];
   const variantUrl = useVariantUrl(product.handle, variant.selectedOptions);
   return (
-    <div style={{display: "flex", justifyContent: "center", alignItems: "center"}}>
+    <div style={{display: "flex", justifyContent: "center", alignItems: "center", padding: "28px"}}>
       <div style={{display: "block"}}>
         <div style={{display: "block"}}>
           <Link

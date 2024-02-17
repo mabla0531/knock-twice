@@ -518,6 +518,10 @@ aside li {
   width: 100%;
 }
 
+.productTabs {
+  display: inline-block;
+}
+
 .tabWrapper {
   display: flex;
 }
