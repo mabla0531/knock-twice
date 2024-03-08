@@ -1,5 +1,6 @@
 import {useLoaderData, Link} from '@remix-run/react';
 import {Image} from '@shopify/hydrogen';
+import {Grid} from '@mui/material';
 
 export function meta() {
   return [
@@ -15,30 +16,47 @@ export async function loader({context}) {
 export default function Index() {
   const {collections} = useLoaderData();
 
+  console.log(collections);
+
   return (
-    <section className="w-full gap-4">
-      <h2 className="whitespace-pre-wrap max-w-prose font-bold text-lead">
-        Collections
-      </h2>
-      {collections.nodes.map((collection) => {
-        return (
-          <Link to={`/collectiongrid/${collection.handle}`} key={collection.id}>
-            <Image
-              alt={`Image of ${collection.title}`}
-              data={collection.image}
-              key={collection.id}
-              sizes="(max-width: 32em) 100vw, 33vw"
-              width = {128}
-              height = {128}
-              crop="center"
-            />
-            <div className="font-medium text-copy">
-              {collection.title}
-            </div>
-          </Link>
-        );
-      })}
-    </section>
+    <div className="index">
+      <div className='index-header'>
+        <h2 className="whitespace-pre-wrap max-w-prose font-bold text-lead">
+          Collections
+        </h2>
+      </div>
+
+      <div class="index-grid">
+        <Grid container spacing={2}>
+          {collections.nodes.map((collection) => {
+            return (
+              <Grid item xs={3}>
+                <Link to={`/collectiongrid/${collection.handle}`} key={collection.id}>
+                  <div class="index-collection-item">
+                    {collection.products.nodes.map((product) => {
+                      return (
+                        <Image
+                          alt={`Image of ${collection.title}`}
+                          data={product.featuredImage}
+                          key={collection.id}
+                          sizes="(max-width: 32em) 100vw, 33vw"
+                          width = {128}
+                          height = {128}
+                          crop="center"
+                        />
+                      )
+                    })}
+                    <div className="font-medium text-copy index-collection-grid-title">
+                      {collection.title}
+                    </div>
+                  </div>
+                </Link>
+              </Grid>
+            );
+          })}
+        </Grid>
+      </div>
+    </div>
   );
 }
 
@@ -49,11 +67,15 @@ const COLLECTIONS_QUERY = `#graphql
         id
         title
         handle
-        image {
-          altText
-          width
-          height
-          url
+        products(first: 1) {
+          nodes {
+            featuredImage {
+              altText
+              width
+              height
+              url
+            }
+          }
         }
       }
     }

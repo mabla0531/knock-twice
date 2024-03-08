@@ -8,7 +8,7 @@ import {
 } from '@shopify/hydrogen';
 import {useVariantUrl} from '~/utils';
 import * as React from 'react';
-import { Tab, Box } from '@mui/material';
+import { Tab, Box, imageListClasses } from '@mui/material';
 import {TabPanel, TabList, TabContext} from '@mui/lab'
 
 
@@ -120,6 +120,13 @@ export function ProductInfo({collection}) {
   );
 }
 
+export function Swatch() {
+
+  return (
+    <div>swatch image</div>
+  )
+}
+
 export function ProductFilter({collection}) {
   const products = collection.products.nodes.map((product) => {
     return (
@@ -156,11 +163,11 @@ export function ProductFilter({collection}) {
               <Tab label="XXL" value="4" />
             </TabList>
           </Box>
-          <TabPanel value="0">afsd</TabPanel>
-          <TabPanel value="1">fdas</TabPanel>
-          <TabPanel value="2">fds</TabPanel>
-          <TabPanel value="3">sdf</TabPanel>
-          <TabPanel value="4">fdssdsf</TabPanel>
+          <TabPanel value="0"><Swatch /></TabPanel>
+          <TabPanel value="1"><Swatch /></TabPanel>
+          <TabPanel value="2"><Swatch /></TabPanel>
+          <TabPanel value="3"><Swatch /></TabPanel>
+          <TabPanel value="4"><Swatch /></TabPanel>
         </TabContext>
       </div>
     </div>
