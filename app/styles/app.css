@@ -52,6 +52,7 @@ img {
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
   width: 75%;
 }
 
@@ -61,7 +62,7 @@ img {
   align-items: center;
 }
 
-.index-collection-grid-title {
+.index-collection-title {
   display: flex;
   width: 100%;
   justify-content: center;
@@ -199,6 +200,7 @@ aside li {
   @media (min-width: 45em) {
     display: none;
   }
+  margin-right: 1em;
 }
 
 .header-menu-mobile {
@@ -226,6 +228,10 @@ aside li {
   display: flex;
   grid-gap: 1rem;
   margin-left: auto;
+}
+
+.header-ctas svg {
+  width: 1.75em;
 }
 
 /*
@@ -359,6 +365,7 @@ aside li {
 .search-results-item {
   margin-bottom: 0.5rem;
 }
+
 
 /*
 * --------------------------------------------------

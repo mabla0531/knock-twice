@@ -1711,7 +1711,7 @@ interface GeneratedQueryTypes {
     return: SitemapQuery;
     variables: SitemapQueryVariables;
   };
-  '#graphql\n  query FeaturedCollections {\n    collections(first: 250, query: "collection_type:smart") {\n      nodes {\n        id\n        title\n        handle\n        products(first: 1) {\n          nodes {\n            featuredImage {\n              altText\n              width\n              height\n              url\n            }\n          }\n        }\n      }\n    }\n  }\n': {
+  '#graphql\n  query FeaturedCollections {\n    collections(first: 250) {\n      nodes {\n        id\n        title\n        handle\n        products(first: 1) {\n          nodes {\n            featuredImage {\n              altText\n              width\n              height\n              url\n            }\n          }\n        }\n      }\n    }\n  }\n': {
     return: FeaturedCollectionsQuery;
     variables: FeaturedCollectionsQueryVariables;
   };

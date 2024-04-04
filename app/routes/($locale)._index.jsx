@@ -4,8 +4,8 @@ import {Grid} from '@mui/material';
 
 export function meta() {
   return [
-    {title: 'Hydrogen'},
-    {description: 'A custom storefront powered by Hydrogen'},
+    {title: 'KnockTwice'},
+    {description: 'KnockTwice Toronto Marketing Site'},
   ];
 }
 
@@ -16,8 +16,6 @@ export async function loader({context}) {
 export default function Index() {
   const {collections} = useLoaderData();
 
-  console.log(collections);
-
   return (
     <div className="index">
       <div className='index-header'>
@@ -26,43 +24,37 @@ export default function Index() {
         </h2>
       </div>
 
-      <div class="index-grid">
-        <Grid container spacing={2}>
           {collections.nodes.map((collection) => {
             return (
-              <Grid item xs={3}>
+              <div class="index-collection-item">
                 <Link to={`/collectiongrid/${collection.handle}`} key={collection.id}>
-                  <div class="index-collection-item">
-                    {collection.products.nodes.map((product) => {
-                      return (
-                        <Image
-                          alt={`Image of ${collection.title}`}
-                          data={product.featuredImage}
-                          key={collection.id}
-                          sizes="(max-width: 32em) 100vw, 33vw"
-                          width = {128}
-                          height = {128}
-                          crop="center"
-                        />
-                      )
-                    })}
-                    <div className="font-medium text-copy index-collection-grid-title">
-                      {collection.title}
-                    </div>
+                  {collection.products.nodes.map((product) => {
+                    return (
+                      <Image
+                        alt={`Image of ${collection.title}`}
+                        data={product.featuredImage}
+                        key={collection.id}
+                        sizes="(max-width: 32em) 100vw, 33vw"
+                        width = {256}
+                        height = {256}
+                        crop="center"
+                      />
+                    )
+                  })}
+                  <div className="font-medium text-copy index-collection-title">
+                    {collection.products.nodes.length > 0 && collection.title}
                   </div>
                 </Link>
-              </Grid>
+              </div>
             );
           })}
-        </Grid>
-      </div>
     </div>
   );
 }
 
 const COLLECTIONS_QUERY = `#graphql
   query FeaturedCollections {
-    collections(first: 250, query: "collection_type:smart") {
+    collections(first: 250) {
       nodes {
         id
         title

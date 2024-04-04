@@ -1,18 +1,26 @@
 import {Await, NavLink} from '@remix-run/react';
 import {Suspense} from 'react';
 import {useRootLoaderData} from '~/root';
+import {Icon} from '@shopify/polaris';
+import {
+  CartIcon,
+  SearchIcon,
+  PersonLockIcon,
+  InfoIcon
+} from '@shopify/polaris-icons';
 
 /**
  * @param {HeaderProps}
  */
-export function Header({header, isLoggedIn, cart}) {
-  const {shop, menu} = header;
+export function Header({header, cart}) {
+  const {shop, _} = header;
   return (
     <header className="header">
+      <HeaderMenuMobileToggle />
       <NavLink prefetch="intent" to="/" style={activeLinkStyle} end>
         <strong>{shop.name}</strong>
       </NavLink>
-      <HeaderCtas isLoggedIn={isLoggedIn} cart={cart} />
+      <HeaderCtas cart={cart} />
     </header>
   );
 }
@@ -79,14 +87,10 @@ export function HeaderMenu({menu, primaryDomainUrl, viewport}) {
 /**
  * @param {Pick<HeaderProps, 'isLoggedIn' | 'cart'>}
  */
-function HeaderCtas({isLoggedIn, cart}) {
+function HeaderCtas({cart}) {
   return (
     <nav className="header-ctas" role="navigation">
-      <HeaderMenuMobileToggle />
       <AboutToggle />
-      <NavLink prefetch="intent" to="/account" style={activeLinkStyle}>
-        {isLoggedIn ? 'Account' : 'Sign in'}
-      </NavLink>
       <SearchToggle />
       <CartToggle cart={cart} />
     </nav>
@@ -102,18 +106,18 @@ function HeaderMenuMobileToggle() {
 }
 
 function AboutToggle() {
-  return <a href='/policies'>About</a>;
+  return <a href='/policies'><Icon source={InfoIcon} tone="base" /></a>;
 }
 
 function SearchToggle() {
-  return <a href="#search-aside">Search</a>;
+  return <a href="#search-aside"><Icon source={SearchIcon} tone="base" /></a>;
 }
 
 /**
  * @param {{count: number}}
  */
 function CartBadge({count}) {
-  return <a href="#cart-aside">Cart {count}</a>;
+  return <a href="#cart-aside" className="cart-badge"><Icon source={CartIcon} tone="base"/>{count}</a>;
 }
 
 /**

@@ -431,8 +431,8 @@ var require_react_development = __commonJS({
         return "$" + escapedString;
       }
       var didWarnAboutMaps = !1, userProvidedKeyEscapeRegex = /\/+/g;
-      function escapeUserProvidedKey(text) {
-        return text.replace(userProvidedKeyEscapeRegex, "$&/");
+      function escapeUserProvidedKey(text2) {
+        return text2.replace(userProvidedKeyEscapeRegex, "$&/");
       }
       function getElementKey(element, index) {
         return typeof element == "object" && element !== null && element.key != null ? (checkKeyStringCoercion(element.key), escape("" + element.key)) : index.toString(36);
@@ -756,7 +756,7 @@ See https://reactjs.org/link/invalid-hook-call for tips about how to debug and f
         var dispatcher = resolveDispatcher();
         return dispatcher.useRef(initialValue);
       }
-      function useEffect17(create, deps) {
+      function useEffect18(create, deps) {
         var dispatcher = resolveDispatcher();
         return dispatcher.useEffect(create, deps);
       }
@@ -1285,7 +1285,7 @@ Check the top-level render call using <` + parentName + ">.");
         toArray,
         only: onlyChild
       };
-      exports.Children = Children5, exports.Component = Component4, exports.Fragment = REACT_FRAGMENT_TYPE, exports.Profiler = REACT_PROFILER_TYPE, exports.PureComponent = PureComponent, exports.StrictMode = REACT_STRICT_MODE_TYPE, exports.Suspense = REACT_SUSPENSE_TYPE, exports.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED = ReactSharedInternals, exports.cloneElement = cloneElement$1, exports.createContext = createContext8, exports.createElement = createElement$1, exports.createFactory = createFactory, exports.createRef = createRef, exports.forwardRef = forwardRef16, exports.isValidElement = isValidElement7, exports.lazy = lazy2, exports.memo = memo2, exports.startTransition = startTransition, exports.unstable_act = act, exports.useCallback = useCallback8, exports.useContext = useContext9, exports.useDebugValue = useDebugValue2, exports.useDeferredValue = useDeferredValue, exports.useEffect = useEffect17, exports.useId = useId, exports.useImperativeHandle = useImperativeHandle4, exports.useInsertionEffect = useInsertionEffect, exports.useLayoutEffect = useLayoutEffect4, exports.useMemo = useMemo13, exports.useReducer = useReducer, exports.useRef = useRef16, exports.useState = useState12, exports.useSyncExternalStore = useSyncExternalStore, exports.useTransition = useTransition, exports.version = ReactVersion, typeof __REACT_DEVTOOLS_GLOBAL_HOOK__ < "u" && typeof __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStop == "function" && __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStop(new Error());
+      exports.Children = Children5, exports.Component = Component4, exports.Fragment = REACT_FRAGMENT_TYPE, exports.Profiler = REACT_PROFILER_TYPE, exports.PureComponent = PureComponent, exports.StrictMode = REACT_STRICT_MODE_TYPE, exports.Suspense = REACT_SUSPENSE_TYPE, exports.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED = ReactSharedInternals, exports.cloneElement = cloneElement$1, exports.createContext = createContext8, exports.createElement = createElement$1, exports.createFactory = createFactory, exports.createRef = createRef, exports.forwardRef = forwardRef16, exports.isValidElement = isValidElement7, exports.lazy = lazy2, exports.memo = memo2, exports.startTransition = startTransition, exports.unstable_act = act, exports.useCallback = useCallback8, exports.useContext = useContext9, exports.useDebugValue = useDebugValue2, exports.useDeferredValue = useDeferredValue, exports.useEffect = useEffect18, exports.useId = useId, exports.useImperativeHandle = useImperativeHandle4, exports.useInsertionEffect = useInsertionEffect, exports.useLayoutEffect = useLayoutEffect4, exports.useMemo = useMemo13, exports.useReducer = useReducer, exports.useRef = useRef16, exports.useState = useState12, exports.useSyncExternalStore = useSyncExternalStore, exports.useTransition = useTransition, exports.version = ReactVersion, typeof __REACT_DEVTOOLS_GLOBAL_HOOK__ < "u" && typeof __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStop == "function" && __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStop(new Error());
     })();
   }
 });
@@ -2987,7 +2987,7 @@ function normalizeNavigateOptions(normalizeFormMethod, isFetcher, path, opts) {
     if (opts.formEncType === "text/plain") {
       if (!isMutationMethod(formMethod))
         return getInvalidBodyError();
-      let text = typeof opts.body == "string" ? opts.body : opts.body instanceof FormData || opts.body instanceof URLSearchParams ? (
+      let text2 = typeof opts.body == "string" ? opts.body : opts.body instanceof FormData || opts.body instanceof URLSearchParams ? (
         // https://html.spec.whatwg.org/multipage/form-control-infrastructure.html#plain-text-form-data
         Array.from(opts.body.entries()).reduce((acc, _ref3) => {
           let [name, value] = _ref3;
@@ -3003,7 +3003,7 @@ function normalizeNavigateOptions(normalizeFormMethod, isFetcher, path, opts) {
           formEncType: opts.formEncType,
           formData: void 0,
           json: void 0,
-          text
+          text: text2
         }
       };
     } else if (opts.formEncType === "application/json") {
@@ -3492,19 +3492,19 @@ function getSubmissionFromNavigation(navigation) {
     formMethod,
     formAction,
     formEncType,
-    text,
+    text: text2,
     formData,
     json: json6
   } = navigation;
   if (!(!formMethod || !formAction || !formEncType)) {
-    if (text != null)
+    if (text2 != null)
       return {
         formMethod,
         formAction,
         formEncType,
         formData: void 0,
         json: void 0,
-        text
+        text: text2
       };
     if (formData != null)
       return {
@@ -5430,7 +5430,7 @@ var require_server = __commonJS({
   "node_modules/react-router-dom/server.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: !0 });
-    var React38 = require_react(), router = (init_router(), __toCommonJS(router_exports)), reactRouter = (init_dist(), __toCommonJS(dist_exports)), reactRouterDom = (init_dist2(), __toCommonJS(dist_exports2));
+    var React43 = require_react(), router = (init_router(), __toCommonJS(router_exports)), reactRouter = (init_dist(), __toCommonJS(dist_exports)), reactRouterDom = (init_dist2(), __toCommonJS(dist_exports2));
     function _interopNamespace(e) {
       if (e && e.__esModule)
         return e;
@@ -5447,7 +5447,7 @@ var require_server = __commonJS({
         }
       }), n.default = e, Object.freeze(n);
     }
-    var React__namespace = /* @__PURE__ */ _interopNamespace(React38);
+    var React__namespace = /* @__PURE__ */ _interopNamespace(React43);
     function StaticRouter({
       basename,
       children,
@@ -5682,7 +5682,7 @@ var require_react_dom_server_legacy_browser_development = __commonJS({
     "use strict";
     (function() {
       "use strict";
-      var React38 = require_react(), ReactVersion = "18.2.0", ReactSharedInternals = React38.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED;
+      var React43 = require_react(), ReactVersion = "18.2.0", ReactSharedInternals = React43.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED;
       function warn(format) {
         {
           for (var _len = arguments.length, args = new Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++)
@@ -6952,8 +6952,8 @@ var require_react_dom_server_legacy_browser_development = __commonJS({
         }
         return lastIndex !== index ? html + str.substring(lastIndex, index) : html;
       }
-      function escapeTextForBrowser(text) {
-        return typeof text == "boolean" || typeof text == "number" ? "" + text : escapeHtml3(text);
+      function escapeTextForBrowser(text2) {
+        return typeof text2 == "boolean" || typeof text2 == "number" ? "" + text2 : escapeHtml3(text2);
       }
       var uppercasePattern = /([A-Z])/g, msPattern$1 = /^ms-/;
       function hyphenateStyleName(name) {
@@ -7034,12 +7034,12 @@ var require_react_dom_server_legacy_browser_development = __commonJS({
         var idPrefix = responseState.idPrefix, id = ":" + idPrefix + "R" + treeId;
         return localId > 0 && (id += "H" + localId.toString(32)), id + ":";
       }
-      function encodeHTMLTextNode(text) {
-        return escapeTextForBrowser(text);
+      function encodeHTMLTextNode(text2) {
+        return escapeTextForBrowser(text2);
       }
       var textSeparator = "<!-- -->";
-      function pushTextInstance(target, text, responseState, textEmbedded) {
-        return text === "" ? textEmbedded : (textEmbedded && target.push(textSeparator), target.push(encodeHTMLTextNode(text)), !0);
+      function pushTextInstance(target, text2, responseState, textEmbedded) {
+        return text2 === "" ? textEmbedded : (textEmbedded && target.push(textSeparator), target.push(encodeHTMLTextNode(text2)), !0);
       }
       function pushSegmentFinale(target, responseState, lastPushedText, textEmbedded) {
         lastPushedText && textEmbedded && target.push(textSeparator);
@@ -7176,7 +7176,7 @@ var require_react_dom_server_legacy_browser_development = __commonJS({
       }
       function flattenOptionChildren(children) {
         var content = "";
-        return React38.Children.forEach(children, function(child) {
+        return React43.Children.forEach(children, function(child) {
           child != null && (content += child, !didWarnInvalidOptionChildren && typeof child != "string" && typeof child != "number" && (didWarnInvalidOptionChildren = !0, error("Cannot infer the option value of complex children. Pass a `value` prop or use a plain string as children to <option>.")));
         }), content;
       }
@@ -7656,8 +7656,8 @@ var require_react_dom_server_legacy_browser_development = __commonJS({
           selectedValue: null
         };
       }
-      function pushTextInstance$1(target, text, responseState, textEmbedded) {
-        return responseState.generateStaticMarkup ? (target.push(escapeTextForBrowser(text)), !1) : pushTextInstance(target, text, responseState, textEmbedded);
+      function pushTextInstance$1(target, text2, responseState, textEmbedded) {
+        return responseState.generateStaticMarkup ? (target.push(escapeTextForBrowser(text2)), !1) : pushTextInstance(target, text2, responseState, textEmbedded);
       }
       function pushSegmentFinale$1(target, responseState, lastPushedText, textEmbedded) {
         if (!responseState.generateStaticMarkup)
@@ -9263,7 +9263,7 @@ var require_react_dom_server_browser_development = __commonJS({
     "use strict";
     (function() {
       "use strict";
-      var React38 = require_react(), ReactVersion = "18.2.0", ReactSharedInternals = React38.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED;
+      var React43 = require_react(), ReactVersion = "18.2.0", ReactSharedInternals = React43.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED;
       function warn(format) {
         {
           for (var _len = arguments.length, args = new Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++)
@@ -10544,8 +10544,8 @@ var require_react_dom_server_browser_development = __commonJS({
         }
         return lastIndex !== index ? html + str.substring(lastIndex, index) : html;
       }
-      function escapeTextForBrowser(text) {
-        return typeof text == "boolean" || typeof text == "number" ? "" + text : escapeHtml3(text);
+      function escapeTextForBrowser(text2) {
+        return typeof text2 == "boolean" || typeof text2 == "number" ? "" + text2 : escapeHtml3(text2);
       }
       var uppercasePattern = /([A-Z])/g, msPattern$1 = /^ms-/;
       function hyphenateStyleName(name) {
@@ -10630,12 +10630,12 @@ var require_react_dom_server_browser_development = __commonJS({
         var idPrefix = responseState.idPrefix, id = ":" + idPrefix + "R" + treeId;
         return localId > 0 && (id += "H" + localId.toString(32)), id + ":";
       }
-      function encodeHTMLTextNode(text) {
-        return escapeTextForBrowser(text);
+      function encodeHTMLTextNode(text2) {
+        return escapeTextForBrowser(text2);
       }
       var textSeparator = stringToPrecomputedChunk("<!-- -->");
-      function pushTextInstance(target, text, responseState, textEmbedded) {
-        return text === "" ? textEmbedded : (textEmbedded && target.push(textSeparator), target.push(stringToChunk(encodeHTMLTextNode(text))), !0);
+      function pushTextInstance(target, text2, responseState, textEmbedded) {
+        return text2 === "" ? textEmbedded : (textEmbedded && target.push(textSeparator), target.push(stringToChunk(encodeHTMLTextNode(text2))), !0);
       }
       function pushSegmentFinale(target, responseState, lastPushedText, textEmbedded) {
         lastPushedText && textEmbedded && target.push(textSeparator);
@@ -10772,7 +10772,7 @@ var require_react_dom_server_browser_development = __commonJS({
       }
       function flattenOptionChildren(children) {
         var content = "";
-        return React38.Children.forEach(children, function(child) {
+        return React43.Children.forEach(children, function(child) {
           child != null && (content += child, !didWarnInvalidOptionChildren && typeof child != "string" && typeof child != "number" && (didWarnInvalidOptionChildren = !0, error("Cannot infer the option value of complex children. Pass a `value` prop or use a plain string as children to <option>.")));
         }), content;
       }
@@ -12835,14 +12835,14 @@ var require_react_jsx_runtime_development = __commonJS({
     "use strict";
     (function() {
       "use strict";
-      var React38 = require_react(), REACT_ELEMENT_TYPE = Symbol.for("react.element"), REACT_PORTAL_TYPE = Symbol.for("react.portal"), REACT_FRAGMENT_TYPE = Symbol.for("react.fragment"), REACT_STRICT_MODE_TYPE = Symbol.for("react.strict_mode"), REACT_PROFILER_TYPE = Symbol.for("react.profiler"), REACT_PROVIDER_TYPE = Symbol.for("react.provider"), REACT_CONTEXT_TYPE = Symbol.for("react.context"), REACT_FORWARD_REF_TYPE = Symbol.for("react.forward_ref"), REACT_SUSPENSE_TYPE = Symbol.for("react.suspense"), REACT_SUSPENSE_LIST_TYPE = Symbol.for("react.suspense_list"), REACT_MEMO_TYPE = Symbol.for("react.memo"), REACT_LAZY_TYPE = Symbol.for("react.lazy"), REACT_OFFSCREEN_TYPE = Symbol.for("react.offscreen"), MAYBE_ITERATOR_SYMBOL = Symbol.iterator, FAUX_ITERATOR_SYMBOL = "@@iterator";
+      var React43 = require_react(), REACT_ELEMENT_TYPE = Symbol.for("react.element"), REACT_PORTAL_TYPE = Symbol.for("react.portal"), REACT_FRAGMENT_TYPE = Symbol.for("react.fragment"), REACT_STRICT_MODE_TYPE = Symbol.for("react.strict_mode"), REACT_PROFILER_TYPE = Symbol.for("react.profiler"), REACT_PROVIDER_TYPE = Symbol.for("react.provider"), REACT_CONTEXT_TYPE = Symbol.for("react.context"), REACT_FORWARD_REF_TYPE = Symbol.for("react.forward_ref"), REACT_SUSPENSE_TYPE = Symbol.for("react.suspense"), REACT_SUSPENSE_LIST_TYPE = Symbol.for("react.suspense_list"), REACT_MEMO_TYPE = Symbol.for("react.memo"), REACT_LAZY_TYPE = Symbol.for("react.lazy"), REACT_OFFSCREEN_TYPE = Symbol.for("react.offscreen"), MAYBE_ITERATOR_SYMBOL = Symbol.iterator, FAUX_ITERATOR_SYMBOL = "@@iterator";
       function getIteratorFn(maybeIterable) {
         if (maybeIterable === null || typeof maybeIterable != "object")
           return null;
         var maybeIterator = MAYBE_ITERATOR_SYMBOL && maybeIterable[MAYBE_ITERATOR_SYMBOL] || maybeIterable[FAUX_ITERATOR_SYMBOL];
         return typeof maybeIterator == "function" ? maybeIterator : null;
       }
-      var ReactSharedInternals = React38.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED;
+      var ReactSharedInternals = React43.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED;
       function error(format) {
         {
           for (var _len2 = arguments.length, args = new Array(_len2 > 1 ? _len2 - 1 : 0), _key2 = 1; _key2 < _len2; _key2++)
@@ -13729,14 +13729,14 @@ var require_react_jsx_dev_runtime_development = __commonJS({
     "use strict";
     (function() {
       "use strict";
-      var React38 = require_react(), REACT_ELEMENT_TYPE = Symbol.for("react.element"), REACT_PORTAL_TYPE = Symbol.for("react.portal"), REACT_FRAGMENT_TYPE = Symbol.for("react.fragment"), REACT_STRICT_MODE_TYPE = Symbol.for("react.strict_mode"), REACT_PROFILER_TYPE = Symbol.for("react.profiler"), REACT_PROVIDER_TYPE = Symbol.for("react.provider"), REACT_CONTEXT_TYPE = Symbol.for("react.context"), REACT_FORWARD_REF_TYPE = Symbol.for("react.forward_ref"), REACT_SUSPENSE_TYPE = Symbol.for("react.suspense"), REACT_SUSPENSE_LIST_TYPE = Symbol.for("react.suspense_list"), REACT_MEMO_TYPE = Symbol.for("react.memo"), REACT_LAZY_TYPE = Symbol.for("react.lazy"), REACT_OFFSCREEN_TYPE = Symbol.for("react.offscreen"), MAYBE_ITERATOR_SYMBOL = Symbol.iterator, FAUX_ITERATOR_SYMBOL = "@@iterator";
+      var React43 = require_react(), REACT_ELEMENT_TYPE = Symbol.for("react.element"), REACT_PORTAL_TYPE = Symbol.for("react.portal"), REACT_FRAGMENT_TYPE = Symbol.for("react.fragment"), REACT_STRICT_MODE_TYPE = Symbol.for("react.strict_mode"), REACT_PROFILER_TYPE = Symbol.for("react.profiler"), REACT_PROVIDER_TYPE = Symbol.for("react.provider"), REACT_CONTEXT_TYPE = Symbol.for("react.context"), REACT_FORWARD_REF_TYPE = Symbol.for("react.forward_ref"), REACT_SUSPENSE_TYPE = Symbol.for("react.suspense"), REACT_SUSPENSE_LIST_TYPE = Symbol.for("react.suspense_list"), REACT_MEMO_TYPE = Symbol.for("react.memo"), REACT_LAZY_TYPE = Symbol.for("react.lazy"), REACT_OFFSCREEN_TYPE = Symbol.for("react.offscreen"), MAYBE_ITERATOR_SYMBOL = Symbol.iterator, FAUX_ITERATOR_SYMBOL = "@@iterator";
       function getIteratorFn(maybeIterable) {
         if (maybeIterable === null || typeof maybeIterable != "object")
           return null;
         var maybeIterator = MAYBE_ITERATOR_SYMBOL && maybeIterable[MAYBE_ITERATOR_SYMBOL] || maybeIterable[FAUX_ITERATOR_SYMBOL];
         return typeof maybeIterator == "function" ? maybeIterator : null;
       }
-      var ReactSharedInternals = React38.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED;
+      var ReactSharedInternals = React43.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED;
       function error(format) {
         {
           for (var _len2 = arguments.length, args = new Array(_len2 > 1 ? _len2 - 1 : 0), _key2 = 1; _key2 < _len2; _key2++)
@@ -14314,6 +14314,622 @@ var require_jsx_dev_runtime = __commonJS({
   "node_modules/react/jsx-dev-runtime.js"(exports, module) {
     "use strict";
     module.exports = require_react_jsx_dev_runtime_development();
+  }
+});
+
+// node_modules/deepmerge/dist/cjs.js
+var require_cjs = __commonJS({
+  "node_modules/deepmerge/dist/cjs.js"(exports, module) {
+    "use strict";
+    var isMergeableObject = function(value) {
+      return isNonNullObject(value) && !isSpecial(value);
+    };
+    function isNonNullObject(value) {
+      return !!value && typeof value == "object";
+    }
+    function isSpecial(value) {
+      var stringValue = Object.prototype.toString.call(value);
+      return stringValue === "[object RegExp]" || stringValue === "[object Date]" || isReactElement(value);
+    }
+    var canUseSymbol = typeof Symbol == "function" && Symbol.for, REACT_ELEMENT_TYPE = canUseSymbol ? Symbol.for("react.element") : 60103;
+    function isReactElement(value) {
+      return value.$$typeof === REACT_ELEMENT_TYPE;
+    }
+    function emptyTarget(val) {
+      return Array.isArray(val) ? [] : {};
+    }
+    function cloneUnlessOtherwiseSpecified(value, options) {
+      return options.clone !== !1 && options.isMergeableObject(value) ? deepmerge3(emptyTarget(value), value, options) : value;
+    }
+    function defaultArrayMerge(target, source, options) {
+      return target.concat(source).map(function(element) {
+        return cloneUnlessOtherwiseSpecified(element, options);
+      });
+    }
+    function getMergeFunction(key, options) {
+      if (!options.customMerge)
+        return deepmerge3;
+      var customMerge = options.customMerge(key);
+      return typeof customMerge == "function" ? customMerge : deepmerge3;
+    }
+    function getEnumerableOwnPropertySymbols(target) {
+      return Object.getOwnPropertySymbols ? Object.getOwnPropertySymbols(target).filter(function(symbol) {
+        return Object.propertyIsEnumerable.call(target, symbol);
+      }) : [];
+    }
+    function getKeys(target) {
+      return Object.keys(target).concat(getEnumerableOwnPropertySymbols(target));
+    }
+    function propertyIsOnObject(object, property) {
+      try {
+        return property in object;
+      } catch {
+        return !1;
+      }
+    }
+    function propertyIsUnsafe(target, key) {
+      return propertyIsOnObject(target, key) && !(Object.hasOwnProperty.call(target, key) && Object.propertyIsEnumerable.call(target, key));
+    }
+    function mergeObject(target, source, options) {
+      var destination = {};
+      return options.isMergeableObject(target) && getKeys(target).forEach(function(key) {
+        destination[key] = cloneUnlessOtherwiseSpecified(target[key], options);
+      }), getKeys(source).forEach(function(key) {
+        propertyIsUnsafe(target, key) || (propertyIsOnObject(target, key) && options.isMergeableObject(source[key]) ? destination[key] = getMergeFunction(key, options)(target[key], source[key], options) : destination[key] = cloneUnlessOtherwiseSpecified(source[key], options));
+      }), destination;
+    }
+    function deepmerge3(target, source, options) {
+      options = options || {}, options.arrayMerge = options.arrayMerge || defaultArrayMerge, options.isMergeableObject = options.isMergeableObject || isMergeableObject, options.cloneUnlessOtherwiseSpecified = cloneUnlessOtherwiseSpecified;
+      var sourceIsArray = Array.isArray(source), targetIsArray = Array.isArray(target), sourceAndTargetTypesMatch = sourceIsArray === targetIsArray;
+      return sourceAndTargetTypesMatch ? sourceIsArray ? options.arrayMerge(target, source, options) : mergeObject(target, source, options) : cloneUnlessOtherwiseSpecified(source, options);
+    }
+    deepmerge3.all = function(array, options) {
+      if (!Array.isArray(array))
+        throw new Error("first argument should be an array");
+      return array.reduce(function(prev, next) {
+        return deepmerge3(prev, next, options);
+      }, {});
+    };
+    var deepmerge_1 = deepmerge3;
+    module.exports = deepmerge_1;
+  }
+});
+
+// node_modules/prop-types/node_modules/react-is/cjs/react-is.development.js
+var require_react_is_development = __commonJS({
+  "node_modules/prop-types/node_modules/react-is/cjs/react-is.development.js"(exports) {
+    "use strict";
+    (function() {
+      "use strict";
+      var hasSymbol = typeof Symbol == "function" && Symbol.for, REACT_ELEMENT_TYPE = hasSymbol ? Symbol.for("react.element") : 60103, REACT_PORTAL_TYPE = hasSymbol ? Symbol.for("react.portal") : 60106, REACT_FRAGMENT_TYPE = hasSymbol ? Symbol.for("react.fragment") : 60107, REACT_STRICT_MODE_TYPE = hasSymbol ? Symbol.for("react.strict_mode") : 60108, REACT_PROFILER_TYPE = hasSymbol ? Symbol.for("react.profiler") : 60114, REACT_PROVIDER_TYPE = hasSymbol ? Symbol.for("react.provider") : 60109, REACT_CONTEXT_TYPE = hasSymbol ? Symbol.for("react.context") : 60110, REACT_ASYNC_MODE_TYPE = hasSymbol ? Symbol.for("react.async_mode") : 60111, REACT_CONCURRENT_MODE_TYPE = hasSymbol ? Symbol.for("react.concurrent_mode") : 60111, REACT_FORWARD_REF_TYPE = hasSymbol ? Symbol.for("react.forward_ref") : 60112, REACT_SUSPENSE_TYPE = hasSymbol ? Symbol.for("react.suspense") : 60113, REACT_SUSPENSE_LIST_TYPE = hasSymbol ? Symbol.for("react.suspense_list") : 60120, REACT_MEMO_TYPE = hasSymbol ? Symbol.for("react.memo") : 60115, REACT_LAZY_TYPE = hasSymbol ? Symbol.for("react.lazy") : 60116, REACT_BLOCK_TYPE = hasSymbol ? Symbol.for("react.block") : 60121, REACT_FUNDAMENTAL_TYPE = hasSymbol ? Symbol.for("react.fundamental") : 60117, REACT_RESPONDER_TYPE = hasSymbol ? Symbol.for("react.responder") : 60118, REACT_SCOPE_TYPE = hasSymbol ? Symbol.for("react.scope") : 60119;
+      function isValidElementType(type) {
+        return typeof type == "string" || typeof type == "function" || // Note: its typeof might be other than 'symbol' or 'number' if it's a polyfill.
+        type === REACT_FRAGMENT_TYPE || type === REACT_CONCURRENT_MODE_TYPE || type === REACT_PROFILER_TYPE || type === REACT_STRICT_MODE_TYPE || type === REACT_SUSPENSE_TYPE || type === REACT_SUSPENSE_LIST_TYPE || typeof type == "object" && type !== null && (type.$$typeof === REACT_LAZY_TYPE || type.$$typeof === REACT_MEMO_TYPE || type.$$typeof === REACT_PROVIDER_TYPE || type.$$typeof === REACT_CONTEXT_TYPE || type.$$typeof === REACT_FORWARD_REF_TYPE || type.$$typeof === REACT_FUNDAMENTAL_TYPE || type.$$typeof === REACT_RESPONDER_TYPE || type.$$typeof === REACT_SCOPE_TYPE || type.$$typeof === REACT_BLOCK_TYPE);
+      }
+      function typeOf(object) {
+        if (typeof object == "object" && object !== null) {
+          var $$typeof = object.$$typeof;
+          switch ($$typeof) {
+            case REACT_ELEMENT_TYPE:
+              var type = object.type;
+              switch (type) {
+                case REACT_ASYNC_MODE_TYPE:
+                case REACT_CONCURRENT_MODE_TYPE:
+                case REACT_FRAGMENT_TYPE:
+                case REACT_PROFILER_TYPE:
+                case REACT_STRICT_MODE_TYPE:
+                case REACT_SUSPENSE_TYPE:
+                  return type;
+                default:
+                  var $$typeofType = type && type.$$typeof;
+                  switch ($$typeofType) {
+                    case REACT_CONTEXT_TYPE:
+                    case REACT_FORWARD_REF_TYPE:
+                    case REACT_LAZY_TYPE:
+                    case REACT_MEMO_TYPE:
+                    case REACT_PROVIDER_TYPE:
+                      return $$typeofType;
+                    default:
+                      return $$typeof;
+                  }
+              }
+            case REACT_PORTAL_TYPE:
+              return $$typeof;
+          }
+        }
+      }
+      var AsyncMode = REACT_ASYNC_MODE_TYPE, ConcurrentMode = REACT_CONCURRENT_MODE_TYPE, ContextConsumer = REACT_CONTEXT_TYPE, ContextProvider = REACT_PROVIDER_TYPE, Element2 = REACT_ELEMENT_TYPE, ForwardRef2 = REACT_FORWARD_REF_TYPE, Fragment16 = REACT_FRAGMENT_TYPE, Lazy = REACT_LAZY_TYPE, Memo2 = REACT_MEMO_TYPE, Portal = REACT_PORTAL_TYPE, Profiler = REACT_PROFILER_TYPE, StrictMode = REACT_STRICT_MODE_TYPE, Suspense7 = REACT_SUSPENSE_TYPE, hasWarnedAboutDeprecatedIsAsyncMode = !1;
+      function isAsyncMode(object) {
+        return hasWarnedAboutDeprecatedIsAsyncMode || (hasWarnedAboutDeprecatedIsAsyncMode = !0, console.warn("The ReactIs.isAsyncMode() alias has been deprecated, and will be removed in React 17+. Update your code to use ReactIs.isConcurrentMode() instead. It has the exact same API.")), isConcurrentMode(object) || typeOf(object) === REACT_ASYNC_MODE_TYPE;
+      }
+      function isConcurrentMode(object) {
+        return typeOf(object) === REACT_CONCURRENT_MODE_TYPE;
+      }
+      function isContextConsumer(object) {
+        return typeOf(object) === REACT_CONTEXT_TYPE;
+      }
+      function isContextProvider(object) {
+        return typeOf(object) === REACT_PROVIDER_TYPE;
+      }
+      function isElement(object) {
+        return typeof object == "object" && object !== null && object.$$typeof === REACT_ELEMENT_TYPE;
+      }
+      function isForwardRef(object) {
+        return typeOf(object) === REACT_FORWARD_REF_TYPE;
+      }
+      function isFragment2(object) {
+        return typeOf(object) === REACT_FRAGMENT_TYPE;
+      }
+      function isLazy(object) {
+        return typeOf(object) === REACT_LAZY_TYPE;
+      }
+      function isMemo(object) {
+        return typeOf(object) === REACT_MEMO_TYPE;
+      }
+      function isPortal(object) {
+        return typeOf(object) === REACT_PORTAL_TYPE;
+      }
+      function isProfiler(object) {
+        return typeOf(object) === REACT_PROFILER_TYPE;
+      }
+      function isStrictMode(object) {
+        return typeOf(object) === REACT_STRICT_MODE_TYPE;
+      }
+      function isSuspense(object) {
+        return typeOf(object) === REACT_SUSPENSE_TYPE;
+      }
+      exports.AsyncMode = AsyncMode, exports.ConcurrentMode = ConcurrentMode, exports.ContextConsumer = ContextConsumer, exports.ContextProvider = ContextProvider, exports.Element = Element2, exports.ForwardRef = ForwardRef2, exports.Fragment = Fragment16, exports.Lazy = Lazy, exports.Memo = Memo2, exports.Portal = Portal, exports.Profiler = Profiler, exports.StrictMode = StrictMode, exports.Suspense = Suspense7, exports.isAsyncMode = isAsyncMode, exports.isConcurrentMode = isConcurrentMode, exports.isContextConsumer = isContextConsumer, exports.isContextProvider = isContextProvider, exports.isElement = isElement, exports.isForwardRef = isForwardRef, exports.isFragment = isFragment2, exports.isLazy = isLazy, exports.isMemo = isMemo, exports.isPortal = isPortal, exports.isProfiler = isProfiler, exports.isStrictMode = isStrictMode, exports.isSuspense = isSuspense, exports.isValidElementType = isValidElementType, exports.typeOf = typeOf;
+    })();
+  }
+});
+
+// node_modules/prop-types/node_modules/react-is/index.js
+var require_react_is = __commonJS({
+  "node_modules/prop-types/node_modules/react-is/index.js"(exports, module) {
+    "use strict";
+    module.exports = require_react_is_development();
+  }
+});
+
+// node_modules/object-assign/index.js
+var require_object_assign = __commonJS({
+  "node_modules/object-assign/index.js"(exports, module) {
+    "use strict";
+    var getOwnPropertySymbols = Object.getOwnPropertySymbols, hasOwnProperty = Object.prototype.hasOwnProperty, propIsEnumerable = Object.prototype.propertyIsEnumerable;
+    function toObject(val) {
+      if (val == null)
+        throw new TypeError("Object.assign cannot be called with null or undefined");
+      return Object(val);
+    }
+    function shouldUseNative() {
+      try {
+        if (!Object.assign)
+          return !1;
+        var test1 = new String("abc");
+        if (test1[5] = "de", Object.getOwnPropertyNames(test1)[0] === "5")
+          return !1;
+        for (var test2 = {}, i = 0; i < 10; i++)
+          test2["_" + String.fromCharCode(i)] = i;
+        var order2 = Object.getOwnPropertyNames(test2).map(function(n) {
+          return test2[n];
+        });
+        if (order2.join("") !== "0123456789")
+          return !1;
+        var test3 = {};
+        return "abcdefghijklmnopqrst".split("").forEach(function(letter) {
+          test3[letter] = letter;
+        }), Object.keys(Object.assign({}, test3)).join("") === "abcdefghijklmnopqrst";
+      } catch {
+        return !1;
+      }
+    }
+    module.exports = shouldUseNative() ? Object.assign : function(target, source) {
+      for (var from, to = toObject(target), symbols, s = 1; s < arguments.length; s++) {
+        from = Object(arguments[s]);
+        for (var key in from)
+          hasOwnProperty.call(from, key) && (to[key] = from[key]);
+        if (getOwnPropertySymbols) {
+          symbols = getOwnPropertySymbols(from);
+          for (var i = 0; i < symbols.length; i++)
+            propIsEnumerable.call(from, symbols[i]) && (to[symbols[i]] = from[symbols[i]]);
+        }
+      }
+      return to;
+    };
+  }
+});
+
+// node_modules/prop-types/lib/ReactPropTypesSecret.js
+var require_ReactPropTypesSecret = __commonJS({
+  "node_modules/prop-types/lib/ReactPropTypesSecret.js"(exports, module) {
+    "use strict";
+    var ReactPropTypesSecret = "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED";
+    module.exports = ReactPropTypesSecret;
+  }
+});
+
+// node_modules/prop-types/lib/has.js
+var require_has = __commonJS({
+  "node_modules/prop-types/lib/has.js"(exports, module) {
+    module.exports = Function.call.bind(Object.prototype.hasOwnProperty);
+  }
+});
+
+// node_modules/prop-types/checkPropTypes.js
+var require_checkPropTypes = __commonJS({
+  "node_modules/prop-types/checkPropTypes.js"(exports, module) {
+    "use strict";
+    var printWarning = function() {
+    };
+    ReactPropTypesSecret = require_ReactPropTypesSecret(), loggedTypeFailures = {}, has = require_has(), printWarning = function(text2) {
+      var message = "Warning: " + text2;
+      typeof console < "u" && console.error(message);
+      try {
+        throw new Error(message);
+      } catch {
+      }
+    };
+    var ReactPropTypesSecret, loggedTypeFailures, has;
+    function checkPropTypes(typeSpecs, values3, location2, componentName, getStack) {
+      for (var typeSpecName in typeSpecs)
+        if (has(typeSpecs, typeSpecName)) {
+          var error;
+          try {
+            if (typeof typeSpecs[typeSpecName] != "function") {
+              var err = Error(
+                (componentName || "React class") + ": " + location2 + " type `" + typeSpecName + "` is invalid; it must be a function, usually from the `prop-types` package, but received `" + typeof typeSpecs[typeSpecName] + "`.This often happens because of typos such as `PropTypes.function` instead of `PropTypes.func`."
+              );
+              throw err.name = "Invariant Violation", err;
+            }
+            error = typeSpecs[typeSpecName](values3, typeSpecName, componentName, location2, null, ReactPropTypesSecret);
+          } catch (ex) {
+            error = ex;
+          }
+          if (error && !(error instanceof Error) && printWarning(
+            (componentName || "React class") + ": type specification of " + location2 + " `" + typeSpecName + "` is invalid; the type checker function must return `null` or an `Error` but returned a " + typeof error + ". You may have forgotten to pass an argument to the type checker creator (arrayOf, instanceOf, objectOf, oneOf, oneOfType, and shape all require an argument)."
+          ), error instanceof Error && !(error.message in loggedTypeFailures)) {
+            loggedTypeFailures[error.message] = !0;
+            var stack = getStack ? getStack() : "";
+            printWarning(
+              "Failed " + location2 + " type: " + error.message + (stack ?? "")
+            );
+          }
+        }
+    }
+    checkPropTypes.resetWarningCache = function() {
+      loggedTypeFailures = {};
+    };
+    module.exports = checkPropTypes;
+  }
+});
+
+// node_modules/prop-types/factoryWithTypeCheckers.js
+var require_factoryWithTypeCheckers = __commonJS({
+  "node_modules/prop-types/factoryWithTypeCheckers.js"(exports, module) {
+    "use strict";
+    var ReactIs = require_react_is(), assign = require_object_assign(), ReactPropTypesSecret = require_ReactPropTypesSecret(), has = require_has(), checkPropTypes = require_checkPropTypes(), printWarning = function() {
+    };
+    printWarning = function(text2) {
+      var message = "Warning: " + text2;
+      typeof console < "u" && console.error(message);
+      try {
+        throw new Error(message);
+      } catch {
+      }
+    };
+    function emptyFunctionThatReturnsNull() {
+      return null;
+    }
+    module.exports = function(isValidElement7, throwOnDirectAccess) {
+      var ITERATOR_SYMBOL = typeof Symbol == "function" && Symbol.iterator, FAUX_ITERATOR_SYMBOL = "@@iterator";
+      function getIteratorFn(maybeIterable) {
+        var iteratorFn = maybeIterable && (ITERATOR_SYMBOL && maybeIterable[ITERATOR_SYMBOL] || maybeIterable[FAUX_ITERATOR_SYMBOL]);
+        if (typeof iteratorFn == "function")
+          return iteratorFn;
+      }
+      var ANONYMOUS = "<<anonymous>>", ReactPropTypes = {
+        array: createPrimitiveTypeChecker("array"),
+        bigint: createPrimitiveTypeChecker("bigint"),
+        bool: createPrimitiveTypeChecker("boolean"),
+        func: createPrimitiveTypeChecker("function"),
+        number: createPrimitiveTypeChecker("number"),
+        object: createPrimitiveTypeChecker("object"),
+        string: createPrimitiveTypeChecker("string"),
+        symbol: createPrimitiveTypeChecker("symbol"),
+        any: createAnyTypeChecker(),
+        arrayOf: createArrayOfTypeChecker,
+        element: createElementTypeChecker(),
+        elementType: createElementTypeTypeChecker(),
+        instanceOf: createInstanceTypeChecker,
+        node: createNodeChecker(),
+        objectOf: createObjectOfTypeChecker,
+        oneOf: createEnumTypeChecker,
+        oneOfType: createUnionTypeChecker,
+        shape: createShapeTypeChecker,
+        exact: createStrictShapeTypeChecker
+      };
+      function is(x, y) {
+        return x === y ? x !== 0 || 1 / x === 1 / y : x !== x && y !== y;
+      }
+      function PropTypeError(message, data) {
+        this.message = message, this.data = data && typeof data == "object" ? data : {}, this.stack = "";
+      }
+      PropTypeError.prototype = Error.prototype;
+      function createChainableTypeChecker(validate) {
+        var manualPropTypeCallCache = {}, manualPropTypeWarningCount = 0;
+        function checkType(isRequired, props, propName, componentName, location2, propFullName, secret) {
+          if (componentName = componentName || ANONYMOUS, propFullName = propFullName || propName, secret !== ReactPropTypesSecret) {
+            if (throwOnDirectAccess) {
+              var err = new Error(
+                "Calling PropTypes validators directly is not supported by the `prop-types` package. Use `PropTypes.checkPropTypes()` to call them. Read more at http://fb.me/use-check-prop-types"
+              );
+              throw err.name = "Invariant Violation", err;
+            } else if (typeof console < "u") {
+              var cacheKey = componentName + ":" + propName;
+              !manualPropTypeCallCache[cacheKey] && // Avoid spamming the console because they are often not actionable except for lib authors
+              manualPropTypeWarningCount < 3 && (printWarning(
+                "You are manually calling a React.PropTypes validation function for the `" + propFullName + "` prop on `" + componentName + "`. This is deprecated and will throw in the standalone `prop-types` package. You may be seeing this warning due to a third-party PropTypes library. See https://fb.me/react-warning-dont-call-proptypes for details."
+              ), manualPropTypeCallCache[cacheKey] = !0, manualPropTypeWarningCount++);
+            }
+          }
+          return props[propName] == null ? isRequired ? props[propName] === null ? new PropTypeError("The " + location2 + " `" + propFullName + "` is marked as required " + ("in `" + componentName + "`, but its value is `null`.")) : new PropTypeError("The " + location2 + " `" + propFullName + "` is marked as required in " + ("`" + componentName + "`, but its value is `undefined`.")) : null : validate(props, propName, componentName, location2, propFullName);
+        }
+        var chainedCheckType = checkType.bind(null, !1);
+        return chainedCheckType.isRequired = checkType.bind(null, !0), chainedCheckType;
+      }
+      function createPrimitiveTypeChecker(expectedType) {
+        function validate(props, propName, componentName, location2, propFullName, secret) {
+          var propValue = props[propName], propType = getPropType(propValue);
+          if (propType !== expectedType) {
+            var preciseType = getPreciseType(propValue);
+            return new PropTypeError(
+              "Invalid " + location2 + " `" + propFullName + "` of type " + ("`" + preciseType + "` supplied to `" + componentName + "`, expected ") + ("`" + expectedType + "`."),
+              { expectedType }
+            );
+          }
+          return null;
+        }
+        return createChainableTypeChecker(validate);
+      }
+      function createAnyTypeChecker() {
+        return createChainableTypeChecker(emptyFunctionThatReturnsNull);
+      }
+      function createArrayOfTypeChecker(typeChecker) {
+        function validate(props, propName, componentName, location2, propFullName) {
+          if (typeof typeChecker != "function")
+            return new PropTypeError("Property `" + propFullName + "` of component `" + componentName + "` has invalid PropType notation inside arrayOf.");
+          var propValue = props[propName];
+          if (!Array.isArray(propValue)) {
+            var propType = getPropType(propValue);
+            return new PropTypeError("Invalid " + location2 + " `" + propFullName + "` of type " + ("`" + propType + "` supplied to `" + componentName + "`, expected an array."));
+          }
+          for (var i = 0; i < propValue.length; i++) {
+            var error = typeChecker(propValue, i, componentName, location2, propFullName + "[" + i + "]", ReactPropTypesSecret);
+            if (error instanceof Error)
+              return error;
+          }
+          return null;
+        }
+        return createChainableTypeChecker(validate);
+      }
+      function createElementTypeChecker() {
+        function validate(props, propName, componentName, location2, propFullName) {
+          var propValue = props[propName];
+          if (!isValidElement7(propValue)) {
+            var propType = getPropType(propValue);
+            return new PropTypeError("Invalid " + location2 + " `" + propFullName + "` of type " + ("`" + propType + "` supplied to `" + componentName + "`, expected a single ReactElement."));
+          }
+          return null;
+        }
+        return createChainableTypeChecker(validate);
+      }
+      function createElementTypeTypeChecker() {
+        function validate(props, propName, componentName, location2, propFullName) {
+          var propValue = props[propName];
+          if (!ReactIs.isValidElementType(propValue)) {
+            var propType = getPropType(propValue);
+            return new PropTypeError("Invalid " + location2 + " `" + propFullName + "` of type " + ("`" + propType + "` supplied to `" + componentName + "`, expected a single ReactElement type."));
+          }
+          return null;
+        }
+        return createChainableTypeChecker(validate);
+      }
+      function createInstanceTypeChecker(expectedClass) {
+        function validate(props, propName, componentName, location2, propFullName) {
+          if (!(props[propName] instanceof expectedClass)) {
+            var expectedClassName = expectedClass.name || ANONYMOUS, actualClassName = getClassName(props[propName]);
+            return new PropTypeError("Invalid " + location2 + " `" + propFullName + "` of type " + ("`" + actualClassName + "` supplied to `" + componentName + "`, expected ") + ("instance of `" + expectedClassName + "`."));
+          }
+          return null;
+        }
+        return createChainableTypeChecker(validate);
+      }
+      function createEnumTypeChecker(expectedValues) {
+        if (!Array.isArray(expectedValues))
+          return arguments.length > 1 ? printWarning(
+            "Invalid arguments supplied to oneOf, expected an array, got " + arguments.length + " arguments. A common mistake is to write oneOf(x, y, z) instead of oneOf([x, y, z])."
+          ) : printWarning("Invalid argument supplied to oneOf, expected an array."), emptyFunctionThatReturnsNull;
+        function validate(props, propName, componentName, location2, propFullName) {
+          for (var propValue = props[propName], i = 0; i < expectedValues.length; i++)
+            if (is(propValue, expectedValues[i]))
+              return null;
+          var valuesString = JSON.stringify(expectedValues, function(key, value) {
+            var type = getPreciseType(value);
+            return type === "symbol" ? String(value) : value;
+          });
+          return new PropTypeError("Invalid " + location2 + " `" + propFullName + "` of value `" + String(propValue) + "` " + ("supplied to `" + componentName + "`, expected one of " + valuesString + "."));
+        }
+        return createChainableTypeChecker(validate);
+      }
+      function createObjectOfTypeChecker(typeChecker) {
+        function validate(props, propName, componentName, location2, propFullName) {
+          if (typeof typeChecker != "function")
+            return new PropTypeError("Property `" + propFullName + "` of component `" + componentName + "` has invalid PropType notation inside objectOf.");
+          var propValue = props[propName], propType = getPropType(propValue);
+          if (propType !== "object")
+            return new PropTypeError("Invalid " + location2 + " `" + propFullName + "` of type " + ("`" + propType + "` supplied to `" + componentName + "`, expected an object."));
+          for (var key in propValue)
+            if (has(propValue, key)) {
+              var error = typeChecker(propValue, key, componentName, location2, propFullName + "." + key, ReactPropTypesSecret);
+              if (error instanceof Error)
+                return error;
+            }
+          return null;
+        }
+        return createChainableTypeChecker(validate);
+      }
+      function createUnionTypeChecker(arrayOfTypeCheckers) {
+        if (!Array.isArray(arrayOfTypeCheckers))
+          return printWarning("Invalid argument supplied to oneOfType, expected an instance of array."), emptyFunctionThatReturnsNull;
+        for (var i = 0; i < arrayOfTypeCheckers.length; i++) {
+          var checker = arrayOfTypeCheckers[i];
+          if (typeof checker != "function")
+            return printWarning(
+              "Invalid argument supplied to oneOfType. Expected an array of check functions, but received " + getPostfixForTypeWarning(checker) + " at index " + i + "."
+            ), emptyFunctionThatReturnsNull;
+        }
+        function validate(props, propName, componentName, location2, propFullName) {
+          for (var expectedTypes = [], i2 = 0; i2 < arrayOfTypeCheckers.length; i2++) {
+            var checker2 = arrayOfTypeCheckers[i2], checkerResult = checker2(props, propName, componentName, location2, propFullName, ReactPropTypesSecret);
+            if (checkerResult == null)
+              return null;
+            checkerResult.data && has(checkerResult.data, "expectedType") && expectedTypes.push(checkerResult.data.expectedType);
+          }
+          var expectedTypesMessage = expectedTypes.length > 0 ? ", expected one of type [" + expectedTypes.join(", ") + "]" : "";
+          return new PropTypeError("Invalid " + location2 + " `" + propFullName + "` supplied to " + ("`" + componentName + "`" + expectedTypesMessage + "."));
+        }
+        return createChainableTypeChecker(validate);
+      }
+      function createNodeChecker() {
+        function validate(props, propName, componentName, location2, propFullName) {
+          return isNode(props[propName]) ? null : new PropTypeError("Invalid " + location2 + " `" + propFullName + "` supplied to " + ("`" + componentName + "`, expected a ReactNode."));
+        }
+        return createChainableTypeChecker(validate);
+      }
+      function invalidValidatorError(componentName, location2, propFullName, key, type) {
+        return new PropTypeError(
+          (componentName || "React class") + ": " + location2 + " type `" + propFullName + "." + key + "` is invalid; it must be a function, usually from the `prop-types` package, but received `" + type + "`."
+        );
+      }
+      function createShapeTypeChecker(shapeTypes) {
+        function validate(props, propName, componentName, location2, propFullName) {
+          var propValue = props[propName], propType = getPropType(propValue);
+          if (propType !== "object")
+            return new PropTypeError("Invalid " + location2 + " `" + propFullName + "` of type `" + propType + "` " + ("supplied to `" + componentName + "`, expected `object`."));
+          for (var key in shapeTypes) {
+            var checker = shapeTypes[key];
+            if (typeof checker != "function")
+              return invalidValidatorError(componentName, location2, propFullName, key, getPreciseType(checker));
+            var error = checker(propValue, key, componentName, location2, propFullName + "." + key, ReactPropTypesSecret);
+            if (error)
+              return error;
+          }
+          return null;
+        }
+        return createChainableTypeChecker(validate);
+      }
+      function createStrictShapeTypeChecker(shapeTypes) {
+        function validate(props, propName, componentName, location2, propFullName) {
+          var propValue = props[propName], propType = getPropType(propValue);
+          if (propType !== "object")
+            return new PropTypeError("Invalid " + location2 + " `" + propFullName + "` of type `" + propType + "` " + ("supplied to `" + componentName + "`, expected `object`."));
+          var allKeys = assign({}, props[propName], shapeTypes);
+          for (var key in allKeys) {
+            var checker = shapeTypes[key];
+            if (has(shapeTypes, key) && typeof checker != "function")
+              return invalidValidatorError(componentName, location2, propFullName, key, getPreciseType(checker));
+            if (!checker)
+              return new PropTypeError(
+                "Invalid " + location2 + " `" + propFullName + "` key `" + key + "` supplied to `" + componentName + "`.\nBad object: " + JSON.stringify(props[propName], null, "  ") + `
+Valid keys: ` + JSON.stringify(Object.keys(shapeTypes), null, "  ")
+              );
+            var error = checker(propValue, key, componentName, location2, propFullName + "." + key, ReactPropTypesSecret);
+            if (error)
+              return error;
+          }
+          return null;
+        }
+        return createChainableTypeChecker(validate);
+      }
+      function isNode(propValue) {
+        switch (typeof propValue) {
+          case "number":
+          case "string":
+          case "undefined":
+            return !0;
+          case "boolean":
+            return !propValue;
+          case "object":
+            if (Array.isArray(propValue))
+              return propValue.every(isNode);
+            if (propValue === null || isValidElement7(propValue))
+              return !0;
+            var iteratorFn = getIteratorFn(propValue);
+            if (iteratorFn) {
+              var iterator = iteratorFn.call(propValue), step;
+              if (iteratorFn !== propValue.entries) {
+                for (; !(step = iterator.next()).done; )
+                  if (!isNode(step.value))
+                    return !1;
+              } else
+                for (; !(step = iterator.next()).done; ) {
+                  var entry2 = step.value;
+                  if (entry2 && !isNode(entry2[1]))
+                    return !1;
+                }
+            } else
+              return !1;
+            return !0;
+          default:
+            return !1;
+        }
+      }
+      function isSymbol(propType, propValue) {
+        return propType === "symbol" ? !0 : propValue ? propValue["@@toStringTag"] === "Symbol" || typeof Symbol == "function" && propValue instanceof Symbol : !1;
+      }
+      function getPropType(propValue) {
+        var propType = typeof propValue;
+        return Array.isArray(propValue) ? "array" : propValue instanceof RegExp ? "object" : isSymbol(propType, propValue) ? "symbol" : propType;
+      }
+      function getPreciseType(propValue) {
+        if (typeof propValue > "u" || propValue === null)
+          return "" + propValue;
+        var propType = getPropType(propValue);
+        if (propType === "object") {
+          if (propValue instanceof Date)
+            return "date";
+          if (propValue instanceof RegExp)
+            return "regexp";
+        }
+        return propType;
+      }
+      function getPostfixForTypeWarning(value) {
+        var type = getPreciseType(value);
+        switch (type) {
+          case "array":
+          case "object":
+            return "an " + type;
+          case "boolean":
+          case "date":
+          case "regexp":
+            return "a " + type;
+          default:
+            return type;
+        }
+      }
+      function getClassName(propValue) {
+        return !propValue.constructor || !propValue.constructor.name ? ANONYMOUS : propValue.constructor.name;
+      }
+      return ReactPropTypes.checkPropTypes = checkPropTypes, ReactPropTypes.resetWarningCache = checkPropTypes.resetWarningCache, ReactPropTypes.PropTypes = ReactPropTypes, ReactPropTypes;
+    };
+  }
+});
+
+// node_modules/prop-types/index.js
+var require_prop_types = __commonJS({
+  "node_modules/prop-types/index.js"(exports, module) {
+    ReactIs = require_react_is(), throwOnDirectAccess = !0, module.exports = require_factoryWithTypeCheckers()(ReactIs.isElement, throwOnDirectAccess);
+    var ReactIs, throwOnDirectAccess;
   }
 });
 
@@ -15256,8 +15872,8 @@ If multiple caches share the same key they might "fight" for each other's style 
       }), incorrectImportAlarm), isBrowser2) {
         var currentSheet, finalizingPlugins = [stylis.stringify, function(element) {
           element.root || (element.return ? currentSheet.insert(element.return) : element.value && element.type !== stylis.COMMENT && currentSheet.insert(element.value + "{}"));
-        }], serializer = stylis.middleware(omnipresentPlugins.concat(stylisPlugins, finalizingPlugins)), stylis$1 = function(styles2) {
-          return stylis.serialize(stylis.compile(styles2), serializer);
+        }], serializer = stylis.middleware(omnipresentPlugins.concat(stylisPlugins, finalizingPlugins)), stylis$1 = function(styles4) {
+          return stylis.serialize(stylis.compile(styles4), serializer);
         };
         _insert = function(selector, serialized, sheet2, shouldCache) {
           currentSheet = sheet2, serialized.map !== void 0 && (currentSheet = {
@@ -15267,8 +15883,8 @@ If multiple caches share the same key they might "fight" for each other's style 
           }), stylis$1(selector ? selector + "{" + serialized.styles + "}" : serialized.styles), shouldCache && (cache.inserted[serialized.name] = !0);
         };
       } else {
-        var _finalizingPlugins = [stylis.stringify], _serializer = stylis.middleware(omnipresentPlugins.concat(stylisPlugins, _finalizingPlugins)), _stylis = function(styles2) {
-          return stylis.serialize(stylis.compile(styles2), _serializer);
+        var _finalizingPlugins = [stylis.stringify], _serializer = stylis.middleware(omnipresentPlugins.concat(stylisPlugins, _finalizingPlugins)), _stylis = function(styles4) {
+          return stylis.serialize(stylis.compile(styles4), _serializer);
         }, serverStylisCache = getServerStylisCache(stylisPlugins)(key), getRules2 = function(selector, serialized) {
           var name = serialized.name;
           return serverStylisCache[name] === void 0 && (serverStylisCache[name] = _stylis(selector ? selector + "{" + serialized.styles + "}" : serialized.styles)), serverStylisCache[name];
@@ -15313,7 +15929,7 @@ var require_emotion_cache_cjs = __commonJS({
 });
 
 // node_modules/hoist-non-react-statics/node_modules/react-is/cjs/react-is.development.js
-var require_react_is_development = __commonJS({
+var require_react_is_development2 = __commonJS({
   "node_modules/hoist-non-react-statics/node_modules/react-is/cjs/react-is.development.js"(exports) {
     "use strict";
     (function() {
@@ -15401,10 +16017,10 @@ var require_react_is_development = __commonJS({
 });
 
 // node_modules/hoist-non-react-statics/node_modules/react-is/index.js
-var require_react_is = __commonJS({
+var require_react_is2 = __commonJS({
   "node_modules/hoist-non-react-statics/node_modules/react-is/index.js"(exports, module) {
     "use strict";
-    module.exports = require_react_is_development();
+    module.exports = require_react_is_development2();
   }
 });
 
@@ -15412,7 +16028,7 @@ var require_react_is = __commonJS({
 var require_hoist_non_react_statics_cjs = __commonJS({
   "node_modules/hoist-non-react-statics/dist/hoist-non-react-statics.cjs.js"(exports, module) {
     "use strict";
-    var reactIs = require_react_is(), REACT_STATICS = {
+    var reactIs = require_react_is2(), REACT_STATICS = {
       childContextTypes: !0,
       contextType: !0,
       contextTypes: !0,
@@ -15499,9 +16115,9 @@ var require_emotion_utils_cjs_dev = __commonJS({
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: !0 });
     var isBrowser2 = typeof document < "u";
-    function getRegisteredStyles(registered, registeredStyles, classNames) {
+    function getRegisteredStyles(registered, registeredStyles, classNames2) {
       var rawClassName = "";
-      return classNames.split(" ").forEach(function(className) {
+      return classNames2.split(" ").forEach(function(className) {
         registered[className] !== void 0 ? registeredStyles.push(registered[className] + ";") : rawClassName += className + " ";
       }), rawClassName;
     }
@@ -15715,8 +16331,8 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
                   styles: next.styles,
                   next: cursor
                 }, next = next.next;
-            var styles2 = interpolation.styles + ";";
-            return interpolation.map !== void 0 && (styles2 += interpolation.map), styles2;
+            var styles4 = interpolation.styles + ";";
+            return interpolation.map !== void 0 && (styles4 += interpolation.map), styles4;
           }
           return createStringFromObject(mergedProps, registered, interpolation);
         }
@@ -15783,23 +16399,23 @@ You should wrap it with \`css\` like this:
     var cursor, serializeStyles = function(args, registered, mergedProps) {
       if (args.length === 1 && typeof args[0] == "object" && args[0] !== null && args[0].styles !== void 0)
         return args[0];
-      var stringMode = !0, styles2 = "";
+      var stringMode = !0, styles4 = "";
       cursor = void 0;
       var strings = args[0];
-      strings == null || strings.raw === void 0 ? (stringMode = !1, styles2 += handleInterpolation(mergedProps, registered, strings)) : (strings[0] === void 0 && console.error(ILLEGAL_ESCAPE_SEQUENCE_ERROR), styles2 += strings[0]);
+      strings == null || strings.raw === void 0 ? (stringMode = !1, styles4 += handleInterpolation(mergedProps, registered, strings)) : (strings[0] === void 0 && console.error(ILLEGAL_ESCAPE_SEQUENCE_ERROR), styles4 += strings[0]);
       for (var i = 1; i < args.length; i++)
-        styles2 += handleInterpolation(mergedProps, registered, args[i]), stringMode && (strings[i] === void 0 && console.error(ILLEGAL_ESCAPE_SEQUENCE_ERROR), styles2 += strings[i]);
+        styles4 += handleInterpolation(mergedProps, registered, args[i]), stringMode && (strings[i] === void 0 && console.error(ILLEGAL_ESCAPE_SEQUENCE_ERROR), styles4 += strings[i]);
       var sourceMap;
-      styles2 = styles2.replace(sourceMapPattern, function(match2) {
+      styles4 = styles4.replace(sourceMapPattern, function(match2) {
         return sourceMap = match2, "";
       }), labelPattern.lastIndex = 0;
-      for (var identifierName = "", match; (match = labelPattern.exec(styles2)) !== null; )
+      for (var identifierName = "", match; (match = labelPattern.exec(styles4)) !== null; )
         identifierName += "-" + // $FlowFixMe we know it's not null
         match[1];
-      var name = hashString__default.default(styles2) + identifierName;
+      var name = hashString__default.default(styles4) + identifierName;
       return {
         name,
-        styles: styles2,
+        styles: styles4,
         map: sourceMap,
         next: cursor,
         toString: function() {
@@ -15824,7 +16440,7 @@ var require_emotion_use_insertion_effect_with_fallbacks_cjs_dev = __commonJS({
   "node_modules/@emotion/use-insertion-effect-with-fallbacks/dist/emotion-use-insertion-effect-with-fallbacks.cjs.dev.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: !0 });
-    var React38 = require_react();
+    var React43 = require_react();
     function _interopNamespace(e) {
       if (e && e.__esModule)
         return e;
@@ -15841,7 +16457,7 @@ var require_emotion_use_insertion_effect_with_fallbacks_cjs_dev = __commonJS({
         }
       }), n.default = e, Object.freeze(n);
     }
-    var React__namespace = /* @__PURE__ */ _interopNamespace(React38), isBrowser2 = typeof document < "u", syncFallback = function(create) {
+    var React__namespace = /* @__PURE__ */ _interopNamespace(React43), isBrowser2 = typeof document < "u", syncFallback = function(create) {
       return create();
     }, useInsertionEffect = React__namespace["useInsertionEffect"] ? React__namespace["useInsertionEffect"] : !1, useInsertionEffectAlwaysWithSyncFallback = isBrowser2 && useInsertionEffect || syncFallback, useInsertionEffectWithLayoutFallback = useInsertionEffect || React__namespace.useLayoutEffect;
     exports.useInsertionEffectAlwaysWithSyncFallback = useInsertionEffectAlwaysWithSyncFallback;
@@ -15861,7 +16477,7 @@ var require_emotion_use_insertion_effect_with_fallbacks_cjs = __commonJS({
 var require_emotion_element_48d2c2e4_cjs_dev = __commonJS({
   "node_modules/@emotion/react/dist/emotion-element-48d2c2e4.cjs.dev.js"(exports) {
     "use strict";
-    var React38 = require_react(), createCache = require_emotion_cache_cjs(), _extends7 = require_extends(), weakMemoize = require_emotion_weak_memoize_cjs(), _isolatedHnrs_dist_emotionReact_isolatedHnrs = require_emotion_react_isolated_hnrs_cjs_dev(), utils = require_emotion_utils_cjs(), serialize2 = require_emotion_serialize_cjs(), useInsertionEffectWithFallbacks = require_emotion_use_insertion_effect_with_fallbacks_cjs();
+    var React43 = require_react(), createCache = require_emotion_cache_cjs(), _extends7 = require_extends(), weakMemoize = require_emotion_weak_memoize_cjs(), _isolatedHnrs_dist_emotionReact_isolatedHnrs = require_emotion_react_isolated_hnrs_cjs_dev(), utils = require_emotion_utils_cjs(), serialize2 = require_emotion_serialize_cjs(), useInsertionEffectWithFallbacks = require_emotion_use_insertion_effect_with_fallbacks_cjs();
     function _interopDefault(e) {
       return e && e.__esModule ? e : { default: e };
     }
@@ -15881,7 +16497,7 @@ var require_emotion_element_48d2c2e4_cjs_dev = __commonJS({
         }
       }), n.default = e, Object.freeze(n);
     }
-    var React__namespace = /* @__PURE__ */ _interopNamespace(React38), createCache__default = /* @__PURE__ */ _interopDefault(createCache), weakMemoize__default = /* @__PURE__ */ _interopDefault(weakMemoize), isBrowser2 = typeof document < "u", hasOwnProperty = {}.hasOwnProperty, EmotionCacheContext = /* @__PURE__ */ React__namespace.createContext(
+    var React__namespace = /* @__PURE__ */ _interopNamespace(React43), createCache__default = /* @__PURE__ */ _interopDefault(createCache), weakMemoize__default = /* @__PURE__ */ _interopDefault(weakMemoize), isBrowser2 = typeof document < "u", hasOwnProperty = {}.hasOwnProperty, EmotionCacheContext = /* @__PURE__ */ React__namespace.createContext(
       // we're doing this to avoid preconstruct's dead code elimination in this one case
       // because this module is primarily intended for the browser and node
       // but it's also required in react native and similar environments sometimes
@@ -15894,17 +16510,17 @@ var require_emotion_element_48d2c2e4_cjs_dev = __commonJS({
     );
     EmotionCacheContext.displayName = "EmotionCacheContext";
     var CacheProvider2 = EmotionCacheContext.Provider, __unsafe_useEmotionCache2 = function() {
-      return React38.useContext(EmotionCacheContext);
+      return React43.useContext(EmotionCacheContext);
     };
     exports.withEmotionCache = function(func) {
-      return /* @__PURE__ */ React38.forwardRef(function(props, ref) {
-        var cache = React38.useContext(EmotionCacheContext);
+      return /* @__PURE__ */ React43.forwardRef(function(props, ref) {
+        var cache = React43.useContext(EmotionCacheContext);
         return func(props, cache, ref);
       });
     };
     isBrowser2 || (exports.withEmotionCache = function(func) {
       return function(props) {
-        var cache = React38.useContext(EmotionCacheContext);
+        var cache = React43.useContext(EmotionCacheContext);
         return cache === null ? (cache = createCache__default.default({
           key: "css"
         }), /* @__PURE__ */ React__namespace.createElement(EmotionCacheContext.Provider, {
@@ -16033,7 +16649,7 @@ var require_emotion_react_cjs_dev = __commonJS({
   "node_modules/@emotion/react/dist/emotion-react.cjs.dev.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: !0 });
-    var emotionElement = require_emotion_element_48d2c2e4_cjs_dev(), React38 = require_react(), utils = require_emotion_utils_cjs(), useInsertionEffectWithFallbacks = require_emotion_use_insertion_effect_with_fallbacks_cjs(), serialize2 = require_emotion_serialize_cjs();
+    var emotionElement = require_emotion_element_48d2c2e4_cjs_dev(), React43 = require_react(), utils = require_emotion_utils_cjs(), useInsertionEffectWithFallbacks = require_emotion_use_insertion_effect_with_fallbacks_cjs(), serialize2 = require_emotion_serialize_cjs();
     require_emotion_cache_cjs();
     require_extends();
     require_emotion_weak_memoize_cjs();
@@ -16055,7 +16671,7 @@ var require_emotion_react_cjs_dev = __commonJS({
         }
       }), n.default = e, Object.freeze(n);
     }
-    var React__namespace = /* @__PURE__ */ _interopNamespace(React38), pkg = {
+    var React__namespace = /* @__PURE__ */ _interopNamespace(React43), pkg = {
       name: "@emotion/react",
       version: "11.11.3",
       main: "dist/emotion-react.cjs.js",
@@ -16200,7 +16816,7 @@ var require_emotion_react_cjs_dev = __commonJS({
       // means it will be turned into a className prop
       // $FlowFixMe I don't really want to add it to the type since it shouldn't be used
       (props.className || props.css) && (console.error("It looks like you're using the css prop on Global, did you mean to use the styles prop instead?"), warnedAboutCssPropForGlobal = !0);
-      var styles2 = props.styles, serialized = serialize2.serializeStyles([styles2], void 0, React__namespace.useContext(emotionElement.ThemeContext));
+      var styles4 = props.styles, serialized = serialize2.serializeStyles([styles4], void 0, React__namespace.useContext(emotionElement.ThemeContext));
       if (!emotionElement.isBrowser) {
         for (var _ref, serializedNames = serialized.name, serializedStyles = serialized.styles, next = serialized.next; next !== void 0; )
           serializedNames += " " + next.name, serializedStyles += next.styles, next = next.next;
@@ -16362,7 +16978,7 @@ var require_emotion_styled_base_cjs_dev = __commonJS({
   "node_modules/@emotion/styled/base/dist/emotion-styled-base.cjs.dev.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: !0 });
-    var _extends7 = require_extends(), React38 = require_react(), isPropValid = require_emotion_is_prop_valid_cjs(), react = require_emotion_react_cjs(), utils = require_emotion_utils_cjs(), serialize2 = require_emotion_serialize_cjs(), useInsertionEffectWithFallbacks = require_emotion_use_insertion_effect_with_fallbacks_cjs();
+    var _extends7 = require_extends(), React43 = require_react(), isPropValid = require_emotion_is_prop_valid_cjs(), react = require_emotion_react_cjs(), utils = require_emotion_utils_cjs(), serialize2 = require_emotion_serialize_cjs(), useInsertionEffectWithFallbacks = require_emotion_use_insertion_effect_with_fallbacks_cjs();
     function _interopDefault(e) {
       return e && e.__esModule ? e : { default: e };
     }
@@ -16382,7 +16998,7 @@ var require_emotion_styled_base_cjs_dev = __commonJS({
         }
       }), n.default = e, Object.freeze(n);
     }
-    var React__namespace = /* @__PURE__ */ _interopNamespace(React38), isPropValid__default = /* @__PURE__ */ _interopDefault(isPropValid), testOmitPropsOnStringTag = isPropValid__default.default, testOmitPropsOnComponent = function(key) {
+    var React__namespace = /* @__PURE__ */ _interopNamespace(React43), isPropValid__default = /* @__PURE__ */ _interopDefault(isPropValid), testOmitPropsOnStringTag = isPropValid__default.default, testOmitPropsOnComponent = function(key) {
       return key !== "theme";
     }, getDefaultShouldForwardProp = function(tag) {
       return typeof tag == "string" && // 96 is one less than the char code
@@ -16423,13 +17039,13 @@ You may have forgotten to import it.`);
       options !== void 0 && (identifierName = options.label, targetClassName = options.target);
       var shouldForwardProp2 = composeShouldForwardProps(tag, options, isReal), defaultShouldForwardProp = shouldForwardProp2 || getDefaultShouldForwardProp(baseTag), shouldUseAs = !defaultShouldForwardProp("as");
       return function() {
-        var args = arguments, styles2 = isReal && tag.__emotion_styles !== void 0 ? tag.__emotion_styles.slice(0) : [];
-        if (identifierName !== void 0 && styles2.push("label:" + identifierName + ";"), args[0] == null || args[0].raw === void 0)
-          styles2.push.apply(styles2, args);
+        var args = arguments, styles4 = isReal && tag.__emotion_styles !== void 0 ? tag.__emotion_styles.slice(0) : [];
+        if (identifierName !== void 0 && styles4.push("label:" + identifierName + ";"), args[0] == null || args[0].raw === void 0)
+          styles4.push.apply(styles4, args);
         else {
-          args[0][0] === void 0 && console.error(ILLEGAL_ESCAPE_SEQUENCE_ERROR), styles2.push(args[0][0]);
+          args[0][0] === void 0 && console.error(ILLEGAL_ESCAPE_SEQUENCE_ERROR), styles4.push(args[0][0]);
           for (var len = args.length, i = 1; i < len; i++)
-            args[0][i] === void 0 && console.error(ILLEGAL_ESCAPE_SEQUENCE_ERROR), styles2.push(args[i], args[0][i]);
+            args[0][i] === void 0 && console.error(ILLEGAL_ESCAPE_SEQUENCE_ERROR), styles4.push(args[i], args[0][i]);
         }
         var Styled = react.withEmotionCache(function(props, cache, ref) {
           var FinalTag = shouldUseAs && props.as || baseTag, className = "", classInterpolations = [], mergedProps = props;
@@ -16440,7 +17056,7 @@ You may have forgotten to import it.`);
             mergedProps.theme = React__namespace.useContext(react.ThemeContext);
           }
           typeof props.className == "string" ? className = utils.getRegisteredStyles(cache.registered, classInterpolations, props.className) : props.className != null && (className = props.className + " ");
-          var serialized = serialize2.serializeStyles(styles2.concat(classInterpolations), cache.registered, mergedProps);
+          var serialized = serialize2.serializeStyles(styles4.concat(classInterpolations), cache.registered, mergedProps);
           className += cache.key + "-" + serialized.name, targetClassName !== void 0 && (className += " " + targetClassName);
           var finalShouldForwardProp = shouldUseAs && shouldForwardProp2 === void 0 ? getDefaultShouldForwardProp(FinalTag) : defaultShouldForwardProp, newProps = {};
           for (var _key in props)
@@ -16452,14 +17068,14 @@ You may have forgotten to import it.`);
             isStringTag: typeof FinalTag == "string"
           }), /* @__PURE__ */ React__namespace.createElement(FinalTag, newProps));
         });
-        return Styled.displayName = identifierName !== void 0 ? identifierName : "Styled(" + (typeof baseTag == "string" ? baseTag : baseTag.displayName || baseTag.name || "Component") + ")", Styled.defaultProps = tag.defaultProps, Styled.__emotion_real = Styled, Styled.__emotion_base = baseTag, Styled.__emotion_styles = styles2, Styled.__emotion_forwardProp = shouldForwardProp2, Object.defineProperty(Styled, "toString", {
+        return Styled.displayName = identifierName !== void 0 ? identifierName : "Styled(" + (typeof baseTag == "string" ? baseTag : baseTag.displayName || baseTag.name || "Component") + ")", Styled.defaultProps = tag.defaultProps, Styled.__emotion_real = Styled, Styled.__emotion_base = baseTag, Styled.__emotion_styles = styles4, Styled.__emotion_forwardProp = shouldForwardProp2, Object.defineProperty(Styled, "toString", {
           value: function() {
             return targetClassName === void 0 ? "NO_COMPONENT_SELECTOR" : "." + targetClassName;
           }
         }), Styled.withComponent = function(nextTag, nextOptions) {
           return createStyled3(nextTag, _extends7({}, options, nextOptions, {
             shouldForwardProp: composeShouldForwardProps(Styled, nextOptions, !0)
-          })).apply(void 0, styles2);
+          })).apply(void 0, styles4);
         }, Styled;
       };
     };
@@ -16636,544 +17252,6 @@ var require_emotion_styled_cjs = __commonJS({
 var require_emotion_styled_cjs_default = __commonJS({
   "node_modules/@emotion/styled/dist/emotion-styled.cjs.default.js"(exports) {
     exports._default = require_emotion_styled_cjs().default;
-  }
-});
-
-// node_modules/prop-types/node_modules/react-is/cjs/react-is.development.js
-var require_react_is_development2 = __commonJS({
-  "node_modules/prop-types/node_modules/react-is/cjs/react-is.development.js"(exports) {
-    "use strict";
-    (function() {
-      "use strict";
-      var hasSymbol = typeof Symbol == "function" && Symbol.for, REACT_ELEMENT_TYPE = hasSymbol ? Symbol.for("react.element") : 60103, REACT_PORTAL_TYPE = hasSymbol ? Symbol.for("react.portal") : 60106, REACT_FRAGMENT_TYPE = hasSymbol ? Symbol.for("react.fragment") : 60107, REACT_STRICT_MODE_TYPE = hasSymbol ? Symbol.for("react.strict_mode") : 60108, REACT_PROFILER_TYPE = hasSymbol ? Symbol.for("react.profiler") : 60114, REACT_PROVIDER_TYPE = hasSymbol ? Symbol.for("react.provider") : 60109, REACT_CONTEXT_TYPE = hasSymbol ? Symbol.for("react.context") : 60110, REACT_ASYNC_MODE_TYPE = hasSymbol ? Symbol.for("react.async_mode") : 60111, REACT_CONCURRENT_MODE_TYPE = hasSymbol ? Symbol.for("react.concurrent_mode") : 60111, REACT_FORWARD_REF_TYPE = hasSymbol ? Symbol.for("react.forward_ref") : 60112, REACT_SUSPENSE_TYPE = hasSymbol ? Symbol.for("react.suspense") : 60113, REACT_SUSPENSE_LIST_TYPE = hasSymbol ? Symbol.for("react.suspense_list") : 60120, REACT_MEMO_TYPE = hasSymbol ? Symbol.for("react.memo") : 60115, REACT_LAZY_TYPE = hasSymbol ? Symbol.for("react.lazy") : 60116, REACT_BLOCK_TYPE = hasSymbol ? Symbol.for("react.block") : 60121, REACT_FUNDAMENTAL_TYPE = hasSymbol ? Symbol.for("react.fundamental") : 60117, REACT_RESPONDER_TYPE = hasSymbol ? Symbol.for("react.responder") : 60118, REACT_SCOPE_TYPE = hasSymbol ? Symbol.for("react.scope") : 60119;
-      function isValidElementType(type) {
-        return typeof type == "string" || typeof type == "function" || // Note: its typeof might be other than 'symbol' or 'number' if it's a polyfill.
-        type === REACT_FRAGMENT_TYPE || type === REACT_CONCURRENT_MODE_TYPE || type === REACT_PROFILER_TYPE || type === REACT_STRICT_MODE_TYPE || type === REACT_SUSPENSE_TYPE || type === REACT_SUSPENSE_LIST_TYPE || typeof type == "object" && type !== null && (type.$$typeof === REACT_LAZY_TYPE || type.$$typeof === REACT_MEMO_TYPE || type.$$typeof === REACT_PROVIDER_TYPE || type.$$typeof === REACT_CONTEXT_TYPE || type.$$typeof === REACT_FORWARD_REF_TYPE || type.$$typeof === REACT_FUNDAMENTAL_TYPE || type.$$typeof === REACT_RESPONDER_TYPE || type.$$typeof === REACT_SCOPE_TYPE || type.$$typeof === REACT_BLOCK_TYPE);
-      }
-      function typeOf(object) {
-        if (typeof object == "object" && object !== null) {
-          var $$typeof = object.$$typeof;
-          switch ($$typeof) {
-            case REACT_ELEMENT_TYPE:
-              var type = object.type;
-              switch (type) {
-                case REACT_ASYNC_MODE_TYPE:
-                case REACT_CONCURRENT_MODE_TYPE:
-                case REACT_FRAGMENT_TYPE:
-                case REACT_PROFILER_TYPE:
-                case REACT_STRICT_MODE_TYPE:
-                case REACT_SUSPENSE_TYPE:
-                  return type;
-                default:
-                  var $$typeofType = type && type.$$typeof;
-                  switch ($$typeofType) {
-                    case REACT_CONTEXT_TYPE:
-                    case REACT_FORWARD_REF_TYPE:
-                    case REACT_LAZY_TYPE:
-                    case REACT_MEMO_TYPE:
-                    case REACT_PROVIDER_TYPE:
-                      return $$typeofType;
-                    default:
-                      return $$typeof;
-                  }
-              }
-            case REACT_PORTAL_TYPE:
-              return $$typeof;
-          }
-        }
-      }
-      var AsyncMode = REACT_ASYNC_MODE_TYPE, ConcurrentMode = REACT_CONCURRENT_MODE_TYPE, ContextConsumer = REACT_CONTEXT_TYPE, ContextProvider = REACT_PROVIDER_TYPE, Element2 = REACT_ELEMENT_TYPE, ForwardRef2 = REACT_FORWARD_REF_TYPE, Fragment16 = REACT_FRAGMENT_TYPE, Lazy = REACT_LAZY_TYPE, Memo2 = REACT_MEMO_TYPE, Portal = REACT_PORTAL_TYPE, Profiler = REACT_PROFILER_TYPE, StrictMode = REACT_STRICT_MODE_TYPE, Suspense7 = REACT_SUSPENSE_TYPE, hasWarnedAboutDeprecatedIsAsyncMode = !1;
-      function isAsyncMode(object) {
-        return hasWarnedAboutDeprecatedIsAsyncMode || (hasWarnedAboutDeprecatedIsAsyncMode = !0, console.warn("The ReactIs.isAsyncMode() alias has been deprecated, and will be removed in React 17+. Update your code to use ReactIs.isConcurrentMode() instead. It has the exact same API.")), isConcurrentMode(object) || typeOf(object) === REACT_ASYNC_MODE_TYPE;
-      }
-      function isConcurrentMode(object) {
-        return typeOf(object) === REACT_CONCURRENT_MODE_TYPE;
-      }
-      function isContextConsumer(object) {
-        return typeOf(object) === REACT_CONTEXT_TYPE;
-      }
-      function isContextProvider(object) {
-        return typeOf(object) === REACT_PROVIDER_TYPE;
-      }
-      function isElement(object) {
-        return typeof object == "object" && object !== null && object.$$typeof === REACT_ELEMENT_TYPE;
-      }
-      function isForwardRef(object) {
-        return typeOf(object) === REACT_FORWARD_REF_TYPE;
-      }
-      function isFragment2(object) {
-        return typeOf(object) === REACT_FRAGMENT_TYPE;
-      }
-      function isLazy(object) {
-        return typeOf(object) === REACT_LAZY_TYPE;
-      }
-      function isMemo(object) {
-        return typeOf(object) === REACT_MEMO_TYPE;
-      }
-      function isPortal(object) {
-        return typeOf(object) === REACT_PORTAL_TYPE;
-      }
-      function isProfiler(object) {
-        return typeOf(object) === REACT_PROFILER_TYPE;
-      }
-      function isStrictMode(object) {
-        return typeOf(object) === REACT_STRICT_MODE_TYPE;
-      }
-      function isSuspense(object) {
-        return typeOf(object) === REACT_SUSPENSE_TYPE;
-      }
-      exports.AsyncMode = AsyncMode, exports.ConcurrentMode = ConcurrentMode, exports.ContextConsumer = ContextConsumer, exports.ContextProvider = ContextProvider, exports.Element = Element2, exports.ForwardRef = ForwardRef2, exports.Fragment = Fragment16, exports.Lazy = Lazy, exports.Memo = Memo2, exports.Portal = Portal, exports.Profiler = Profiler, exports.StrictMode = StrictMode, exports.Suspense = Suspense7, exports.isAsyncMode = isAsyncMode, exports.isConcurrentMode = isConcurrentMode, exports.isContextConsumer = isContextConsumer, exports.isContextProvider = isContextProvider, exports.isElement = isElement, exports.isForwardRef = isForwardRef, exports.isFragment = isFragment2, exports.isLazy = isLazy, exports.isMemo = isMemo, exports.isPortal = isPortal, exports.isProfiler = isProfiler, exports.isStrictMode = isStrictMode, exports.isSuspense = isSuspense, exports.isValidElementType = isValidElementType, exports.typeOf = typeOf;
-    })();
-  }
-});
-
-// node_modules/prop-types/node_modules/react-is/index.js
-var require_react_is2 = __commonJS({
-  "node_modules/prop-types/node_modules/react-is/index.js"(exports, module) {
-    "use strict";
-    module.exports = require_react_is_development2();
-  }
-});
-
-// node_modules/object-assign/index.js
-var require_object_assign = __commonJS({
-  "node_modules/object-assign/index.js"(exports, module) {
-    "use strict";
-    var getOwnPropertySymbols = Object.getOwnPropertySymbols, hasOwnProperty = Object.prototype.hasOwnProperty, propIsEnumerable = Object.prototype.propertyIsEnumerable;
-    function toObject(val) {
-      if (val == null)
-        throw new TypeError("Object.assign cannot be called with null or undefined");
-      return Object(val);
-    }
-    function shouldUseNative() {
-      try {
-        if (!Object.assign)
-          return !1;
-        var test1 = new String("abc");
-        if (test1[5] = "de", Object.getOwnPropertyNames(test1)[0] === "5")
-          return !1;
-        for (var test2 = {}, i = 0; i < 10; i++)
-          test2["_" + String.fromCharCode(i)] = i;
-        var order2 = Object.getOwnPropertyNames(test2).map(function(n) {
-          return test2[n];
-        });
-        if (order2.join("") !== "0123456789")
-          return !1;
-        var test3 = {};
-        return "abcdefghijklmnopqrst".split("").forEach(function(letter) {
-          test3[letter] = letter;
-        }), Object.keys(Object.assign({}, test3)).join("") === "abcdefghijklmnopqrst";
-      } catch {
-        return !1;
-      }
-    }
-    module.exports = shouldUseNative() ? Object.assign : function(target, source) {
-      for (var from, to = toObject(target), symbols, s = 1; s < arguments.length; s++) {
-        from = Object(arguments[s]);
-        for (var key in from)
-          hasOwnProperty.call(from, key) && (to[key] = from[key]);
-        if (getOwnPropertySymbols) {
-          symbols = getOwnPropertySymbols(from);
-          for (var i = 0; i < symbols.length; i++)
-            propIsEnumerable.call(from, symbols[i]) && (to[symbols[i]] = from[symbols[i]]);
-        }
-      }
-      return to;
-    };
-  }
-});
-
-// node_modules/prop-types/lib/ReactPropTypesSecret.js
-var require_ReactPropTypesSecret = __commonJS({
-  "node_modules/prop-types/lib/ReactPropTypesSecret.js"(exports, module) {
-    "use strict";
-    var ReactPropTypesSecret = "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED";
-    module.exports = ReactPropTypesSecret;
-  }
-});
-
-// node_modules/prop-types/lib/has.js
-var require_has = __commonJS({
-  "node_modules/prop-types/lib/has.js"(exports, module) {
-    module.exports = Function.call.bind(Object.prototype.hasOwnProperty);
-  }
-});
-
-// node_modules/prop-types/checkPropTypes.js
-var require_checkPropTypes = __commonJS({
-  "node_modules/prop-types/checkPropTypes.js"(exports, module) {
-    "use strict";
-    var printWarning = function() {
-    };
-    ReactPropTypesSecret = require_ReactPropTypesSecret(), loggedTypeFailures = {}, has = require_has(), printWarning = function(text) {
-      var message = "Warning: " + text;
-      typeof console < "u" && console.error(message);
-      try {
-        throw new Error(message);
-      } catch {
-      }
-    };
-    var ReactPropTypesSecret, loggedTypeFailures, has;
-    function checkPropTypes(typeSpecs, values3, location2, componentName, getStack) {
-      for (var typeSpecName in typeSpecs)
-        if (has(typeSpecs, typeSpecName)) {
-          var error;
-          try {
-            if (typeof typeSpecs[typeSpecName] != "function") {
-              var err = Error(
-                (componentName || "React class") + ": " + location2 + " type `" + typeSpecName + "` is invalid; it must be a function, usually from the `prop-types` package, but received `" + typeof typeSpecs[typeSpecName] + "`.This often happens because of typos such as `PropTypes.function` instead of `PropTypes.func`."
-              );
-              throw err.name = "Invariant Violation", err;
-            }
-            error = typeSpecs[typeSpecName](values3, typeSpecName, componentName, location2, null, ReactPropTypesSecret);
-          } catch (ex) {
-            error = ex;
-          }
-          if (error && !(error instanceof Error) && printWarning(
-            (componentName || "React class") + ": type specification of " + location2 + " `" + typeSpecName + "` is invalid; the type checker function must return `null` or an `Error` but returned a " + typeof error + ". You may have forgotten to pass an argument to the type checker creator (arrayOf, instanceOf, objectOf, oneOf, oneOfType, and shape all require an argument)."
-          ), error instanceof Error && !(error.message in loggedTypeFailures)) {
-            loggedTypeFailures[error.message] = !0;
-            var stack = getStack ? getStack() : "";
-            printWarning(
-              "Failed " + location2 + " type: " + error.message + (stack ?? "")
-            );
-          }
-        }
-    }
-    checkPropTypes.resetWarningCache = function() {
-      loggedTypeFailures = {};
-    };
-    module.exports = checkPropTypes;
-  }
-});
-
-// node_modules/prop-types/factoryWithTypeCheckers.js
-var require_factoryWithTypeCheckers = __commonJS({
-  "node_modules/prop-types/factoryWithTypeCheckers.js"(exports, module) {
-    "use strict";
-    var ReactIs = require_react_is2(), assign = require_object_assign(), ReactPropTypesSecret = require_ReactPropTypesSecret(), has = require_has(), checkPropTypes = require_checkPropTypes(), printWarning = function() {
-    };
-    printWarning = function(text) {
-      var message = "Warning: " + text;
-      typeof console < "u" && console.error(message);
-      try {
-        throw new Error(message);
-      } catch {
-      }
-    };
-    function emptyFunctionThatReturnsNull() {
-      return null;
-    }
-    module.exports = function(isValidElement7, throwOnDirectAccess) {
-      var ITERATOR_SYMBOL = typeof Symbol == "function" && Symbol.iterator, FAUX_ITERATOR_SYMBOL = "@@iterator";
-      function getIteratorFn(maybeIterable) {
-        var iteratorFn = maybeIterable && (ITERATOR_SYMBOL && maybeIterable[ITERATOR_SYMBOL] || maybeIterable[FAUX_ITERATOR_SYMBOL]);
-        if (typeof iteratorFn == "function")
-          return iteratorFn;
-      }
-      var ANONYMOUS = "<<anonymous>>", ReactPropTypes = {
-        array: createPrimitiveTypeChecker("array"),
-        bigint: createPrimitiveTypeChecker("bigint"),
-        bool: createPrimitiveTypeChecker("boolean"),
-        func: createPrimitiveTypeChecker("function"),
-        number: createPrimitiveTypeChecker("number"),
-        object: createPrimitiveTypeChecker("object"),
-        string: createPrimitiveTypeChecker("string"),
-        symbol: createPrimitiveTypeChecker("symbol"),
-        any: createAnyTypeChecker(),
-        arrayOf: createArrayOfTypeChecker,
-        element: createElementTypeChecker(),
-        elementType: createElementTypeTypeChecker(),
-        instanceOf: createInstanceTypeChecker,
-        node: createNodeChecker(),
-        objectOf: createObjectOfTypeChecker,
-        oneOf: createEnumTypeChecker,
-        oneOfType: createUnionTypeChecker,
-        shape: createShapeTypeChecker,
-        exact: createStrictShapeTypeChecker
-      };
-      function is(x, y) {
-        return x === y ? x !== 0 || 1 / x === 1 / y : x !== x && y !== y;
-      }
-      function PropTypeError(message, data) {
-        this.message = message, this.data = data && typeof data == "object" ? data : {}, this.stack = "";
-      }
-      PropTypeError.prototype = Error.prototype;
-      function createChainableTypeChecker(validate) {
-        var manualPropTypeCallCache = {}, manualPropTypeWarningCount = 0;
-        function checkType(isRequired, props, propName, componentName, location2, propFullName, secret) {
-          if (componentName = componentName || ANONYMOUS, propFullName = propFullName || propName, secret !== ReactPropTypesSecret) {
-            if (throwOnDirectAccess) {
-              var err = new Error(
-                "Calling PropTypes validators directly is not supported by the `prop-types` package. Use `PropTypes.checkPropTypes()` to call them. Read more at http://fb.me/use-check-prop-types"
-              );
-              throw err.name = "Invariant Violation", err;
-            } else if (typeof console < "u") {
-              var cacheKey = componentName + ":" + propName;
-              !manualPropTypeCallCache[cacheKey] && // Avoid spamming the console because they are often not actionable except for lib authors
-              manualPropTypeWarningCount < 3 && (printWarning(
-                "You are manually calling a React.PropTypes validation function for the `" + propFullName + "` prop on `" + componentName + "`. This is deprecated and will throw in the standalone `prop-types` package. You may be seeing this warning due to a third-party PropTypes library. See https://fb.me/react-warning-dont-call-proptypes for details."
-              ), manualPropTypeCallCache[cacheKey] = !0, manualPropTypeWarningCount++);
-            }
-          }
-          return props[propName] == null ? isRequired ? props[propName] === null ? new PropTypeError("The " + location2 + " `" + propFullName + "` is marked as required " + ("in `" + componentName + "`, but its value is `null`.")) : new PropTypeError("The " + location2 + " `" + propFullName + "` is marked as required in " + ("`" + componentName + "`, but its value is `undefined`.")) : null : validate(props, propName, componentName, location2, propFullName);
-        }
-        var chainedCheckType = checkType.bind(null, !1);
-        return chainedCheckType.isRequired = checkType.bind(null, !0), chainedCheckType;
-      }
-      function createPrimitiveTypeChecker(expectedType) {
-        function validate(props, propName, componentName, location2, propFullName, secret) {
-          var propValue = props[propName], propType = getPropType(propValue);
-          if (propType !== expectedType) {
-            var preciseType = getPreciseType(propValue);
-            return new PropTypeError(
-              "Invalid " + location2 + " `" + propFullName + "` of type " + ("`" + preciseType + "` supplied to `" + componentName + "`, expected ") + ("`" + expectedType + "`."),
-              { expectedType }
-            );
-          }
-          return null;
-        }
-        return createChainableTypeChecker(validate);
-      }
-      function createAnyTypeChecker() {
-        return createChainableTypeChecker(emptyFunctionThatReturnsNull);
-      }
-      function createArrayOfTypeChecker(typeChecker) {
-        function validate(props, propName, componentName, location2, propFullName) {
-          if (typeof typeChecker != "function")
-            return new PropTypeError("Property `" + propFullName + "` of component `" + componentName + "` has invalid PropType notation inside arrayOf.");
-          var propValue = props[propName];
-          if (!Array.isArray(propValue)) {
-            var propType = getPropType(propValue);
-            return new PropTypeError("Invalid " + location2 + " `" + propFullName + "` of type " + ("`" + propType + "` supplied to `" + componentName + "`, expected an array."));
-          }
-          for (var i = 0; i < propValue.length; i++) {
-            var error = typeChecker(propValue, i, componentName, location2, propFullName + "[" + i + "]", ReactPropTypesSecret);
-            if (error instanceof Error)
-              return error;
-          }
-          return null;
-        }
-        return createChainableTypeChecker(validate);
-      }
-      function createElementTypeChecker() {
-        function validate(props, propName, componentName, location2, propFullName) {
-          var propValue = props[propName];
-          if (!isValidElement7(propValue)) {
-            var propType = getPropType(propValue);
-            return new PropTypeError("Invalid " + location2 + " `" + propFullName + "` of type " + ("`" + propType + "` supplied to `" + componentName + "`, expected a single ReactElement."));
-          }
-          return null;
-        }
-        return createChainableTypeChecker(validate);
-      }
-      function createElementTypeTypeChecker() {
-        function validate(props, propName, componentName, location2, propFullName) {
-          var propValue = props[propName];
-          if (!ReactIs.isValidElementType(propValue)) {
-            var propType = getPropType(propValue);
-            return new PropTypeError("Invalid " + location2 + " `" + propFullName + "` of type " + ("`" + propType + "` supplied to `" + componentName + "`, expected a single ReactElement type."));
-          }
-          return null;
-        }
-        return createChainableTypeChecker(validate);
-      }
-      function createInstanceTypeChecker(expectedClass) {
-        function validate(props, propName, componentName, location2, propFullName) {
-          if (!(props[propName] instanceof expectedClass)) {
-            var expectedClassName = expectedClass.name || ANONYMOUS, actualClassName = getClassName(props[propName]);
-            return new PropTypeError("Invalid " + location2 + " `" + propFullName + "` of type " + ("`" + actualClassName + "` supplied to `" + componentName + "`, expected ") + ("instance of `" + expectedClassName + "`."));
-          }
-          return null;
-        }
-        return createChainableTypeChecker(validate);
-      }
-      function createEnumTypeChecker(expectedValues) {
-        if (!Array.isArray(expectedValues))
-          return arguments.length > 1 ? printWarning(
-            "Invalid arguments supplied to oneOf, expected an array, got " + arguments.length + " arguments. A common mistake is to write oneOf(x, y, z) instead of oneOf([x, y, z])."
-          ) : printWarning("Invalid argument supplied to oneOf, expected an array."), emptyFunctionThatReturnsNull;
-        function validate(props, propName, componentName, location2, propFullName) {
-          for (var propValue = props[propName], i = 0; i < expectedValues.length; i++)
-            if (is(propValue, expectedValues[i]))
-              return null;
-          var valuesString = JSON.stringify(expectedValues, function(key, value) {
-            var type = getPreciseType(value);
-            return type === "symbol" ? String(value) : value;
-          });
-          return new PropTypeError("Invalid " + location2 + " `" + propFullName + "` of value `" + String(propValue) + "` " + ("supplied to `" + componentName + "`, expected one of " + valuesString + "."));
-        }
-        return createChainableTypeChecker(validate);
-      }
-      function createObjectOfTypeChecker(typeChecker) {
-        function validate(props, propName, componentName, location2, propFullName) {
-          if (typeof typeChecker != "function")
-            return new PropTypeError("Property `" + propFullName + "` of component `" + componentName + "` has invalid PropType notation inside objectOf.");
-          var propValue = props[propName], propType = getPropType(propValue);
-          if (propType !== "object")
-            return new PropTypeError("Invalid " + location2 + " `" + propFullName + "` of type " + ("`" + propType + "` supplied to `" + componentName + "`, expected an object."));
-          for (var key in propValue)
-            if (has(propValue, key)) {
-              var error = typeChecker(propValue, key, componentName, location2, propFullName + "." + key, ReactPropTypesSecret);
-              if (error instanceof Error)
-                return error;
-            }
-          return null;
-        }
-        return createChainableTypeChecker(validate);
-      }
-      function createUnionTypeChecker(arrayOfTypeCheckers) {
-        if (!Array.isArray(arrayOfTypeCheckers))
-          return printWarning("Invalid argument supplied to oneOfType, expected an instance of array."), emptyFunctionThatReturnsNull;
-        for (var i = 0; i < arrayOfTypeCheckers.length; i++) {
-          var checker = arrayOfTypeCheckers[i];
-          if (typeof checker != "function")
-            return printWarning(
-              "Invalid argument supplied to oneOfType. Expected an array of check functions, but received " + getPostfixForTypeWarning(checker) + " at index " + i + "."
-            ), emptyFunctionThatReturnsNull;
-        }
-        function validate(props, propName, componentName, location2, propFullName) {
-          for (var expectedTypes = [], i2 = 0; i2 < arrayOfTypeCheckers.length; i2++) {
-            var checker2 = arrayOfTypeCheckers[i2], checkerResult = checker2(props, propName, componentName, location2, propFullName, ReactPropTypesSecret);
-            if (checkerResult == null)
-              return null;
-            checkerResult.data && has(checkerResult.data, "expectedType") && expectedTypes.push(checkerResult.data.expectedType);
-          }
-          var expectedTypesMessage = expectedTypes.length > 0 ? ", expected one of type [" + expectedTypes.join(", ") + "]" : "";
-          return new PropTypeError("Invalid " + location2 + " `" + propFullName + "` supplied to " + ("`" + componentName + "`" + expectedTypesMessage + "."));
-        }
-        return createChainableTypeChecker(validate);
-      }
-      function createNodeChecker() {
-        function validate(props, propName, componentName, location2, propFullName) {
-          return isNode(props[propName]) ? null : new PropTypeError("Invalid " + location2 + " `" + propFullName + "` supplied to " + ("`" + componentName + "`, expected a ReactNode."));
-        }
-        return createChainableTypeChecker(validate);
-      }
-      function invalidValidatorError(componentName, location2, propFullName, key, type) {
-        return new PropTypeError(
-          (componentName || "React class") + ": " + location2 + " type `" + propFullName + "." + key + "` is invalid; it must be a function, usually from the `prop-types` package, but received `" + type + "`."
-        );
-      }
-      function createShapeTypeChecker(shapeTypes) {
-        function validate(props, propName, componentName, location2, propFullName) {
-          var propValue = props[propName], propType = getPropType(propValue);
-          if (propType !== "object")
-            return new PropTypeError("Invalid " + location2 + " `" + propFullName + "` of type `" + propType + "` " + ("supplied to `" + componentName + "`, expected `object`."));
-          for (var key in shapeTypes) {
-            var checker = shapeTypes[key];
-            if (typeof checker != "function")
-              return invalidValidatorError(componentName, location2, propFullName, key, getPreciseType(checker));
-            var error = checker(propValue, key, componentName, location2, propFullName + "." + key, ReactPropTypesSecret);
-            if (error)
-              return error;
-          }
-          return null;
-        }
-        return createChainableTypeChecker(validate);
-      }
-      function createStrictShapeTypeChecker(shapeTypes) {
-        function validate(props, propName, componentName, location2, propFullName) {
-          var propValue = props[propName], propType = getPropType(propValue);
-          if (propType !== "object")
-            return new PropTypeError("Invalid " + location2 + " `" + propFullName + "` of type `" + propType + "` " + ("supplied to `" + componentName + "`, expected `object`."));
-          var allKeys = assign({}, props[propName], shapeTypes);
-          for (var key in allKeys) {
-            var checker = shapeTypes[key];
-            if (has(shapeTypes, key) && typeof checker != "function")
-              return invalidValidatorError(componentName, location2, propFullName, key, getPreciseType(checker));
-            if (!checker)
-              return new PropTypeError(
-                "Invalid " + location2 + " `" + propFullName + "` key `" + key + "` supplied to `" + componentName + "`.\nBad object: " + JSON.stringify(props[propName], null, "  ") + `
-Valid keys: ` + JSON.stringify(Object.keys(shapeTypes), null, "  ")
-              );
-            var error = checker(propValue, key, componentName, location2, propFullName + "." + key, ReactPropTypesSecret);
-            if (error)
-              return error;
-          }
-          return null;
-        }
-        return createChainableTypeChecker(validate);
-      }
-      function isNode(propValue) {
-        switch (typeof propValue) {
-          case "number":
-          case "string":
-          case "undefined":
-            return !0;
-          case "boolean":
-            return !propValue;
-          case "object":
-            if (Array.isArray(propValue))
-              return propValue.every(isNode);
-            if (propValue === null || isValidElement7(propValue))
-              return !0;
-            var iteratorFn = getIteratorFn(propValue);
-            if (iteratorFn) {
-              var iterator = iteratorFn.call(propValue), step;
-              if (iteratorFn !== propValue.entries) {
-                for (; !(step = iterator.next()).done; )
-                  if (!isNode(step.value))
-                    return !1;
-              } else
-                for (; !(step = iterator.next()).done; ) {
-                  var entry2 = step.value;
-                  if (entry2 && !isNode(entry2[1]))
-                    return !1;
-                }
-            } else
-              return !1;
-            return !0;
-          default:
-            return !1;
-        }
-      }
-      function isSymbol(propType, propValue) {
-        return propType === "symbol" ? !0 : propValue ? propValue["@@toStringTag"] === "Symbol" || typeof Symbol == "function" && propValue instanceof Symbol : !1;
-      }
-      function getPropType(propValue) {
-        var propType = typeof propValue;
-        return Array.isArray(propValue) ? "array" : propValue instanceof RegExp ? "object" : isSymbol(propType, propValue) ? "symbol" : propType;
-      }
-      function getPreciseType(propValue) {
-        if (typeof propValue > "u" || propValue === null)
-          return "" + propValue;
-        var propType = getPropType(propValue);
-        if (propType === "object") {
-          if (propValue instanceof Date)
-            return "date";
-          if (propValue instanceof RegExp)
-            return "regexp";
-        }
-        return propType;
-      }
-      function getPostfixForTypeWarning(value) {
-        var type = getPreciseType(value);
-        switch (type) {
-          case "array":
-          case "object":
-            return "an " + type;
-          case "boolean":
-          case "date":
-          case "regexp":
-            return "a " + type;
-          default:
-            return type;
-        }
-      }
-      function getClassName(propValue) {
-        return !propValue.constructor || !propValue.constructor.name ? ANONYMOUS : propValue.constructor.name;
-      }
-      return ReactPropTypes.checkPropTypes = checkPropTypes, ReactPropTypes.resetWarningCache = checkPropTypes.resetWarningCache, ReactPropTypes.PropTypes = ReactPropTypes, ReactPropTypes;
-    };
-  }
-});
-
-// node_modules/prop-types/index.js
-var require_prop_types = __commonJS({
-  "node_modules/prop-types/index.js"(exports, module) {
-    ReactIs = require_react_is2(), throwOnDirectAccess = !0, module.exports = require_factoryWithTypeCheckers()(ReactIs.isElement, throwOnDirectAccess);
-    var ReactIs, throwOnDirectAccess;
   }
 });
 
@@ -18988,7 +19066,7 @@ var Image = React8.forwardRef(
     crop = "center",
     data,
     decoding = "async",
-    height: height2 = "auto",
+    height: height3 = "auto",
     loader: loader31 = shopifyLoader,
     loading = "lazy",
     sizes,
@@ -18999,7 +19077,7 @@ var Image = React8.forwardRef(
       incrementSize: 200,
       placeholderWidth: 100
     },
-    width: width2 = "100%",
+    width: width3 = "100%",
     ...passthroughProps
   }, ref) => {
     let normalizedData = React8.useMemo(() => {
@@ -19010,7 +19088,7 @@ var Image = React8.forwardRef(
         unitsMatch: Boolean(unitsMatch(dataWidth, dataHeight))
       };
     }, [data]), normalizedProps = React8.useMemo(() => {
-      let widthParts = getUnitValueParts((width2 || "100%").toString()), nWidth = `${widthParts.number}${widthParts.unit}`, autoHeight = height2 == null, heightParts = autoHeight ? null : getUnitValueParts(height2.toString()), fixedHeight = heightParts ? `${heightParts.number}${heightParts.unit}` : "", nHeight = autoHeight ? "auto" : fixedHeight, nSrc = src || data?.url;
+      let widthParts = getUnitValueParts((width3 || "100%").toString()), nWidth = `${widthParts.number}${widthParts.unit}`, autoHeight = height3 == null, heightParts = autoHeight ? null : getUnitValueParts(height3.toString()), fixedHeight = heightParts ? `${heightParts.number}${heightParts.unit}` : "", nHeight = autoHeight ? "auto" : fixedHeight, nSrc = src || data?.url;
       nSrc || console.warn(
         "No src or data.url provided to Image component.",
         passthroughProps?.key || ""
@@ -19027,8 +19105,8 @@ var Image = React8.forwardRef(
         aspectRatio: nAspectRatio
       };
     }, [
-      width2,
-      height2,
+      width3,
+      height3,
       src,
       data,
       alt,
@@ -19036,11 +19114,11 @@ var Image = React8.forwardRef(
       normalizedData,
       passthroughProps?.key
     ]), { intervals, startingWidth, incrementSize, placeholderWidth } = srcSetOptions, imageWidths = React8.useMemo(() => generateImageWidths(
-      width2,
+      width3,
       intervals,
       startingWidth,
       incrementSize
-    ), [width2, intervals, startingWidth, incrementSize]), fixedWidth = isFixedWidth(normalizedProps.width);
+    ), [width3, intervals, startingWidth, incrementSize]), fixedWidth = isFixedWidth(normalizedProps.width);
     return !sizes && !fixedWidth && console.warn(
       [
         "No sizes prop provided to Image component,",
@@ -19053,14 +19131,14 @@ var Image = React8.forwardRef(
         aspectRatio,
         crop,
         decoding,
-        height: height2,
+        height: height3,
         imageWidths,
         loader: loader31,
         loading,
         normalizedProps,
         passthroughProps,
         ref,
-        width: width2
+        width: width3
       }
     ) : /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(
       FluidImage,
@@ -19084,16 +19162,16 @@ var Image = React8.forwardRef(
     aspectRatio,
     crop,
     decoding,
-    height: height2,
+    height: height3,
     imageWidths,
     loader: loader31 = shopifyLoader,
     loading,
     normalizedProps,
     passthroughProps,
-    width: width2
+    width: width3
   }, ref) => {
     let fixed = React8.useMemo(() => {
-      let intWidth = getNormalizedFixedUnit(width2), intHeight = getNormalizedFixedUnit(height2), fixedAspectRatio = aspectRatio || (unitsMatch(normalizedProps.width, normalizedProps.height) ? [intWidth, intHeight].join("/") : normalizedProps.aspectRatio ? normalizedProps.aspectRatio : void 0), sizesArray = imageWidths === void 0 ? void 0 : generateSizes(imageWidths, fixedAspectRatio, crop), fixedHeight = intHeight || (fixedAspectRatio && intWidth ? intWidth * (parseAspectRatio(fixedAspectRatio) ?? 1) : void 0), srcSet = generateSrcSet(normalizedProps.src, sizesArray, loader31), src = loader31({
+      let intWidth = getNormalizedFixedUnit(width3), intHeight = getNormalizedFixedUnit(height3), fixedAspectRatio = aspectRatio || (unitsMatch(normalizedProps.width, normalizedProps.height) ? [intWidth, intHeight].join("/") : normalizedProps.aspectRatio ? normalizedProps.aspectRatio : void 0), sizesArray = imageWidths === void 0 ? void 0 : generateSizes(imageWidths, fixedAspectRatio, crop), fixedHeight = intHeight || (fixedAspectRatio && intWidth ? intWidth * (parseAspectRatio(fixedAspectRatio) ?? 1) : void 0), srcSet = generateSrcSet(normalizedProps.src, sizesArray, loader31), src = loader31({
         src: normalizedProps.src,
         width: intWidth,
         height: fixedHeight,
@@ -19109,11 +19187,11 @@ var Image = React8.forwardRef(
     }, [
       aspectRatio,
       crop,
-      height2,
+      height3,
       imageWidths,
       loader31,
       normalizedProps,
-      width2
+      width3
     ]);
     return /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(
       "img",
@@ -19181,14 +19259,14 @@ var Image = React8.forwardRef(
     );
   }
 );
-function shopifyLoader({ src, width: width2, height: height2, crop }) {
+function shopifyLoader({ src, width: width3, height: height3, crop }) {
   if (!src)
     return "";
   let url = new URL(src);
-  return width2 && url.searchParams.append("width", Math.round(width2).toString()), height2 && url.searchParams.append("height", Math.round(height2).toString()), crop && url.searchParams.append("crop", crop), url.href;
+  return width3 && url.searchParams.append("width", Math.round(width3).toString()), height3 && url.searchParams.append("height", Math.round(height3).toString()), crop && url.searchParams.append("crop", crop), url.href;
 }
-function unitsMatch(width2 = "100%", height2 = "auto") {
-  return getUnitValueParts(width2.toString()).unit === getUnitValueParts(height2.toString()).unit;
+function unitsMatch(width3 = "100%", height3 = "auto") {
+  return getUnitValueParts(width3.toString()).unit === getUnitValueParts(height3.toString()).unit;
 }
 function getUnitValueParts(value) {
   let unit = value.replace(/[0-9.]/g, ""), number = parseFloat(value.replace(unit, ""));
@@ -19214,39 +19292,39 @@ function getNormalizedFixedUnit(value) {
       return;
   }
 }
-function isFixedWidth(width2) {
-  return typeof width2 == "number" || typeof width2 == "string" && /\d(px|em|rem)$/.test(width2);
+function isFixedWidth(width3) {
+  return typeof width3 == "number" || typeof width3 == "string" && /\d(px|em|rem)$/.test(width3);
 }
 function generateSrcSet(src, sizesArray, loader31 = shopifyLoader) {
   return src ? sizesArray?.length === 0 || !sizesArray ? src : sizesArray.map(
-    (size, i) => `${loader31({
+    (size2, i) => `${loader31({
       src,
-      width: size.width,
-      height: size.height,
-      crop: size.crop
-    })} ${sizesArray.length === 3 ? `${i + 1}x` : `${size.width ?? 0}w`}`
+      width: size2.width,
+      height: size2.height,
+      crop: size2.crop
+    })} ${sizesArray.length === 3 ? `${i + 1}x` : `${size2.width ?? 0}w`}`
   ).join(", ") : "";
 }
-function generateImageWidths(width2 = "100%", intervals, startingWidth, incrementSize) {
+function generateImageWidths(width3 = "100%", intervals, startingWidth, incrementSize) {
   let responsive = Array.from(
     { length: intervals },
     (_2, i) => i * incrementSize + startingWidth
   ), fixed = Array.from(
     { length: 3 },
-    (_2, i) => (i + 1) * (getNormalizedFixedUnit(width2) ?? 0)
+    (_2, i) => (i + 1) * (getNormalizedFixedUnit(width3) ?? 0)
   );
-  return isFixedWidth(width2) ? fixed : responsive;
+  return isFixedWidth(width3) ? fixed : responsive;
 }
 function parseAspectRatio(aspectRatio) {
   if (!aspectRatio)
     return;
-  let [width2, height2] = aspectRatio.split("/");
-  return 1 / (Number(width2) / Number(height2));
+  let [width3, height3] = aspectRatio.split("/");
+  return 1 / (Number(width3) / Number(height3));
 }
 function generateSizes(imageWidths, aspectRatio, crop = "center") {
-  return imageWidths ? imageWidths.map((width2) => ({
-    width: width2,
-    height: aspectRatio ? width2 * (parseAspectRatio(aspectRatio) ?? 1) : void 0,
+  return imageWidths ? imageWidths.map((width3) => ({
+    width: width3,
+    height: aspectRatio ? width3 * (parseAspectRatio(aspectRatio) ?? 1) : void 0,
     crop
   })) : void 0;
 }
@@ -21076,11 +21154,11 @@ async function getItemFromCache(cache, key) {
   let url = getKeyUrl(key), request = new Request(url), response = await CacheAPI.get(cache, request);
   if (!response)
     return;
-  let text = await response.text();
+  let text2 = await response.text();
   try {
-    return [parseJSON(text), response];
+    return [parseJSON(text2), response];
   } catch {
-    return [text, response];
+    return [text2, response];
   }
 }
 async function setItemInCache(cache, key, value, userCacheOptions) {
@@ -22624,10 +22702,4000 @@ var favicon_default = "/build/_assets/favicon-5FIZBM2K.svg";
 var reset_default = "/build/_assets/reset-TW5WX2GH.css";
 
 // app/styles/app.css
-var app_default = "/build/_assets/app-H3O7AUZN.css";
+var app_default = "/build/_assets/app-HO7TIWHA.css";
+
+// node_modules/@shopify/polaris-tokens/dist/esm/src/themes/base/breakpoints.mjs
+var breakpoints = {
+  "breakpoints-xs": {
+    value: "0px",
+    description: "Commonly used for sizing containers (e.g. max-width). See below for media query usage."
+  },
+  "breakpoints-sm": {
+    value: "490px",
+    description: "Commonly used for sizing containers (e.g. max-width). See below for media query usage."
+  },
+  "breakpoints-md": {
+    value: "768px",
+    description: "Commonly used for sizing containers (e.g. max-width). See below for media query usage."
+  },
+  "breakpoints-lg": {
+    value: "1040px",
+    description: "Commonly used for sizing containers (e.g. max-width). See below for media query usage."
+  },
+  "breakpoints-xl": {
+    value: "1440px",
+    description: "Commonly used for sizing containers (e.g. max-width). See below for media query usage."
+  }
+};
+
+// node_modules/@shopify/polaris-tokens/dist/esm/_virtual/_rollupPluginBabelHelpers.mjs
+function _iterableToArrayLimit2(arr, i) {
+  var _i = arr == null ? null : typeof Symbol < "u" && arr[Symbol.iterator] || arr["@@iterator"];
+  if (_i != null) {
+    var _s, _e, _x, _r, _arr = [], _n = !0, _d = !1;
+    try {
+      if (_x = (_i = _i.call(arr)).next, i === 0) {
+        if (Object(_i) !== _i)
+          return;
+        _n = !1;
+      } else
+        for (; !(_n = (_s = _x.call(_i)).done) && (_arr.push(_s.value), _arr.length !== i); _n = !0)
+          ;
+    } catch (err) {
+      _d = !0, _e = err;
+    } finally {
+      try {
+        if (!_n && _i.return != null && (_r = _i.return(), Object(_r) !== _r))
+          return;
+      } finally {
+        if (_d)
+          throw _e;
+      }
+    }
+    return _arr;
+  }
+}
+function _taggedTemplateLiteralLoose(strings, raw) {
+  return raw || (raw = strings.slice(0)), strings.raw = raw, strings;
+}
+function _slicedToArray2(arr, i) {
+  return _arrayWithHoles2(arr) || _iterableToArrayLimit2(arr, i) || _unsupportedIterableToArray2(arr, i) || _nonIterableRest2();
+}
+function _arrayWithHoles2(arr) {
+  if (Array.isArray(arr))
+    return arr;
+}
+function _unsupportedIterableToArray2(o, minLen) {
+  if (o) {
+    if (typeof o == "string")
+      return _arrayLikeToArray2(o, minLen);
+    var n = Object.prototype.toString.call(o).slice(8, -1);
+    if (n === "Object" && o.constructor && (n = o.constructor.name), n === "Map" || n === "Set")
+      return Array.from(o);
+    if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n))
+      return _arrayLikeToArray2(o, minLen);
+  }
+}
+function _arrayLikeToArray2(arr, len) {
+  (len == null || len > arr.length) && (len = arr.length);
+  for (var i = 0, arr2 = new Array(len); i < len; i++)
+    arr2[i] = arr[i];
+  return arr2;
+}
+function _nonIterableRest2() {
+  throw new TypeError(`Invalid attempt to destructure non-iterable instance.
+In order to be iterable, non-array objects must have a [Symbol.iterator]() method.`);
+}
+
+// node_modules/@shopify/polaris-tokens/dist/esm/src/utils.mjs
+var _templateObject, BASE_FONT_SIZE = 16, UNIT_PX = "px", UNIT_EM = "em", UNIT_REM = "rem", DIGIT_REGEX = new RegExp(String.raw(_templateObject || (_templateObject = _taggedTemplateLiteralLoose(["-?d+(?:.d+|d*)"], ["-?\\d+(?:\\.\\d+|\\d*)"])))), UNIT_REGEX = new RegExp(UNIT_PX + "|" + UNIT_EM + "|" + UNIT_REM);
+function getUnit(value) {
+  value === void 0 && (value = "");
+  var unit = value.match(new RegExp(DIGIT_REGEX.source + "(" + UNIT_REGEX.source + ")"));
+  return unit && unit[1];
+}
+function toRem(value) {
+  value === void 0 && (value = "");
+  var unit = getUnit(value);
+  if (!unit || unit === UNIT_REM)
+    return value;
+  if (unit === UNIT_EM)
+    return "" + parseFloat(value) + UNIT_REM;
+  if (unit === UNIT_PX)
+    return "" + parseFloat(value) / BASE_FONT_SIZE + UNIT_REM;
+}
+function rem(value) {
+  return value.replace(new RegExp(DIGIT_REGEX.source + "(" + UNIT_PX + ")", "g"), function(px) {
+    var _toRem;
+    return (_toRem = toRem(px)) != null ? _toRem : px;
+  });
+}
+function tokenGroupToRems(metaTokenGroup) {
+  return Object.fromEntries(
+    Object.entries(metaTokenGroup).map(function(_ref) {
+      var _ref2 = _slicedToArray2(_ref, 2), tokenName = _ref2[0], tokenProperties = _ref2[1];
+      return [tokenName, Object.assign(Object.assign({}, tokenProperties), {}, {
+        value: rem(tokenProperties.value)
+      })];
+    })
+    // We loose the `metaTokenGroup` inference after transforming the object with
+    // `Object.fromEntries()` and `Object.entries()`. Thus, we cast the result
+    // back to `T` since we are simply converting the `value` from px to rem.
+  );
+}
+function createVarName(tokenName) {
+  return "--p-" + tokenName;
+}
+function createVar(tokenName) {
+  return "var(" + createVarName(tokenName) + ")";
+}
+function getTokenNames(theme) {
+  return Object.values(theme).flatMap(function(tokenGroup) {
+    return Object.keys(tokenGroup);
+  });
+}
+var tokenGroupNamesToRems = ["border", "breakpoints", "font", "height", "shadow", "space", "text", "width"];
+function createMetaThemeBase(metaTheme) {
+  return Object.fromEntries(Object.entries(metaTheme).map(function(_ref5) {
+    var _ref6 = _slicedToArray2(_ref5, 2), tokenGroupName = _ref6[0], tokenGroup = _ref6[1];
+    return [tokenGroupName, tokenGroupNamesToRems.includes(tokenGroupName) ? tokenGroupToRems(tokenGroup) : tokenGroup];
+  }));
+}
+
+// node_modules/@shopify/polaris-tokens/dist/esm/src/themes/utils.mjs
+var import_deepmerge = __toESM(require_cjs(), 1);
+
+// node_modules/@shopify/polaris-tokens/dist/esm/src/size.mjs
+var size = {
+  0: "0px",
+  "0165": "0.66px",
+  "025": "1px",
+  "050": "2px",
+  100: "4px",
+  150: "6px",
+  200: "8px",
+  275: "11px",
+  300: "12px",
+  325: "13px",
+  350: "14px",
+  400: "16px",
+  450: "18px",
+  500: "20px",
+  550: "22px",
+  600: "24px",
+  700: "28px",
+  750: "30px",
+  800: "32px",
+  900: "36px",
+  1e3: "40px",
+  1200: "48px",
+  1600: "64px",
+  2e3: "80px",
+  2400: "96px",
+  2800: "112px",
+  3200: "128px"
+};
+
+// node_modules/@shopify/polaris-tokens/dist/esm/src/themes/base/border.mjs
+var border = {
+  "border-radius-0": {
+    value: size[0]
+  },
+  "border-radius-050": {
+    value: size["050"]
+  },
+  "border-radius-100": {
+    value: size[100]
+  },
+  "border-radius-150": {
+    value: size[150]
+  },
+  "border-radius-200": {
+    value: size[200]
+  },
+  "border-radius-300": {
+    value: size[300]
+  },
+  "border-radius-400": {
+    value: size[400]
+  },
+  "border-radius-500": {
+    value: size[500]
+  },
+  "border-radius-750": {
+    value: size[750]
+  },
+  "border-radius-full": {
+    value: "9999px"
+  },
+  "border-width-0": {
+    value: size[0]
+  },
+  "border-width-0165": {
+    value: size["0165"]
+  },
+  "border-width-025": {
+    value: size["025"]
+  },
+  "border-width-050": {
+    value: size["050"]
+  },
+  "border-width-100": {
+    value: size[100]
+  }
+};
+
+// node_modules/@shopify/polaris-tokens/dist/esm/src/colors.mjs
+var gray = {
+  1: "rgba(255, 255, 255, 1)",
+  2: "rgba(253, 253, 253, 1)",
+  3: "rgba(250, 250, 250, 1)",
+  4: "rgba(247, 247, 247, 1)",
+  5: "rgba(243, 243, 243, 1)",
+  6: "rgba(241, 241, 241, 1)",
+  7: "rgba(235, 235, 235, 1)",
+  8: "rgba(227, 227, 227, 1)",
+  9: "rgba(212, 212, 212, 1)",
+  10: "rgba(204, 204, 204, 1)",
+  11: "rgba(181, 181, 181, 1)",
+  12: "rgba(138, 138, 138, 1)",
+  13: "rgba(97, 97, 97, 1)",
+  14: "rgba(74, 74, 74, 1)",
+  15: "rgba(48, 48, 48, 1)",
+  16: "rgba(26, 26, 26, 1)"
+}, azure = {
+  1: "rgba(251, 253, 255, 1)",
+  2: "rgba(242, 249, 255, 1)",
+  3: "rgba(234, 244, 255, 1)",
+  4: "rgba(224, 240, 255, 1)",
+  5: "rgba(213, 235, 255, 1)",
+  6: "rgba(202, 230, 255, 1)",
+  7: "rgba(192, 225, 255, 1)",
+  8: "rgba(168, 216, 255, 1)",
+  9: "rgba(145, 208, 255, 1)",
+  10: "rgba(81, 192, 255, 1)",
+  11: "rgba(0, 148, 213, 1)",
+  12: "rgba(0, 124, 180, 1)",
+  13: "rgba(0, 103, 155, 1)",
+  14: "rgba(0, 82, 124, 1)",
+  15: "rgba(0, 58, 90, 1)",
+  16: "rgba(0, 33, 51, 1)"
+}, blue = {
+  1: "rgba(252, 253, 255, 1)",
+  2: "rgba(246, 248, 255, 1)",
+  3: "rgba(240, 242, 255, 1)",
+  4: "rgba(234, 237, 255, 1)",
+  5: "rgba(226, 231, 255, 1)",
+  6: "rgba(219, 225, 255, 1)",
+  7: "rgba(213, 220, 255, 1)",
+  8: "rgba(197, 208, 255, 1)",
+  9: "rgba(186, 199, 255, 1)",
+  10: "rgba(151, 173, 255, 1)",
+  11: "rgba(65, 136, 255, 1)",
+  12: "rgba(0, 113, 233, 1)",
+  13: "rgba(0, 91, 211, 1)",
+  14: "rgba(0, 66, 153, 1)",
+  15: "rgba(0, 46, 106, 1)",
+  16: "rgba(0, 22, 51, 1)"
+}, green = {
+  1: "rgba(248, 255, 251, 1)",
+  2: "rgba(227, 255, 237, 1)",
+  3: "rgba(205, 254, 225, 1)",
+  4: "rgba(180, 254, 210, 1)",
+  5: "rgba(146, 254, 194, 1)",
+  6: "rgba(99, 253, 176, 1)",
+  7: "rgba(56, 250, 163, 1)",
+  8: "rgba(53, 238, 155, 1)",
+  9: "rgba(50, 225, 147, 1)",
+  10: "rgba(46, 211, 137, 1)",
+  11: "rgba(50, 160, 110, 1)",
+  12: "rgba(41, 132, 90, 1)",
+  13: "rgba(19, 111, 69, 1)",
+  14: "rgba(12, 81, 50, 1)",
+  15: "rgba(8, 61, 37, 1)",
+  16: "rgba(9, 42, 27, 1)"
+}, lime = {
+  1: "rgba(250, 255, 250, 1)",
+  2: "rgba(228, 255, 229, 1)",
+  3: "rgba(208, 255, 209, 1)",
+  4: "rgba(187, 254, 190, 1)",
+  5: "rgba(157, 254, 160, 1)",
+  6: "rgba(119, 254, 122, 1)",
+  7: "rgba(56, 254, 62, 1)",
+  8: "rgba(40, 242, 47, 1)",
+  9: "rgba(37, 232, 43, 1)",
+  10: "rgba(32, 207, 39, 1)",
+  11: "rgba(24, 168, 29, 1)",
+  12: "rgba(17, 135, 21, 1)",
+  13: "rgba(12, 113, 15, 1)",
+  14: "rgba(11, 85, 13, 1)",
+  15: "rgba(3, 61, 5, 1)",
+  16: "rgba(3, 33, 4, 1)"
+}, magenta = {
+  1: "rgba(255, 253, 255, 1)",
+  2: "rgba(255, 245, 255, 1)",
+  3: "rgba(253, 239, 253, 1)",
+  4: "rgba(254, 231, 254, 1)",
+  5: "rgba(252, 223, 252, 1)",
+  6: "rgba(251, 215, 251, 1)",
+  7: "rgba(251, 207, 251, 1)",
+  8: "rgba(249, 190, 249, 1)",
+  9: "rgba(248, 177, 248, 1)",
+  10: "rgba(246, 141, 246, 1)",
+  11: "rgba(225, 86, 225, 1)",
+  12: "rgba(197, 48, 197, 1)",
+  13: "rgba(159, 38, 159, 1)",
+  14: "rgba(121, 26, 121, 1)",
+  15: "rgba(86, 16, 86, 1)",
+  16: "rgba(52, 6, 52, 1)"
+}, orange = {
+  1: "rgba(255, 253, 250, 1)",
+  2: "rgba(255, 247, 238, 1)",
+  3: "rgba(255, 241, 227, 1)",
+  4: "rgba(255, 235, 213, 1)",
+  5: "rgba(255, 228, 198, 1)",
+  6: "rgba(255, 221, 182, 1)",
+  7: "rgba(255, 214, 164, 1)",
+  8: "rgba(255, 200, 121, 1)",
+  9: "rgba(255, 184, 0, 1)",
+  10: "rgba(229, 165, 0, 1)",
+  11: "rgba(178, 132, 0, 1)",
+  12: "rgba(149, 111, 0, 1)",
+  13: "rgba(124, 88, 0, 1)",
+  14: "rgba(94, 66, 0, 1)",
+  15: "rgba(65, 45, 0, 1)",
+  16: "rgba(37, 26, 0, 1)"
+}, purple = {
+  1: "rgba(253, 253, 255, 1)",
+  2: "rgba(248, 247, 255, 1)",
+  3: "rgba(243, 241, 255, 1)",
+  4: "rgba(239, 236, 255, 1)",
+  5: "rgba(233, 229, 255, 1)",
+  6: "rgba(228, 222, 255, 1)",
+  7: "rgba(223, 217, 255, 1)",
+  8: "rgba(212, 204, 255, 1)",
+  9: "rgba(199, 188, 255, 1)",
+  10: "rgba(170, 149, 255, 1)",
+  11: "rgba(148, 116, 255, 1)",
+  12: "rgba(128, 81, 255, 1)",
+  13: "rgba(113, 38, 255, 1)",
+  14: "rgba(87, 0, 209, 1)",
+  15: "rgba(59, 0, 147, 1)",
+  16: "rgba(28, 0, 79, 1)"
+}, red = {
+  1: "rgba(255, 251, 251, 1)",
+  2: "rgba(255, 246, 246, 1)",
+  3: "rgba(255, 237, 236, 1)",
+  4: "rgba(254, 233, 232, 1)",
+  5: "rgba(254, 226, 225, 1)",
+  6: "rgba(254, 218, 217, 1)",
+  7: "rgba(254, 211, 209, 1)",
+  8: "rgba(254, 195, 193, 1)",
+  9: "rgba(253, 176, 172, 1)",
+  10: "rgba(253, 129, 122, 1)",
+  11: "rgba(239, 77, 47, 1)",
+  12: "rgba(229, 28, 0, 1)",
+  13: "rgba(181, 38, 11, 1)",
+  14: "rgba(142, 31, 11, 1)",
+  15: "rgba(95, 21, 7, 1)",
+  16: "rgba(47, 10, 4, 1)"
+}, rose = {
+  1: "rgba(255, 253, 253, 1)",
+  2: "rgba(255, 246, 248, 1)",
+  3: "rgba(255, 239, 243, 1)",
+  4: "rgba(255, 232, 238, 1)",
+  5: "rgba(255, 225, 232, 1)",
+  6: "rgba(255, 217, 227, 1)",
+  7: "rgba(254, 209, 221, 1)",
+  8: "rgba(254, 193, 210, 1)",
+  9: "rgba(254, 181, 202, 1)",
+  10: "rgba(254, 142, 177, 1)",
+  11: "rgba(253, 75, 146, 1)",
+  12: "rgba(227, 12, 118, 1)",
+  13: "rgba(185, 7, 95, 1)",
+  14: "rgba(141, 4, 72, 1)",
+  15: "rgba(100, 2, 49, 1)",
+  16: "rgba(62, 1, 28, 1)"
+}, teal = {
+  1: "rgba(248, 255, 254, 1)",
+  2: "rgba(232, 252, 250, 1)",
+  3: "rgba(215, 250, 247, 1)",
+  4: "rgba(195, 247, 242, 1)",
+  5: "rgba(170, 246, 239, 1)",
+  6: "rgba(137, 245, 236, 1)",
+  7: "rgba(112, 240, 229, 1)",
+  8: "rgba(90, 230, 219, 1)",
+  9: "rgba(44, 224, 212, 1)",
+  10: "rgba(30, 199, 188, 1)",
+  11: "rgba(0, 161, 152, 1)",
+  12: "rgba(18, 131, 124, 1)",
+  13: "rgba(12, 106, 100, 1)",
+  14: "rgba(12, 83, 79, 1)",
+  15: "rgba(3, 60, 57, 1)",
+  16: "rgba(6, 44, 41, 1)"
+}, yellow = {
+  1: "rgba(255, 253, 246, 1)",
+  2: "rgba(255, 248, 219, 1)",
+  3: "rgba(255, 244, 191, 1)",
+  4: "rgba(255, 239, 157, 1)",
+  5: "rgba(255, 235, 120, 1)",
+  6: "rgba(255, 230, 0, 1)",
+  7: "rgba(247, 223, 0, 1)",
+  8: "rgba(234, 211, 0, 1)",
+  9: "rgba(225, 203, 0, 1)",
+  10: "rgba(197, 178, 0, 1)",
+  11: "rgba(153, 138, 0, 1)",
+  12: "rgba(130, 117, 0, 1)",
+  13: "rgba(105, 95, 0, 1)",
+  14: "rgba(79, 71, 0, 1)",
+  15: "rgba(51, 46, 0, 1)",
+  16: "rgba(31, 28, 0, 1)"
+}, blackAlpha = {
+  1: "rgba(0, 0, 0, 0)",
+  2: "rgba(0, 0, 0, 0.01)",
+  3: "rgba(0, 0, 0, 0.02)",
+  4: "rgba(0, 0, 0, 0.03)",
+  5: "rgba(0, 0, 0, 0.05)",
+  6: "rgba(0, 0, 0, 0.06)",
+  7: "rgba(0, 0, 0, 0.08)",
+  8: "rgba(0, 0, 0, 0.11)",
+  9: "rgba(0, 0, 0, 0.17)",
+  10: "rgba(0, 0, 0, 0.20)",
+  11: "rgba(0, 0, 0, 0.29)",
+  12: "rgba(0, 0, 0, 0.46)",
+  13: "rgba(0, 0, 0, 0.62)",
+  14: "rgba(0, 0, 0, 0.71)",
+  15: "rgba(0, 0, 0, 0.81)",
+  16: "rgba(0, 0, 0, 0.90)"
+};
+
+// node_modules/@shopify/polaris-tokens/dist/esm/src/themes/base/color.mjs
+var color = {
+  "color-bg": {
+    value: gray[6],
+    description: "The default background color of the admin."
+  },
+  "color-bg-inverse": {
+    value: gray[16],
+    description: "Use for high contrast page or component backgrounds."
+  },
+  "color-bg-surface": {
+    value: gray[1],
+    description: "The background color for elements with the highest level of prominence, like a card."
+  },
+  "color-bg-surface-hover": {
+    value: gray[4],
+    description: "The hover state color for elements with the highest level of prominence."
+  },
+  "color-bg-surface-active": {
+    value: gray[5],
+    description: "The active state (on press) color for elements with the highest level of prominence."
+  },
+  "color-bg-surface-selected": {
+    value: gray[6],
+    description: "The selected state color for elements with the highest level of prominence."
+  },
+  "color-bg-surface-disabled": {
+    value: blackAlpha[5],
+    description: "The disabled state color for elements."
+  },
+  "color-bg-surface-secondary": {
+    value: gray[4],
+    description: "The background color for elements with a secondary level of prominence."
+  },
+  "color-bg-surface-secondary-hover": {
+    value: gray[6],
+    description: "The hover state color for elements with a secondary level of prominence."
+  },
+  "color-bg-surface-secondary-active": {
+    value: gray[7],
+    description: "The active state (on press) color for elements with a secondary level of prominence."
+  },
+  "color-bg-surface-secondary-selected": {
+    value: gray[7],
+    description: "The selected state color for elements with a secondary level of prominence."
+  },
+  "color-bg-surface-tertiary": {
+    value: gray[5],
+    description: "The background color for elements with a third level of prominence."
+  },
+  "color-bg-surface-tertiary-hover": {
+    value: gray[7],
+    description: "The hover state color for elements with a third level of prominence."
+  },
+  "color-bg-surface-tertiary-active": {
+    value: gray[8],
+    description: "The active state (on press) color for elements with a third level of prominence."
+  },
+  "color-bg-surface-brand": {
+    value: gray[8],
+    description: "Use to apply the key color to elements."
+  },
+  "color-bg-surface-brand-hover": {
+    value: gray[7],
+    description: "The hover state color for key elements."
+  },
+  "color-bg-surface-brand-active": {
+    value: gray[6],
+    description: "The active state (on press) color for key elements."
+  },
+  "color-bg-surface-brand-selected": {
+    value: gray[6],
+    description: "The selected state color for key elements."
+  },
+  "color-bg-surface-info": {
+    value: azure[3],
+    description: "Use for backgrounds communicating important information, like banners."
+  },
+  "color-bg-surface-info-hover": {
+    value: azure[4],
+    description: "The hover state color for communicating important information."
+  },
+  "color-bg-surface-info-active": {
+    value: azure[6],
+    description: "The active state (on press) color for communicating important information."
+  },
+  "color-bg-surface-success": {
+    value: green[3],
+    description: "Use for backgrounds communicating success, like banners."
+  },
+  "color-bg-surface-success-hover": {
+    value: green[4],
+    description: "The hover state color for communicating success."
+  },
+  "color-bg-surface-success-active": {
+    value: green[5],
+    description: "The active state (on press) color for communicating success."
+  },
+  "color-bg-surface-caution": {
+    value: yellow[2],
+    description: "Use for backgrounds communicating caution, like banners."
+  },
+  "color-bg-surface-caution-hover": {
+    value: yellow[3],
+    description: "The hover state for communicating caution."
+  },
+  "color-bg-surface-caution-active": {
+    value: yellow[4],
+    description: "The active state (on press) color for communicating caution."
+  },
+  "color-bg-surface-warning": {
+    value: orange[3],
+    description: "Use for backgrounds communicating warning, like banners."
+  },
+  "color-bg-surface-warning-hover": {
+    value: orange[4],
+    description: "The hover state color for communicating warning."
+  },
+  "color-bg-surface-warning-active": {
+    value: orange[5],
+    description: "The active state (on press) color for communicating warning."
+  },
+  "color-bg-surface-critical": {
+    value: red[4],
+    description: "Use for backgrounds communicating critical information, like banners or input errors."
+  },
+  "color-bg-surface-critical-hover": {
+    value: red[5],
+    description: "The hover state color for communicating critical information."
+  },
+  "color-bg-surface-critical-active": {
+    value: red[6],
+    description: "The active state (on press) color for communicating critical information."
+  },
+  "color-bg-surface-emphasis": {
+    value: blue[3],
+    description: "Use for backgrounds indicating areas of focus in editors, such as the theme editor."
+  },
+  "color-bg-surface-emphasis-hover": {
+    value: blue[4],
+    description: "The hover state color for elements indicating areas of focus in editors."
+  },
+  "color-bg-surface-emphasis-active": {
+    value: blue[5],
+    description: "The active state (on press) color for elements indicating areas of focus in editors."
+  },
+  "color-bg-surface-magic": {
+    value: purple[2],
+    description: "Use for backgrounds of elements suggested by magic AI."
+  },
+  "color-bg-surface-magic-hover": {
+    value: purple[3],
+    description: "The hover state color for elements suggested by magic AI."
+  },
+  "color-bg-surface-magic-active": {
+    value: purple[5],
+    description: "The active state (on press) color for elements suggested by magic AI."
+  },
+  "color-bg-surface-inverse": {
+    value: gray[15],
+    description: "Use for elements on bg-inverse."
+  },
+  "color-bg-surface-transparent": {
+    value: blackAlpha[1],
+    description: "Use for elements that need a fully transparent background."
+  },
+  "color-bg-fill": {
+    value: gray[1],
+    description: "The background color of contained elements with a smaller surface area, like a button."
+  },
+  "color-bg-fill-hover": {
+    value: gray[3],
+    description: "The hover state color of contained elements with a smaller surface area, like a button."
+  },
+  "color-bg-fill-active": {
+    value: gray[4],
+    description: "The active state (on press) color of contained elements with a smaller surface area, like a button."
+  },
+  "color-bg-fill-selected": {
+    value: gray[10],
+    description: "The selected state color of contained elements with a smaller surface area, like a button or checkbox."
+  },
+  "color-bg-fill-disabled": {
+    value: blackAlpha[5],
+    description: "The disabled state color of contained elements with a smaller surface area, like a button."
+  },
+  "color-bg-fill-secondary": {
+    value: gray[6],
+    description: "The background color of elements with a smaller surface area and a secondary level of prominence."
+  },
+  "color-bg-fill-secondary-hover": {
+    value: gray[7],
+    description: "The hover state color of elements with a smaller surface area and a secondary level of prominence."
+  },
+  "color-bg-fill-secondary-active": {
+    value: gray[8],
+    description: "The active state (on press) color of elements with a smaller surface area and a secondary level of prominence."
+  },
+  "color-bg-fill-tertiary": {
+    value: gray[8],
+    description: "The background color of elements with a smaller surface area and a third level of prominence."
+  },
+  "color-bg-fill-tertiary-hover": {
+    value: gray[9],
+    description: "The hover state color of elements with a smaller surface area and a third level of prominence."
+  },
+  "color-bg-fill-tertiary-active": {
+    value: gray[10],
+    description: "The active state (on press) color of elements with a smaller surface area and a third level of prominence."
+  },
+  "color-bg-fill-brand": {
+    value: gray[15],
+    description: "The background color of main actions, like primary buttons."
+  },
+  "color-bg-fill-brand-hover": {
+    value: gray[16],
+    description: "The hover state color of main actions, like primary buttons."
+  },
+  "color-bg-fill-brand-active": {
+    value: gray[16],
+    description: "The active state (on press) color of main actions, like primary buttons."
+  },
+  "color-bg-fill-brand-selected": {
+    value: gray[15],
+    description: "The selected state color of main actions, like primary buttons."
+  },
+  "color-bg-fill-brand-disabled": {
+    value: blackAlpha[9],
+    description: "The disabled state color of main actions, like primary buttons."
+  },
+  "color-bg-fill-info": {
+    value: azure[9],
+    description: "Use for backgrounds communicating important information on elements with a smaller surface area, like a badge or button."
+  },
+  "color-bg-fill-info-hover": {
+    value: azure[10],
+    description: "The hover state color for communicating important information on elements with a smaller surface area."
+  },
+  "color-bg-fill-info-active": {
+    value: azure[11],
+    description: "The active state (on press) color for communicating important information on elements with a smaller surface area."
+  },
+  "color-bg-fill-info-secondary": {
+    value: azure[5],
+    description: "Use for backgrounds communicating important information on elements with a smaller surface area, with a secondary level of prominence."
+  },
+  "color-bg-fill-success": {
+    value: green[12],
+    description: "Use for backgrounds communicating success on elements with a smaller surface area, like a badge or a banner."
+  },
+  "color-bg-fill-success-hover": {
+    value: green[13],
+    description: "The hover state color for communicating success on elements with a smaller surface area."
+  },
+  "color-bg-fill-success-active": {
+    value: green[14],
+    description: "The active state (on press) color for communicating success on elements with a smaller surface area."
+  },
+  "color-bg-fill-success-secondary": {
+    value: green[4],
+    description: "Use for backgrounds communicating success on elements with a smaller surface area, with a secondary level of prominence."
+  },
+  "color-bg-fill-warning": {
+    value: orange[9],
+    description: "Use for backgrounds communicating warning on elements with a smaller surface area, like a badge or a banner."
+  },
+  "color-bg-fill-warning-hover": {
+    value: orange[10],
+    description: "The hover state color for communicating warning on elements with a smaller surface area."
+  },
+  "color-bg-fill-warning-active": {
+    value: orange[11],
+    description: "The active state (on press) color for communicating warning on elements with a smaller surface area."
+  },
+  "color-bg-fill-warning-secondary": {
+    value: orange[7],
+    description: "Use for backgrounds communicating warning on elements with a smaller surface area, with a secondary level of prominence."
+  },
+  "color-bg-fill-caution": {
+    value: yellow[6],
+    description: "Use for backgrounds communicating caution on elements with a smaller surface area, like a badge or a banner."
+  },
+  "color-bg-fill-caution-hover": {
+    value: yellow[8],
+    description: "The hover state color for communicating caution on elements with a smaller surface area."
+  },
+  "color-bg-fill-caution-active": {
+    value: yellow[9],
+    description: "The active state (on press) color for communicating caution on elements with a smaller surface area."
+  },
+  "color-bg-fill-caution-secondary": {
+    value: yellow[5],
+    description: "Use for backgrounds communicating caution on elements with a smaller surface area, with a secondary level of prominence."
+  },
+  "color-bg-fill-critical": {
+    value: red[12],
+    description: "Use for backgrounds communicating critical information on elements with a smaller surface area, like a badge or a banner."
+  },
+  "color-bg-fill-critical-hover": {
+    value: red[13],
+    description: "The hover state color for communicating critical information on elements with a smaller surface area."
+  },
+  "color-bg-fill-critical-active": {
+    value: red[14],
+    description: "The active state (on press) color for communicating critical information on elements with a smaller surface area."
+  },
+  "color-bg-fill-critical-selected": {
+    value: red[14],
+    description: "The selected state color for communicating critical information on elements with a smaller surface area."
+  },
+  "color-bg-fill-critical-secondary": {
+    value: red[7],
+    description: "Use for backgrounds communicating critical information on elements with a smaller surface area, with a secondary level of prominence."
+  },
+  "color-bg-fill-emphasis": {
+    value: blue[13],
+    description: "Use for backgrounds indicating areas of focus in editors on elements with a smaller surface area, like a button or a badge."
+  },
+  "color-bg-fill-emphasis-hover": {
+    value: blue[14],
+    description: "The hover state color for indicating areas of focus in editors on elements with a smaller surface area."
+  },
+  "color-bg-fill-emphasis-active": {
+    value: blue[15],
+    description: "The active state (on press) color for indicating areas of focus in editors on elements with a smaller surface area."
+  },
+  "color-bg-fill-magic": {
+    value: purple[12],
+    description: "The background color of elements suggested by magic AI, like a badge or a banner."
+  },
+  "color-bg-fill-magic-secondary": {
+    value: purple[5],
+    description: "The background color of elements suggested by magic AI, with a secondary level of prominence."
+  },
+  "color-bg-fill-magic-secondary-hover": {
+    value: purple[6],
+    description: "The hover state color of elements suggested by magic AI, with a secondary level of prominence."
+  },
+  "color-bg-fill-magic-secondary-active": {
+    value: purple[7],
+    description: "The active state (on press) color of elements suggested by magic AI, with a secondary level of prominence."
+  },
+  "color-bg-fill-inverse": {
+    value: gray[15],
+    description: "The background color of elements with a smaller surface area on an inverse background."
+  },
+  "color-bg-fill-inverse-hover": {
+    value: gray[14],
+    description: "The hover state color of elements with a smaller surface area on an inverse background."
+  },
+  "color-bg-fill-inverse-active": {
+    value: gray[13],
+    description: "The active state (on press) color of elements with a smaller surface area on an inverse background."
+  },
+  "color-bg-fill-transparent": {
+    value: blackAlpha[3],
+    description: "The background color of elements that need to sit on different background colors, like tabs."
+  },
+  "color-bg-fill-transparent-hover": {
+    value: blackAlpha[5],
+    description: "The hover state color of elements that need to sit on different background colors, like tabs."
+  },
+  "color-bg-fill-transparent-active": {
+    value: blackAlpha[7],
+    description: "The active state (on press) color of elements that need to sit on different background colors, like tabs."
+  },
+  "color-bg-fill-transparent-selected": {
+    value: blackAlpha[7],
+    description: "The selected state color of elements that need to sit on different background colors, like tabs."
+  },
+  "color-bg-fill-transparent-secondary": {
+    value: blackAlpha[6],
+    description: "The background color of elements that need to sit on different background colors, with a secondary level of prominence."
+  },
+  "color-bg-fill-transparent-secondary-hover": {
+    value: blackAlpha[7],
+    description: "The hover state color of elements that need to sit on different background colors, with a secondary level of prominence."
+  },
+  "color-bg-fill-transparent-secondary-active": {
+    value: blackAlpha[8],
+    description: "The active state (on press) color of elements that need to sit on different background colors, with a secondary level of prominence."
+  },
+  "color-text": {
+    value: gray[15],
+    description: "The default text color."
+  },
+  "color-text-secondary": {
+    value: gray[13],
+    description: "Use for text with a secondary level of prominence."
+  },
+  "color-text-disabled": {
+    value: gray[11],
+    description: "Use for text in a disabled state."
+  },
+  "color-text-link": {
+    value: blue[13],
+    description: "Use for text links."
+  },
+  "color-text-link-hover": {
+    value: blue[14],
+    description: "The hover state color for text links."
+  },
+  "color-text-link-active": {
+    value: blue[15],
+    description: "The active state (on press) color for text links."
+  },
+  "color-text-brand": {
+    value: gray[14],
+    description: "Use for text that needs to pull attention."
+  },
+  "color-text-brand-hover": {
+    value: gray[15],
+    description: "The hover state color for text that needs to pull attention."
+  },
+  "color-text-brand-on-bg-fill": {
+    value: gray[1],
+    description: "Use for text on bg-fill-brand, like primary buttons."
+  },
+  "color-text-brand-on-bg-fill-hover": {
+    value: gray[8],
+    description: "The hover state color for text on bg-fill-brand-hover."
+  },
+  "color-text-brand-on-bg-fill-active": {
+    value: gray[10],
+    description: "The active state (on press) color for text on bg-fill-brand."
+  },
+  "color-text-brand-on-bg-fill-disabled": {
+    value: gray[1],
+    description: "The disabled state color for text on bg-fill-brand-disabled."
+  },
+  "color-text-info": {
+    value: azure[15],
+    description: "Use for text communicating important information."
+  },
+  "color-text-info-hover": {
+    value: azure[15],
+    description: "The hover state color for text communicating important information."
+  },
+  "color-text-info-active": {
+    value: azure[16],
+    description: "The active state (on press) color for text communicating important information."
+  },
+  "color-text-info-secondary": {
+    value: azure[12],
+    description: "Use for text communicating important information with a secondary level of prominence."
+  },
+  "color-text-info-on-bg-fill": {
+    value: azure[16],
+    description: "Use for text and icons on bg-fill-info."
+  },
+  "color-text-success": {
+    value: green[14],
+    description: "Use for text communicating success."
+  },
+  "color-text-success-hover": {
+    value: green[15],
+    description: "The hover state color for text communicating success."
+  },
+  "color-text-success-active": {
+    value: green[16],
+    description: "The active state (on press) color for text communicating success."
+  },
+  "color-text-success-secondary": {
+    value: green[12],
+    description: "Use for text communicating success with a secondary level of prominence."
+  },
+  "color-text-success-on-bg-fill": {
+    value: green[1],
+    description: "Use for text and icons on bg-fill-success."
+  },
+  "color-text-caution": {
+    value: yellow[14],
+    description: "Use for text communicating caution."
+  },
+  "color-text-caution-hover": {
+    value: yellow[15],
+    description: "The hover state color for text communicating caution."
+  },
+  "color-text-caution-active": {
+    value: yellow[16],
+    description: "The active state (on press) color for text communicating caution."
+  },
+  "color-text-caution-secondary": {
+    value: yellow[12],
+    description: "Use for text communicating caution with a secondary level of prominence."
+  },
+  "color-text-caution-on-bg-fill": {
+    value: yellow[15],
+    description: "Use for text and icons on bg-fill-caution."
+  },
+  "color-text-warning": {
+    value: orange[14],
+    description: "Use for text communicating warning."
+  },
+  "color-text-warning-hover": {
+    value: orange[15],
+    description: "The hover state color for text communicating warning."
+  },
+  "color-text-warning-active": {
+    value: orange[16],
+    description: "The active state (on press) color for text communicating warning."
+  },
+  "color-text-warning-secondary": {
+    value: orange[12],
+    description: "Use for text communicating warning with a secondary level of prominence."
+  },
+  "color-text-warning-on-bg-fill": {
+    value: orange[16],
+    description: "Use for text and icons on bg-fill-warning."
+  },
+  "color-text-critical": {
+    value: red[14],
+    description: "Use for text communicating critical information."
+  },
+  "color-text-critical-hover": {
+    value: red[15],
+    description: "The hover state color for text communicating critical information."
+  },
+  "color-text-critical-active": {
+    value: red[16],
+    description: "The active state (on press) color for text communicating critical information."
+  },
+  "color-text-critical-secondary": {
+    value: red[12],
+    description: "Use for text communicating critical information with a secondary level of prominence."
+  },
+  "color-text-critical-on-bg-fill": {
+    value: red[1],
+    description: "Use for text and icons on bg-fill-critical."
+  },
+  "color-text-emphasis": {
+    value: blue[13],
+    description: "Use for text indicating areas of focus in editors, like the theme editor."
+  },
+  "color-text-emphasis-hover": {
+    value: blue[14],
+    description: "The hover state color for text indicating areas of focus."
+  },
+  "color-text-emphasis-active": {
+    value: blue[15],
+    description: "The active state (on press) color for text indicating areas of focus."
+  },
+  "color-text-emphasis-on-bg-fill": {
+    value: blue[1],
+    description: "Use for text and icons on bg-fill-emphasis."
+  },
+  "color-text-emphasis-on-bg-fill-hover": {
+    value: blue[5],
+    description: "Use for text and icons on bg-fill-emphasis-hover."
+  },
+  "color-text-emphasis-on-bg-fill-active": {
+    value: blue[7],
+    description: "Use for text and icons on bg-fill-emphasis-active."
+  },
+  "color-text-magic": {
+    value: purple[14],
+    description: "Use for text suggested by magic AI."
+  },
+  "color-text-magic-secondary": {
+    value: purple[13],
+    description: "Use for text suggested by magic AI with a secondary level of prominence."
+  },
+  "color-text-magic-on-bg-fill": {
+    value: purple[1],
+    description: "Use for text and icons on bg-fill-magic."
+  },
+  "color-text-inverse": {
+    value: gray[8],
+    description: "Use for text on an inverse background."
+  },
+  "color-text-inverse-secondary": {
+    value: gray[11],
+    description: "Use for secondary text on an inverse background."
+  },
+  "color-text-link-inverse": {
+    value: blue[8],
+    description: "Use for text links on an inverse background."
+  },
+  "color-border": {
+    value: gray[8],
+    description: "The default color for borders on any element."
+  },
+  "color-border-hover": {
+    value: gray[10],
+    description: "The hover color for borders on any element."
+  },
+  "color-border-disabled": {
+    value: gray[7],
+    description: "The disabled color for borders on any element."
+  },
+  "color-border-secondary": {
+    value: gray[7],
+    description: "The color for hr elements or any visual dividers."
+  },
+  "color-border-tertiary": {
+    value: gray[10],
+    description: "The border color on any element. Pair with bg-surface-tertiary or bg-fill-tertiary."
+  },
+  "color-border-focus": {
+    value: blue[13],
+    description: "The focus ring for any interactive element in a focused state."
+  },
+  "color-border-brand": {
+    value: gray[8],
+    description: "Use for borders paired with brand colors."
+  },
+  "color-border-info": {
+    value: azure[8],
+    description: "Use for borders communicating information."
+  },
+  "color-border-success": {
+    value: green[5],
+    description: "Use for borders communicating success."
+  },
+  "color-border-caution": {
+    value: yellow[5],
+    description: "Use for borders communicating caution."
+  },
+  "color-border-warning": {
+    value: orange[8],
+    description: "Use for borders communicating warning."
+  },
+  "color-border-critical": {
+    value: red[8],
+    description: "Use for borders communicating critical information."
+  },
+  "color-border-critical-secondary": {
+    value: red[14],
+    description: "Use for borders communicating critical information, such as borders on invalid text fields."
+  },
+  "color-border-emphasis": {
+    value: blue[13],
+    description: "Use for borders indicating areas of focus."
+  },
+  "color-border-emphasis-hover": {
+    value: blue[14],
+    description: "The hover state color for borders indicating areas of focus."
+  },
+  "color-border-emphasis-active": {
+    value: blue[15],
+    description: "The active state (on press) color for borders indicating areas of focus."
+  },
+  "color-border-magic": {
+    value: purple[6],
+    description: "Use for borders suggested by magic AI."
+  },
+  "color-border-magic-secondary": {
+    value: purple[11],
+    description: "Use for borders suggested by magic AI, such as borders on text fields."
+  },
+  "color-border-magic-secondary-hover": {
+    value: purple[12],
+    description: "Use for borders suggested by magic AI, such as borders on text fields."
+  },
+  "color-border-inverse": {
+    value: gray[13],
+    description: "Use for borders on an inverse background, such as borders on the global search."
+  },
+  "color-border-inverse-hover": {
+    value: gray[10],
+    description: "The hover state color for borders on an inverse background."
+  },
+  "color-border-inverse-active": {
+    value: gray[8],
+    description: "The active state (on press) color for borders on an inverse background."
+  },
+  "color-icon": {
+    value: gray[14],
+    description: "The default color for icons."
+  },
+  "color-icon-hover": {
+    value: gray[15],
+    description: "The hover state color for icons."
+  },
+  "color-icon-active": {
+    value: gray[16],
+    description: "The active state (on press) color for icons."
+  },
+  "color-icon-disabled": {
+    value: gray[10],
+    description: "The disabled state color for icons."
+  },
+  "color-icon-secondary": {
+    value: gray[12],
+    description: "Use for secondary icons."
+  },
+  "color-icon-secondary-hover": {
+    value: gray[13],
+    description: "The hover state color for secondary icons."
+  },
+  "color-icon-secondary-active": {
+    value: gray[14],
+    description: "The active state (on press) color for secondary icons."
+  },
+  "color-icon-brand": {
+    value: gray[16],
+    description: "Use for icons that need to pull more focus."
+  },
+  "color-icon-info": {
+    value: azure[11],
+    description: "Use for icons communicating information."
+  },
+  "color-icon-success": {
+    value: green[12],
+    description: "Use for icons communicating success."
+  },
+  "color-icon-caution": {
+    value: yellow[11],
+    description: "Use for icons communicating caution."
+  },
+  "color-icon-warning": {
+    value: orange[11],
+    description: "Use for icons communicating warning."
+  },
+  "color-icon-critical": {
+    value: red[11],
+    description: "Use for icons communicating critical information."
+  },
+  "color-icon-emphasis": {
+    value: blue[13],
+    description: "Use for icons indicating areas of focus in editors, like the theme editor."
+  },
+  "color-icon-emphasis-hover": {
+    value: blue[14],
+    description: "The hover color for icons indicating areas of focus in editors."
+  },
+  "color-icon-emphasis-active": {
+    value: blue[15],
+    description: "The active state (on press) color for icons indicating areas of focus in editors."
+  },
+  "color-icon-magic": {
+    value: purple[12],
+    description: "Use for icons suggested by magic AI."
+  },
+  "color-icon-inverse": {
+    value: gray[8],
+    description: "Use for icons on an inverse background."
+  },
+  "color-avatar-bg-fill": {
+    value: gray[11]
+  },
+  "color-avatar-five-bg-fill": {
+    value: rose[11]
+  },
+  "color-avatar-five-text-on-bg-fill": {
+    value: rose[2]
+  },
+  "color-avatar-four-bg-fill": {
+    value: azure[10]
+  },
+  "color-avatar-four-text-on-bg-fill": {
+    value: azure[16]
+  },
+  "color-avatar-one-bg-fill": {
+    value: magenta[12]
+  },
+  "color-avatar-one-text-on-bg-fill": {
+    value: magenta[3]
+  },
+  "color-avatar-seven-bg-fill": {
+    value: purple[11]
+  },
+  "color-avatar-seven-text-on-bg-fill": {
+    value: purple[2]
+  },
+  "color-avatar-six-bg-fill": {
+    value: lime[9]
+  },
+  "color-avatar-six-text-on-bg-fill": {
+    value: lime[15]
+  },
+  "color-avatar-text-on-bg-fill": {
+    value: gray[1]
+  },
+  "color-avatar-three-bg-fill": {
+    value: teal[9]
+  },
+  "color-avatar-three-text-on-bg-fill": {
+    value: teal[15]
+  },
+  "color-avatar-two-bg-fill": {
+    value: green[7]
+  },
+  "color-avatar-two-text-on-bg-fill": {
+    value: green[14]
+  },
+  "color-backdrop-bg": {
+    value: blackAlpha[14]
+  },
+  "color-button-gradient-bg-fill": {
+    value: "linear-gradient(180deg, rgba(48, 48, 48, 0) 63.53%, rgba(255, 255, 255, 0.15) 100%)"
+  },
+  "color-checkbox-bg-surface-disabled": {
+    value: blackAlpha[7]
+  },
+  "color-checkbox-icon-disabled": {
+    value: gray[1]
+  },
+  "color-input-bg-surface": {
+    value: gray[2]
+  },
+  "color-input-bg-surface-hover": {
+    value: gray[3]
+  },
+  "color-input-bg-surface-active": {
+    value: gray[4]
+  },
+  "color-input-border": {
+    value: gray[12]
+  },
+  "color-input-border-hover": {
+    value: gray[13]
+  },
+  "color-input-border-active": {
+    value: gray[16]
+  },
+  "color-nav-bg": {
+    value: gray[7]
+  },
+  "color-nav-bg-surface": {
+    value: blackAlpha[3]
+  },
+  "color-nav-bg-surface-hover": {
+    value: gray[6]
+  },
+  "color-nav-bg-surface-active": {
+    value: gray[3]
+  },
+  "color-nav-bg-surface-selected": {
+    value: gray[3]
+  },
+  "color-radio-button-bg-surface-disabled": {
+    value: blackAlpha[7]
+  },
+  "color-radio-button-icon-disabled": {
+    value: gray[1]
+  },
+  "color-video-thumbnail-play-button-bg-fill-hover": {
+    value: blackAlpha[15]
+  },
+  "color-video-thumbnail-play-button-bg-fill": {
+    value: blackAlpha[14]
+  },
+  "color-video-thumbnail-play-button-text-on-bg-fill": {
+    value: gray[1]
+  },
+  "color-scrollbar-thumb-bg-hover": {
+    value: gray[12]
+  }
+};
+
+// node_modules/@shopify/polaris-tokens/dist/esm/src/themes/base/font.mjs
+var font = {
+  "font-family-sans": {
+    value: "'Inter', -apple-system, BlinkMacSystemFont, 'San Francisco', 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif"
+  },
+  "font-family-mono": {
+    value: "ui-monospace, SFMono-Regular, 'SF Mono', Consolas, 'Liberation Mono', Menlo, monospace"
+  },
+  "font-size-275": {
+    value: size[275]
+  },
+  "font-size-300": {
+    value: size[300]
+  },
+  "font-size-325": {
+    value: size[325]
+  },
+  "font-size-350": {
+    value: size[350]
+  },
+  "font-size-400": {
+    value: size[400]
+  },
+  "font-size-450": {
+    value: size[450]
+  },
+  "font-size-500": {
+    value: size[500]
+  },
+  "font-size-550": {
+    value: size[550]
+  },
+  "font-size-600": {
+    value: size[600]
+  },
+  "font-size-750": {
+    value: size[750]
+  },
+  "font-size-800": {
+    value: size[800]
+  },
+  "font-size-900": {
+    value: size[900]
+  },
+  "font-size-1000": {
+    value: size[1e3]
+  },
+  "font-weight-regular": {
+    value: "450"
+  },
+  "font-weight-medium": {
+    value: "550"
+  },
+  "font-weight-semibold": {
+    value: "650"
+  },
+  "font-weight-bold": {
+    value: "700"
+  },
+  "font-letter-spacing-densest": {
+    value: "-0.54px"
+  },
+  "font-letter-spacing-denser": {
+    value: "-0.3px"
+  },
+  "font-letter-spacing-dense": {
+    value: "-0.2px"
+  },
+  "font-letter-spacing-normal": {
+    value: "0px"
+  },
+  "font-line-height-300": {
+    value: size[300]
+  },
+  "font-line-height-400": {
+    value: size[400]
+  },
+  "font-line-height-500": {
+    value: size[500]
+  },
+  "font-line-height-600": {
+    value: size[600]
+  },
+  "font-line-height-700": {
+    value: size[700]
+  },
+  "font-line-height-800": {
+    value: size[800]
+  },
+  "font-line-height-1000": {
+    value: size[1e3]
+  },
+  "font-line-height-1200": {
+    value: size[1200]
+  }
+};
+
+// node_modules/@shopify/polaris-tokens/dist/esm/src/themes/base/height.mjs
+var height = {
+  "height-0": {
+    value: size[0]
+  },
+  "height-025": {
+    value: size["025"]
+  },
+  "height-050": {
+    value: size["050"]
+  },
+  "height-100": {
+    value: size[100]
+  },
+  "height-150": {
+    value: size[150]
+  },
+  "height-200": {
+    value: size[200]
+  },
+  "height-300": {
+    value: size[300]
+  },
+  "height-400": {
+    value: size[400]
+  },
+  "height-500": {
+    value: size[500]
+  },
+  "height-600": {
+    value: size[600]
+  },
+  "height-700": {
+    value: size[700]
+  },
+  "height-800": {
+    value: size[800]
+  },
+  "height-900": {
+    value: size[900]
+  },
+  "height-1000": {
+    value: size[1e3]
+  },
+  "height-1200": {
+    value: size[1200]
+  },
+  "height-1600": {
+    value: size[1600]
+  },
+  "height-2000": {
+    value: size[2e3]
+  },
+  "height-2400": {
+    value: size[2400]
+  },
+  "height-2800": {
+    value: size[2800]
+  },
+  "height-3200": {
+    value: size[3200]
+  }
+};
+
+// node_modules/@shopify/polaris-tokens/dist/esm/src/themes/base/motion.mjs
+var motion = {
+  "motion-duration-0": {
+    value: "0ms"
+  },
+  "motion-duration-50": {
+    value: "50ms"
+  },
+  "motion-duration-100": {
+    value: "100ms"
+  },
+  "motion-duration-150": {
+    value: "150ms"
+  },
+  "motion-duration-200": {
+    value: "200ms"
+  },
+  "motion-duration-250": {
+    value: "250ms"
+  },
+  "motion-duration-300": {
+    value: "300ms"
+  },
+  "motion-duration-350": {
+    value: "350ms"
+  },
+  "motion-duration-400": {
+    value: "400ms"
+  },
+  "motion-duration-450": {
+    value: "450ms"
+  },
+  "motion-duration-500": {
+    value: "500ms"
+  },
+  "motion-duration-5000": {
+    value: "5000ms"
+  },
+  "motion-ease": {
+    value: "cubic-bezier(0.25, 0.1, 0.25, 1)",
+    description: "Responds quickly and finishes with control. A great default for any user interaction."
+  },
+  "motion-ease-in": {
+    value: "cubic-bezier(0.42, 0, 1, 1)",
+    description: "Starts slowly and finishes at top speed. Use sparingly."
+  },
+  "motion-ease-out": {
+    value: "cubic-bezier(0.19, 0.91, 0.38, 1)",
+    description: "Starts at top speed and finishes slowly. Use sparingly."
+  },
+  "motion-ease-in-out": {
+    value: "cubic-bezier(0.42, 0, 0.58, 1)",
+    description: "Starts and finishes with equal speed. A good default for transitions triggered by the system."
+  },
+  "motion-linear": {
+    value: "cubic-bezier(0, 0, 1, 1)",
+    description: "Moves with constant speed. Use for continuous and mechanical animations, such as rotating spinners."
+  },
+  "motion-keyframes-bounce": {
+    value: "{ from, 65%, 85% { transform: scale(1) } 75% { transform: scale(0.85) } 82.5% { transform: scale(1.05) } }"
+  },
+  "motion-keyframes-fade-in": {
+    value: "{ to { opacity: 1 } }"
+  },
+  "motion-keyframes-pulse": {
+    value: "{ from, 75% { transform: scale(0.85); opacity: 1; } to { transform: scale(2.5); opacity: 0; } }"
+  },
+  "motion-keyframes-spin": {
+    value: "{ to { transform: rotate(1turn) } }"
+  },
+  "motion-keyframes-appear-above": {
+    value: "{ from { transform: translateY(var(--p-space-100)); opacity: 0; } to { transform: none; opacity: 1; } }"
+  },
+  "motion-keyframes-appear-below": {
+    value: "{ from { transform: translateY(calc(var(--p-space-100) * -1)); opacity: 0; } to { transform: none; opacity: 1; } }"
+  }
+};
+
+// node_modules/@shopify/polaris-tokens/dist/esm/src/themes/base/shadow.mjs
+var shadow = {
+  "shadow-0": {
+    value: "none"
+  },
+  "shadow-100": {
+    value: "0px 1px 0px 0px rgba(26, 26, 26, 0.07)"
+  },
+  "shadow-200": {
+    value: "0px 3px 1px -1px rgba(26, 26, 26, 0.07)"
+  },
+  "shadow-300": {
+    value: "0px 4px 6px -2px rgba(26, 26, 26, 0.20)"
+  },
+  "shadow-400": {
+    value: "0px 8px 16px -4px rgba(26, 26, 26, 0.22)"
+  },
+  "shadow-500": {
+    value: "0px 12px 20px -8px rgba(26, 26, 26, 0.24)"
+  },
+  "shadow-600": {
+    value: "0px 20px 20px -8px rgba(26, 26, 26, 0.28)"
+  },
+  "shadow-bevel-100": {
+    value: "1px 0px 0px 0px rgba(0, 0, 0, 0.13) inset, -1px 0px 0px 0px rgba(0, 0, 0, 0.13) inset, 0px -1px 0px 0px rgba(0, 0, 0, 0.17) inset, 0px 1px 0px 0px rgba(204, 204, 204, 0.5) inset"
+  },
+  "shadow-inset-100": {
+    value: "0px 1px 2px 0px rgba(26, 26, 26, 0.15) inset, 0px 1px 1px 0px rgba(26, 26, 26, 0.15) inset"
+  },
+  "shadow-inset-200": {
+    value: "0px 2px 1px 0px rgba(26, 26, 26, 0.20) inset, 1px 0px 1px 0px rgba(26, 26, 26, 0.12) inset, -1px 0px 1px 0px rgba(26, 26, 26, 0.12) inset"
+  },
+  "shadow-button": {
+    value: "0px -1px 0px 0px #b5b5b5 inset, 0px 0px 0px 1px rgba(0, 0, 0, 0.1) inset, 0px 0.5px 0px 1.5px #FFF inset"
+  },
+  "shadow-button-hover": {
+    value: "0px 1px 0px 0px #EBEBEB inset, -1px 0px 0px 0px #EBEBEB inset, 1px 0px 0px 0px #EBEBEB inset, 0px -1px 0px 0px #CCC inset"
+  },
+  "shadow-button-inset": {
+    value: "-1px 0px 1px 0px rgba(26, 26, 26, 0.122) inset, 1px 0px 1px 0px rgba(26, 26, 26, 0.122) inset, 0px 2px 1px 0px rgba(26, 26, 26, 0.2) inset"
+  },
+  "shadow-button-primary": {
+    value: "0px -1px 0px 1px rgba(0, 0, 0, 0.8) inset, 0px 0px 0px 1px rgba(48, 48, 48, 1) inset, 0px 0.5px 0px 1.5px rgba(255, 255, 255, 0.25) inset;"
+  },
+  "shadow-button-primary-hover": {
+    value: "0px 1px 0px 0px rgba(255, 255, 255, 0.24) inset, 1px 0px 0px 0px rgba(255, 255, 255, 0.20) inset, -1px 0px 0px 0px rgba(255, 255, 255, 0.20) inset, 0px -1px 0px 0px #000 inset, 0px -1px 0px 1px #1A1A1A"
+  },
+  "shadow-button-primary-inset": {
+    value: "0px 3px 0px 0px rgb(0, 0, 0) inset"
+  },
+  "shadow-button-primary-critical": {
+    value: "0px -1px 0px 1px rgba(142, 31, 11, 0.8) inset, 0px 0px 0px 1px rgba(181, 38, 11, 0.8) inset, 0px 0.5px 0px 1.5px rgba(255, 255, 255, 0.349) inset"
+  },
+  "shadow-button-primary-critical-hover": {
+    value: "0px 1px 0px 0px rgba(255, 255, 255, 0.48) inset, 1px 0px 0px 0px rgba(255, 255, 255, 0.20) inset, -1px 0px 0px 0px rgba(255, 255, 255, 0.20) inset, 0px -1.5px 0px 0px rgba(0, 0, 0, 0.25) inset"
+  },
+  "shadow-button-primary-critical-inset": {
+    value: "-1px 0px 1px 0px rgba(0, 0, 0, 0.2) inset, 1px 0px 1px 0px rgba(0, 0, 0, 0.2) inset, 0px 2px 0px 0px rgba(0, 0, 0, 0.6) inset"
+  },
+  "shadow-button-primary-success": {
+    value: "0px -1px 0px 1px rgba(12, 81, 50, 0.8) inset, 0px 0px 0px 1px rgba(19, 111, 69, 0.8) inset, 0px 0.5px 0px 1.5px rgba(255, 255, 255, 0.251) inset"
+  },
+  "shadow-button-primary-success-hover": {
+    value: "0px 1px 0px 0px rgba(255, 255, 255, 0.48) inset, 1px 0px 0px 0px rgba(255, 255, 255, 0.20) inset, -1px 0px 0px 0px rgba(255, 255, 255, 0.20) inset, 0px -1.5px 0px 0px rgba(0, 0, 0, 0.25) inset"
+  },
+  "shadow-button-primary-success-inset": {
+    value: "-1px 0px 1px 0px rgba(0, 0, 0, 0.2) inset, 1px 0px 1px 0px rgba(0, 0, 0, 0.2) inset, 0px 2px 0px 0px rgba(0, 0, 0, 0.6) inset"
+  },
+  "shadow-border-inset": {
+    value: "0px 0px 0px 1px rgba(0, 0, 0, 0.08) inset"
+  }
+};
+
+// node_modules/@shopify/polaris-tokens/dist/esm/src/themes/base/space.mjs
+var space = {
+  "space-0": {
+    value: size[0]
+  },
+  "space-025": {
+    value: size["025"]
+  },
+  "space-050": {
+    value: size["050"]
+  },
+  "space-100": {
+    value: size[100]
+  },
+  "space-150": {
+    value: size[150]
+  },
+  "space-200": {
+    value: size[200]
+  },
+  "space-300": {
+    value: size[300]
+  },
+  "space-400": {
+    value: size[400]
+  },
+  "space-500": {
+    value: size[500]
+  },
+  "space-600": {
+    value: size[600]
+  },
+  "space-800": {
+    value: size[800]
+  },
+  "space-1000": {
+    value: size[1e3]
+  },
+  "space-1200": {
+    value: size[1200]
+  },
+  "space-1600": {
+    value: size[1600]
+  },
+  "space-2000": {
+    value: size[2e3]
+  },
+  "space-2400": {
+    value: size[2400]
+  },
+  "space-2800": {
+    value: size[2800]
+  },
+  "space-3200": {
+    value: size[3200]
+  },
+  "space-button-group-gap": {
+    value: createVar2("space-200")
+  },
+  "space-card-gap": {
+    value: createVar2("space-400")
+  },
+  "space-card-padding": {
+    value: createVar2("space-400")
+  },
+  "space-table-cell-padding": {
+    value: createVar2("space-150")
+  }
+};
+function createVar2(spaceTokenName) {
+  return "var(" + createVarName(spaceTokenName) + ")";
+}
+
+// node_modules/@shopify/polaris-tokens/dist/esm/src/themes/base/text.mjs
+var text = {
+  // heading-3xl
+  "text-heading-3xl-font-family": {
+    value: createVar("font-family-sans")
+  },
+  "text-heading-3xl-font-size": {
+    value: createVar("font-size-900")
+  },
+  "text-heading-3xl-font-weight": {
+    value: createVar("font-weight-bold")
+  },
+  "text-heading-3xl-font-letter-spacing": {
+    value: createVar("font-letter-spacing-densest")
+  },
+  "text-heading-3xl-font-line-height": {
+    value: createVar("font-line-height-1200")
+  },
+  // heading-2xl
+  "text-heading-2xl-font-family": {
+    value: createVar("font-family-sans")
+  },
+  "text-heading-2xl-font-size": {
+    value: createVar("font-size-750")
+  },
+  "text-heading-2xl-font-weight": {
+    value: createVar("font-weight-bold")
+  },
+  "text-heading-2xl-font-letter-spacing": {
+    value: createVar("font-letter-spacing-denser")
+  },
+  "text-heading-2xl-font-line-height": {
+    value: createVar("font-line-height-1000")
+  },
+  // heading-xl
+  "text-heading-xl-font-family": {
+    value: createVar("font-family-sans")
+  },
+  "text-heading-xl-font-size": {
+    value: createVar("font-size-600")
+  },
+  "text-heading-xl-font-weight": {
+    value: createVar("font-weight-bold")
+  },
+  "text-heading-xl-font-letter-spacing": {
+    value: createVar("font-letter-spacing-dense")
+  },
+  "text-heading-xl-font-line-height": {
+    value: createVar("font-line-height-800")
+  },
+  // heading-lg
+  "text-heading-lg-font-family": {
+    value: createVar("font-family-sans")
+  },
+  "text-heading-lg-font-size": {
+    value: createVar("font-size-500")
+  },
+  "text-heading-lg-font-weight": {
+    value: createVar("font-weight-semibold")
+  },
+  "text-heading-lg-font-letter-spacing": {
+    value: createVar("font-letter-spacing-dense")
+  },
+  "text-heading-lg-font-line-height": {
+    value: createVar("font-line-height-600")
+  },
+  // heading-md
+  "text-heading-md-font-family": {
+    value: createVar("font-family-sans")
+  },
+  "text-heading-md-font-size": {
+    value: createVar("font-size-350")
+  },
+  "text-heading-md-font-weight": {
+    value: createVar("font-weight-semibold")
+  },
+  "text-heading-md-font-letter-spacing": {
+    value: createVar("font-letter-spacing-normal")
+  },
+  "text-heading-md-font-line-height": {
+    value: createVar("font-line-height-500")
+  },
+  // heading-sm
+  "text-heading-sm-font-family": {
+    value: createVar("font-family-sans")
+  },
+  "text-heading-sm-font-size": {
+    value: createVar("font-size-325")
+  },
+  "text-heading-sm-font-weight": {
+    value: createVar("font-weight-semibold")
+  },
+  "text-heading-sm-font-letter-spacing": {
+    value: createVar("font-letter-spacing-normal")
+  },
+  "text-heading-sm-font-line-height": {
+    value: createVar("font-line-height-500")
+  },
+  // heading-xs
+  "text-heading-xs-font-family": {
+    value: createVar("font-family-sans")
+  },
+  "text-heading-xs-font-size": {
+    value: createVar("font-size-300")
+  },
+  "text-heading-xs-font-weight": {
+    value: createVar("font-weight-semibold")
+  },
+  "text-heading-xs-font-letter-spacing": {
+    value: createVar("font-letter-spacing-normal")
+  },
+  "text-heading-xs-font-line-height": {
+    value: createVar("font-line-height-400")
+  },
+  // body-lg
+  "text-body-lg-font-family": {
+    value: createVar("font-family-sans")
+  },
+  "text-body-lg-font-size": {
+    value: createVar("font-size-350")
+  },
+  "text-body-lg-font-weight": {
+    value: createVar("font-weight-regular")
+  },
+  "text-body-lg-font-letter-spacing": {
+    value: createVar("font-letter-spacing-normal")
+  },
+  "text-body-lg-font-line-height": {
+    value: createVar("font-line-height-500")
+  },
+  // body-md
+  "text-body-md-font-family": {
+    value: createVar("font-family-sans")
+  },
+  "text-body-md-font-size": {
+    value: createVar("font-size-325")
+  },
+  "text-body-md-font-weight": {
+    value: createVar("font-weight-regular")
+  },
+  "text-body-md-font-letter-spacing": {
+    value: createVar("font-letter-spacing-normal")
+  },
+  "text-body-md-font-line-height": {
+    value: createVar("font-line-height-500")
+  },
+  // body-sm
+  "text-body-sm-font-family": {
+    value: createVar("font-family-sans")
+  },
+  "text-body-sm-font-size": {
+    value: createVar("font-size-300")
+  },
+  "text-body-sm-font-weight": {
+    value: createVar("font-weight-regular")
+  },
+  "text-body-sm-font-letter-spacing": {
+    value: createVar("font-letter-spacing-normal")
+  },
+  "text-body-sm-font-line-height": {
+    value: createVar("font-line-height-400")
+  },
+  // body-xs
+  "text-body-xs-font-family": {
+    value: createVar("font-family-sans")
+  },
+  "text-body-xs-font-size": {
+    value: createVar("font-size-275")
+  },
+  "text-body-xs-font-weight": {
+    value: createVar("font-weight-regular")
+  },
+  "text-body-xs-font-letter-spacing": {
+    value: createVar("font-letter-spacing-normal")
+  },
+  "text-body-xs-font-line-height": {
+    value: createVar("font-line-height-300")
+  }
+};
+
+// node_modules/@shopify/polaris-tokens/dist/esm/src/themes/base/width.mjs
+var width = {
+  "width-0": {
+    value: size[0]
+  },
+  "width-025": {
+    value: size["025"]
+  },
+  "width-050": {
+    value: size["050"]
+  },
+  "width-100": {
+    value: size[100]
+  },
+  "width-150": {
+    value: size[150]
+  },
+  "width-200": {
+    value: size[200]
+  },
+  "width-300": {
+    value: size[300]
+  },
+  "width-400": {
+    value: size[400]
+  },
+  "width-500": {
+    value: size[500]
+  },
+  "width-600": {
+    value: size[600]
+  },
+  "width-700": {
+    value: size[700]
+  },
+  "width-800": {
+    value: size[800]
+  },
+  "width-900": {
+    value: size[900]
+  },
+  "width-1000": {
+    value: size[1e3]
+  },
+  "width-1200": {
+    value: size[1200]
+  },
+  "width-1600": {
+    value: size[1600]
+  },
+  "width-2000": {
+    value: size[2e3]
+  },
+  "width-2400": {
+    value: size[2400]
+  },
+  "width-2800": {
+    value: size[2800]
+  },
+  "width-3200": {
+    value: size[3200]
+  }
+};
+
+// node_modules/@shopify/polaris-tokens/dist/esm/src/themes/base/zIndex.mjs
+var zIndex = {
+  "z-index-0": {
+    value: "auto"
+  },
+  "z-index-1": {
+    value: "100"
+  },
+  "z-index-2": {
+    value: "400"
+  },
+  "z-index-3": {
+    value: "510"
+  },
+  "z-index-4": {
+    value: "512"
+  },
+  "z-index-5": {
+    value: "513"
+  },
+  "z-index-6": {
+    value: "514"
+  },
+  "z-index-7": {
+    value: "515"
+  },
+  "z-index-8": {
+    value: "516"
+  },
+  "z-index-9": {
+    value: "517"
+  },
+  "z-index-10": {
+    value: "518"
+  },
+  "z-index-11": {
+    value: "519"
+  },
+  "z-index-12": {
+    value: "520"
+  }
+};
+
+// node_modules/@shopify/polaris-tokens/dist/esm/src/themes/base/index.mjs
+var metaThemeBase = createMetaThemeBase({
+  border,
+  breakpoints,
+  color,
+  font,
+  height,
+  motion,
+  shadow,
+  space,
+  text,
+  width,
+  zIndex
+});
+
+// node_modules/@shopify/polaris-tokens/dist/esm/src/themes/utils.mjs
+function createMetaThemePartial(metaThemePartial) {
+  return Object.fromEntries(Object.entries(metaThemePartial).map(function(_ref) {
+    var _ref2 = _slicedToArray2(_ref, 2), tokenGroupName = _ref2[0], tokenGroup = _ref2[1];
+    return [tokenGroupName, tokenGroup && tokenGroupNamesToRems.includes(tokenGroupName) ? tokenGroupToRems(tokenGroup) : tokenGroup];
+  }));
+}
+function createMetaTheme(metaThemePartial) {
+  return (0, import_deepmerge.default)(metaThemeBase, metaThemePartial);
+}
+function createIsTokenName(theme) {
+  var tokenNames = new Set(getTokenNames(theme));
+  return function(tokenName) {
+    return tokenNames.has(tokenName);
+  };
+}
+createIsTokenName(metaThemeBase);
+
+// node_modules/@shopify/polaris-tokens/dist/esm/src/themes/constants.mjs
+var themeNameLight = "light", themeNameDefault = themeNameLight;
+
+// node_modules/@shopify/polaris-tokens/dist/esm/src/themes/light.mjs
+var metaThemeLightPartial = createMetaThemePartial({}), metaThemeLight = createMetaTheme(metaThemeLightPartial);
+
+// node_modules/@shopify/polaris-tokens/dist/esm/src/themes/light-high-contrast.mjs
+var metaThemeLightHighContrastPartial = createMetaThemePartial({
+  color: {
+    "color-text": {
+      value: gray[16]
+    },
+    "color-text-secondary": {
+      value: gray[16]
+    },
+    "color-text-brand": {
+      value: gray[16]
+    },
+    "color-icon-secondary": {
+      value: gray[14]
+    },
+    "color-border": {
+      value: gray[12]
+    },
+    "color-input-border": {
+      value: gray[14]
+    },
+    "color-border-secondary": {
+      value: gray[12]
+    },
+    "color-bg-surface-secondary": {
+      value: gray[6]
+    }
+  },
+  shadow: {
+    "shadow-bevel-100": {
+      value: "0px 1px 0px 0px rgba(26, 26, 26, 0.07), 0px 1px 0px 0px rgba(208, 208, 208, 0.40) inset, 1px 0px 0px 0px #CCC inset, -1px 0px 0px 0px #CCC inset, 0px -1px 0px 0px #999 inset"
+    }
+  }
+}), metaThemeLightHighContrast = createMetaTheme(metaThemeLightHighContrastPartial);
+
+// node_modules/@shopify/polaris-tokens/dist/esm/src/themes/light-mobile.mjs
+var buttonShadow = "0 0 0 " + createVar("border-width-025") + " " + createVar("color-border") + " inset", metaThemeLightMobilePartial = createMetaThemePartial({
+  color: {
+    "color-button-gradient-bg-fill": {
+      value: "none"
+    }
+  },
+  shadow: {
+    "shadow-100": {
+      value: "none"
+    },
+    "shadow-bevel-100": {
+      value: "none"
+    },
+    "shadow-button": {
+      value: buttonShadow
+    },
+    "shadow-button-hover": {
+      value: buttonShadow
+    },
+    "shadow-button-inset": {
+      value: buttonShadow
+    },
+    "shadow-button-primary": {
+      value: "none"
+    },
+    "shadow-button-primary-hover": {
+      value: "none"
+    },
+    "shadow-button-primary-inset": {
+      value: "none"
+    },
+    "shadow-button-primary-critical": {
+      value: "none"
+    },
+    "shadow-button-primary-critical-hover": {
+      value: "none"
+    },
+    "shadow-button-primary-critical-inset": {
+      value: "none"
+    },
+    "shadow-button-primary-success": {
+      value: "none"
+    },
+    "shadow-button-primary-success-hover": {
+      value: "none"
+    },
+    "shadow-button-primary-success-inset": {
+      value: "none"
+    }
+  },
+  space: {
+    "space-card-gap": {
+      value: createVar("space-200")
+    }
+  },
+  text: {
+    // heading-2xl
+    "text-heading-2xl-font-size": {
+      value: createVar("font-size-800")
+    },
+    // heading-xl
+    "text-heading-xl-font-size": {
+      value: createVar("font-size-550")
+    },
+    "text-heading-xl-font-line-height": {
+      value: createVar("font-line-height-700")
+    },
+    // heading-lg
+    "text-heading-lg-font-size": {
+      value: createVar("font-size-450")
+    },
+    // heading-md
+    "text-heading-md-font-size": {
+      value: createVar("font-size-400")
+    },
+    // heading-sm
+    "text-heading-sm-font-size": {
+      value: createVar("font-size-350")
+    },
+    // body-lg
+    "text-body-lg-font-size": {
+      value: createVar("font-size-450")
+    },
+    "text-body-lg-font-line-height": {
+      value: createVar("font-line-height-700")
+    },
+    // body-md
+    "text-body-md-font-size": {
+      value: createVar("font-size-400")
+    },
+    "text-body-md-font-line-height": {
+      value: createVar("font-line-height-600")
+    },
+    // body-sm
+    "text-body-sm-font-size": {
+      value: createVar("font-size-350")
+    },
+    "text-body-sm-font-line-height": {
+      value: createVar("font-line-height-500")
+    },
+    // body-xs
+    "text-body-xs-font-size": {
+      value: createVar("font-size-300")
+    },
+    "text-body-xs-font-line-height": {
+      value: createVar("font-line-height-400")
+    }
+  }
+}), metaThemeLightMobile = createMetaTheme(metaThemeLightMobilePartial);
+
+// node_modules/@shopify/polaris-tokens/dist/esm/src/themes/index.mjs
+var metaThemePartials = {
+  light: metaThemeLightPartial,
+  "light-mobile": metaThemeLightMobilePartial,
+  "light-high-contrast-experimental": metaThemeLightHighContrastPartial
+}, metaThemeDefaultPartial = metaThemePartials[themeNameDefault], metaThemeDefault = createMetaTheme(metaThemeDefaultPartial);
+
+// node_modules/@shopify/polaris-tokens/dist/esm/build/index.mjs
+var themes = {
+  light: {
+    border: {
+      "border-radius-0": "0rem",
+      "border-radius-050": "0.125rem",
+      "border-radius-100": "0.25rem",
+      "border-radius-150": "0.375rem",
+      "border-radius-200": "0.5rem",
+      "border-radius-300": "0.75rem",
+      "border-radius-400": "1rem",
+      "border-radius-500": "1.25rem",
+      "border-radius-750": "1.875rem",
+      "border-radius-full": "624.9375rem",
+      "border-width-0": "0rem",
+      "border-width-0165": "0.04125rem",
+      "border-width-025": "0.0625rem",
+      "border-width-050": "0.125rem",
+      "border-width-100": "0.25rem"
+    },
+    breakpoints: {
+      "breakpoints-xs": "0rem",
+      "breakpoints-sm": "30.625rem",
+      "breakpoints-md": "48rem",
+      "breakpoints-lg": "65rem",
+      "breakpoints-xl": "90rem"
+    },
+    color: {
+      "color-bg": "rgba(241, 241, 241, 1)",
+      "color-bg-inverse": "rgba(26, 26, 26, 1)",
+      "color-bg-surface": "rgba(255, 255, 255, 1)",
+      "color-bg-surface-hover": "rgba(247, 247, 247, 1)",
+      "color-bg-surface-active": "rgba(243, 243, 243, 1)",
+      "color-bg-surface-selected": "rgba(241, 241, 241, 1)",
+      "color-bg-surface-disabled": "rgba(0, 0, 0, 0.05)",
+      "color-bg-surface-secondary": "rgba(247, 247, 247, 1)",
+      "color-bg-surface-secondary-hover": "rgba(241, 241, 241, 1)",
+      "color-bg-surface-secondary-active": "rgba(235, 235, 235, 1)",
+      "color-bg-surface-secondary-selected": "rgba(235, 235, 235, 1)",
+      "color-bg-surface-tertiary": "rgba(243, 243, 243, 1)",
+      "color-bg-surface-tertiary-hover": "rgba(235, 235, 235, 1)",
+      "color-bg-surface-tertiary-active": "rgba(227, 227, 227, 1)",
+      "color-bg-surface-brand": "rgba(227, 227, 227, 1)",
+      "color-bg-surface-brand-hover": "rgba(235, 235, 235, 1)",
+      "color-bg-surface-brand-active": "rgba(241, 241, 241, 1)",
+      "color-bg-surface-brand-selected": "rgba(241, 241, 241, 1)",
+      "color-bg-surface-info": "rgba(234, 244, 255, 1)",
+      "color-bg-surface-info-hover": "rgba(224, 240, 255, 1)",
+      "color-bg-surface-info-active": "rgba(202, 230, 255, 1)",
+      "color-bg-surface-success": "rgba(205, 254, 225, 1)",
+      "color-bg-surface-success-hover": "rgba(180, 254, 210, 1)",
+      "color-bg-surface-success-active": "rgba(146, 254, 194, 1)",
+      "color-bg-surface-caution": "rgba(255, 248, 219, 1)",
+      "color-bg-surface-caution-hover": "rgba(255, 244, 191, 1)",
+      "color-bg-surface-caution-active": "rgba(255, 239, 157, 1)",
+      "color-bg-surface-warning": "rgba(255, 241, 227, 1)",
+      "color-bg-surface-warning-hover": "rgba(255, 235, 213, 1)",
+      "color-bg-surface-warning-active": "rgba(255, 228, 198, 1)",
+      "color-bg-surface-critical": "rgba(254, 233, 232, 1)",
+      "color-bg-surface-critical-hover": "rgba(254, 226, 225, 1)",
+      "color-bg-surface-critical-active": "rgba(254, 218, 217, 1)",
+      "color-bg-surface-emphasis": "rgba(240, 242, 255, 1)",
+      "color-bg-surface-emphasis-hover": "rgba(234, 237, 255, 1)",
+      "color-bg-surface-emphasis-active": "rgba(226, 231, 255, 1)",
+      "color-bg-surface-magic": "rgba(248, 247, 255, 1)",
+      "color-bg-surface-magic-hover": "rgba(243, 241, 255, 1)",
+      "color-bg-surface-magic-active": "rgba(233, 229, 255, 1)",
+      "color-bg-surface-inverse": "rgba(48, 48, 48, 1)",
+      "color-bg-surface-transparent": "rgba(0, 0, 0, 0)",
+      "color-bg-fill": "rgba(255, 255, 255, 1)",
+      "color-bg-fill-hover": "rgba(250, 250, 250, 1)",
+      "color-bg-fill-active": "rgba(247, 247, 247, 1)",
+      "color-bg-fill-selected": "rgba(204, 204, 204, 1)",
+      "color-bg-fill-disabled": "rgba(0, 0, 0, 0.05)",
+      "color-bg-fill-secondary": "rgba(241, 241, 241, 1)",
+      "color-bg-fill-secondary-hover": "rgba(235, 235, 235, 1)",
+      "color-bg-fill-secondary-active": "rgba(227, 227, 227, 1)",
+      "color-bg-fill-tertiary": "rgba(227, 227, 227, 1)",
+      "color-bg-fill-tertiary-hover": "rgba(212, 212, 212, 1)",
+      "color-bg-fill-tertiary-active": "rgba(204, 204, 204, 1)",
+      "color-bg-fill-brand": "rgba(48, 48, 48, 1)",
+      "color-bg-fill-brand-hover": "rgba(26, 26, 26, 1)",
+      "color-bg-fill-brand-active": "rgba(26, 26, 26, 1)",
+      "color-bg-fill-brand-selected": "rgba(48, 48, 48, 1)",
+      "color-bg-fill-brand-disabled": "rgba(0, 0, 0, 0.17)",
+      "color-bg-fill-info": "rgba(145, 208, 255, 1)",
+      "color-bg-fill-info-hover": "rgba(81, 192, 255, 1)",
+      "color-bg-fill-info-active": "rgba(0, 148, 213, 1)",
+      "color-bg-fill-info-secondary": "rgba(213, 235, 255, 1)",
+      "color-bg-fill-success": "rgba(41, 132, 90, 1)",
+      "color-bg-fill-success-hover": "rgba(19, 111, 69, 1)",
+      "color-bg-fill-success-active": "rgba(12, 81, 50, 1)",
+      "color-bg-fill-success-secondary": "rgba(180, 254, 210, 1)",
+      "color-bg-fill-warning": "rgba(255, 184, 0, 1)",
+      "color-bg-fill-warning-hover": "rgba(229, 165, 0, 1)",
+      "color-bg-fill-warning-active": "rgba(178, 132, 0, 1)",
+      "color-bg-fill-warning-secondary": "rgba(255, 214, 164, 1)",
+      "color-bg-fill-caution": "rgba(255, 230, 0, 1)",
+      "color-bg-fill-caution-hover": "rgba(234, 211, 0, 1)",
+      "color-bg-fill-caution-active": "rgba(225, 203, 0, 1)",
+      "color-bg-fill-caution-secondary": "rgba(255, 235, 120, 1)",
+      "color-bg-fill-critical": "rgba(229, 28, 0, 1)",
+      "color-bg-fill-critical-hover": "rgba(181, 38, 11, 1)",
+      "color-bg-fill-critical-active": "rgba(142, 31, 11, 1)",
+      "color-bg-fill-critical-selected": "rgba(142, 31, 11, 1)",
+      "color-bg-fill-critical-secondary": "rgba(254, 211, 209, 1)",
+      "color-bg-fill-emphasis": "rgba(0, 91, 211, 1)",
+      "color-bg-fill-emphasis-hover": "rgba(0, 66, 153, 1)",
+      "color-bg-fill-emphasis-active": "rgba(0, 46, 106, 1)",
+      "color-bg-fill-magic": "rgba(128, 81, 255, 1)",
+      "color-bg-fill-magic-secondary": "rgba(233, 229, 255, 1)",
+      "color-bg-fill-magic-secondary-hover": "rgba(228, 222, 255, 1)",
+      "color-bg-fill-magic-secondary-active": "rgba(223, 217, 255, 1)",
+      "color-bg-fill-inverse": "rgba(48, 48, 48, 1)",
+      "color-bg-fill-inverse-hover": "rgba(74, 74, 74, 1)",
+      "color-bg-fill-inverse-active": "rgba(97, 97, 97, 1)",
+      "color-bg-fill-transparent": "rgba(0, 0, 0, 0.02)",
+      "color-bg-fill-transparent-hover": "rgba(0, 0, 0, 0.05)",
+      "color-bg-fill-transparent-active": "rgba(0, 0, 0, 0.08)",
+      "color-bg-fill-transparent-selected": "rgba(0, 0, 0, 0.08)",
+      "color-bg-fill-transparent-secondary": "rgba(0, 0, 0, 0.06)",
+      "color-bg-fill-transparent-secondary-hover": "rgba(0, 0, 0, 0.08)",
+      "color-bg-fill-transparent-secondary-active": "rgba(0, 0, 0, 0.11)",
+      "color-text": "rgba(48, 48, 48, 1)",
+      "color-text-secondary": "rgba(97, 97, 97, 1)",
+      "color-text-disabled": "rgba(181, 181, 181, 1)",
+      "color-text-link": "rgba(0, 91, 211, 1)",
+      "color-text-link-hover": "rgba(0, 66, 153, 1)",
+      "color-text-link-active": "rgba(0, 46, 106, 1)",
+      "color-text-brand": "rgba(74, 74, 74, 1)",
+      "color-text-brand-hover": "rgba(48, 48, 48, 1)",
+      "color-text-brand-on-bg-fill": "rgba(255, 255, 255, 1)",
+      "color-text-brand-on-bg-fill-hover": "rgba(227, 227, 227, 1)",
+      "color-text-brand-on-bg-fill-active": "rgba(204, 204, 204, 1)",
+      "color-text-brand-on-bg-fill-disabled": "rgba(255, 255, 255, 1)",
+      "color-text-info": "rgba(0, 58, 90, 1)",
+      "color-text-info-hover": "rgba(0, 58, 90, 1)",
+      "color-text-info-active": "rgba(0, 33, 51, 1)",
+      "color-text-info-secondary": "rgba(0, 124, 180, 1)",
+      "color-text-info-on-bg-fill": "rgba(0, 33, 51, 1)",
+      "color-text-success": "rgba(12, 81, 50, 1)",
+      "color-text-success-hover": "rgba(8, 61, 37, 1)",
+      "color-text-success-active": "rgba(9, 42, 27, 1)",
+      "color-text-success-secondary": "rgba(41, 132, 90, 1)",
+      "color-text-success-on-bg-fill": "rgba(248, 255, 251, 1)",
+      "color-text-caution": "rgba(79, 71, 0, 1)",
+      "color-text-caution-hover": "rgba(51, 46, 0, 1)",
+      "color-text-caution-active": "rgba(31, 28, 0, 1)",
+      "color-text-caution-secondary": "rgba(130, 117, 0, 1)",
+      "color-text-caution-on-bg-fill": "rgba(51, 46, 0, 1)",
+      "color-text-warning": "rgba(94, 66, 0, 1)",
+      "color-text-warning-hover": "rgba(65, 45, 0, 1)",
+      "color-text-warning-active": "rgba(37, 26, 0, 1)",
+      "color-text-warning-secondary": "rgba(149, 111, 0, 1)",
+      "color-text-warning-on-bg-fill": "rgba(37, 26, 0, 1)",
+      "color-text-critical": "rgba(142, 31, 11, 1)",
+      "color-text-critical-hover": "rgba(95, 21, 7, 1)",
+      "color-text-critical-active": "rgba(47, 10, 4, 1)",
+      "color-text-critical-secondary": "rgba(229, 28, 0, 1)",
+      "color-text-critical-on-bg-fill": "rgba(255, 251, 251, 1)",
+      "color-text-emphasis": "rgba(0, 91, 211, 1)",
+      "color-text-emphasis-hover": "rgba(0, 66, 153, 1)",
+      "color-text-emphasis-active": "rgba(0, 46, 106, 1)",
+      "color-text-emphasis-on-bg-fill": "rgba(252, 253, 255, 1)",
+      "color-text-emphasis-on-bg-fill-hover": "rgba(226, 231, 255, 1)",
+      "color-text-emphasis-on-bg-fill-active": "rgba(213, 220, 255, 1)",
+      "color-text-magic": "rgba(87, 0, 209, 1)",
+      "color-text-magic-secondary": "rgba(113, 38, 255, 1)",
+      "color-text-magic-on-bg-fill": "rgba(253, 253, 255, 1)",
+      "color-text-inverse": "rgba(227, 227, 227, 1)",
+      "color-text-inverse-secondary": "rgba(181, 181, 181, 1)",
+      "color-text-link-inverse": "rgba(197, 208, 255, 1)",
+      "color-border": "rgba(227, 227, 227, 1)",
+      "color-border-hover": "rgba(204, 204, 204, 1)",
+      "color-border-disabled": "rgba(235, 235, 235, 1)",
+      "color-border-secondary": "rgba(235, 235, 235, 1)",
+      "color-border-tertiary": "rgba(204, 204, 204, 1)",
+      "color-border-focus": "rgba(0, 91, 211, 1)",
+      "color-border-brand": "rgba(227, 227, 227, 1)",
+      "color-border-info": "rgba(168, 216, 255, 1)",
+      "color-border-success": "rgba(146, 254, 194, 1)",
+      "color-border-caution": "rgba(255, 235, 120, 1)",
+      "color-border-warning": "rgba(255, 200, 121, 1)",
+      "color-border-critical": "rgba(254, 195, 193, 1)",
+      "color-border-critical-secondary": "rgba(142, 31, 11, 1)",
+      "color-border-emphasis": "rgba(0, 91, 211, 1)",
+      "color-border-emphasis-hover": "rgba(0, 66, 153, 1)",
+      "color-border-emphasis-active": "rgba(0, 46, 106, 1)",
+      "color-border-magic": "rgba(228, 222, 255, 1)",
+      "color-border-magic-secondary": "rgba(148, 116, 255, 1)",
+      "color-border-magic-secondary-hover": "rgba(128, 81, 255, 1)",
+      "color-border-inverse": "rgba(97, 97, 97, 1)",
+      "color-border-inverse-hover": "rgba(204, 204, 204, 1)",
+      "color-border-inverse-active": "rgba(227, 227, 227, 1)",
+      "color-icon": "rgba(74, 74, 74, 1)",
+      "color-icon-hover": "rgba(48, 48, 48, 1)",
+      "color-icon-active": "rgba(26, 26, 26, 1)",
+      "color-icon-disabled": "rgba(204, 204, 204, 1)",
+      "color-icon-secondary": "rgba(138, 138, 138, 1)",
+      "color-icon-secondary-hover": "rgba(97, 97, 97, 1)",
+      "color-icon-secondary-active": "rgba(74, 74, 74, 1)",
+      "color-icon-brand": "rgba(26, 26, 26, 1)",
+      "color-icon-info": "rgba(0, 148, 213, 1)",
+      "color-icon-success": "rgba(41, 132, 90, 1)",
+      "color-icon-caution": "rgba(153, 138, 0, 1)",
+      "color-icon-warning": "rgba(178, 132, 0, 1)",
+      "color-icon-critical": "rgba(239, 77, 47, 1)",
+      "color-icon-emphasis": "rgba(0, 91, 211, 1)",
+      "color-icon-emphasis-hover": "rgba(0, 66, 153, 1)",
+      "color-icon-emphasis-active": "rgba(0, 46, 106, 1)",
+      "color-icon-magic": "rgba(128, 81, 255, 1)",
+      "color-icon-inverse": "rgba(227, 227, 227, 1)",
+      "color-avatar-bg-fill": "rgba(181, 181, 181, 1)",
+      "color-avatar-five-bg-fill": "rgba(253, 75, 146, 1)",
+      "color-avatar-five-text-on-bg-fill": "rgba(255, 246, 248, 1)",
+      "color-avatar-four-bg-fill": "rgba(81, 192, 255, 1)",
+      "color-avatar-four-text-on-bg-fill": "rgba(0, 33, 51, 1)",
+      "color-avatar-one-bg-fill": "rgba(197, 48, 197, 1)",
+      "color-avatar-one-text-on-bg-fill": "rgba(253, 239, 253, 1)",
+      "color-avatar-seven-bg-fill": "rgba(148, 116, 255, 1)",
+      "color-avatar-seven-text-on-bg-fill": "rgba(248, 247, 255, 1)",
+      "color-avatar-six-bg-fill": "rgba(37, 232, 43, 1)",
+      "color-avatar-six-text-on-bg-fill": "rgba(3, 61, 5, 1)",
+      "color-avatar-text-on-bg-fill": "rgba(255, 255, 255, 1)",
+      "color-avatar-three-bg-fill": "rgba(44, 224, 212, 1)",
+      "color-avatar-three-text-on-bg-fill": "rgba(3, 60, 57, 1)",
+      "color-avatar-two-bg-fill": "rgba(56, 250, 163, 1)",
+      "color-avatar-two-text-on-bg-fill": "rgba(12, 81, 50, 1)",
+      "color-backdrop-bg": "rgba(0, 0, 0, 0.71)",
+      "color-button-gradient-bg-fill": "linear-gradient(180deg, rgba(48, 48, 48, 0) 63.53%, rgba(255, 255, 255, 0.15) 100%)",
+      "color-checkbox-bg-surface-disabled": "rgba(0, 0, 0, 0.08)",
+      "color-checkbox-icon-disabled": "rgba(255, 255, 255, 1)",
+      "color-input-bg-surface": "rgba(253, 253, 253, 1)",
+      "color-input-bg-surface-hover": "rgba(250, 250, 250, 1)",
+      "color-input-bg-surface-active": "rgba(247, 247, 247, 1)",
+      "color-input-border": "rgba(138, 138, 138, 1)",
+      "color-input-border-hover": "rgba(97, 97, 97, 1)",
+      "color-input-border-active": "rgba(26, 26, 26, 1)",
+      "color-nav-bg": "rgba(235, 235, 235, 1)",
+      "color-nav-bg-surface": "rgba(0, 0, 0, 0.02)",
+      "color-nav-bg-surface-hover": "rgba(241, 241, 241, 1)",
+      "color-nav-bg-surface-active": "rgba(250, 250, 250, 1)",
+      "color-nav-bg-surface-selected": "rgba(250, 250, 250, 1)",
+      "color-radio-button-bg-surface-disabled": "rgba(0, 0, 0, 0.08)",
+      "color-radio-button-icon-disabled": "rgba(255, 255, 255, 1)",
+      "color-video-thumbnail-play-button-bg-fill-hover": "rgba(0, 0, 0, 0.81)",
+      "color-video-thumbnail-play-button-bg-fill": "rgba(0, 0, 0, 0.71)",
+      "color-video-thumbnail-play-button-text-on-bg-fill": "rgba(255, 255, 255, 1)",
+      "color-scrollbar-thumb-bg-hover": "rgba(138, 138, 138, 1)"
+    },
+    font: {
+      "font-family-sans": "'Inter', -apple-system, BlinkMacSystemFont, 'San Francisco', 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif",
+      "font-family-mono": "ui-monospace, SFMono-Regular, 'SF Mono', Consolas, 'Liberation Mono', Menlo, monospace",
+      "font-size-275": "0.6875rem",
+      "font-size-300": "0.75rem",
+      "font-size-325": "0.8125rem",
+      "font-size-350": "0.875rem",
+      "font-size-400": "1rem",
+      "font-size-450": "1.125rem",
+      "font-size-500": "1.25rem",
+      "font-size-550": "1.375rem",
+      "font-size-600": "1.5rem",
+      "font-size-750": "1.875rem",
+      "font-size-800": "2rem",
+      "font-size-900": "2.25rem",
+      "font-size-1000": "2.5rem",
+      "font-weight-regular": "450",
+      "font-weight-medium": "550",
+      "font-weight-semibold": "650",
+      "font-weight-bold": "700",
+      "font-letter-spacing-densest": "-0.03375rem",
+      "font-letter-spacing-denser": "-0.01875rem",
+      "font-letter-spacing-dense": "-0.0125rem",
+      "font-letter-spacing-normal": "0rem",
+      "font-line-height-300": "0.75rem",
+      "font-line-height-400": "1rem",
+      "font-line-height-500": "1.25rem",
+      "font-line-height-600": "1.5rem",
+      "font-line-height-700": "1.75rem",
+      "font-line-height-800": "2rem",
+      "font-line-height-1000": "2.5rem",
+      "font-line-height-1200": "3rem"
+    },
+    height: {
+      "height-0": "0rem",
+      "height-025": "0.0625rem",
+      "height-050": "0.125rem",
+      "height-100": "0.25rem",
+      "height-150": "0.375rem",
+      "height-200": "0.5rem",
+      "height-300": "0.75rem",
+      "height-400": "1rem",
+      "height-500": "1.25rem",
+      "height-600": "1.5rem",
+      "height-700": "1.75rem",
+      "height-800": "2rem",
+      "height-900": "2.25rem",
+      "height-1000": "2.5rem",
+      "height-1200": "3rem",
+      "height-1600": "4rem",
+      "height-2000": "5rem",
+      "height-2400": "6rem",
+      "height-2800": "7rem",
+      "height-3200": "8rem"
+    },
+    motion: {
+      "motion-duration-0": "0ms",
+      "motion-duration-50": "50ms",
+      "motion-duration-100": "100ms",
+      "motion-duration-150": "150ms",
+      "motion-duration-200": "200ms",
+      "motion-duration-250": "250ms",
+      "motion-duration-300": "300ms",
+      "motion-duration-350": "350ms",
+      "motion-duration-400": "400ms",
+      "motion-duration-450": "450ms",
+      "motion-duration-500": "500ms",
+      "motion-duration-5000": "5000ms",
+      "motion-ease": "cubic-bezier(0.25, 0.1, 0.25, 1)",
+      "motion-ease-in": "cubic-bezier(0.42, 0, 1, 1)",
+      "motion-ease-out": "cubic-bezier(0.19, 0.91, 0.38, 1)",
+      "motion-ease-in-out": "cubic-bezier(0.42, 0, 0.58, 1)",
+      "motion-linear": "cubic-bezier(0, 0, 1, 1)",
+      "motion-keyframes-bounce": "{ from, 65%, 85% { transform: scale(1) } 75% { transform: scale(0.85) } 82.5% { transform: scale(1.05) } }",
+      "motion-keyframes-fade-in": "{ to { opacity: 1 } }",
+      "motion-keyframes-pulse": "{ from, 75% { transform: scale(0.85); opacity: 1; } to { transform: scale(2.5); opacity: 0; } }",
+      "motion-keyframes-spin": "{ to { transform: rotate(1turn) } }",
+      "motion-keyframes-appear-above": "{ from { transform: translateY(var(--p-space-100)); opacity: 0; } to { transform: none; opacity: 1; } }",
+      "motion-keyframes-appear-below": "{ from { transform: translateY(calc(var(--p-space-100) * -1)); opacity: 0; } to { transform: none; opacity: 1; } }"
+    },
+    shadow: {
+      "shadow-0": "none",
+      "shadow-100": "0rem 0.0625rem 0rem 0rem rgba(26, 26, 26, 0.07)",
+      "shadow-200": "0rem 0.1875rem 0.0625rem -0.0625rem rgba(26, 26, 26, 0.07)",
+      "shadow-300": "0rem 0.25rem 0.375rem -0.125rem rgba(26, 26, 26, 0.20)",
+      "shadow-400": "0rem 0.5rem 1rem -0.25rem rgba(26, 26, 26, 0.22)",
+      "shadow-500": "0rem 0.75rem 1.25rem -0.5rem rgba(26, 26, 26, 0.24)",
+      "shadow-600": "0rem 1.25rem 1.25rem -0.5rem rgba(26, 26, 26, 0.28)",
+      "shadow-bevel-100": "0.0625rem 0rem 0rem 0rem rgba(0, 0, 0, 0.13) inset, -0.0625rem 0rem 0rem 0rem rgba(0, 0, 0, 0.13) inset, 0rem -0.0625rem 0rem 0rem rgba(0, 0, 0, 0.17) inset, 0rem 0.0625rem 0rem 0rem rgba(204, 204, 204, 0.5) inset",
+      "shadow-inset-100": "0rem 0.0625rem 0.125rem 0rem rgba(26, 26, 26, 0.15) inset, 0rem 0.0625rem 0.0625rem 0rem rgba(26, 26, 26, 0.15) inset",
+      "shadow-inset-200": "0rem 0.125rem 0.0625rem 0rem rgba(26, 26, 26, 0.20) inset, 0.0625rem 0rem 0.0625rem 0rem rgba(26, 26, 26, 0.12) inset, -0.0625rem 0rem 0.0625rem 0rem rgba(26, 26, 26, 0.12) inset",
+      "shadow-button": "0rem -0.0625rem 0rem 0rem #b5b5b5 inset, 0rem 0rem 0rem 0.0625rem rgba(0, 0, 0, 0.1) inset, 0rem 0.03125rem 0rem 0.09375rem #FFF inset",
+      "shadow-button-hover": "0rem 0.0625rem 0rem 0rem #EBEBEB inset, -0.0625rem 0rem 0rem 0rem #EBEBEB inset, 0.0625rem 0rem 0rem 0rem #EBEBEB inset, 0rem -0.0625rem 0rem 0rem #CCC inset",
+      "shadow-button-inset": "-0.0625rem 0rem 0.0625rem 0rem rgba(26, 26, 26, 0.122) inset, 0.0625rem 0rem 0.0625rem 0rem rgba(26, 26, 26, 0.122) inset, 0rem 0.125rem 0.0625rem 0rem rgba(26, 26, 26, 0.2) inset",
+      "shadow-button-primary": "0rem -0.0625rem 0rem 0.0625rem rgba(0, 0, 0, 0.8) inset, 0rem 0rem 0rem 0.0625rem rgba(48, 48, 48, 1) inset, 0rem 0.03125rem 0rem 0.09375rem rgba(255, 255, 255, 0.25) inset;",
+      "shadow-button-primary-hover": "0rem 0.0625rem 0rem 0rem rgba(255, 255, 255, 0.24) inset, 0.0625rem 0rem 0rem 0rem rgba(255, 255, 255, 0.20) inset, -0.0625rem 0rem 0rem 0rem rgba(255, 255, 255, 0.20) inset, 0rem -0.0625rem 0rem 0rem #000 inset, 0rem -0.0625rem 0rem 0.0625rem #1A1A1A",
+      "shadow-button-primary-inset": "0rem 0.1875rem 0rem 0rem rgb(0, 0, 0) inset",
+      "shadow-button-primary-critical": "0rem -0.0625rem 0rem 0.0625rem rgba(142, 31, 11, 0.8) inset, 0rem 0rem 0rem 0.0625rem rgba(181, 38, 11, 0.8) inset, 0rem 0.03125rem 0rem 0.09375rem rgba(255, 255, 255, 0.349) inset",
+      "shadow-button-primary-critical-hover": "0rem 0.0625rem 0rem 0rem rgba(255, 255, 255, 0.48) inset, 0.0625rem 0rem 0rem 0rem rgba(255, 255, 255, 0.20) inset, -0.0625rem 0rem 0rem 0rem rgba(255, 255, 255, 0.20) inset, 0rem -0.09375rem 0rem 0rem rgba(0, 0, 0, 0.25) inset",
+      "shadow-button-primary-critical-inset": "-0.0625rem 0rem 0.0625rem 0rem rgba(0, 0, 0, 0.2) inset, 0.0625rem 0rem 0.0625rem 0rem rgba(0, 0, 0, 0.2) inset, 0rem 0.125rem 0rem 0rem rgba(0, 0, 0, 0.6) inset",
+      "shadow-button-primary-success": "0rem -0.0625rem 0rem 0.0625rem rgba(12, 81, 50, 0.8) inset, 0rem 0rem 0rem 0.0625rem rgba(19, 111, 69, 0.8) inset, 0rem 0.03125rem 0rem 0.09375rem rgba(255, 255, 255, 0.251) inset",
+      "shadow-button-primary-success-hover": "0rem 0.0625rem 0rem 0rem rgba(255, 255, 255, 0.48) inset, 0.0625rem 0rem 0rem 0rem rgba(255, 255, 255, 0.20) inset, -0.0625rem 0rem 0rem 0rem rgba(255, 255, 255, 0.20) inset, 0rem -0.09375rem 0rem 0rem rgba(0, 0, 0, 0.25) inset",
+      "shadow-button-primary-success-inset": "-0.0625rem 0rem 0.0625rem 0rem rgba(0, 0, 0, 0.2) inset, 0.0625rem 0rem 0.0625rem 0rem rgba(0, 0, 0, 0.2) inset, 0rem 0.125rem 0rem 0rem rgba(0, 0, 0, 0.6) inset",
+      "shadow-border-inset": "0rem 0rem 0rem 0.0625rem rgba(0, 0, 0, 0.08) inset"
+    },
+    space: {
+      "space-0": "0rem",
+      "space-025": "0.0625rem",
+      "space-050": "0.125rem",
+      "space-100": "0.25rem",
+      "space-150": "0.375rem",
+      "space-200": "0.5rem",
+      "space-300": "0.75rem",
+      "space-400": "1rem",
+      "space-500": "1.25rem",
+      "space-600": "1.5rem",
+      "space-800": "2rem",
+      "space-1000": "2.5rem",
+      "space-1200": "3rem",
+      "space-1600": "4rem",
+      "space-2000": "5rem",
+      "space-2400": "6rem",
+      "space-2800": "7rem",
+      "space-3200": "8rem",
+      "space-button-group-gap": "0.5rem",
+      "space-card-gap": "1rem",
+      "space-card-padding": "1rem",
+      "space-table-cell-padding": "0.375rem"
+    },
+    text: {
+      "text-heading-3xl-font-family": "'Inter', -apple-system, BlinkMacSystemFont, 'San Francisco', 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif",
+      "text-heading-3xl-font-size": "2.25rem",
+      "text-heading-3xl-font-weight": "700",
+      "text-heading-3xl-font-letter-spacing": "-0.03375rem",
+      "text-heading-3xl-font-line-height": "3rem",
+      "text-heading-2xl-font-family": "'Inter', -apple-system, BlinkMacSystemFont, 'San Francisco', 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif",
+      "text-heading-2xl-font-size": "1.875rem",
+      "text-heading-2xl-font-weight": "700",
+      "text-heading-2xl-font-letter-spacing": "-0.01875rem",
+      "text-heading-2xl-font-line-height": "2.5rem",
+      "text-heading-xl-font-family": "'Inter', -apple-system, BlinkMacSystemFont, 'San Francisco', 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif",
+      "text-heading-xl-font-size": "1.5rem",
+      "text-heading-xl-font-weight": "700",
+      "text-heading-xl-font-letter-spacing": "-0.0125rem",
+      "text-heading-xl-font-line-height": "2rem",
+      "text-heading-lg-font-family": "'Inter', -apple-system, BlinkMacSystemFont, 'San Francisco', 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif",
+      "text-heading-lg-font-size": "1.25rem",
+      "text-heading-lg-font-weight": "650",
+      "text-heading-lg-font-letter-spacing": "-0.0125rem",
+      "text-heading-lg-font-line-height": "1.5rem",
+      "text-heading-md-font-family": "'Inter', -apple-system, BlinkMacSystemFont, 'San Francisco', 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif",
+      "text-heading-md-font-size": "0.875rem",
+      "text-heading-md-font-weight": "650",
+      "text-heading-md-font-letter-spacing": "0rem",
+      "text-heading-md-font-line-height": "1.25rem",
+      "text-heading-sm-font-family": "'Inter', -apple-system, BlinkMacSystemFont, 'San Francisco', 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif",
+      "text-heading-sm-font-size": "0.8125rem",
+      "text-heading-sm-font-weight": "650",
+      "text-heading-sm-font-letter-spacing": "0rem",
+      "text-heading-sm-font-line-height": "1.25rem",
+      "text-heading-xs-font-family": "'Inter', -apple-system, BlinkMacSystemFont, 'San Francisco', 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif",
+      "text-heading-xs-font-size": "0.75rem",
+      "text-heading-xs-font-weight": "650",
+      "text-heading-xs-font-letter-spacing": "0rem",
+      "text-heading-xs-font-line-height": "1rem",
+      "text-body-lg-font-family": "'Inter', -apple-system, BlinkMacSystemFont, 'San Francisco', 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif",
+      "text-body-lg-font-size": "0.875rem",
+      "text-body-lg-font-weight": "450",
+      "text-body-lg-font-letter-spacing": "0rem",
+      "text-body-lg-font-line-height": "1.25rem",
+      "text-body-md-font-family": "'Inter', -apple-system, BlinkMacSystemFont, 'San Francisco', 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif",
+      "text-body-md-font-size": "0.8125rem",
+      "text-body-md-font-weight": "450",
+      "text-body-md-font-letter-spacing": "0rem",
+      "text-body-md-font-line-height": "1.25rem",
+      "text-body-sm-font-family": "'Inter', -apple-system, BlinkMacSystemFont, 'San Francisco', 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif",
+      "text-body-sm-font-size": "0.75rem",
+      "text-body-sm-font-weight": "450",
+      "text-body-sm-font-letter-spacing": "0rem",
+      "text-body-sm-font-line-height": "1rem",
+      "text-body-xs-font-family": "'Inter', -apple-system, BlinkMacSystemFont, 'San Francisco', 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif",
+      "text-body-xs-font-size": "0.6875rem",
+      "text-body-xs-font-weight": "450",
+      "text-body-xs-font-letter-spacing": "0rem",
+      "text-body-xs-font-line-height": "0.75rem"
+    },
+    width: {
+      "width-0": "0rem",
+      "width-025": "0.0625rem",
+      "width-050": "0.125rem",
+      "width-100": "0.25rem",
+      "width-150": "0.375rem",
+      "width-200": "0.5rem",
+      "width-300": "0.75rem",
+      "width-400": "1rem",
+      "width-500": "1.25rem",
+      "width-600": "1.5rem",
+      "width-700": "1.75rem",
+      "width-800": "2rem",
+      "width-900": "2.25rem",
+      "width-1000": "2.5rem",
+      "width-1200": "3rem",
+      "width-1600": "4rem",
+      "width-2000": "5rem",
+      "width-2400": "6rem",
+      "width-2800": "7rem",
+      "width-3200": "8rem"
+    },
+    zIndex: {
+      "z-index-0": "auto",
+      "z-index-1": "100",
+      "z-index-2": "400",
+      "z-index-3": "510",
+      "z-index-4": "512",
+      "z-index-5": "513",
+      "z-index-6": "514",
+      "z-index-7": "515",
+      "z-index-8": "516",
+      "z-index-9": "517",
+      "z-index-10": "518",
+      "z-index-11": "519",
+      "z-index-12": "520"
+    }
+  },
+  "light-mobile": {
+    border: {
+      "border-radius-0": "0rem",
+      "border-radius-050": "0.125rem",
+      "border-radius-100": "0.25rem",
+      "border-radius-150": "0.375rem",
+      "border-radius-200": "0.5rem",
+      "border-radius-300": "0.75rem",
+      "border-radius-400": "1rem",
+      "border-radius-500": "1.25rem",
+      "border-radius-750": "1.875rem",
+      "border-radius-full": "624.9375rem",
+      "border-width-0": "0rem",
+      "border-width-0165": "0.04125rem",
+      "border-width-025": "0.0625rem",
+      "border-width-050": "0.125rem",
+      "border-width-100": "0.25rem"
+    },
+    breakpoints: {
+      "breakpoints-xs": "0rem",
+      "breakpoints-sm": "30.625rem",
+      "breakpoints-md": "48rem",
+      "breakpoints-lg": "65rem",
+      "breakpoints-xl": "90rem"
+    },
+    color: {
+      "color-bg": "rgba(241, 241, 241, 1)",
+      "color-bg-inverse": "rgba(26, 26, 26, 1)",
+      "color-bg-surface": "rgba(255, 255, 255, 1)",
+      "color-bg-surface-hover": "rgba(247, 247, 247, 1)",
+      "color-bg-surface-active": "rgba(243, 243, 243, 1)",
+      "color-bg-surface-selected": "rgba(241, 241, 241, 1)",
+      "color-bg-surface-disabled": "rgba(0, 0, 0, 0.05)",
+      "color-bg-surface-secondary": "rgba(247, 247, 247, 1)",
+      "color-bg-surface-secondary-hover": "rgba(241, 241, 241, 1)",
+      "color-bg-surface-secondary-active": "rgba(235, 235, 235, 1)",
+      "color-bg-surface-secondary-selected": "rgba(235, 235, 235, 1)",
+      "color-bg-surface-tertiary": "rgba(243, 243, 243, 1)",
+      "color-bg-surface-tertiary-hover": "rgba(235, 235, 235, 1)",
+      "color-bg-surface-tertiary-active": "rgba(227, 227, 227, 1)",
+      "color-bg-surface-brand": "rgba(227, 227, 227, 1)",
+      "color-bg-surface-brand-hover": "rgba(235, 235, 235, 1)",
+      "color-bg-surface-brand-active": "rgba(241, 241, 241, 1)",
+      "color-bg-surface-brand-selected": "rgba(241, 241, 241, 1)",
+      "color-bg-surface-info": "rgba(234, 244, 255, 1)",
+      "color-bg-surface-info-hover": "rgba(224, 240, 255, 1)",
+      "color-bg-surface-info-active": "rgba(202, 230, 255, 1)",
+      "color-bg-surface-success": "rgba(205, 254, 225, 1)",
+      "color-bg-surface-success-hover": "rgba(180, 254, 210, 1)",
+      "color-bg-surface-success-active": "rgba(146, 254, 194, 1)",
+      "color-bg-surface-caution": "rgba(255, 248, 219, 1)",
+      "color-bg-surface-caution-hover": "rgba(255, 244, 191, 1)",
+      "color-bg-surface-caution-active": "rgba(255, 239, 157, 1)",
+      "color-bg-surface-warning": "rgba(255, 241, 227, 1)",
+      "color-bg-surface-warning-hover": "rgba(255, 235, 213, 1)",
+      "color-bg-surface-warning-active": "rgba(255, 228, 198, 1)",
+      "color-bg-surface-critical": "rgba(254, 233, 232, 1)",
+      "color-bg-surface-critical-hover": "rgba(254, 226, 225, 1)",
+      "color-bg-surface-critical-active": "rgba(254, 218, 217, 1)",
+      "color-bg-surface-emphasis": "rgba(240, 242, 255, 1)",
+      "color-bg-surface-emphasis-hover": "rgba(234, 237, 255, 1)",
+      "color-bg-surface-emphasis-active": "rgba(226, 231, 255, 1)",
+      "color-bg-surface-magic": "rgba(248, 247, 255, 1)",
+      "color-bg-surface-magic-hover": "rgba(243, 241, 255, 1)",
+      "color-bg-surface-magic-active": "rgba(233, 229, 255, 1)",
+      "color-bg-surface-inverse": "rgba(48, 48, 48, 1)",
+      "color-bg-surface-transparent": "rgba(0, 0, 0, 0)",
+      "color-bg-fill": "rgba(255, 255, 255, 1)",
+      "color-bg-fill-hover": "rgba(250, 250, 250, 1)",
+      "color-bg-fill-active": "rgba(247, 247, 247, 1)",
+      "color-bg-fill-selected": "rgba(204, 204, 204, 1)",
+      "color-bg-fill-disabled": "rgba(0, 0, 0, 0.05)",
+      "color-bg-fill-secondary": "rgba(241, 241, 241, 1)",
+      "color-bg-fill-secondary-hover": "rgba(235, 235, 235, 1)",
+      "color-bg-fill-secondary-active": "rgba(227, 227, 227, 1)",
+      "color-bg-fill-tertiary": "rgba(227, 227, 227, 1)",
+      "color-bg-fill-tertiary-hover": "rgba(212, 212, 212, 1)",
+      "color-bg-fill-tertiary-active": "rgba(204, 204, 204, 1)",
+      "color-bg-fill-brand": "rgba(48, 48, 48, 1)",
+      "color-bg-fill-brand-hover": "rgba(26, 26, 26, 1)",
+      "color-bg-fill-brand-active": "rgba(26, 26, 26, 1)",
+      "color-bg-fill-brand-selected": "rgba(48, 48, 48, 1)",
+      "color-bg-fill-brand-disabled": "rgba(0, 0, 0, 0.17)",
+      "color-bg-fill-info": "rgba(145, 208, 255, 1)",
+      "color-bg-fill-info-hover": "rgba(81, 192, 255, 1)",
+      "color-bg-fill-info-active": "rgba(0, 148, 213, 1)",
+      "color-bg-fill-info-secondary": "rgba(213, 235, 255, 1)",
+      "color-bg-fill-success": "rgba(41, 132, 90, 1)",
+      "color-bg-fill-success-hover": "rgba(19, 111, 69, 1)",
+      "color-bg-fill-success-active": "rgba(12, 81, 50, 1)",
+      "color-bg-fill-success-secondary": "rgba(180, 254, 210, 1)",
+      "color-bg-fill-warning": "rgba(255, 184, 0, 1)",
+      "color-bg-fill-warning-hover": "rgba(229, 165, 0, 1)",
+      "color-bg-fill-warning-active": "rgba(178, 132, 0, 1)",
+      "color-bg-fill-warning-secondary": "rgba(255, 214, 164, 1)",
+      "color-bg-fill-caution": "rgba(255, 230, 0, 1)",
+      "color-bg-fill-caution-hover": "rgba(234, 211, 0, 1)",
+      "color-bg-fill-caution-active": "rgba(225, 203, 0, 1)",
+      "color-bg-fill-caution-secondary": "rgba(255, 235, 120, 1)",
+      "color-bg-fill-critical": "rgba(229, 28, 0, 1)",
+      "color-bg-fill-critical-hover": "rgba(181, 38, 11, 1)",
+      "color-bg-fill-critical-active": "rgba(142, 31, 11, 1)",
+      "color-bg-fill-critical-selected": "rgba(142, 31, 11, 1)",
+      "color-bg-fill-critical-secondary": "rgba(254, 211, 209, 1)",
+      "color-bg-fill-emphasis": "rgba(0, 91, 211, 1)",
+      "color-bg-fill-emphasis-hover": "rgba(0, 66, 153, 1)",
+      "color-bg-fill-emphasis-active": "rgba(0, 46, 106, 1)",
+      "color-bg-fill-magic": "rgba(128, 81, 255, 1)",
+      "color-bg-fill-magic-secondary": "rgba(233, 229, 255, 1)",
+      "color-bg-fill-magic-secondary-hover": "rgba(228, 222, 255, 1)",
+      "color-bg-fill-magic-secondary-active": "rgba(223, 217, 255, 1)",
+      "color-bg-fill-inverse": "rgba(48, 48, 48, 1)",
+      "color-bg-fill-inverse-hover": "rgba(74, 74, 74, 1)",
+      "color-bg-fill-inverse-active": "rgba(97, 97, 97, 1)",
+      "color-bg-fill-transparent": "rgba(0, 0, 0, 0.02)",
+      "color-bg-fill-transparent-hover": "rgba(0, 0, 0, 0.05)",
+      "color-bg-fill-transparent-active": "rgba(0, 0, 0, 0.08)",
+      "color-bg-fill-transparent-selected": "rgba(0, 0, 0, 0.08)",
+      "color-bg-fill-transparent-secondary": "rgba(0, 0, 0, 0.06)",
+      "color-bg-fill-transparent-secondary-hover": "rgba(0, 0, 0, 0.08)",
+      "color-bg-fill-transparent-secondary-active": "rgba(0, 0, 0, 0.11)",
+      "color-text": "rgba(48, 48, 48, 1)",
+      "color-text-secondary": "rgba(97, 97, 97, 1)",
+      "color-text-disabled": "rgba(181, 181, 181, 1)",
+      "color-text-link": "rgba(0, 91, 211, 1)",
+      "color-text-link-hover": "rgba(0, 66, 153, 1)",
+      "color-text-link-active": "rgba(0, 46, 106, 1)",
+      "color-text-brand": "rgba(74, 74, 74, 1)",
+      "color-text-brand-hover": "rgba(48, 48, 48, 1)",
+      "color-text-brand-on-bg-fill": "rgba(255, 255, 255, 1)",
+      "color-text-brand-on-bg-fill-hover": "rgba(227, 227, 227, 1)",
+      "color-text-brand-on-bg-fill-active": "rgba(204, 204, 204, 1)",
+      "color-text-brand-on-bg-fill-disabled": "rgba(255, 255, 255, 1)",
+      "color-text-info": "rgba(0, 58, 90, 1)",
+      "color-text-info-hover": "rgba(0, 58, 90, 1)",
+      "color-text-info-active": "rgba(0, 33, 51, 1)",
+      "color-text-info-secondary": "rgba(0, 124, 180, 1)",
+      "color-text-info-on-bg-fill": "rgba(0, 33, 51, 1)",
+      "color-text-success": "rgba(12, 81, 50, 1)",
+      "color-text-success-hover": "rgba(8, 61, 37, 1)",
+      "color-text-success-active": "rgba(9, 42, 27, 1)",
+      "color-text-success-secondary": "rgba(41, 132, 90, 1)",
+      "color-text-success-on-bg-fill": "rgba(248, 255, 251, 1)",
+      "color-text-caution": "rgba(79, 71, 0, 1)",
+      "color-text-caution-hover": "rgba(51, 46, 0, 1)",
+      "color-text-caution-active": "rgba(31, 28, 0, 1)",
+      "color-text-caution-secondary": "rgba(130, 117, 0, 1)",
+      "color-text-caution-on-bg-fill": "rgba(51, 46, 0, 1)",
+      "color-text-warning": "rgba(94, 66, 0, 1)",
+      "color-text-warning-hover": "rgba(65, 45, 0, 1)",
+      "color-text-warning-active": "rgba(37, 26, 0, 1)",
+      "color-text-warning-secondary": "rgba(149, 111, 0, 1)",
+      "color-text-warning-on-bg-fill": "rgba(37, 26, 0, 1)",
+      "color-text-critical": "rgba(142, 31, 11, 1)",
+      "color-text-critical-hover": "rgba(95, 21, 7, 1)",
+      "color-text-critical-active": "rgba(47, 10, 4, 1)",
+      "color-text-critical-secondary": "rgba(229, 28, 0, 1)",
+      "color-text-critical-on-bg-fill": "rgba(255, 251, 251, 1)",
+      "color-text-emphasis": "rgba(0, 91, 211, 1)",
+      "color-text-emphasis-hover": "rgba(0, 66, 153, 1)",
+      "color-text-emphasis-active": "rgba(0, 46, 106, 1)",
+      "color-text-emphasis-on-bg-fill": "rgba(252, 253, 255, 1)",
+      "color-text-emphasis-on-bg-fill-hover": "rgba(226, 231, 255, 1)",
+      "color-text-emphasis-on-bg-fill-active": "rgba(213, 220, 255, 1)",
+      "color-text-magic": "rgba(87, 0, 209, 1)",
+      "color-text-magic-secondary": "rgba(113, 38, 255, 1)",
+      "color-text-magic-on-bg-fill": "rgba(253, 253, 255, 1)",
+      "color-text-inverse": "rgba(227, 227, 227, 1)",
+      "color-text-inverse-secondary": "rgba(181, 181, 181, 1)",
+      "color-text-link-inverse": "rgba(197, 208, 255, 1)",
+      "color-border": "rgba(227, 227, 227, 1)",
+      "color-border-hover": "rgba(204, 204, 204, 1)",
+      "color-border-disabled": "rgba(235, 235, 235, 1)",
+      "color-border-secondary": "rgba(235, 235, 235, 1)",
+      "color-border-tertiary": "rgba(204, 204, 204, 1)",
+      "color-border-focus": "rgba(0, 91, 211, 1)",
+      "color-border-brand": "rgba(227, 227, 227, 1)",
+      "color-border-info": "rgba(168, 216, 255, 1)",
+      "color-border-success": "rgba(146, 254, 194, 1)",
+      "color-border-caution": "rgba(255, 235, 120, 1)",
+      "color-border-warning": "rgba(255, 200, 121, 1)",
+      "color-border-critical": "rgba(254, 195, 193, 1)",
+      "color-border-critical-secondary": "rgba(142, 31, 11, 1)",
+      "color-border-emphasis": "rgba(0, 91, 211, 1)",
+      "color-border-emphasis-hover": "rgba(0, 66, 153, 1)",
+      "color-border-emphasis-active": "rgba(0, 46, 106, 1)",
+      "color-border-magic": "rgba(228, 222, 255, 1)",
+      "color-border-magic-secondary": "rgba(148, 116, 255, 1)",
+      "color-border-magic-secondary-hover": "rgba(128, 81, 255, 1)",
+      "color-border-inverse": "rgba(97, 97, 97, 1)",
+      "color-border-inverse-hover": "rgba(204, 204, 204, 1)",
+      "color-border-inverse-active": "rgba(227, 227, 227, 1)",
+      "color-icon": "rgba(74, 74, 74, 1)",
+      "color-icon-hover": "rgba(48, 48, 48, 1)",
+      "color-icon-active": "rgba(26, 26, 26, 1)",
+      "color-icon-disabled": "rgba(204, 204, 204, 1)",
+      "color-icon-secondary": "rgba(138, 138, 138, 1)",
+      "color-icon-secondary-hover": "rgba(97, 97, 97, 1)",
+      "color-icon-secondary-active": "rgba(74, 74, 74, 1)",
+      "color-icon-brand": "rgba(26, 26, 26, 1)",
+      "color-icon-info": "rgba(0, 148, 213, 1)",
+      "color-icon-success": "rgba(41, 132, 90, 1)",
+      "color-icon-caution": "rgba(153, 138, 0, 1)",
+      "color-icon-warning": "rgba(178, 132, 0, 1)",
+      "color-icon-critical": "rgba(239, 77, 47, 1)",
+      "color-icon-emphasis": "rgba(0, 91, 211, 1)",
+      "color-icon-emphasis-hover": "rgba(0, 66, 153, 1)",
+      "color-icon-emphasis-active": "rgba(0, 46, 106, 1)",
+      "color-icon-magic": "rgba(128, 81, 255, 1)",
+      "color-icon-inverse": "rgba(227, 227, 227, 1)",
+      "color-avatar-bg-fill": "rgba(181, 181, 181, 1)",
+      "color-avatar-five-bg-fill": "rgba(253, 75, 146, 1)",
+      "color-avatar-five-text-on-bg-fill": "rgba(255, 246, 248, 1)",
+      "color-avatar-four-bg-fill": "rgba(81, 192, 255, 1)",
+      "color-avatar-four-text-on-bg-fill": "rgba(0, 33, 51, 1)",
+      "color-avatar-one-bg-fill": "rgba(197, 48, 197, 1)",
+      "color-avatar-one-text-on-bg-fill": "rgba(253, 239, 253, 1)",
+      "color-avatar-seven-bg-fill": "rgba(148, 116, 255, 1)",
+      "color-avatar-seven-text-on-bg-fill": "rgba(248, 247, 255, 1)",
+      "color-avatar-six-bg-fill": "rgba(37, 232, 43, 1)",
+      "color-avatar-six-text-on-bg-fill": "rgba(3, 61, 5, 1)",
+      "color-avatar-text-on-bg-fill": "rgba(255, 255, 255, 1)",
+      "color-avatar-three-bg-fill": "rgba(44, 224, 212, 1)",
+      "color-avatar-three-text-on-bg-fill": "rgba(3, 60, 57, 1)",
+      "color-avatar-two-bg-fill": "rgba(56, 250, 163, 1)",
+      "color-avatar-two-text-on-bg-fill": "rgba(12, 81, 50, 1)",
+      "color-backdrop-bg": "rgba(0, 0, 0, 0.71)",
+      "color-button-gradient-bg-fill": "none",
+      "color-checkbox-bg-surface-disabled": "rgba(0, 0, 0, 0.08)",
+      "color-checkbox-icon-disabled": "rgba(255, 255, 255, 1)",
+      "color-input-bg-surface": "rgba(253, 253, 253, 1)",
+      "color-input-bg-surface-hover": "rgba(250, 250, 250, 1)",
+      "color-input-bg-surface-active": "rgba(247, 247, 247, 1)",
+      "color-input-border": "rgba(138, 138, 138, 1)",
+      "color-input-border-hover": "rgba(97, 97, 97, 1)",
+      "color-input-border-active": "rgba(26, 26, 26, 1)",
+      "color-nav-bg": "rgba(235, 235, 235, 1)",
+      "color-nav-bg-surface": "rgba(0, 0, 0, 0.02)",
+      "color-nav-bg-surface-hover": "rgba(241, 241, 241, 1)",
+      "color-nav-bg-surface-active": "rgba(250, 250, 250, 1)",
+      "color-nav-bg-surface-selected": "rgba(250, 250, 250, 1)",
+      "color-radio-button-bg-surface-disabled": "rgba(0, 0, 0, 0.08)",
+      "color-radio-button-icon-disabled": "rgba(255, 255, 255, 1)",
+      "color-video-thumbnail-play-button-bg-fill-hover": "rgba(0, 0, 0, 0.81)",
+      "color-video-thumbnail-play-button-bg-fill": "rgba(0, 0, 0, 0.71)",
+      "color-video-thumbnail-play-button-text-on-bg-fill": "rgba(255, 255, 255, 1)",
+      "color-scrollbar-thumb-bg-hover": "rgba(138, 138, 138, 1)"
+    },
+    font: {
+      "font-family-sans": "'Inter', -apple-system, BlinkMacSystemFont, 'San Francisco', 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif",
+      "font-family-mono": "ui-monospace, SFMono-Regular, 'SF Mono', Consolas, 'Liberation Mono', Menlo, monospace",
+      "font-size-275": "0.6875rem",
+      "font-size-300": "0.75rem",
+      "font-size-325": "0.8125rem",
+      "font-size-350": "0.875rem",
+      "font-size-400": "1rem",
+      "font-size-450": "1.125rem",
+      "font-size-500": "1.25rem",
+      "font-size-550": "1.375rem",
+      "font-size-600": "1.5rem",
+      "font-size-750": "1.875rem",
+      "font-size-800": "2rem",
+      "font-size-900": "2.25rem",
+      "font-size-1000": "2.5rem",
+      "font-weight-regular": "450",
+      "font-weight-medium": "550",
+      "font-weight-semibold": "650",
+      "font-weight-bold": "700",
+      "font-letter-spacing-densest": "-0.03375rem",
+      "font-letter-spacing-denser": "-0.01875rem",
+      "font-letter-spacing-dense": "-0.0125rem",
+      "font-letter-spacing-normal": "0rem",
+      "font-line-height-300": "0.75rem",
+      "font-line-height-400": "1rem",
+      "font-line-height-500": "1.25rem",
+      "font-line-height-600": "1.5rem",
+      "font-line-height-700": "1.75rem",
+      "font-line-height-800": "2rem",
+      "font-line-height-1000": "2.5rem",
+      "font-line-height-1200": "3rem"
+    },
+    height: {
+      "height-0": "0rem",
+      "height-025": "0.0625rem",
+      "height-050": "0.125rem",
+      "height-100": "0.25rem",
+      "height-150": "0.375rem",
+      "height-200": "0.5rem",
+      "height-300": "0.75rem",
+      "height-400": "1rem",
+      "height-500": "1.25rem",
+      "height-600": "1.5rem",
+      "height-700": "1.75rem",
+      "height-800": "2rem",
+      "height-900": "2.25rem",
+      "height-1000": "2.5rem",
+      "height-1200": "3rem",
+      "height-1600": "4rem",
+      "height-2000": "5rem",
+      "height-2400": "6rem",
+      "height-2800": "7rem",
+      "height-3200": "8rem"
+    },
+    motion: {
+      "motion-duration-0": "0ms",
+      "motion-duration-50": "50ms",
+      "motion-duration-100": "100ms",
+      "motion-duration-150": "150ms",
+      "motion-duration-200": "200ms",
+      "motion-duration-250": "250ms",
+      "motion-duration-300": "300ms",
+      "motion-duration-350": "350ms",
+      "motion-duration-400": "400ms",
+      "motion-duration-450": "450ms",
+      "motion-duration-500": "500ms",
+      "motion-duration-5000": "5000ms",
+      "motion-ease": "cubic-bezier(0.25, 0.1, 0.25, 1)",
+      "motion-ease-in": "cubic-bezier(0.42, 0, 1, 1)",
+      "motion-ease-out": "cubic-bezier(0.19, 0.91, 0.38, 1)",
+      "motion-ease-in-out": "cubic-bezier(0.42, 0, 0.58, 1)",
+      "motion-linear": "cubic-bezier(0, 0, 1, 1)",
+      "motion-keyframes-bounce": "{ from, 65%, 85% { transform: scale(1) } 75% { transform: scale(0.85) } 82.5% { transform: scale(1.05) } }",
+      "motion-keyframes-fade-in": "{ to { opacity: 1 } }",
+      "motion-keyframes-pulse": "{ from, 75% { transform: scale(0.85); opacity: 1; } to { transform: scale(2.5); opacity: 0; } }",
+      "motion-keyframes-spin": "{ to { transform: rotate(1turn) } }",
+      "motion-keyframes-appear-above": "{ from { transform: translateY(var(--p-space-100)); opacity: 0; } to { transform: none; opacity: 1; } }",
+      "motion-keyframes-appear-below": "{ from { transform: translateY(calc(var(--p-space-100) * -1)); opacity: 0; } to { transform: none; opacity: 1; } }"
+    },
+    shadow: {
+      "shadow-0": "none",
+      "shadow-100": "none",
+      "shadow-200": "0rem 0.1875rem 0.0625rem -0.0625rem rgba(26, 26, 26, 0.07)",
+      "shadow-300": "0rem 0.25rem 0.375rem -0.125rem rgba(26, 26, 26, 0.20)",
+      "shadow-400": "0rem 0.5rem 1rem -0.25rem rgba(26, 26, 26, 0.22)",
+      "shadow-500": "0rem 0.75rem 1.25rem -0.5rem rgba(26, 26, 26, 0.24)",
+      "shadow-600": "0rem 1.25rem 1.25rem -0.5rem rgba(26, 26, 26, 0.28)",
+      "shadow-bevel-100": "none",
+      "shadow-inset-100": "0rem 0.0625rem 0.125rem 0rem rgba(26, 26, 26, 0.15) inset, 0rem 0.0625rem 0.0625rem 0rem rgba(26, 26, 26, 0.15) inset",
+      "shadow-inset-200": "0rem 0.125rem 0.0625rem 0rem rgba(26, 26, 26, 0.20) inset, 0.0625rem 0rem 0.0625rem 0rem rgba(26, 26, 26, 0.12) inset, -0.0625rem 0rem 0.0625rem 0rem rgba(26, 26, 26, 0.12) inset",
+      "shadow-button": "0 0 0 var(--p-border-width-025) var(--p-color-border) inset",
+      "shadow-button-hover": "0 0 0 var(--p-border-width-025) var(--p-color-border) inset",
+      "shadow-button-inset": "0 0 0 var(--p-border-width-025) var(--p-color-border) inset",
+      "shadow-button-primary": "none",
+      "shadow-button-primary-hover": "none",
+      "shadow-button-primary-inset": "none",
+      "shadow-button-primary-critical": "none",
+      "shadow-button-primary-critical-hover": "none",
+      "shadow-button-primary-critical-inset": "none",
+      "shadow-button-primary-success": "none",
+      "shadow-button-primary-success-hover": "none",
+      "shadow-button-primary-success-inset": "none",
+      "shadow-border-inset": "0rem 0rem 0rem 0.0625rem rgba(0, 0, 0, 0.08) inset"
+    },
+    space: {
+      "space-0": "0rem",
+      "space-025": "0.0625rem",
+      "space-050": "0.125rem",
+      "space-100": "0.25rem",
+      "space-150": "0.375rem",
+      "space-200": "0.5rem",
+      "space-300": "0.75rem",
+      "space-400": "1rem",
+      "space-500": "1.25rem",
+      "space-600": "1.5rem",
+      "space-800": "2rem",
+      "space-1000": "2.5rem",
+      "space-1200": "3rem",
+      "space-1600": "4rem",
+      "space-2000": "5rem",
+      "space-2400": "6rem",
+      "space-2800": "7rem",
+      "space-3200": "8rem",
+      "space-button-group-gap": "0.5rem",
+      "space-card-gap": "0.5rem",
+      "space-card-padding": "1rem",
+      "space-table-cell-padding": "0.375rem"
+    },
+    text: {
+      "text-heading-3xl-font-family": "'Inter', -apple-system, BlinkMacSystemFont, 'San Francisco', 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif",
+      "text-heading-3xl-font-size": "2.25rem",
+      "text-heading-3xl-font-weight": "700",
+      "text-heading-3xl-font-letter-spacing": "-0.03375rem",
+      "text-heading-3xl-font-line-height": "3rem",
+      "text-heading-2xl-font-family": "'Inter', -apple-system, BlinkMacSystemFont, 'San Francisco', 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif",
+      "text-heading-2xl-font-size": "2rem",
+      "text-heading-2xl-font-weight": "700",
+      "text-heading-2xl-font-letter-spacing": "-0.01875rem",
+      "text-heading-2xl-font-line-height": "2.5rem",
+      "text-heading-xl-font-family": "'Inter', -apple-system, BlinkMacSystemFont, 'San Francisco', 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif",
+      "text-heading-xl-font-size": "1.375rem",
+      "text-heading-xl-font-weight": "700",
+      "text-heading-xl-font-letter-spacing": "-0.0125rem",
+      "text-heading-xl-font-line-height": "1.75rem",
+      "text-heading-lg-font-family": "'Inter', -apple-system, BlinkMacSystemFont, 'San Francisco', 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif",
+      "text-heading-lg-font-size": "1.125rem",
+      "text-heading-lg-font-weight": "650",
+      "text-heading-lg-font-letter-spacing": "-0.0125rem",
+      "text-heading-lg-font-line-height": "1.5rem",
+      "text-heading-md-font-family": "'Inter', -apple-system, BlinkMacSystemFont, 'San Francisco', 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif",
+      "text-heading-md-font-size": "1rem",
+      "text-heading-md-font-weight": "650",
+      "text-heading-md-font-letter-spacing": "0rem",
+      "text-heading-md-font-line-height": "1.25rem",
+      "text-heading-sm-font-family": "'Inter', -apple-system, BlinkMacSystemFont, 'San Francisco', 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif",
+      "text-heading-sm-font-size": "0.875rem",
+      "text-heading-sm-font-weight": "650",
+      "text-heading-sm-font-letter-spacing": "0rem",
+      "text-heading-sm-font-line-height": "1.25rem",
+      "text-heading-xs-font-family": "'Inter', -apple-system, BlinkMacSystemFont, 'San Francisco', 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif",
+      "text-heading-xs-font-size": "0.75rem",
+      "text-heading-xs-font-weight": "650",
+      "text-heading-xs-font-letter-spacing": "0rem",
+      "text-heading-xs-font-line-height": "1rem",
+      "text-body-lg-font-family": "'Inter', -apple-system, BlinkMacSystemFont, 'San Francisco', 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif",
+      "text-body-lg-font-size": "1.125rem",
+      "text-body-lg-font-weight": "450",
+      "text-body-lg-font-letter-spacing": "0rem",
+      "text-body-lg-font-line-height": "1.75rem",
+      "text-body-md-font-family": "'Inter', -apple-system, BlinkMacSystemFont, 'San Francisco', 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif",
+      "text-body-md-font-size": "1rem",
+      "text-body-md-font-weight": "450",
+      "text-body-md-font-letter-spacing": "0rem",
+      "text-body-md-font-line-height": "1.5rem",
+      "text-body-sm-font-family": "'Inter', -apple-system, BlinkMacSystemFont, 'San Francisco', 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif",
+      "text-body-sm-font-size": "0.875rem",
+      "text-body-sm-font-weight": "450",
+      "text-body-sm-font-letter-spacing": "0rem",
+      "text-body-sm-font-line-height": "1.25rem",
+      "text-body-xs-font-family": "'Inter', -apple-system, BlinkMacSystemFont, 'San Francisco', 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif",
+      "text-body-xs-font-size": "0.75rem",
+      "text-body-xs-font-weight": "450",
+      "text-body-xs-font-letter-spacing": "0rem",
+      "text-body-xs-font-line-height": "1rem"
+    },
+    width: {
+      "width-0": "0rem",
+      "width-025": "0.0625rem",
+      "width-050": "0.125rem",
+      "width-100": "0.25rem",
+      "width-150": "0.375rem",
+      "width-200": "0.5rem",
+      "width-300": "0.75rem",
+      "width-400": "1rem",
+      "width-500": "1.25rem",
+      "width-600": "1.5rem",
+      "width-700": "1.75rem",
+      "width-800": "2rem",
+      "width-900": "2.25rem",
+      "width-1000": "2.5rem",
+      "width-1200": "3rem",
+      "width-1600": "4rem",
+      "width-2000": "5rem",
+      "width-2400": "6rem",
+      "width-2800": "7rem",
+      "width-3200": "8rem"
+    },
+    zIndex: {
+      "z-index-0": "auto",
+      "z-index-1": "100",
+      "z-index-2": "400",
+      "z-index-3": "510",
+      "z-index-4": "512",
+      "z-index-5": "513",
+      "z-index-6": "514",
+      "z-index-7": "515",
+      "z-index-8": "516",
+      "z-index-9": "517",
+      "z-index-10": "518",
+      "z-index-11": "519",
+      "z-index-12": "520"
+    }
+  },
+  "light-high-contrast-experimental": {
+    border: {
+      "border-radius-0": "0rem",
+      "border-radius-050": "0.125rem",
+      "border-radius-100": "0.25rem",
+      "border-radius-150": "0.375rem",
+      "border-radius-200": "0.5rem",
+      "border-radius-300": "0.75rem",
+      "border-radius-400": "1rem",
+      "border-radius-500": "1.25rem",
+      "border-radius-750": "1.875rem",
+      "border-radius-full": "624.9375rem",
+      "border-width-0": "0rem",
+      "border-width-0165": "0.04125rem",
+      "border-width-025": "0.0625rem",
+      "border-width-050": "0.125rem",
+      "border-width-100": "0.25rem"
+    },
+    breakpoints: {
+      "breakpoints-xs": "0rem",
+      "breakpoints-sm": "30.625rem",
+      "breakpoints-md": "48rem",
+      "breakpoints-lg": "65rem",
+      "breakpoints-xl": "90rem"
+    },
+    color: {
+      "color-bg": "rgba(241, 241, 241, 1)",
+      "color-bg-inverse": "rgba(26, 26, 26, 1)",
+      "color-bg-surface": "rgba(255, 255, 255, 1)",
+      "color-bg-surface-hover": "rgba(247, 247, 247, 1)",
+      "color-bg-surface-active": "rgba(243, 243, 243, 1)",
+      "color-bg-surface-selected": "rgba(241, 241, 241, 1)",
+      "color-bg-surface-disabled": "rgba(0, 0, 0, 0.05)",
+      "color-bg-surface-secondary": "rgba(241, 241, 241, 1)",
+      "color-bg-surface-secondary-hover": "rgba(241, 241, 241, 1)",
+      "color-bg-surface-secondary-active": "rgba(235, 235, 235, 1)",
+      "color-bg-surface-secondary-selected": "rgba(235, 235, 235, 1)",
+      "color-bg-surface-tertiary": "rgba(243, 243, 243, 1)",
+      "color-bg-surface-tertiary-hover": "rgba(235, 235, 235, 1)",
+      "color-bg-surface-tertiary-active": "rgba(227, 227, 227, 1)",
+      "color-bg-surface-brand": "rgba(227, 227, 227, 1)",
+      "color-bg-surface-brand-hover": "rgba(235, 235, 235, 1)",
+      "color-bg-surface-brand-active": "rgba(241, 241, 241, 1)",
+      "color-bg-surface-brand-selected": "rgba(241, 241, 241, 1)",
+      "color-bg-surface-info": "rgba(234, 244, 255, 1)",
+      "color-bg-surface-info-hover": "rgba(224, 240, 255, 1)",
+      "color-bg-surface-info-active": "rgba(202, 230, 255, 1)",
+      "color-bg-surface-success": "rgba(205, 254, 225, 1)",
+      "color-bg-surface-success-hover": "rgba(180, 254, 210, 1)",
+      "color-bg-surface-success-active": "rgba(146, 254, 194, 1)",
+      "color-bg-surface-caution": "rgba(255, 248, 219, 1)",
+      "color-bg-surface-caution-hover": "rgba(255, 244, 191, 1)",
+      "color-bg-surface-caution-active": "rgba(255, 239, 157, 1)",
+      "color-bg-surface-warning": "rgba(255, 241, 227, 1)",
+      "color-bg-surface-warning-hover": "rgba(255, 235, 213, 1)",
+      "color-bg-surface-warning-active": "rgba(255, 228, 198, 1)",
+      "color-bg-surface-critical": "rgba(254, 233, 232, 1)",
+      "color-bg-surface-critical-hover": "rgba(254, 226, 225, 1)",
+      "color-bg-surface-critical-active": "rgba(254, 218, 217, 1)",
+      "color-bg-surface-emphasis": "rgba(240, 242, 255, 1)",
+      "color-bg-surface-emphasis-hover": "rgba(234, 237, 255, 1)",
+      "color-bg-surface-emphasis-active": "rgba(226, 231, 255, 1)",
+      "color-bg-surface-magic": "rgba(248, 247, 255, 1)",
+      "color-bg-surface-magic-hover": "rgba(243, 241, 255, 1)",
+      "color-bg-surface-magic-active": "rgba(233, 229, 255, 1)",
+      "color-bg-surface-inverse": "rgba(48, 48, 48, 1)",
+      "color-bg-surface-transparent": "rgba(0, 0, 0, 0)",
+      "color-bg-fill": "rgba(255, 255, 255, 1)",
+      "color-bg-fill-hover": "rgba(250, 250, 250, 1)",
+      "color-bg-fill-active": "rgba(247, 247, 247, 1)",
+      "color-bg-fill-selected": "rgba(204, 204, 204, 1)",
+      "color-bg-fill-disabled": "rgba(0, 0, 0, 0.05)",
+      "color-bg-fill-secondary": "rgba(241, 241, 241, 1)",
+      "color-bg-fill-secondary-hover": "rgba(235, 235, 235, 1)",
+      "color-bg-fill-secondary-active": "rgba(227, 227, 227, 1)",
+      "color-bg-fill-tertiary": "rgba(227, 227, 227, 1)",
+      "color-bg-fill-tertiary-hover": "rgba(212, 212, 212, 1)",
+      "color-bg-fill-tertiary-active": "rgba(204, 204, 204, 1)",
+      "color-bg-fill-brand": "rgba(48, 48, 48, 1)",
+      "color-bg-fill-brand-hover": "rgba(26, 26, 26, 1)",
+      "color-bg-fill-brand-active": "rgba(26, 26, 26, 1)",
+      "color-bg-fill-brand-selected": "rgba(48, 48, 48, 1)",
+      "color-bg-fill-brand-disabled": "rgba(0, 0, 0, 0.17)",
+      "color-bg-fill-info": "rgba(145, 208, 255, 1)",
+      "color-bg-fill-info-hover": "rgba(81, 192, 255, 1)",
+      "color-bg-fill-info-active": "rgba(0, 148, 213, 1)",
+      "color-bg-fill-info-secondary": "rgba(213, 235, 255, 1)",
+      "color-bg-fill-success": "rgba(41, 132, 90, 1)",
+      "color-bg-fill-success-hover": "rgba(19, 111, 69, 1)",
+      "color-bg-fill-success-active": "rgba(12, 81, 50, 1)",
+      "color-bg-fill-success-secondary": "rgba(180, 254, 210, 1)",
+      "color-bg-fill-warning": "rgba(255, 184, 0, 1)",
+      "color-bg-fill-warning-hover": "rgba(229, 165, 0, 1)",
+      "color-bg-fill-warning-active": "rgba(178, 132, 0, 1)",
+      "color-bg-fill-warning-secondary": "rgba(255, 214, 164, 1)",
+      "color-bg-fill-caution": "rgba(255, 230, 0, 1)",
+      "color-bg-fill-caution-hover": "rgba(234, 211, 0, 1)",
+      "color-bg-fill-caution-active": "rgba(225, 203, 0, 1)",
+      "color-bg-fill-caution-secondary": "rgba(255, 235, 120, 1)",
+      "color-bg-fill-critical": "rgba(229, 28, 0, 1)",
+      "color-bg-fill-critical-hover": "rgba(181, 38, 11, 1)",
+      "color-bg-fill-critical-active": "rgba(142, 31, 11, 1)",
+      "color-bg-fill-critical-selected": "rgba(142, 31, 11, 1)",
+      "color-bg-fill-critical-secondary": "rgba(254, 211, 209, 1)",
+      "color-bg-fill-emphasis": "rgba(0, 91, 211, 1)",
+      "color-bg-fill-emphasis-hover": "rgba(0, 66, 153, 1)",
+      "color-bg-fill-emphasis-active": "rgba(0, 46, 106, 1)",
+      "color-bg-fill-magic": "rgba(128, 81, 255, 1)",
+      "color-bg-fill-magic-secondary": "rgba(233, 229, 255, 1)",
+      "color-bg-fill-magic-secondary-hover": "rgba(228, 222, 255, 1)",
+      "color-bg-fill-magic-secondary-active": "rgba(223, 217, 255, 1)",
+      "color-bg-fill-inverse": "rgba(48, 48, 48, 1)",
+      "color-bg-fill-inverse-hover": "rgba(74, 74, 74, 1)",
+      "color-bg-fill-inverse-active": "rgba(97, 97, 97, 1)",
+      "color-bg-fill-transparent": "rgba(0, 0, 0, 0.02)",
+      "color-bg-fill-transparent-hover": "rgba(0, 0, 0, 0.05)",
+      "color-bg-fill-transparent-active": "rgba(0, 0, 0, 0.08)",
+      "color-bg-fill-transparent-selected": "rgba(0, 0, 0, 0.08)",
+      "color-bg-fill-transparent-secondary": "rgba(0, 0, 0, 0.06)",
+      "color-bg-fill-transparent-secondary-hover": "rgba(0, 0, 0, 0.08)",
+      "color-bg-fill-transparent-secondary-active": "rgba(0, 0, 0, 0.11)",
+      "color-text": "rgba(26, 26, 26, 1)",
+      "color-text-secondary": "rgba(26, 26, 26, 1)",
+      "color-text-disabled": "rgba(181, 181, 181, 1)",
+      "color-text-link": "rgba(0, 91, 211, 1)",
+      "color-text-link-hover": "rgba(0, 66, 153, 1)",
+      "color-text-link-active": "rgba(0, 46, 106, 1)",
+      "color-text-brand": "rgba(26, 26, 26, 1)",
+      "color-text-brand-hover": "rgba(48, 48, 48, 1)",
+      "color-text-brand-on-bg-fill": "rgba(255, 255, 255, 1)",
+      "color-text-brand-on-bg-fill-hover": "rgba(227, 227, 227, 1)",
+      "color-text-brand-on-bg-fill-active": "rgba(204, 204, 204, 1)",
+      "color-text-brand-on-bg-fill-disabled": "rgba(255, 255, 255, 1)",
+      "color-text-info": "rgba(0, 58, 90, 1)",
+      "color-text-info-hover": "rgba(0, 58, 90, 1)",
+      "color-text-info-active": "rgba(0, 33, 51, 1)",
+      "color-text-info-secondary": "rgba(0, 124, 180, 1)",
+      "color-text-info-on-bg-fill": "rgba(0, 33, 51, 1)",
+      "color-text-success": "rgba(12, 81, 50, 1)",
+      "color-text-success-hover": "rgba(8, 61, 37, 1)",
+      "color-text-success-active": "rgba(9, 42, 27, 1)",
+      "color-text-success-secondary": "rgba(41, 132, 90, 1)",
+      "color-text-success-on-bg-fill": "rgba(248, 255, 251, 1)",
+      "color-text-caution": "rgba(79, 71, 0, 1)",
+      "color-text-caution-hover": "rgba(51, 46, 0, 1)",
+      "color-text-caution-active": "rgba(31, 28, 0, 1)",
+      "color-text-caution-secondary": "rgba(130, 117, 0, 1)",
+      "color-text-caution-on-bg-fill": "rgba(51, 46, 0, 1)",
+      "color-text-warning": "rgba(94, 66, 0, 1)",
+      "color-text-warning-hover": "rgba(65, 45, 0, 1)",
+      "color-text-warning-active": "rgba(37, 26, 0, 1)",
+      "color-text-warning-secondary": "rgba(149, 111, 0, 1)",
+      "color-text-warning-on-bg-fill": "rgba(37, 26, 0, 1)",
+      "color-text-critical": "rgba(142, 31, 11, 1)",
+      "color-text-critical-hover": "rgba(95, 21, 7, 1)",
+      "color-text-critical-active": "rgba(47, 10, 4, 1)",
+      "color-text-critical-secondary": "rgba(229, 28, 0, 1)",
+      "color-text-critical-on-bg-fill": "rgba(255, 251, 251, 1)",
+      "color-text-emphasis": "rgba(0, 91, 211, 1)",
+      "color-text-emphasis-hover": "rgba(0, 66, 153, 1)",
+      "color-text-emphasis-active": "rgba(0, 46, 106, 1)",
+      "color-text-emphasis-on-bg-fill": "rgba(252, 253, 255, 1)",
+      "color-text-emphasis-on-bg-fill-hover": "rgba(226, 231, 255, 1)",
+      "color-text-emphasis-on-bg-fill-active": "rgba(213, 220, 255, 1)",
+      "color-text-magic": "rgba(87, 0, 209, 1)",
+      "color-text-magic-secondary": "rgba(113, 38, 255, 1)",
+      "color-text-magic-on-bg-fill": "rgba(253, 253, 255, 1)",
+      "color-text-inverse": "rgba(227, 227, 227, 1)",
+      "color-text-inverse-secondary": "rgba(181, 181, 181, 1)",
+      "color-text-link-inverse": "rgba(197, 208, 255, 1)",
+      "color-border": "rgba(138, 138, 138, 1)",
+      "color-border-hover": "rgba(204, 204, 204, 1)",
+      "color-border-disabled": "rgba(235, 235, 235, 1)",
+      "color-border-secondary": "rgba(138, 138, 138, 1)",
+      "color-border-tertiary": "rgba(204, 204, 204, 1)",
+      "color-border-focus": "rgba(0, 91, 211, 1)",
+      "color-border-brand": "rgba(227, 227, 227, 1)",
+      "color-border-info": "rgba(168, 216, 255, 1)",
+      "color-border-success": "rgba(146, 254, 194, 1)",
+      "color-border-caution": "rgba(255, 235, 120, 1)",
+      "color-border-warning": "rgba(255, 200, 121, 1)",
+      "color-border-critical": "rgba(254, 195, 193, 1)",
+      "color-border-critical-secondary": "rgba(142, 31, 11, 1)",
+      "color-border-emphasis": "rgba(0, 91, 211, 1)",
+      "color-border-emphasis-hover": "rgba(0, 66, 153, 1)",
+      "color-border-emphasis-active": "rgba(0, 46, 106, 1)",
+      "color-border-magic": "rgba(228, 222, 255, 1)",
+      "color-border-magic-secondary": "rgba(148, 116, 255, 1)",
+      "color-border-magic-secondary-hover": "rgba(128, 81, 255, 1)",
+      "color-border-inverse": "rgba(97, 97, 97, 1)",
+      "color-border-inverse-hover": "rgba(204, 204, 204, 1)",
+      "color-border-inverse-active": "rgba(227, 227, 227, 1)",
+      "color-icon": "rgba(74, 74, 74, 1)",
+      "color-icon-hover": "rgba(48, 48, 48, 1)",
+      "color-icon-active": "rgba(26, 26, 26, 1)",
+      "color-icon-disabled": "rgba(204, 204, 204, 1)",
+      "color-icon-secondary": "rgba(74, 74, 74, 1)",
+      "color-icon-secondary-hover": "rgba(97, 97, 97, 1)",
+      "color-icon-secondary-active": "rgba(74, 74, 74, 1)",
+      "color-icon-brand": "rgba(26, 26, 26, 1)",
+      "color-icon-info": "rgba(0, 148, 213, 1)",
+      "color-icon-success": "rgba(41, 132, 90, 1)",
+      "color-icon-caution": "rgba(153, 138, 0, 1)",
+      "color-icon-warning": "rgba(178, 132, 0, 1)",
+      "color-icon-critical": "rgba(239, 77, 47, 1)",
+      "color-icon-emphasis": "rgba(0, 91, 211, 1)",
+      "color-icon-emphasis-hover": "rgba(0, 66, 153, 1)",
+      "color-icon-emphasis-active": "rgba(0, 46, 106, 1)",
+      "color-icon-magic": "rgba(128, 81, 255, 1)",
+      "color-icon-inverse": "rgba(227, 227, 227, 1)",
+      "color-avatar-bg-fill": "rgba(181, 181, 181, 1)",
+      "color-avatar-five-bg-fill": "rgba(253, 75, 146, 1)",
+      "color-avatar-five-text-on-bg-fill": "rgba(255, 246, 248, 1)",
+      "color-avatar-four-bg-fill": "rgba(81, 192, 255, 1)",
+      "color-avatar-four-text-on-bg-fill": "rgba(0, 33, 51, 1)",
+      "color-avatar-one-bg-fill": "rgba(197, 48, 197, 1)",
+      "color-avatar-one-text-on-bg-fill": "rgba(253, 239, 253, 1)",
+      "color-avatar-seven-bg-fill": "rgba(148, 116, 255, 1)",
+      "color-avatar-seven-text-on-bg-fill": "rgba(248, 247, 255, 1)",
+      "color-avatar-six-bg-fill": "rgba(37, 232, 43, 1)",
+      "color-avatar-six-text-on-bg-fill": "rgba(3, 61, 5, 1)",
+      "color-avatar-text-on-bg-fill": "rgba(255, 255, 255, 1)",
+      "color-avatar-three-bg-fill": "rgba(44, 224, 212, 1)",
+      "color-avatar-three-text-on-bg-fill": "rgba(3, 60, 57, 1)",
+      "color-avatar-two-bg-fill": "rgba(56, 250, 163, 1)",
+      "color-avatar-two-text-on-bg-fill": "rgba(12, 81, 50, 1)",
+      "color-backdrop-bg": "rgba(0, 0, 0, 0.71)",
+      "color-button-gradient-bg-fill": "linear-gradient(180deg, rgba(48, 48, 48, 0) 63.53%, rgba(255, 255, 255, 0.15) 100%)",
+      "color-checkbox-bg-surface-disabled": "rgba(0, 0, 0, 0.08)",
+      "color-checkbox-icon-disabled": "rgba(255, 255, 255, 1)",
+      "color-input-bg-surface": "rgba(253, 253, 253, 1)",
+      "color-input-bg-surface-hover": "rgba(250, 250, 250, 1)",
+      "color-input-bg-surface-active": "rgba(247, 247, 247, 1)",
+      "color-input-border": "rgba(74, 74, 74, 1)",
+      "color-input-border-hover": "rgba(97, 97, 97, 1)",
+      "color-input-border-active": "rgba(26, 26, 26, 1)",
+      "color-nav-bg": "rgba(235, 235, 235, 1)",
+      "color-nav-bg-surface": "rgba(0, 0, 0, 0.02)",
+      "color-nav-bg-surface-hover": "rgba(241, 241, 241, 1)",
+      "color-nav-bg-surface-active": "rgba(250, 250, 250, 1)",
+      "color-nav-bg-surface-selected": "rgba(250, 250, 250, 1)",
+      "color-radio-button-bg-surface-disabled": "rgba(0, 0, 0, 0.08)",
+      "color-radio-button-icon-disabled": "rgba(255, 255, 255, 1)",
+      "color-video-thumbnail-play-button-bg-fill-hover": "rgba(0, 0, 0, 0.81)",
+      "color-video-thumbnail-play-button-bg-fill": "rgba(0, 0, 0, 0.71)",
+      "color-video-thumbnail-play-button-text-on-bg-fill": "rgba(255, 255, 255, 1)",
+      "color-scrollbar-thumb-bg-hover": "rgba(138, 138, 138, 1)"
+    },
+    font: {
+      "font-family-sans": "'Inter', -apple-system, BlinkMacSystemFont, 'San Francisco', 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif",
+      "font-family-mono": "ui-monospace, SFMono-Regular, 'SF Mono', Consolas, 'Liberation Mono', Menlo, monospace",
+      "font-size-275": "0.6875rem",
+      "font-size-300": "0.75rem",
+      "font-size-325": "0.8125rem",
+      "font-size-350": "0.875rem",
+      "font-size-400": "1rem",
+      "font-size-450": "1.125rem",
+      "font-size-500": "1.25rem",
+      "font-size-550": "1.375rem",
+      "font-size-600": "1.5rem",
+      "font-size-750": "1.875rem",
+      "font-size-800": "2rem",
+      "font-size-900": "2.25rem",
+      "font-size-1000": "2.5rem",
+      "font-weight-regular": "450",
+      "font-weight-medium": "550",
+      "font-weight-semibold": "650",
+      "font-weight-bold": "700",
+      "font-letter-spacing-densest": "-0.03375rem",
+      "font-letter-spacing-denser": "-0.01875rem",
+      "font-letter-spacing-dense": "-0.0125rem",
+      "font-letter-spacing-normal": "0rem",
+      "font-line-height-300": "0.75rem",
+      "font-line-height-400": "1rem",
+      "font-line-height-500": "1.25rem",
+      "font-line-height-600": "1.5rem",
+      "font-line-height-700": "1.75rem",
+      "font-line-height-800": "2rem",
+      "font-line-height-1000": "2.5rem",
+      "font-line-height-1200": "3rem"
+    },
+    height: {
+      "height-0": "0rem",
+      "height-025": "0.0625rem",
+      "height-050": "0.125rem",
+      "height-100": "0.25rem",
+      "height-150": "0.375rem",
+      "height-200": "0.5rem",
+      "height-300": "0.75rem",
+      "height-400": "1rem",
+      "height-500": "1.25rem",
+      "height-600": "1.5rem",
+      "height-700": "1.75rem",
+      "height-800": "2rem",
+      "height-900": "2.25rem",
+      "height-1000": "2.5rem",
+      "height-1200": "3rem",
+      "height-1600": "4rem",
+      "height-2000": "5rem",
+      "height-2400": "6rem",
+      "height-2800": "7rem",
+      "height-3200": "8rem"
+    },
+    motion: {
+      "motion-duration-0": "0ms",
+      "motion-duration-50": "50ms",
+      "motion-duration-100": "100ms",
+      "motion-duration-150": "150ms",
+      "motion-duration-200": "200ms",
+      "motion-duration-250": "250ms",
+      "motion-duration-300": "300ms",
+      "motion-duration-350": "350ms",
+      "motion-duration-400": "400ms",
+      "motion-duration-450": "450ms",
+      "motion-duration-500": "500ms",
+      "motion-duration-5000": "5000ms",
+      "motion-ease": "cubic-bezier(0.25, 0.1, 0.25, 1)",
+      "motion-ease-in": "cubic-bezier(0.42, 0, 1, 1)",
+      "motion-ease-out": "cubic-bezier(0.19, 0.91, 0.38, 1)",
+      "motion-ease-in-out": "cubic-bezier(0.42, 0, 0.58, 1)",
+      "motion-linear": "cubic-bezier(0, 0, 1, 1)",
+      "motion-keyframes-bounce": "{ from, 65%, 85% { transform: scale(1) } 75% { transform: scale(0.85) } 82.5% { transform: scale(1.05) } }",
+      "motion-keyframes-fade-in": "{ to { opacity: 1 } }",
+      "motion-keyframes-pulse": "{ from, 75% { transform: scale(0.85); opacity: 1; } to { transform: scale(2.5); opacity: 0; } }",
+      "motion-keyframes-spin": "{ to { transform: rotate(1turn) } }",
+      "motion-keyframes-appear-above": "{ from { transform: translateY(var(--p-space-100)); opacity: 0; } to { transform: none; opacity: 1; } }",
+      "motion-keyframes-appear-below": "{ from { transform: translateY(calc(var(--p-space-100) * -1)); opacity: 0; } to { transform: none; opacity: 1; } }"
+    },
+    shadow: {
+      "shadow-0": "none",
+      "shadow-100": "0rem 0.0625rem 0rem 0rem rgba(26, 26, 26, 0.07)",
+      "shadow-200": "0rem 0.1875rem 0.0625rem -0.0625rem rgba(26, 26, 26, 0.07)",
+      "shadow-300": "0rem 0.25rem 0.375rem -0.125rem rgba(26, 26, 26, 0.20)",
+      "shadow-400": "0rem 0.5rem 1rem -0.25rem rgba(26, 26, 26, 0.22)",
+      "shadow-500": "0rem 0.75rem 1.25rem -0.5rem rgba(26, 26, 26, 0.24)",
+      "shadow-600": "0rem 1.25rem 1.25rem -0.5rem rgba(26, 26, 26, 0.28)",
+      "shadow-bevel-100": "0rem 0.0625rem 0rem 0rem rgba(26, 26, 26, 0.07), 0rem 0.0625rem 0rem 0rem rgba(208, 208, 208, 0.40) inset, 0.0625rem 0rem 0rem 0rem #CCC inset, -0.0625rem 0rem 0rem 0rem #CCC inset, 0rem -0.0625rem 0rem 0rem #999 inset",
+      "shadow-inset-100": "0rem 0.0625rem 0.125rem 0rem rgba(26, 26, 26, 0.15) inset, 0rem 0.0625rem 0.0625rem 0rem rgba(26, 26, 26, 0.15) inset",
+      "shadow-inset-200": "0rem 0.125rem 0.0625rem 0rem rgba(26, 26, 26, 0.20) inset, 0.0625rem 0rem 0.0625rem 0rem rgba(26, 26, 26, 0.12) inset, -0.0625rem 0rem 0.0625rem 0rem rgba(26, 26, 26, 0.12) inset",
+      "shadow-button": "0rem -0.0625rem 0rem 0rem #b5b5b5 inset, 0rem 0rem 0rem 0.0625rem rgba(0, 0, 0, 0.1) inset, 0rem 0.03125rem 0rem 0.09375rem #FFF inset",
+      "shadow-button-hover": "0rem 0.0625rem 0rem 0rem #EBEBEB inset, -0.0625rem 0rem 0rem 0rem #EBEBEB inset, 0.0625rem 0rem 0rem 0rem #EBEBEB inset, 0rem -0.0625rem 0rem 0rem #CCC inset",
+      "shadow-button-inset": "-0.0625rem 0rem 0.0625rem 0rem rgba(26, 26, 26, 0.122) inset, 0.0625rem 0rem 0.0625rem 0rem rgba(26, 26, 26, 0.122) inset, 0rem 0.125rem 0.0625rem 0rem rgba(26, 26, 26, 0.2) inset",
+      "shadow-button-primary": "0rem -0.0625rem 0rem 0.0625rem rgba(0, 0, 0, 0.8) inset, 0rem 0rem 0rem 0.0625rem rgba(48, 48, 48, 1) inset, 0rem 0.03125rem 0rem 0.09375rem rgba(255, 255, 255, 0.25) inset;",
+      "shadow-button-primary-hover": "0rem 0.0625rem 0rem 0rem rgba(255, 255, 255, 0.24) inset, 0.0625rem 0rem 0rem 0rem rgba(255, 255, 255, 0.20) inset, -0.0625rem 0rem 0rem 0rem rgba(255, 255, 255, 0.20) inset, 0rem -0.0625rem 0rem 0rem #000 inset, 0rem -0.0625rem 0rem 0.0625rem #1A1A1A",
+      "shadow-button-primary-inset": "0rem 0.1875rem 0rem 0rem rgb(0, 0, 0) inset",
+      "shadow-button-primary-critical": "0rem -0.0625rem 0rem 0.0625rem rgba(142, 31, 11, 0.8) inset, 0rem 0rem 0rem 0.0625rem rgba(181, 38, 11, 0.8) inset, 0rem 0.03125rem 0rem 0.09375rem rgba(255, 255, 255, 0.349) inset",
+      "shadow-button-primary-critical-hover": "0rem 0.0625rem 0rem 0rem rgba(255, 255, 255, 0.48) inset, 0.0625rem 0rem 0rem 0rem rgba(255, 255, 255, 0.20) inset, -0.0625rem 0rem 0rem 0rem rgba(255, 255, 255, 0.20) inset, 0rem -0.09375rem 0rem 0rem rgba(0, 0, 0, 0.25) inset",
+      "shadow-button-primary-critical-inset": "-0.0625rem 0rem 0.0625rem 0rem rgba(0, 0, 0, 0.2) inset, 0.0625rem 0rem 0.0625rem 0rem rgba(0, 0, 0, 0.2) inset, 0rem 0.125rem 0rem 0rem rgba(0, 0, 0, 0.6) inset",
+      "shadow-button-primary-success": "0rem -0.0625rem 0rem 0.0625rem rgba(12, 81, 50, 0.8) inset, 0rem 0rem 0rem 0.0625rem rgba(19, 111, 69, 0.8) inset, 0rem 0.03125rem 0rem 0.09375rem rgba(255, 255, 255, 0.251) inset",
+      "shadow-button-primary-success-hover": "0rem 0.0625rem 0rem 0rem rgba(255, 255, 255, 0.48) inset, 0.0625rem 0rem 0rem 0rem rgba(255, 255, 255, 0.20) inset, -0.0625rem 0rem 0rem 0rem rgba(255, 255, 255, 0.20) inset, 0rem -0.09375rem 0rem 0rem rgba(0, 0, 0, 0.25) inset",
+      "shadow-button-primary-success-inset": "-0.0625rem 0rem 0.0625rem 0rem rgba(0, 0, 0, 0.2) inset, 0.0625rem 0rem 0.0625rem 0rem rgba(0, 0, 0, 0.2) inset, 0rem 0.125rem 0rem 0rem rgba(0, 0, 0, 0.6) inset",
+      "shadow-border-inset": "0rem 0rem 0rem 0.0625rem rgba(0, 0, 0, 0.08) inset"
+    },
+    space: {
+      "space-0": "0rem",
+      "space-025": "0.0625rem",
+      "space-050": "0.125rem",
+      "space-100": "0.25rem",
+      "space-150": "0.375rem",
+      "space-200": "0.5rem",
+      "space-300": "0.75rem",
+      "space-400": "1rem",
+      "space-500": "1.25rem",
+      "space-600": "1.5rem",
+      "space-800": "2rem",
+      "space-1000": "2.5rem",
+      "space-1200": "3rem",
+      "space-1600": "4rem",
+      "space-2000": "5rem",
+      "space-2400": "6rem",
+      "space-2800": "7rem",
+      "space-3200": "8rem",
+      "space-button-group-gap": "0.5rem",
+      "space-card-gap": "1rem",
+      "space-card-padding": "1rem",
+      "space-table-cell-padding": "0.375rem"
+    },
+    text: {
+      "text-heading-3xl-font-family": "'Inter', -apple-system, BlinkMacSystemFont, 'San Francisco', 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif",
+      "text-heading-3xl-font-size": "2.25rem",
+      "text-heading-3xl-font-weight": "700",
+      "text-heading-3xl-font-letter-spacing": "-0.03375rem",
+      "text-heading-3xl-font-line-height": "3rem",
+      "text-heading-2xl-font-family": "'Inter', -apple-system, BlinkMacSystemFont, 'San Francisco', 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif",
+      "text-heading-2xl-font-size": "1.875rem",
+      "text-heading-2xl-font-weight": "700",
+      "text-heading-2xl-font-letter-spacing": "-0.01875rem",
+      "text-heading-2xl-font-line-height": "2.5rem",
+      "text-heading-xl-font-family": "'Inter', -apple-system, BlinkMacSystemFont, 'San Francisco', 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif",
+      "text-heading-xl-font-size": "1.5rem",
+      "text-heading-xl-font-weight": "700",
+      "text-heading-xl-font-letter-spacing": "-0.0125rem",
+      "text-heading-xl-font-line-height": "2rem",
+      "text-heading-lg-font-family": "'Inter', -apple-system, BlinkMacSystemFont, 'San Francisco', 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif",
+      "text-heading-lg-font-size": "1.25rem",
+      "text-heading-lg-font-weight": "650",
+      "text-heading-lg-font-letter-spacing": "-0.0125rem",
+      "text-heading-lg-font-line-height": "1.5rem",
+      "text-heading-md-font-family": "'Inter', -apple-system, BlinkMacSystemFont, 'San Francisco', 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif",
+      "text-heading-md-font-size": "0.875rem",
+      "text-heading-md-font-weight": "650",
+      "text-heading-md-font-letter-spacing": "0rem",
+      "text-heading-md-font-line-height": "1.25rem",
+      "text-heading-sm-font-family": "'Inter', -apple-system, BlinkMacSystemFont, 'San Francisco', 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif",
+      "text-heading-sm-font-size": "0.8125rem",
+      "text-heading-sm-font-weight": "650",
+      "text-heading-sm-font-letter-spacing": "0rem",
+      "text-heading-sm-font-line-height": "1.25rem",
+      "text-heading-xs-font-family": "'Inter', -apple-system, BlinkMacSystemFont, 'San Francisco', 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif",
+      "text-heading-xs-font-size": "0.75rem",
+      "text-heading-xs-font-weight": "650",
+      "text-heading-xs-font-letter-spacing": "0rem",
+      "text-heading-xs-font-line-height": "1rem",
+      "text-body-lg-font-family": "'Inter', -apple-system, BlinkMacSystemFont, 'San Francisco', 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif",
+      "text-body-lg-font-size": "0.875rem",
+      "text-body-lg-font-weight": "450",
+      "text-body-lg-font-letter-spacing": "0rem",
+      "text-body-lg-font-line-height": "1.25rem",
+      "text-body-md-font-family": "'Inter', -apple-system, BlinkMacSystemFont, 'San Francisco', 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif",
+      "text-body-md-font-size": "0.8125rem",
+      "text-body-md-font-weight": "450",
+      "text-body-md-font-letter-spacing": "0rem",
+      "text-body-md-font-line-height": "1.25rem",
+      "text-body-sm-font-family": "'Inter', -apple-system, BlinkMacSystemFont, 'San Francisco', 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif",
+      "text-body-sm-font-size": "0.75rem",
+      "text-body-sm-font-weight": "450",
+      "text-body-sm-font-letter-spacing": "0rem",
+      "text-body-sm-font-line-height": "1rem",
+      "text-body-xs-font-family": "'Inter', -apple-system, BlinkMacSystemFont, 'San Francisco', 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif",
+      "text-body-xs-font-size": "0.6875rem",
+      "text-body-xs-font-weight": "450",
+      "text-body-xs-font-letter-spacing": "0rem",
+      "text-body-xs-font-line-height": "0.75rem"
+    },
+    width: {
+      "width-0": "0rem",
+      "width-025": "0.0625rem",
+      "width-050": "0.125rem",
+      "width-100": "0.25rem",
+      "width-150": "0.375rem",
+      "width-200": "0.5rem",
+      "width-300": "0.75rem",
+      "width-400": "1rem",
+      "width-500": "1.25rem",
+      "width-600": "1.5rem",
+      "width-700": "1.75rem",
+      "width-800": "2rem",
+      "width-900": "2.25rem",
+      "width-1000": "2.5rem",
+      "width-1200": "3rem",
+      "width-1600": "4rem",
+      "width-2000": "5rem",
+      "width-2400": "6rem",
+      "width-2800": "7rem",
+      "width-3200": "8rem"
+    },
+    zIndex: {
+      "z-index-0": "auto",
+      "z-index-1": "100",
+      "z-index-2": "400",
+      "z-index-3": "510",
+      "z-index-4": "512",
+      "z-index-5": "513",
+      "z-index-6": "514",
+      "z-index-7": "515",
+      "z-index-8": "516",
+      "z-index-9": "517",
+      "z-index-10": "518",
+      "z-index-11": "519",
+      "z-index-12": "520"
+    }
+  }
+}, themeDefault = themes[themeNameDefault], isTokenName = createIsTokenName(themes[themeNameDefault]);
+
+// node_modules/@shopify/polaris-icons/dist/icons/CartIcon.svg.mjs
+var import_react6 = __toESM(require_react(), 1), SvgCartIcon = function(props) {
+  return /* @__PURE__ */ import_react6.default.createElement("svg", Object.assign({
+    viewBox: "0 0 20 20"
+  }, props), /* @__PURE__ */ import_react6.default.createElement("path", {
+    fillRule: "evenodd",
+    d: "M2.5 3.75a.75.75 0 0 1 .75-.75h1.612a1.75 1.75 0 0 1 1.732 1.5h9.656a.75.75 0 0 1 .748.808l-.358 4.653a2.75 2.75 0 0 1-2.742 2.539h-6.351l.093.78a.25.25 0 0 0 .248.22h6.362a.75.75 0 0 1 0 1.5h-6.362a1.75 1.75 0 0 1-1.738-1.543l-1.04-8.737a.25.25 0 0 0-.248-.22h-1.612a.75.75 0 0 1-.75-.75Zm4.868 7.25h6.53a1.25 1.25 0 0 0 1.246-1.154l.296-3.846h-8.667l.595 5Z"
+  }), /* @__PURE__ */ import_react6.default.createElement("path", {
+    d: "M10 17a1 1 0 1 1-2 0 1 1 0 0 1 2 0Z"
+  }), /* @__PURE__ */ import_react6.default.createElement("path", {
+    d: "M15 17a1 1 0 1 1-2 0 1 1 0 0 1 2 0Z"
+  }));
+};
+SvgCartIcon.displayName = "CartIcon";
+
+// node_modules/@shopify/polaris-icons/dist/icons/InfoIcon.svg.mjs
+var import_react7 = __toESM(require_react(), 1), SvgInfoIcon = function(props) {
+  return /* @__PURE__ */ import_react7.default.createElement("svg", Object.assign({
+    viewBox: "0 0 20 20"
+  }, props), /* @__PURE__ */ import_react7.default.createElement("path", {
+    d: "M10 14a.75.75 0 0 1-.75-.75v-3.5a.75.75 0 0 1 1.5 0v3.5a.75.75 0 0 1-.75.75Z"
+  }), /* @__PURE__ */ import_react7.default.createElement("path", {
+    d: "M9 7a1 1 0 1 1 2 0 1 1 0 0 1-2 0Z"
+  }), /* @__PURE__ */ import_react7.default.createElement("path", {
+    fillRule: "evenodd",
+    d: "M17 10a7 7 0 1 1-14 0 7 7 0 0 1 14 0Zm-1.5 0a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0Z"
+  }));
+};
+SvgInfoIcon.displayName = "InfoIcon";
+
+// node_modules/@shopify/polaris-icons/dist/icons/SearchIcon.svg.mjs
+var import_react8 = __toESM(require_react(), 1), SvgSearchIcon = function(props) {
+  return /* @__PURE__ */ import_react8.default.createElement("svg", Object.assign({
+    viewBox: "0 0 20 20"
+  }, props), /* @__PURE__ */ import_react8.default.createElement("path", {
+    fillRule: "evenodd",
+    d: "M12.323 13.383a5.5 5.5 0 1 1 1.06-1.06l2.897 2.897a.75.75 0 1 1-1.06 1.06l-2.897-2.897Zm.677-4.383a4 4 0 1 1-8 0 4 4 0 0 1 8 0Z"
+  }));
+};
+SvgSearchIcon.displayName = "SearchIcon";
+
+// node_modules/@shopify/polaris-icons/dist/index.mjs
+var import_react9 = __toESM(require_react(), 1);
+
+// node_modules/@shopify/polaris/build/esm/utilities/css.js
+function classNames(...classes) {
+  return classes.filter(Boolean).join(" ");
+}
+function variationName(name, value) {
+  return `${name}${value.charAt(0).toUpperCase()}${value.slice(1)}`;
+}
+
+// node_modules/@shopify/polaris/build/esm/components/Icon/Icon.js
+var import_react11 = __toESM(require_react());
+
+// node_modules/@shopify/polaris/build/esm/components/Icon/Icon.scss.js
+var styles = {
+  Icon: "Polaris-Icon",
+  toneInherit: "Polaris-Icon--toneInherit",
+  toneBase: "Polaris-Icon--toneBase",
+  toneSubdued: "Polaris-Icon--toneSubdued",
+  toneCaution: "Polaris-Icon--toneCaution",
+  toneWarning: "Polaris-Icon--toneWarning",
+  toneCritical: "Polaris-Icon--toneCritical",
+  toneInteractive: "Polaris-Icon--toneInteractive",
+  toneInfo: "Polaris-Icon--toneInfo",
+  toneSuccess: "Polaris-Icon--toneSuccess",
+  tonePrimary: "Polaris-Icon--tonePrimary",
+  toneEmphasis: "Polaris-Icon--toneEmphasis",
+  toneMagic: "Polaris-Icon--toneMagic",
+  toneTextCaution: "Polaris-Icon--toneTextCaution",
+  toneTextWarning: "Polaris-Icon--toneTextWarning",
+  toneTextCritical: "Polaris-Icon--toneTextCritical",
+  toneTextInfo: "Polaris-Icon--toneTextInfo",
+  toneTextPrimary: "Polaris-Icon--toneTextPrimary",
+  toneTextSuccess: "Polaris-Icon--toneTextSuccess",
+  toneTextMagic: "Polaris-Icon--toneTextMagic",
+  Svg: "Polaris-Icon__Svg",
+  Img: "Polaris-Icon__Img",
+  Placeholder: "Polaris-Icon__Placeholder"
+};
+
+// node_modules/@shopify/polaris/build/esm/components/Text/Text.js
+var import_react10 = __toESM(require_react());
+
+// node_modules/@shopify/polaris/build/esm/components/Text/Text.scss.js
+var styles2 = {
+  root: "Polaris-Text--root",
+  block: "Polaris-Text--block",
+  truncate: "Polaris-Text--truncate",
+  visuallyHidden: "Polaris-Text--visuallyHidden",
+  start: "Polaris-Text--start",
+  center: "Polaris-Text--center",
+  end: "Polaris-Text--end",
+  justify: "Polaris-Text--justify",
+  success: "Polaris-Text--success",
+  critical: "Polaris-Text--critical",
+  caution: "Polaris-Text--caution",
+  subdued: "Polaris-Text--subdued",
+  magic: "Polaris-Text--magic",
+  "magic-subdued": "Polaris-Text__magic--subdued",
+  "text-inverse": "Polaris-Text__text--inverse",
+  headingXs: "Polaris-Text--headingXs",
+  headingSm: "Polaris-Text--headingSm",
+  headingMd: "Polaris-Text--headingMd",
+  headingLg: "Polaris-Text--headingLg",
+  headingXl: "Polaris-Text--headingXl",
+  heading2xl: "Polaris-Text--heading2xl",
+  heading3xl: "Polaris-Text--heading3xl",
+  bodyXs: "Polaris-Text--bodyXs",
+  bodySm: "Polaris-Text--bodySm",
+  bodyMd: "Polaris-Text--bodyMd",
+  bodyLg: "Polaris-Text--bodyLg",
+  regular: "Polaris-Text--regular",
+  medium: "Polaris-Text--medium",
+  semibold: "Polaris-Text--semibold",
+  bold: "Polaris-Text--bold",
+  break: "Polaris-Text--break",
+  numeric: "Polaris-Text--numeric",
+  "line-through": "Polaris-Text__line--through"
+};
+
+// node_modules/@shopify/polaris/build/esm/components/Text/Text.js
+var deprecatedVariants = {
+  heading2xl: "headingXl",
+  heading3xl: "headingXl"
+}, Text = ({
+  alignment,
+  as,
+  breakWord,
+  children,
+  tone,
+  fontWeight,
+  id,
+  numeric = !1,
+  truncate = !1,
+  variant,
+  visuallyHidden = !1,
+  textDecorationLine
+}) => {
+  variant && Object.prototype.hasOwnProperty.call(deprecatedVariants, variant) && console.warn(`Deprecation: <Text variant="${variant}" />. The value "${variant}" will be removed in a future major version of Polaris. Use "${deprecatedVariants[variant]}" instead.`);
+  let Component4 = as || (visuallyHidden ? "span" : "p"), className = classNames(styles2.root, variant && styles2[variant], fontWeight && styles2[fontWeight], (alignment || truncate) && styles2.block, alignment && styles2[alignment], breakWord && styles2.break, tone && styles2[tone], numeric && styles2.numeric, truncate && styles2.truncate, visuallyHidden && styles2.visuallyHidden, textDecorationLine && styles2[textDecorationLine]);
+  return /* @__PURE__ */ import_react10.default.createElement(Component4, Object.assign({
+    className
+  }, id && {
+    id
+  }), children);
+};
+
+// node_modules/@shopify/polaris/build/esm/components/Icon/Icon.js
+function Icon({
+  source,
+  tone,
+  accessibilityLabel
+}) {
+  let sourceType;
+  typeof source == "function" ? sourceType = "function" : source === "placeholder" ? sourceType = "placeholder" : sourceType = "external", tone && sourceType === "external" && console.warn("Recoloring external SVGs is not supported. Set the intended color on your SVG instead.");
+  let className = classNames(styles.Icon, tone && styles[variationName("tone", tone)]), SourceComponent = source, contentMarkup = {
+    function: /* @__PURE__ */ import_react11.default.createElement(SourceComponent, {
+      className: styles.Svg,
+      focusable: "false",
+      "aria-hidden": "true"
+    }),
+    placeholder: /* @__PURE__ */ import_react11.default.createElement("div", {
+      className: styles.Placeholder
+    }),
+    external: /* @__PURE__ */ import_react11.default.createElement("img", {
+      className: styles.Img,
+      src: `data:image/svg+xml;utf8,${source}`,
+      alt: "",
+      "aria-hidden": "true"
+    })
+  };
+  return /* @__PURE__ */ import_react11.default.createElement("span", {
+    className
+  }, accessibilityLabel && /* @__PURE__ */ import_react11.default.createElement(Text, {
+    as: "span",
+    visuallyHidden: !0
+  }, accessibilityLabel), contentMarkup[sourceType]);
+}
+
+// node_modules/@babel/runtime/helpers/esm/extends.js
+function _extends6() {
+  return _extends6 = Object.assign ? Object.assign.bind() : function(target) {
+    for (var i = 1; i < arguments.length; i++) {
+      var source = arguments[i];
+      for (var key in source)
+        Object.prototype.hasOwnProperty.call(source, key) && (target[key] = source[key]);
+    }
+    return target;
+  }, _extends6.apply(this, arguments);
+}
+
+// node_modules/@babel/runtime/helpers/esm/objectWithoutPropertiesLoose.js
+function _objectWithoutPropertiesLoose2(source, excluded) {
+  if (source == null)
+    return {};
+  var target = {}, sourceKeys = Object.keys(source), key, i;
+  for (i = 0; i < sourceKeys.length; i++)
+    key = sourceKeys[i], !(excluded.indexOf(key) >= 0) && (target[key] = source[key]);
+  return target;
+}
+
+// node_modules/@babel/runtime/helpers/esm/setPrototypeOf.js
+function _setPrototypeOf(o, p) {
+  return _setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function(o2, p2) {
+    return o2.__proto__ = p2, o2;
+  }, _setPrototypeOf(o, p);
+}
+
+// node_modules/@babel/runtime/helpers/esm/inheritsLoose.js
+function _inheritsLoose(subClass, superClass) {
+  subClass.prototype = Object.create(superClass.prototype), subClass.prototype.constructor = subClass, _setPrototypeOf(subClass, superClass);
+}
+
+// node_modules/react-transition-group/esm/TransitionGroupContext.js
+var import_react12 = __toESM(require_react()), TransitionGroupContext_default = import_react12.default.createContext(null);
+
+// node_modules/@babel/runtime/helpers/esm/assertThisInitialized.js
+function _assertThisInitialized(self2) {
+  if (self2 === void 0)
+    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+  return self2;
+}
+
+// node_modules/react-transition-group/esm/TransitionGroup.js
+var import_prop_types = __toESM(require_prop_types()), import_react14 = __toESM(require_react());
+
+// node_modules/react-transition-group/esm/utils/ChildMapping.js
+var import_react13 = __toESM(require_react());
+function getChildMapping(children, mapFn) {
+  var mapper = function(child) {
+    return mapFn && (0, import_react13.isValidElement)(child) ? mapFn(child) : child;
+  }, result = /* @__PURE__ */ Object.create(null);
+  return children && import_react13.Children.map(children, function(c) {
+    return c;
+  }).forEach(function(child) {
+    result[child.key] = mapper(child);
+  }), result;
+}
+function mergeChildMappings(prev, next) {
+  prev = prev || {}, next = next || {};
+  function getValueForKey(key) {
+    return key in next ? next[key] : prev[key];
+  }
+  var nextKeysPending = /* @__PURE__ */ Object.create(null), pendingKeys = [];
+  for (var prevKey in prev)
+    prevKey in next ? pendingKeys.length && (nextKeysPending[prevKey] = pendingKeys, pendingKeys = []) : pendingKeys.push(prevKey);
+  var i, childMapping = {};
+  for (var nextKey in next) {
+    if (nextKeysPending[nextKey])
+      for (i = 0; i < nextKeysPending[nextKey].length; i++) {
+        var pendingNextKey = nextKeysPending[nextKey][i];
+        childMapping[nextKeysPending[nextKey][i]] = getValueForKey(pendingNextKey);
+      }
+    childMapping[nextKey] = getValueForKey(nextKey);
+  }
+  for (i = 0; i < pendingKeys.length; i++)
+    childMapping[pendingKeys[i]] = getValueForKey(pendingKeys[i]);
+  return childMapping;
+}
+function getProp(child, prop, props) {
+  return props[prop] != null ? props[prop] : child.props[prop];
+}
+function getInitialChildMapping(props, onExited) {
+  return getChildMapping(props.children, function(child) {
+    return (0, import_react13.cloneElement)(child, {
+      onExited: onExited.bind(null, child),
+      in: !0,
+      appear: getProp(child, "appear", props),
+      enter: getProp(child, "enter", props),
+      exit: getProp(child, "exit", props)
+    });
+  });
+}
+function getNextChildMapping(nextProps, prevChildMapping, onExited) {
+  var nextChildMapping = getChildMapping(nextProps.children), children = mergeChildMappings(prevChildMapping, nextChildMapping);
+  return Object.keys(children).forEach(function(key) {
+    var child = children[key];
+    if ((0, import_react13.isValidElement)(child)) {
+      var hasPrev = key in prevChildMapping, hasNext = key in nextChildMapping, prevChild = prevChildMapping[key], isLeaving = (0, import_react13.isValidElement)(prevChild) && !prevChild.props.in;
+      hasNext && (!hasPrev || isLeaving) ? children[key] = (0, import_react13.cloneElement)(child, {
+        onExited: onExited.bind(null, child),
+        in: !0,
+        exit: getProp(child, "exit", nextProps),
+        enter: getProp(child, "enter", nextProps)
+      }) : !hasNext && hasPrev && !isLeaving ? children[key] = (0, import_react13.cloneElement)(child, {
+        in: !1
+      }) : hasNext && hasPrev && (0, import_react13.isValidElement)(prevChild) && (children[key] = (0, import_react13.cloneElement)(child, {
+        onExited: onExited.bind(null, child),
+        in: prevChild.props.in,
+        exit: getProp(child, "exit", nextProps),
+        enter: getProp(child, "enter", nextProps)
+      }));
+    }
+  }), children;
+}
+
+// node_modules/react-transition-group/esm/TransitionGroup.js
+var values = Object.values || function(obj) {
+  return Object.keys(obj).map(function(k) {
+    return obj[k];
+  });
+}, defaultProps = {
+  component: "div",
+  childFactory: function(child) {
+    return child;
+  }
+}, TransitionGroup = /* @__PURE__ */ function(_React$Component) {
+  _inheritsLoose(TransitionGroup2, _React$Component);
+  function TransitionGroup2(props, context) {
+    var _this;
+    _this = _React$Component.call(this, props, context) || this;
+    var handleExited = _this.handleExited.bind(_assertThisInitialized(_this));
+    return _this.state = {
+      contextValue: {
+        isMounting: !0
+      },
+      handleExited,
+      firstRender: !0
+    }, _this;
+  }
+  var _proto = TransitionGroup2.prototype;
+  return _proto.componentDidMount = function() {
+    this.mounted = !0, this.setState({
+      contextValue: {
+        isMounting: !1
+      }
+    });
+  }, _proto.componentWillUnmount = function() {
+    this.mounted = !1;
+  }, TransitionGroup2.getDerivedStateFromProps = function(nextProps, _ref) {
+    var prevChildMapping = _ref.children, handleExited = _ref.handleExited, firstRender = _ref.firstRender;
+    return {
+      children: firstRender ? getInitialChildMapping(nextProps, handleExited) : getNextChildMapping(nextProps, prevChildMapping, handleExited),
+      firstRender: !1
+    };
+  }, _proto.handleExited = function(child, node) {
+    var currentChildMapping = getChildMapping(this.props.children);
+    child.key in currentChildMapping || (child.props.onExited && child.props.onExited(node), this.mounted && this.setState(function(state) {
+      var children = _extends6({}, state.children);
+      return delete children[child.key], {
+        children
+      };
+    }));
+  }, _proto.render = function() {
+    var _this$props = this.props, Component4 = _this$props.component, childFactory2 = _this$props.childFactory, props = _objectWithoutPropertiesLoose2(_this$props, ["component", "childFactory"]), contextValue = this.state.contextValue, children = values(this.state.children).map(childFactory2);
+    return delete props.appear, delete props.enter, delete props.exit, Component4 === null ? /* @__PURE__ */ import_react14.default.createElement(TransitionGroupContext_default.Provider, {
+      value: contextValue
+    }, children) : /* @__PURE__ */ import_react14.default.createElement(TransitionGroupContext_default.Provider, {
+      value: contextValue
+    }, /* @__PURE__ */ import_react14.default.createElement(Component4, props, children));
+  }, TransitionGroup2;
+}(import_react14.default.Component);
+TransitionGroup.propTypes = {
+  /**
+   * `<TransitionGroup>` renders a `<div>` by default. You can change this
+   * behavior by providing a `component` prop.
+   * If you use React v16+ and would like to avoid a wrapping `<div>` element
+   * you can pass in `component={null}`. This is useful if the wrapping div
+   * borks your css styles.
+   */
+  component: import_prop_types.default.any,
+  /**
+   * A set of `<Transition>` components, that are toggled `in` and out as they
+   * leave. the `<TransitionGroup>` will inject specific transition props, so
+   * remember to spread them through if you are wrapping the `<Transition>` as
+   * with our `<Fade>` example.
+   *
+   * While this component is meant for multiple `Transition` or `CSSTransition`
+   * children, sometimes you may want to have a single transition child with
+   * content that you want to be transitioned out and in when you change it
+   * (e.g. routes, images etc.) In that case you can change the `key` prop of
+   * the transition child as you change its content, this will cause
+   * `TransitionGroup` to transition the child out and back in.
+   */
+  children: import_prop_types.default.node,
+  /**
+   * A convenience prop that enables or disables appear animations
+   * for all children. Note that specifying this will override any defaults set
+   * on individual children Transitions.
+   */
+  appear: import_prop_types.default.bool,
+  /**
+   * A convenience prop that enables or disables enter animations
+   * for all children. Note that specifying this will override any defaults set
+   * on individual children Transitions.
+   */
+  enter: import_prop_types.default.bool,
+  /**
+   * A convenience prop that enables or disables exit animations
+   * for all children. Note that specifying this will override any defaults set
+   * on individual children Transitions.
+   */
+  exit: import_prop_types.default.bool,
+  /**
+   * You may need to apply reactive updates to a child as it is exiting.
+   * This is generally done by using `cloneElement` however in the case of an exiting
+   * child the element has already been removed and not accessible to the consumer.
+   *
+   * If you do need to update a child as it leaves you can provide a `childFactory`
+   * to wrap every child, even the ones that are leaving.
+   *
+   * @type Function(child: ReactElement) -> ReactElement
+   */
+  childFactory: import_prop_types.default.func
+};
+TransitionGroup.defaultProps = defaultProps;
+var TransitionGroup_default = TransitionGroup;
 
 // app/components/Layout.jsx
-var import_react14 = __toESM(require_react());
+var import_react23 = __toESM(require_react());
 
 // app/components/Aside.jsx
 var import_jsx_dev_runtime2 = __toESM(require_jsx_dev_runtime());
@@ -22695,28 +26763,33 @@ function CloseAside() {
 }
 
 // app/components/Header.jsx
-var import_react7 = __toESM(require_react());
+var import_react16 = __toESM(require_react());
 var import_jsx_dev_runtime3 = __toESM(require_jsx_dev_runtime());
-function Header({ header, isLoggedIn, cart }) {
-  let { shop, menu } = header;
+function Header({ header, cart }) {
+  let { shop, _: _2 } = header;
   return /* @__PURE__ */ (0, import_jsx_dev_runtime3.jsxDEV)("header", { className: "header", children: [
+    /* @__PURE__ */ (0, import_jsx_dev_runtime3.jsxDEV)(HeaderMenuMobileToggle, {}, void 0, !1, {
+      fileName: "app/components/Header.jsx",
+      lineNumber: 19,
+      columnNumber: 7
+    }, this),
     /* @__PURE__ */ (0, import_jsx_dev_runtime3.jsxDEV)(NavLink2, { prefetch: "intent", to: "/", style: activeLinkStyle, end: !0, children: /* @__PURE__ */ (0, import_jsx_dev_runtime3.jsxDEV)("strong", { children: shop.name }, void 0, !1, {
       fileName: "app/components/Header.jsx",
-      lineNumber: 13,
+      lineNumber: 21,
       columnNumber: 9
     }, this) }, void 0, !1, {
       fileName: "app/components/Header.jsx",
-      lineNumber: 12,
+      lineNumber: 20,
       columnNumber: 7
     }, this),
-    /* @__PURE__ */ (0, import_jsx_dev_runtime3.jsxDEV)(HeaderCtas, { isLoggedIn, cart }, void 0, !1, {
+    /* @__PURE__ */ (0, import_jsx_dev_runtime3.jsxDEV)(HeaderCtas, { cart }, void 0, !1, {
       fileName: "app/components/Header.jsx",
-      lineNumber: 15,
+      lineNumber: 23,
       columnNumber: 7
     }, this)
   ] }, void 0, !0, {
     fileName: "app/components/Header.jsx",
-    lineNumber: 11,
+    lineNumber: 18,
     columnNumber: 5
   }, this);
 }
@@ -22740,7 +26813,7 @@ function HeaderMenu({ menu, primaryDomainUrl, viewport }) {
       !1,
       {
         fileName: "app/components/Header.jsx",
-        lineNumber: 41,
+        lineNumber: 49,
         columnNumber: 9
       },
       this
@@ -22764,7 +26837,7 @@ function HeaderMenu({ menu, primaryDomainUrl, viewport }) {
         !1,
         {
           fileName: "app/components/Header.jsx",
-          lineNumber: 62,
+          lineNumber: 70,
           columnNumber: 11
         },
         this
@@ -22772,98 +26845,100 @@ function HeaderMenu({ menu, primaryDomainUrl, viewport }) {
     })
   ] }, void 0, !0, {
     fileName: "app/components/Header.jsx",
-    lineNumber: 39,
+    lineNumber: 47,
     columnNumber: 5
   }, this);
 }
-function HeaderCtas({ isLoggedIn, cart }) {
+function HeaderCtas({ cart }) {
   return /* @__PURE__ */ (0, import_jsx_dev_runtime3.jsxDEV)("nav", { className: "header-ctas", role: "navigation", children: [
-    /* @__PURE__ */ (0, import_jsx_dev_runtime3.jsxDEV)(HeaderMenuMobileToggle, {}, void 0, !1, {
-      fileName: "app/components/Header.jsx",
-      lineNumber: 85,
-      columnNumber: 7
-    }, this),
     /* @__PURE__ */ (0, import_jsx_dev_runtime3.jsxDEV)(AboutToggle, {}, void 0, !1, {
       fileName: "app/components/Header.jsx",
-      lineNumber: 86,
-      columnNumber: 7
-    }, this),
-    /* @__PURE__ */ (0, import_jsx_dev_runtime3.jsxDEV)(NavLink2, { prefetch: "intent", to: "/account", style: activeLinkStyle, children: isLoggedIn ? "Account" : "Sign in" }, void 0, !1, {
-      fileName: "app/components/Header.jsx",
-      lineNumber: 87,
+      lineNumber: 93,
       columnNumber: 7
     }, this),
     /* @__PURE__ */ (0, import_jsx_dev_runtime3.jsxDEV)(SearchToggle, {}, void 0, !1, {
       fileName: "app/components/Header.jsx",
-      lineNumber: 90,
+      lineNumber: 94,
       columnNumber: 7
     }, this),
     /* @__PURE__ */ (0, import_jsx_dev_runtime3.jsxDEV)(CartToggle, { cart }, void 0, !1, {
       fileName: "app/components/Header.jsx",
-      lineNumber: 91,
+      lineNumber: 95,
       columnNumber: 7
     }, this)
   ] }, void 0, !0, {
     fileName: "app/components/Header.jsx",
-    lineNumber: 84,
+    lineNumber: 92,
     columnNumber: 5
   }, this);
 }
 function HeaderMenuMobileToggle() {
   return /* @__PURE__ */ (0, import_jsx_dev_runtime3.jsxDEV)("a", { className: "header-menu-mobile-toggle", href: "#mobile-menu-aside", children: /* @__PURE__ */ (0, import_jsx_dev_runtime3.jsxDEV)("h3", { children: "\u2630" }, void 0, !1, {
     fileName: "app/components/Header.jsx",
-    lineNumber: 99,
+    lineNumber: 103,
     columnNumber: 7
   }, this) }, void 0, !1, {
     fileName: "app/components/Header.jsx",
-    lineNumber: 98,
+    lineNumber: 102,
     columnNumber: 5
   }, this);
 }
 function AboutToggle() {
-  return /* @__PURE__ */ (0, import_jsx_dev_runtime3.jsxDEV)("a", { href: "/policies", children: "About" }, void 0, !1, {
+  return /* @__PURE__ */ (0, import_jsx_dev_runtime3.jsxDEV)("a", { href: "/policies", children: /* @__PURE__ */ (0, import_jsx_dev_runtime3.jsxDEV)(Icon, { source: SvgInfoIcon, tone: "base" }, void 0, !1, {
     fileName: "app/components/Header.jsx",
-    lineNumber: 105,
-    columnNumber: 10
-  }, this);
-}
-function SearchToggle() {
-  return /* @__PURE__ */ (0, import_jsx_dev_runtime3.jsxDEV)("a", { href: "#search-aside", children: "Search" }, void 0, !1, {
+    lineNumber: 109,
+    columnNumber: 30
+  }, this) }, void 0, !1, {
     fileName: "app/components/Header.jsx",
     lineNumber: 109,
     columnNumber: 10
   }, this);
 }
+function SearchToggle() {
+  return /* @__PURE__ */ (0, import_jsx_dev_runtime3.jsxDEV)("a", { href: "#search-aside", children: /* @__PURE__ */ (0, import_jsx_dev_runtime3.jsxDEV)(Icon, { source: SvgSearchIcon, tone: "base" }, void 0, !1, {
+    fileName: "app/components/Header.jsx",
+    lineNumber: 113,
+    columnNumber: 34
+  }, this) }, void 0, !1, {
+    fileName: "app/components/Header.jsx",
+    lineNumber: 113,
+    columnNumber: 10
+  }, this);
+}
 function CartBadge({ count }) {
-  return /* @__PURE__ */ (0, import_jsx_dev_runtime3.jsxDEV)("a", { href: "#cart-aside", children: [
-    "Cart ",
+  return /* @__PURE__ */ (0, import_jsx_dev_runtime3.jsxDEV)("a", { href: "#cart-aside", className: "cart-badge", children: [
+    /* @__PURE__ */ (0, import_jsx_dev_runtime3.jsxDEV)(Icon, { source: SvgCartIcon, tone: "base" }, void 0, !1, {
+      fileName: "app/components/Header.jsx",
+      lineNumber: 120,
+      columnNumber: 55
+    }, this),
     count
   ] }, void 0, !0, {
     fileName: "app/components/Header.jsx",
-    lineNumber: 116,
+    lineNumber: 120,
     columnNumber: 10
   }, this);
 }
 function CartToggle({ cart }) {
-  return /* @__PURE__ */ (0, import_jsx_dev_runtime3.jsxDEV)(import_react7.Suspense, { fallback: /* @__PURE__ */ (0, import_jsx_dev_runtime3.jsxDEV)(CartBadge, { count: 0 }, void 0, !1, {
+  return /* @__PURE__ */ (0, import_jsx_dev_runtime3.jsxDEV)(import_react16.Suspense, { fallback: /* @__PURE__ */ (0, import_jsx_dev_runtime3.jsxDEV)(CartBadge, { count: 0 }, void 0, !1, {
     fileName: "app/components/Header.jsx",
-    lineNumber: 124,
+    lineNumber: 128,
     columnNumber: 25
   }, this), children: /* @__PURE__ */ (0, import_jsx_dev_runtime3.jsxDEV)(Await2, { resolve: cart, children: (cart2) => cart2 ? /* @__PURE__ */ (0, import_jsx_dev_runtime3.jsxDEV)(CartBadge, { count: cart2.totalQuantity || 0 }, void 0, !1, {
     fileName: "app/components/Header.jsx",
-    lineNumber: 128,
+    lineNumber: 132,
     columnNumber: 18
   }, this) : /* @__PURE__ */ (0, import_jsx_dev_runtime3.jsxDEV)(CartBadge, { count: 0 }, void 0, !1, {
     fileName: "app/components/Header.jsx",
-    lineNumber: 127,
+    lineNumber: 131,
     columnNumber: 29
   }, this) }, void 0, !1, {
     fileName: "app/components/Header.jsx",
-    lineNumber: 125,
+    lineNumber: 129,
     columnNumber: 7
   }, this) }, void 0, !1, {
     fileName: "app/components/Header.jsx",
-    lineNumber: 124,
+    lineNumber: 128,
     columnNumber: 5
   }, this);
 }
@@ -22916,10 +26991,10 @@ function activeLinkStyle({ isActive, isPending }) {
 }
 
 // app/utils.js
-var import_react9 = __toESM(require_react());
+var import_react18 = __toESM(require_react());
 function useVariantUrl(handle, selectedOptions) {
   let { pathname } = useLocation();
-  return (0, import_react9.useMemo)(() => getVariantUrl({
+  return (0, import_react18.useMemo)(() => getVariantUrl({
     handle,
     pathname,
     searchParams: new URLSearchParams(),
@@ -23414,7 +27489,7 @@ function CartLineUpdateButton({ children, lines }) {
 }
 
 // app/components/Search.jsx
-var import_react12 = __toESM(require_react()), import_jsx_dev_runtime5 = __toESM(require_jsx_dev_runtime()), NO_PREDICTIVE_SEARCH_RESULTS = [
+var import_react21 = __toESM(require_react()), import_jsx_dev_runtime5 = __toESM(require_jsx_dev_runtime()), NO_PREDICTIVE_SEARCH_RESULTS = [
   { type: "queries", items: [] },
   { type: "products", items: [] },
   { type: "collections", items: [] },
@@ -23422,8 +27497,8 @@ var import_react12 = __toESM(require_react()), import_jsx_dev_runtime5 = __toESM
   { type: "articles", items: [] }
 ];
 function SearchForm({ searchTerm }) {
-  let inputRef = (0, import_react12.useRef)(null);
-  return (0, import_react12.useEffect)(() => {
+  let inputRef = (0, import_react21.useRef)(null);
+  return (0, import_react21.useEffect)(() => {
     function handleKeyDown2(event) {
       event.key === "k" && event.metaKey && (event.preventDefault(), inputRef.current?.focus()), event.key === "Escape" && inputRef.current?.blur();
     }
@@ -23673,7 +27748,7 @@ function PredictiveSearchForm({
   method = "POST",
   ...props
 }) {
-  let params = useParams(), fetcher = useFetcher2(), inputRef = (0, import_react12.useRef)(null);
+  let params = useParams(), fetcher = useFetcher2(), inputRef = (0, import_react21.useRef)(null);
   function fetchResults(event) {
     let searchAction = action11 ?? "/api/predictive-search", localizedAction = params.locale ? `/${params.locale}${searchAction}` : searchAction, newSearchTerm = event.target.value || "";
     fetcher.submit(
@@ -23681,7 +27756,7 @@ function PredictiveSearchForm({
       { method, action: localizedAction }
     );
   }
-  return (0, import_react12.useEffect)(() => {
+  return (0, import_react21.useEffect)(() => {
     inputRef?.current?.setAttribute("type", "search");
   }, []), /* @__PURE__ */ (0, import_jsx_dev_runtime5.jsxDEV)(
     fetcher.Form,
@@ -23873,13 +27948,13 @@ function SearchResultItem({ goToSearchResult, item }) {
   }, this);
 }
 function usePredictiveSearch() {
-  let fetchers = useFetchers(), searchTerm = (0, import_react12.useRef)(""), searchInputRef = (0, import_react12.useRef)(null), searchFetcher = fetchers.find((fetcher) => fetcher.data?.searchResults);
+  let fetchers = useFetchers(), searchTerm = (0, import_react21.useRef)(""), searchInputRef = (0, import_react21.useRef)(null), searchFetcher = fetchers.find((fetcher) => fetcher.data?.searchResults);
   searchFetcher?.state === "loading" && (searchTerm.current = searchFetcher.formData?.get("q") || "");
   let search = searchFetcher?.data?.searchResults || {
     results: NO_PREDICTIVE_SEARCH_RESULTS,
     totalResults: 0
   };
-  return (0, import_react12.useEffect)(() => {
+  return (0, import_react21.useEffect)(() => {
     searchInputRef.current || (searchInputRef.current = document.querySelector('input[type="search"]'));
   }, []), { ...search, searchInputRef, searchTerm };
 }
@@ -23900,61 +27975,61 @@ function Layout({ cart, children = null, header, isLoggedIn }) {
   return /* @__PURE__ */ (0, import_jsx_dev_runtime6.jsxDEV)(import_jsx_dev_runtime6.Fragment, { children: [
     /* @__PURE__ */ (0, import_jsx_dev_runtime6.jsxDEV)(CartAside, { cart }, void 0, !1, {
       fileName: "app/components/Layout.jsx",
-      lineNumber: 17,
+      lineNumber: 19,
       columnNumber: 7
     }, this),
     /* @__PURE__ */ (0, import_jsx_dev_runtime6.jsxDEV)(SearchAside, {}, void 0, !1, {
       fileName: "app/components/Layout.jsx",
-      lineNumber: 18,
+      lineNumber: 20,
       columnNumber: 7
     }, this),
     /* @__PURE__ */ (0, import_jsx_dev_runtime6.jsxDEV)(MobileMenuAside, { menu: header.menu, shop: header.shop }, void 0, !1, {
       fileName: "app/components/Layout.jsx",
-      lineNumber: 19,
+      lineNumber: 21,
       columnNumber: 7
     }, this),
     /* @__PURE__ */ (0, import_jsx_dev_runtime6.jsxDEV)("div", { className: "wrapper", children: [
       /* @__PURE__ */ (0, import_jsx_dev_runtime6.jsxDEV)(Header, { header, cart, isLoggedIn }, void 0, !1, {
         fileName: "app/components/Layout.jsx",
-        lineNumber: 21,
+        lineNumber: 23,
         columnNumber: 9
       }, this),
       /* @__PURE__ */ (0, import_jsx_dev_runtime6.jsxDEV)("div", { className: "main", children }, void 0, !1, {
         fileName: "app/components/Layout.jsx",
-        lineNumber: 22,
+        lineNumber: 24,
         columnNumber: 9
       }, this)
     ] }, void 0, !0, {
       fileName: "app/components/Layout.jsx",
-      lineNumber: 20,
+      lineNumber: 22,
       columnNumber: 7
     }, this)
   ] }, void 0, !0, {
     fileName: "app/components/Layout.jsx",
-    lineNumber: 16,
+    lineNumber: 18,
     columnNumber: 5
   }, this);
 }
 function CartAside({ cart }) {
-  return /* @__PURE__ */ (0, import_jsx_dev_runtime6.jsxDEV)(Aside, { id: "cart-aside", heading: "CART", children: /* @__PURE__ */ (0, import_jsx_dev_runtime6.jsxDEV)(import_react14.Suspense, { fallback: /* @__PURE__ */ (0, import_jsx_dev_runtime6.jsxDEV)("p", { children: "Loading cart ..." }, void 0, !1, {
+  return /* @__PURE__ */ (0, import_jsx_dev_runtime6.jsxDEV)(Aside, { id: "cart-aside", heading: "CART", children: /* @__PURE__ */ (0, import_jsx_dev_runtime6.jsxDEV)(import_react23.Suspense, { fallback: /* @__PURE__ */ (0, import_jsx_dev_runtime6.jsxDEV)("p", { children: "Loading cart ..." }, void 0, !1, {
     fileName: "app/components/Layout.jsx",
-    lineNumber: 34,
+    lineNumber: 36,
     columnNumber: 27
   }, this), children: /* @__PURE__ */ (0, import_jsx_dev_runtime6.jsxDEV)(Await2, { resolve: cart, children: (cart2) => /* @__PURE__ */ (0, import_jsx_dev_runtime6.jsxDEV)(CartMain, { cart: cart2, layout: "aside" }, void 0, !1, {
     fileName: "app/components/Layout.jsx",
-    lineNumber: 37,
+    lineNumber: 39,
     columnNumber: 20
   }, this) }, void 0, !1, {
     fileName: "app/components/Layout.jsx",
-    lineNumber: 35,
+    lineNumber: 37,
     columnNumber: 9
   }, this) }, void 0, !1, {
     fileName: "app/components/Layout.jsx",
-    lineNumber: 34,
+    lineNumber: 36,
     columnNumber: 7
   }, this) }, void 0, !1, {
     fileName: "app/components/Layout.jsx",
-    lineNumber: 33,
+    lineNumber: 35,
     columnNumber: 5
   }, this);
 }
@@ -23962,56 +28037,44 @@ function SearchAside() {
   return /* @__PURE__ */ (0, import_jsx_dev_runtime6.jsxDEV)(Aside, { id: "search-aside", heading: "SEARCH", children: /* @__PURE__ */ (0, import_jsx_dev_runtime6.jsxDEV)("div", { className: "predictive-search", children: [
     /* @__PURE__ */ (0, import_jsx_dev_runtime6.jsxDEV)("br", {}, void 0, !1, {
       fileName: "app/components/Layout.jsx",
-      lineNumber: 49,
+      lineNumber: 51,
       columnNumber: 9
     }, this),
-    /* @__PURE__ */ (0, import_jsx_dev_runtime6.jsxDEV)(PredictiveSearchForm, { children: ({ fetchResults, inputRef }) => /* @__PURE__ */ (0, import_jsx_dev_runtime6.jsxDEV)("div", { children: [
-      /* @__PURE__ */ (0, import_jsx_dev_runtime6.jsxDEV)(
-        "input",
-        {
-          name: "q",
-          onChange: fetchResults,
-          onFocus: fetchResults,
-          placeholder: "Search",
-          ref: inputRef,
-          type: "search"
-        },
-        void 0,
-        !1,
-        {
-          fileName: "app/components/Layout.jsx",
-          lineNumber: 53,
-          columnNumber: 15
-        },
-        this
-      ),
-      "\xA0",
-      /* @__PURE__ */ (0, import_jsx_dev_runtime6.jsxDEV)("button", { type: "submit", children: "Search" }, void 0, !1, {
+    /* @__PURE__ */ (0, import_jsx_dev_runtime6.jsxDEV)(PredictiveSearchForm, { children: ({ fetchResults, inputRef }) => /* @__PURE__ */ (0, import_jsx_dev_runtime6.jsxDEV)(
+      "input",
+      {
+        name: "q",
+        onChange: fetchResults,
+        onFocus: fetchResults,
+        placeholder: "Search",
+        ref: inputRef,
+        type: "search"
+      },
+      void 0,
+      !1,
+      {
         fileName: "app/components/Layout.jsx",
-        lineNumber: 62,
-        columnNumber: 15
-      }, this)
-    ] }, void 0, !0, {
+        lineNumber: 54,
+        columnNumber: 13
+      },
+      this
+    ) }, void 0, !1, {
       fileName: "app/components/Layout.jsx",
       lineNumber: 52,
-      columnNumber: 13
-    }, this) }, void 0, !1, {
-      fileName: "app/components/Layout.jsx",
-      lineNumber: 50,
       columnNumber: 9
     }, this),
     /* @__PURE__ */ (0, import_jsx_dev_runtime6.jsxDEV)(PredictiveSearchResults, {}, void 0, !1, {
       fileName: "app/components/Layout.jsx",
-      lineNumber: 66,
+      lineNumber: 64,
       columnNumber: 9
     }, this)
   ] }, void 0, !0, {
     fileName: "app/components/Layout.jsx",
-    lineNumber: 48,
+    lineNumber: 50,
     columnNumber: 7
   }, this) }, void 0, !1, {
     fileName: "app/components/Layout.jsx",
-    lineNumber: 47,
+    lineNumber: 49,
     columnNumber: 5
   }, this);
 }
@@ -24027,13 +28090,13 @@ function MobileMenuAside({ menu, shop }) {
     !1,
     {
       fileName: "app/components/Layout.jsx",
-      lineNumber: 81,
+      lineNumber: 79,
       columnNumber: 7
     },
     this
   ) }, void 0, !1, {
     fileName: "app/components/Layout.jsx",
-    lineNumber: 80,
+    lineNumber: 78,
     columnNumber: 5
   }, this);
 }
@@ -24780,11 +28843,12 @@ __export(locale_collectioncarousel_handle_exports, {
   ProductFilter: () => ProductFilter,
   ProductInfo: () => ProductInfo,
   Swatch: () => Swatch,
+  SwatchSet: () => SwatchSet,
   default: () => Collection,
   loader: () => loader4,
   meta: () => meta4
 });
-var React37 = __toESM(require_react());
+var React42 = __toESM(require_react());
 
 // node_modules/@mui/material/colors/common.js
 var common = {
@@ -24793,7 +28857,7 @@ var common = {
 }, common_default = common;
 
 // node_modules/@mui/material/colors/red.js
-var red = {
+var red2 = {
   50: "#ffebee",
   100: "#ffcdd2",
   200: "#ef9a9a",
@@ -24808,10 +28872,10 @@ var red = {
   A200: "#ff5252",
   A400: "#ff1744",
   A700: "#d50000"
-}, red_default = red;
+}, red_default = red2;
 
 // node_modules/@mui/material/colors/purple.js
-var purple = {
+var purple2 = {
   50: "#f3e5f5",
   100: "#e1bee7",
   200: "#ce93d8",
@@ -24826,10 +28890,10 @@ var purple = {
   A200: "#e040fb",
   A400: "#d500f9",
   A700: "#aa00ff"
-}, purple_default = purple;
+}, purple_default = purple2;
 
 // node_modules/@mui/material/colors/blue.js
-var blue = {
+var blue2 = {
   50: "#e3f2fd",
   100: "#bbdefb",
   200: "#90caf9",
@@ -24844,7 +28908,7 @@ var blue = {
   A200: "#448aff",
   A400: "#2979ff",
   A700: "#2962ff"
-}, blue_default = blue;
+}, blue_default = blue2;
 
 // node_modules/@mui/material/colors/lightBlue.js
 var lightBlue = {
@@ -24865,7 +28929,7 @@ var lightBlue = {
 }, lightBlue_default = lightBlue;
 
 // node_modules/@mui/material/colors/green.js
-var green = {
+var green2 = {
   50: "#e8f5e9",
   100: "#c8e6c9",
   200: "#a5d6a7",
@@ -24880,10 +28944,10 @@ var green = {
   A200: "#69f0ae",
   A400: "#00e676",
   A700: "#00c853"
-}, green_default = green;
+}, green_default = green2;
 
 // node_modules/@mui/material/colors/orange.js
-var orange = {
+var orange2 = {
   50: "#fff3e0",
   100: "#ffe0b2",
   200: "#ffcc80",
@@ -24898,7 +28962,7 @@ var orange = {
   A200: "#ffab40",
   A400: "#ff9100",
   A700: "#ff6d00"
-}, orange_default = orange;
+}, orange_default = orange2;
 
 // node_modules/@mui/material/colors/grey.js
 var grey = {
@@ -24921,28 +28985,6 @@ var grey = {
 // node_modules/@mui/material/styles/identifier.js
 var identifier_default = "$$material";
 
-// node_modules/@babel/runtime/helpers/esm/extends.js
-function _extends6() {
-  return _extends6 = Object.assign ? Object.assign.bind() : function(target) {
-    for (var i = 1; i < arguments.length; i++) {
-      var source = arguments[i];
-      for (var key in source)
-        Object.prototype.hasOwnProperty.call(source, key) && (target[key] = source[key]);
-    }
-    return target;
-  }, _extends6.apply(this, arguments);
-}
-
-// node_modules/@babel/runtime/helpers/esm/objectWithoutPropertiesLoose.js
-function _objectWithoutPropertiesLoose2(source, excluded) {
-  if (source == null)
-    return {};
-  var target = {}, sourceKeys = Object.keys(source), key, i;
-  for (i = 0; i < sourceKeys.length; i++)
-    key = sourceKeys[i], !(excluded.indexOf(key) >= 0) && (target[key] = source[key]);
-  return target;
-}
-
 // node_modules/@emotion/styled/dist/emotion-styled.cjs.mjs
 var import_emotion_styled_cjs = __toESM(require_emotion_styled_cjs(), 1), import_emotion_styled_cjs_default = __toESM(require_emotion_styled_cjs_default(), 1);
 
@@ -24952,10 +28994,10 @@ var import_emotion_react_cjs = __toESM(require_emotion_react_cjs(), 1);
 // node_modules/@mui/styled-engine/index.js
 function styled(tag, options) {
   let stylesFactory = (0, import_emotion_styled_cjs_default._default)(tag, options);
-  return (...styles2) => {
+  return (...styles4) => {
     let component = typeof tag == "string" ? `"${tag}"` : "component";
-    return styles2.length === 0 ? console.error([`MUI: Seems like you called \`styled(${component})()\` without a \`style\` argument.`, 'You must provide a `styles` argument: `styled("div")(styleYouForgotToPass)`.'].join(`
-`)) : styles2.some((style3) => style3 === void 0) && console.error(`MUI: the styled(${component})(...args) API requires all its args to be defined.`), stylesFactory(...styles2);
+    return styles4.length === 0 ? console.error([`MUI: Seems like you called \`styled(${component})()\` without a \`style\` argument.`, 'You must provide a `styles` argument: `styled("div")(styleYouForgotToPass)`.'].join(`
+`)) : styles4.some((style3) => style3 === void 0) && console.error(`MUI: the styled(${component})(...args) API requires all its args to be defined.`), stylesFactory(...styles4);
   };
 }
 var internal_processStyles = (tag, processor) => {
@@ -24984,17 +29026,17 @@ function deepClone(source) {
     output[key] = deepClone(source[key]);
   }), output;
 }
-function deepmerge(target, source, options = {
+function deepmerge2(target, source, options = {
   clone: !0
 }) {
   let output = options.clone ? _extends6({}, target) : target;
   return isPlainObject(target) && isPlainObject(source) && Object.keys(source).forEach((key) => {
-    key !== "__proto__" && (isPlainObject(source[key]) && key in target && isPlainObject(target[key]) ? output[key] = deepmerge(target[key], source[key], options) : options.clone ? output[key] = isPlainObject(source[key]) ? deepClone(source[key]) : source[key] : output[key] = source[key]);
+    key !== "__proto__" && (isPlainObject(source[key]) && key in target && isPlainObject(target[key]) ? output[key] = deepmerge2(target[key], source[key], options) : options.clone ? output[key] = isPlainObject(source[key]) ? deepClone(source[key]) : source[key] : output[key] = source[key]);
   }), output;
 }
 
 // node_modules/@mui/utils/elementTypeAcceptingRef/elementTypeAcceptingRef.js
-var import_prop_types = __toESM(require_prop_types());
+var import_prop_types2 = __toESM(require_prop_types());
 function isClassComponent(elementType) {
   let {
     prototype = {}
@@ -25012,7 +29054,7 @@ function elementTypeAcceptingRef(props, propName, componentName, location2, prop
   let warningHint;
   return typeof propValue == "function" && !isClassComponent(propValue) && (warningHint = "Did you accidentally provide a plain function component instead?"), warningHint !== void 0 ? new Error(`Invalid ${location2} \`${safePropName}\` supplied to \`${componentName}\`. Expected an element type that can hold a ref. ${warningHint} For more information see https://mui.com/r/caveat-with-refs-guide`) : null;
 }
-var elementTypeAcceptingRef_default = chainPropTypes(import_prop_types.default.elementType, elementTypeAcceptingRef);
+var elementTypeAcceptingRef_default = chainPropTypes(import_prop_types2.default.elementType, elementTypeAcceptingRef);
 
 // node_modules/@mui/utils/getDisplayName/getDisplayName.js
 var import_react_is = __toESM(require_react_is3()), fnNameMatchRegex = /^\s*function(?:\s|\s*\/\*.*\*\/\s*)+([^(\s/]*)\s*/;
@@ -25046,7 +29088,7 @@ function getDisplayName(Component4) {
 }
 
 // node_modules/@mui/utils/refType/refType.js
-var import_prop_types2 = __toESM(require_prop_types()), refType = import_prop_types2.default.oneOfType([import_prop_types2.default.func, import_prop_types2.default.object]), refType_default = refType;
+var import_prop_types3 = __toESM(require_prop_types()), refType = import_prop_types3.default.oneOfType([import_prop_types3.default.func, import_prop_types3.default.object]), refType_default = refType;
 
 // node_modules/@mui/utils/capitalize/capitalize.js
 function capitalize(string) {
@@ -25099,7 +29141,7 @@ function setRef(ref, value) {
 }
 
 // node_modules/@mui/utils/useEnhancedEffect/useEnhancedEffect.js
-var React10 = __toESM(require_react()), useEnhancedEffect = typeof window < "u" ? React10.useLayoutEffect : React10.useEffect, useEnhancedEffect_default = useEnhancedEffect;
+var React17 = __toESM(require_react()), useEnhancedEffect = typeof window < "u" ? React17.useLayoutEffect : React17.useEffect, useEnhancedEffect_default = useEnhancedEffect;
 
 // node_modules/@mui/utils/unsupportedProp/unsupportedProp.js
 function unsupportedProp(props, propName, componentName, location2, propFullName) {
@@ -25108,12 +29150,12 @@ function unsupportedProp(props, propName, componentName, location2, propFullName
 }
 
 // node_modules/@mui/utils/useEventCallback/useEventCallback.js
-var React11 = __toESM(require_react());
+var React18 = __toESM(require_react());
 function useEventCallback(fn) {
-  let ref = React11.useRef(fn);
+  let ref = React18.useRef(fn);
   return useEnhancedEffect_default(() => {
     ref.current = fn;
-  }), React11.useRef((...args) => (
+  }), React18.useRef((...args) => (
     // @ts-expect-error hide `this`
     (0, ref.current)(...args)
   )).current;
@@ -25121,9 +29163,9 @@ function useEventCallback(fn) {
 var useEventCallback_default = useEventCallback;
 
 // node_modules/@mui/utils/useForkRef/useForkRef.js
-var React12 = __toESM(require_react());
+var React19 = __toESM(require_react());
 function useForkRef(...refs) {
-  return React12.useMemo(() => refs.every((ref) => ref == null) ? null : (instance) => {
+  return React19.useMemo(() => refs.every((ref) => ref == null) ? null : (instance) => {
     refs.forEach((ref) => {
       setRef(ref, instance);
     });
@@ -25131,16 +29173,16 @@ function useForkRef(...refs) {
 }
 
 // node_modules/@mui/utils/useLazyRef/useLazyRef.js
-var React13 = __toESM(require_react()), UNINITIALIZED = {};
+var React20 = __toESM(require_react()), UNINITIALIZED = {};
 function useLazyRef(init, initArg) {
-  let ref = React13.useRef(UNINITIALIZED);
+  let ref = React20.useRef(UNINITIALIZED);
   return ref.current === UNINITIALIZED && (ref.current = init(initArg)), ref;
 }
 
 // node_modules/@mui/utils/useOnMount/useOnMount.js
-var React14 = __toESM(require_react()), EMPTY = [];
+var React21 = __toESM(require_react()), EMPTY = [];
 function useOnMount(fn) {
-  React14.useEffect(fn, EMPTY);
+  React21.useEffect(fn, EMPTY);
 }
 
 // node_modules/@mui/utils/useTimeout/useTimeout.js
@@ -25168,7 +29210,7 @@ function useTimeout() {
 }
 
 // node_modules/@mui/utils/useIsFocusVisible/useIsFocusVisible.js
-var React15 = __toESM(require_react());
+var React22 = __toESM(require_react());
 var hadKeyboardEvent = !0, hadFocusVisibleRecently = !1, hadFocusVisibleRecentlyTimeout = new Timeout(), inputTypesWhitelist = {
   text: !0,
   search: !0,
@@ -25214,9 +29256,9 @@ function isFocusVisible(event) {
   return hadKeyboardEvent || focusTriggersKeyboardModality(target);
 }
 function useIsFocusVisible() {
-  let ref = React15.useCallback((node) => {
+  let ref = React22.useCallback((node) => {
     node != null && prepare(node.ownerDocument);
-  }, []), isFocusVisibleRef = React15.useRef(!1);
+  }, []), isFocusVisibleRef = React22.useRef(!1);
   function handleBlurVisible() {
     return isFocusVisibleRef.current ? (hadFocusVisibleRecently = !0, hadFocusVisibleRecentlyTimeout.start(100, () => {
       hadFocusVisibleRecently = !1;
@@ -25350,7 +29392,7 @@ var sortBreakpointsValues = (values3) => {
     [obj.key]: obj.val
   }), {});
 };
-function createBreakpoints(breakpoints) {
+function createBreakpoints(breakpoints2) {
   let {
     // The breakpoint **start** at this value.
     // For instance with the first breakpoint xs: [xs, sm).
@@ -25368,7 +29410,7 @@ function createBreakpoints(breakpoints) {
     },
     unit = "px",
     step = 5
-  } = breakpoints, other = _objectWithoutPropertiesLoose2(breakpoints, _excluded4), sortedValues = sortBreakpointsValues(values3), keys = Object.keys(sortedValues);
+  } = breakpoints2, other = _objectWithoutPropertiesLoose2(breakpoints2, _excluded4), sortedValues = sortBreakpointsValues(values3), keys = Object.keys(sortedValues);
   function up(key) {
     return `@media (min-width:${typeof values3[key] == "number" ? values3[key] : key}${unit})`;
   }
@@ -25404,11 +29446,11 @@ var shape = {
 }, shape_default = shape;
 
 // node_modules/@mui/system/esm/responsivePropType.js
-var import_prop_types3 = __toESM(require_prop_types()), responsivePropType = import_prop_types3.default.oneOfType([import_prop_types3.default.number, import_prop_types3.default.string, import_prop_types3.default.object, import_prop_types3.default.array]), responsivePropType_default = responsivePropType;
+var import_prop_types4 = __toESM(require_prop_types()), responsivePropType = import_prop_types4.default.oneOfType([import_prop_types4.default.number, import_prop_types4.default.string, import_prop_types4.default.object, import_prop_types4.default.array]), responsivePropType_default = responsivePropType;
 
 // node_modules/@mui/system/esm/merge.js
 function merge(acc, item) {
-  return item ? deepmerge(acc, item, {
+  return item ? deepmerge2(acc, item, {
     clone: !1
     // No need to clone deep, it's way faster.
   }) : acc;
@@ -25416,7 +29458,7 @@ function merge(acc, item) {
 var merge_default = merge;
 
 // node_modules/@mui/system/esm/breakpoints.js
-var values = {
+var values2 = {
   xs: 0,
   // phone
   sm: 600,
@@ -25431,7 +29473,7 @@ var values = {
   // Sorted ASC by size. That's important.
   // It can't be configured as it's used statically for propTypes.
   keys: ["xs", "sm", "md", "lg", "xl"],
-  up: (key) => `@media (min-width:${values[key]}px)`
+  up: (key) => `@media (min-width:${values2[key]}px)`
 };
 function handleBreakpoints(props, propValue, styleFromPropValue) {
   let theme = props.theme || {};
@@ -25442,7 +29484,7 @@ function handleBreakpoints(props, propValue, styleFromPropValue) {
   if (typeof propValue == "object") {
     let themeBreakpoints = theme.breakpoints || defaultBreakpoints;
     return Object.keys(propValue).reduce((acc, breakpoint) => {
-      if (Object.keys(themeBreakpoints.values || values).indexOf(breakpoint) !== -1) {
+      if (Object.keys(themeBreakpoints.values || values2).indexOf(breakpoint) !== -1) {
         let mediaKey = themeBreakpoints.up(breakpoint);
         acc[mediaKey] = styleFromPropValue(propValue[breakpoint], breakpoint);
       } else {
@@ -25619,11 +29661,11 @@ function createSpacing(spacingInput = 8) {
 }
 
 // node_modules/@mui/system/esm/compose.js
-function compose(...styles2) {
-  let handlers = styles2.reduce((acc, style3) => (style3.filterProps.forEach((prop) => {
+function compose(...styles4) {
+  let handlers = styles4.reduce((acc, style3) => (style3.filterProps.forEach((prop) => {
     acc[prop] = style3;
   }), acc), {}), fn = (props) => Object.keys(props).reduce((acc, prop) => handlers[prop] ? merge_default(acc, handlers[prop](props)) : acc, {});
-  return fn.propTypes = styles2.reduce((acc, style3) => Object.assign(acc, style3.propTypes), {}), fn.filterProps = styles2.reduce((acc, style3) => acc.concat(style3.filterProps), []), fn;
+  return fn.propTypes = styles4.reduce((acc, style3) => Object.assign(acc, style3.propTypes), {}), fn.filterProps = styles4.reduce((acc, style3) => acc.concat(style3.filterProps), []), fn;
 }
 var compose_default = compose;
 
@@ -25638,7 +29680,7 @@ function createBorderStyle(prop, transform) {
     transform
   });
 }
-var border = createBorderStyle("border", borderTransform), borderTop = createBorderStyle("borderTop", borderTransform), borderRight = createBorderStyle("borderRight", borderTransform), borderBottom = createBorderStyle("borderBottom", borderTransform), borderLeft = createBorderStyle("borderLeft", borderTransform), borderColor = createBorderStyle("borderColor"), borderTopColor = createBorderStyle("borderTopColor"), borderRightColor = createBorderStyle("borderRightColor"), borderBottomColor = createBorderStyle("borderBottomColor"), borderLeftColor = createBorderStyle("borderLeftColor"), outline = createBorderStyle("outline", borderTransform), outlineColor = createBorderStyle("outlineColor"), borderRadius = (props) => {
+var border2 = createBorderStyle("border", borderTransform), borderTop = createBorderStyle("borderTop", borderTransform), borderRight = createBorderStyle("borderRight", borderTransform), borderBottom = createBorderStyle("borderBottom", borderTransform), borderLeft = createBorderStyle("borderLeft", borderTransform), borderColor = createBorderStyle("borderColor"), borderTopColor = createBorderStyle("borderTopColor"), borderRightColor = createBorderStyle("borderRightColor"), borderBottomColor = createBorderStyle("borderBottomColor"), borderLeftColor = createBorderStyle("borderLeftColor"), outline = createBorderStyle("outline", borderTransform), outlineColor = createBorderStyle("outlineColor"), borderRadius = (props) => {
   if (props.borderRadius !== void 0 && props.borderRadius !== null) {
     let transformer = createUnaryUnit(props.theme, "shape.borderRadius", 4, "borderRadius"), styleFromPropValue = (propValue) => ({
       borderRadius: getValue(transformer, propValue)
@@ -25651,7 +29693,7 @@ borderRadius.propTypes = {
   borderRadius: responsivePropType_default
 };
 borderRadius.filterProps = ["borderRadius"];
-var borders = compose_default(border, borderTop, borderRight, borderBottom, borderLeft, borderColor, borderTopColor, borderRightColor, borderBottomColor, borderLeftColor, borderRadius, outline, outlineColor);
+var borders = compose_default(border2, borderTop, borderRight, borderBottom, borderLeft, borderColor, borderTopColor, borderRightColor, borderBottomColor, borderLeftColor, borderRadius, outline, outlineColor);
 
 // node_modules/@mui/system/esm/cssGrid.js
 var gap = (props) => {
@@ -25717,7 +29759,7 @@ var gridColumn = style_default({
 function paletteTransform(value, userValue) {
   return userValue === "grey" ? userValue : value;
 }
-var color = style_default({
+var color2 = style_default({
   prop: "color",
   themeKey: "palette",
   transform: paletteTransform
@@ -25730,20 +29772,20 @@ var color = style_default({
   prop: "backgroundColor",
   themeKey: "palette",
   transform: paletteTransform
-}), palette = compose_default(color, bgcolor, backgroundColor);
+}), palette = compose_default(color2, bgcolor, backgroundColor);
 
 // node_modules/@mui/system/esm/sizing.js
 function sizingTransform(value) {
   return value <= 1 && value !== 0 ? `${value * 100}%` : value;
 }
-var width = style_default({
+var width2 = style_default({
   prop: "width",
   transform: sizingTransform
 }), maxWidth = (props) => {
   if (props.maxWidth !== void 0 && props.maxWidth !== null) {
     let styleFromPropValue = (propValue) => {
       var _props$theme, _props$theme2;
-      let breakpoint = ((_props$theme = props.theme) == null || (_props$theme = _props$theme.breakpoints) == null || (_props$theme = _props$theme.values) == null ? void 0 : _props$theme[propValue]) || values[propValue];
+      let breakpoint = ((_props$theme = props.theme) == null || (_props$theme = _props$theme.breakpoints) == null || (_props$theme = _props$theme.values) == null ? void 0 : _props$theme[propValue]) || values2[propValue];
       return breakpoint ? ((_props$theme2 = props.theme) == null || (_props$theme2 = _props$theme2.breakpoints) == null ? void 0 : _props$theme2.unit) !== "px" ? {
         maxWidth: `${breakpoint}${props.theme.breakpoints.unit}`
       } : {
@@ -25760,7 +29802,7 @@ maxWidth.filterProps = ["maxWidth"];
 var minWidth = style_default({
   prop: "minWidth",
   transform: sizingTransform
-}), height = style_default({
+}), height2 = style_default({
   prop: "height",
   transform: sizingTransform
 }), maxHeight = style_default({
@@ -25779,7 +29821,7 @@ var minWidth = style_default({
   transform: sizingTransform
 }), boxSizing = style_default({
   prop: "boxSizing"
-}), sizing = compose_default(width, maxWidth, minWidth, height, maxHeight, minHeight, boxSizing);
+}), sizing = compose_default(width2, maxWidth, minWidth, height2, maxHeight, minHeight, boxSizing);
 
 // node_modules/@mui/system/esm/styleFunctionSx/defaultSxConfig.js
 var defaultSxConfig = {
@@ -26154,11 +30196,11 @@ styleFunctionSx.filterProps = ["sx"];
 var styleFunctionSx_default = styleFunctionSx;
 
 // node_modules/@mui/system/esm/createTheme/applyStyles.js
-function applyStyles(key, styles2) {
+function applyStyles(key, styles4) {
   let theme = this;
   return theme.vars && typeof theme.getColorSchemeSelector == "function" ? {
-    [theme.getColorSchemeSelector(key).replace(/(\[[^\]]+\])/, "*:where($1)")]: styles2
-  } : theme.palette.mode === key ? styles2 : {};
+    [theme.getColorSchemeSelector(key).replace(/(\[[^\]]+\])/, "*:where($1)")]: styles4
+  } : theme.palette.mode === key ? styles4 : {};
 }
 
 // node_modules/@mui/system/esm/createTheme/createTheme.js
@@ -26169,8 +30211,8 @@ function createTheme(options = {}, ...args) {
     palette: paletteInput = {},
     spacing: spacingInput,
     shape: shapeInput = {}
-  } = options, other = _objectWithoutPropertiesLoose2(options, _excluded5), breakpoints = createBreakpoints(breakpointsInput), spacing2 = createSpacing(spacingInput), muiTheme = deepmerge({
-    breakpoints,
+  } = options, other = _objectWithoutPropertiesLoose2(options, _excluded5), breakpoints2 = createBreakpoints(breakpointsInput), spacing2 = createSpacing(spacingInput), muiTheme = deepmerge2({
+    breakpoints: breakpoints2,
     direction: "ltr",
     components: {},
     // Inject component definitions.
@@ -26180,7 +30222,7 @@ function createTheme(options = {}, ...args) {
     spacing: spacing2,
     shape: _extends6({}, shape_default, shapeInput)
   }, other);
-  return muiTheme.applyStyles = applyStyles, muiTheme = args.reduce((acc, argument) => deepmerge(acc, argument), muiTheme), muiTheme.unstable_sxConfig = _extends6({}, defaultSxConfig_default, other?.unstable_sxConfig), muiTheme.unstable_sx = function(props) {
+  return muiTheme.applyStyles = applyStyles, muiTheme = args.reduce((acc, argument) => deepmerge2(acc, argument), muiTheme), muiTheme.unstable_sxConfig = _extends6({}, defaultSxConfig_default, other?.unstable_sxConfig), muiTheme.unstable_sx = function(props) {
     return styleFunctionSx_default({
       sx: props,
       theme: this
@@ -26190,12 +30232,12 @@ function createTheme(options = {}, ...args) {
 var createTheme_default = createTheme;
 
 // node_modules/@mui/system/esm/useThemeWithoutDefault.js
-var React16 = __toESM(require_react());
+var React23 = __toESM(require_react());
 function isObjectEmpty(obj) {
   return Object.keys(obj).length === 0;
 }
 function useTheme2(defaultTheme3 = null) {
-  let contextTheme = React16.useContext(import_emotion_react_cjs.ThemeContext);
+  let contextTheme = React23.useContext(import_emotion_react_cjs.ThemeContext);
   return !contextTheme || isObjectEmpty(contextTheme) ? defaultTheme3 : contextTheme;
 }
 var useThemeWithoutDefault_default = useTheme2;
@@ -26234,7 +30276,7 @@ function extendSxProp(props) {
 }
 
 // node_modules/@mui/system/esm/createBox.js
-var React17 = __toESM(require_react());
+var React24 = __toESM(require_react());
 
 // node_modules/clsx/dist/clsx.mjs
 function r(e) {
@@ -26269,7 +30311,7 @@ function createBox(options = {}) {
   } = options, BoxRoot = styled("div", {
     shouldForwardProp: (prop) => prop !== "theme" && prop !== "sx" && prop !== "as"
   })(styleFunctionSx_default);
-  return /* @__PURE__ */ React17.forwardRef(function(inProps, ref) {
+  return /* @__PURE__ */ React24.forwardRef(function(inProps, ref) {
     let theme = useTheme_default(defaultTheme3), _extendSxProp = extendSxProp(inProps), {
       className,
       component = "div"
@@ -26306,7 +30348,7 @@ function resolveTheme({
   return isEmpty(theme) ? defaultTheme3 : theme[themeId] || theme;
 }
 function defaultOverridesResolver(slot) {
-  return slot ? (props, styles2) => styles2[slot] : null;
+  return slot ? (props, styles4) => styles4[slot] : null;
 }
 function processStyleArg(callableStyle, _ref) {
   let {
@@ -26348,7 +30390,7 @@ function createStyled(input = {}) {
     }))
   }));
   return systemSx.__mui_systemSx = !0, (tag, inputOptions = {}) => {
-    internal_processStyles(tag, (styles2) => styles2.filter((style3) => !(style3 != null && style3.__mui_systemSx)));
+    internal_processStyles(tag, (styles4) => styles4.filter((style3) => !(style3 != null && style3.__mui_systemSx)));
     let {
       name: componentName,
       slot: componentSlot,
@@ -26446,21 +30488,21 @@ function useThemeProps({
 function clampWrapper(value, min = 0, max = 1) {
   return (value < min || value > max) && console.error(`MUI: The value provided ${value} is out of range [${min}, ${max}].`), clamp_default(value, min, max);
 }
-function hexToRgb(color2) {
-  color2 = color2.slice(1);
-  let re = new RegExp(`.{1,${color2.length >= 6 ? 2 : 1}}`, "g"), colors = color2.match(re);
+function hexToRgb(color3) {
+  color3 = color3.slice(1);
+  let re = new RegExp(`.{1,${color3.length >= 6 ? 2 : 1}}`, "g"), colors = color3.match(re);
   return colors && colors[0].length === 1 && (colors = colors.map((n) => n + n)), colors ? `rgb${colors.length === 4 ? "a" : ""}(${colors.map((n, index) => index < 3 ? parseInt(n, 16) : Math.round(parseInt(n, 16) / 255 * 1e3) / 1e3).join(", ")})` : "";
 }
-function decomposeColor(color2) {
-  if (color2.type)
-    return color2;
-  if (color2.charAt(0) === "#")
-    return decomposeColor(hexToRgb(color2));
-  let marker = color2.indexOf("("), type = color2.substring(0, marker);
+function decomposeColor(color3) {
+  if (color3.type)
+    return color3;
+  if (color3.charAt(0) === "#")
+    return decomposeColor(hexToRgb(color3));
+  let marker = color3.indexOf("("), type = color3.substring(0, marker);
   if (["rgb", "rgba", "hsl", "hsla", "color"].indexOf(type) === -1)
-    throw new Error(`MUI: Unsupported \`${color2}\` color.
+    throw new Error(`MUI: Unsupported \`${color3}\` color.
 The following formats are supported: #nnn, #nnnnnn, rgb(), rgba(), hsl(), hsla(), color().`);
-  let values3 = color2.substring(marker + 1, color2.length - 1), colorSpace;
+  let values3 = color3.substring(marker + 1, color3.length - 1), colorSpace;
   if (type === "color") {
     if (values3 = values3.split(" "), colorSpace = values3.shift(), values3.length === 4 && values3[3].charAt(0) === "/" && (values3[3] = values3[3].slice(1)), ["srgb", "display-p3", "a98-rgb", "prophoto-rgb", "rec-2020"].indexOf(colorSpace) === -1)
       throw new Error(`MUI: unsupported \`${colorSpace}\` color space.
@@ -26473,65 +30515,65 @@ The following color spaces are supported: srgb, display-p3, a98-rgb, prophoto-rg
     colorSpace
   };
 }
-function recomposeColor(color2) {
+function recomposeColor(color3) {
   let {
     type,
     colorSpace
-  } = color2, {
+  } = color3, {
     values: values3
-  } = color2;
+  } = color3;
   return type.indexOf("rgb") !== -1 ? values3 = values3.map((n, i) => i < 3 ? parseInt(n, 10) : n) : type.indexOf("hsl") !== -1 && (values3[1] = `${values3[1]}%`, values3[2] = `${values3[2]}%`), type.indexOf("color") !== -1 ? values3 = `${colorSpace} ${values3.join(" ")}` : values3 = `${values3.join(", ")}`, `${type}(${values3})`;
 }
-function hslToRgb(color2) {
-  color2 = decomposeColor(color2);
+function hslToRgb(color3) {
+  color3 = decomposeColor(color3);
   let {
     values: values3
-  } = color2, h = values3[0], s = values3[1] / 100, l2 = values3[2] / 100, a = s * Math.min(l2, 1 - l2), f = (n, k = (n + h / 30) % 12) => l2 - a * Math.max(Math.min(k - 3, 9 - k, 1), -1), type = "rgb", rgb = [Math.round(f(0) * 255), Math.round(f(8) * 255), Math.round(f(4) * 255)];
-  return color2.type === "hsla" && (type += "a", rgb.push(values3[3])), recomposeColor({
+  } = color3, h = values3[0], s = values3[1] / 100, l2 = values3[2] / 100, a = s * Math.min(l2, 1 - l2), f = (n, k = (n + h / 30) % 12) => l2 - a * Math.max(Math.min(k - 3, 9 - k, 1), -1), type = "rgb", rgb = [Math.round(f(0) * 255), Math.round(f(8) * 255), Math.round(f(4) * 255)];
+  return color3.type === "hsla" && (type += "a", rgb.push(values3[3])), recomposeColor({
     type,
     values: rgb
   });
 }
-function getLuminance(color2) {
-  color2 = decomposeColor(color2);
-  let rgb = color2.type === "hsl" || color2.type === "hsla" ? decomposeColor(hslToRgb(color2)).values : color2.values;
-  return rgb = rgb.map((val) => (color2.type !== "color" && (val /= 255), val <= 0.03928 ? val / 12.92 : ((val + 0.055) / 1.055) ** 2.4)), Number((0.2126 * rgb[0] + 0.7152 * rgb[1] + 0.0722 * rgb[2]).toFixed(3));
+function getLuminance(color3) {
+  color3 = decomposeColor(color3);
+  let rgb = color3.type === "hsl" || color3.type === "hsla" ? decomposeColor(hslToRgb(color3)).values : color3.values;
+  return rgb = rgb.map((val) => (color3.type !== "color" && (val /= 255), val <= 0.03928 ? val / 12.92 : ((val + 0.055) / 1.055) ** 2.4)), Number((0.2126 * rgb[0] + 0.7152 * rgb[1] + 0.0722 * rgb[2]).toFixed(3));
 }
 function getContrastRatio(foreground, background) {
   let lumA = getLuminance(foreground), lumB = getLuminance(background);
   return (Math.max(lumA, lumB) + 0.05) / (Math.min(lumA, lumB) + 0.05);
 }
-function darken(color2, coefficient) {
-  if (color2 = decomposeColor(color2), coefficient = clampWrapper(coefficient), color2.type.indexOf("hsl") !== -1)
-    color2.values[2] *= 1 - coefficient;
-  else if (color2.type.indexOf("rgb") !== -1 || color2.type.indexOf("color") !== -1)
+function darken(color3, coefficient) {
+  if (color3 = decomposeColor(color3), coefficient = clampWrapper(coefficient), color3.type.indexOf("hsl") !== -1)
+    color3.values[2] *= 1 - coefficient;
+  else if (color3.type.indexOf("rgb") !== -1 || color3.type.indexOf("color") !== -1)
     for (let i = 0; i < 3; i += 1)
-      color2.values[i] *= 1 - coefficient;
-  return recomposeColor(color2);
+      color3.values[i] *= 1 - coefficient;
+  return recomposeColor(color3);
 }
-function lighten(color2, coefficient) {
-  if (color2 = decomposeColor(color2), coefficient = clampWrapper(coefficient), color2.type.indexOf("hsl") !== -1)
-    color2.values[2] += (100 - color2.values[2]) * coefficient;
-  else if (color2.type.indexOf("rgb") !== -1)
+function lighten(color3, coefficient) {
+  if (color3 = decomposeColor(color3), coefficient = clampWrapper(coefficient), color3.type.indexOf("hsl") !== -1)
+    color3.values[2] += (100 - color3.values[2]) * coefficient;
+  else if (color3.type.indexOf("rgb") !== -1)
     for (let i = 0; i < 3; i += 1)
-      color2.values[i] += (255 - color2.values[i]) * coefficient;
-  else if (color2.type.indexOf("color") !== -1)
+      color3.values[i] += (255 - color3.values[i]) * coefficient;
+  else if (color3.type.indexOf("color") !== -1)
     for (let i = 0; i < 3; i += 1)
-      color2.values[i] += (1 - color2.values[i]) * coefficient;
-  return recomposeColor(color2);
+      color3.values[i] += (1 - color3.values[i]) * coefficient;
+  return recomposeColor(color3);
 }
 
 // node_modules/@mui/material/styles/createMixins.js
-function createMixins(breakpoints, mixins) {
+function createMixins(breakpoints2, mixins) {
   return _extends6({
     toolbar: {
       minHeight: 56,
-      [breakpoints.up("xs")]: {
+      [breakpoints2.up("xs")]: {
         "@media (orientation: landscape)": {
           minHeight: 48
         }
       },
-      [breakpoints.up("sm")]: {
+      [breakpoints2.up("sm")]: {
         minHeight: 64
       }
     }
@@ -26689,18 +30731,18 @@ function createPalette(palette2) {
     return contrastText;
   }
   let augmentColor = ({
-    color: color2,
+    color: color3,
     name,
     mainShade = 500,
     lightShade = 300,
     darkShade = 700
   }) => {
-    if (color2 = _extends6({}, color2), !color2.main && color2[mainShade] && (color2.main = color2[mainShade]), !color2.hasOwnProperty("main"))
+    if (color3 = _extends6({}, color3), !color3.main && color3[mainShade] && (color3.main = color3[mainShade]), !color3.hasOwnProperty("main"))
       throw new Error(`MUI: The color${name ? ` (${name})` : ""} provided to augmentColor(color) is invalid.
 The color object needs to have a \`main\` property or a \`${mainShade}\` property.`);
-    if (typeof color2.main != "string")
+    if (typeof color3.main != "string")
       throw new Error(`MUI: The color${name ? ` (${name})` : ""} provided to augmentColor(color) is invalid.
-\`color.main\` should be a string, but \`${JSON.stringify(color2.main)}\` was provided instead.
+\`color.main\` should be a string, but \`${JSON.stringify(color3.main)}\` was provided instead.
 
 Did you intend to use one of the following approaches?
 
@@ -26713,12 +30755,12 @@ const theme1 = createTheme({ palette: {
 const theme2 = createTheme({ palette: {
   primary: { main: green[500] },
 } });`);
-    return addLightOrDark(color2, "light", lightShade, tonalOffset), addLightOrDark(color2, "dark", darkShade, tonalOffset), color2.contrastText || (color2.contrastText = getContrastText(color2.main)), color2;
+    return addLightOrDark(color3, "light", lightShade, tonalOffset), addLightOrDark(color3, "dark", darkShade, tonalOffset), color3.contrastText || (color3.contrastText = getContrastText(color3.main)), color3;
   }, modes = {
     dark,
     light
   };
-  return modes[mode2] || console.error(`MUI: The palette mode \`${mode2}\` is not supported.`), deepmerge(_extends6({
+  return modes[mode2] || console.error(`MUI: The palette mode \`${mode2}\` is not supported.`), deepmerge2(_extends6({
     // A collection of common colors.
     common: _extends6({}, common_default),
     // prevent mutable object.
@@ -26799,14 +30841,14 @@ function createTypography(palette2, typography) {
     pxToRem: pxToRem2
   } = _ref, other = _objectWithoutPropertiesLoose2(_ref, _excluded10);
   typeof fontSize != "number" && console.error("MUI: `fontSize` is required to be a number."), typeof htmlFontSize != "number" && console.error("MUI: `htmlFontSize` is required to be a number.");
-  let coef = fontSize / 14, pxToRem = pxToRem2 || ((size) => `${size / htmlFontSize * coef}rem`), buildVariant = (fontWeight, size, lineHeight, letterSpacing, casing) => _extends6({
+  let coef = fontSize / 14, pxToRem = pxToRem2 || ((size2) => `${size2 / htmlFontSize * coef}rem`), buildVariant = (fontWeight, size2, lineHeight, letterSpacing, casing) => _extends6({
     fontFamily,
     fontWeight,
-    fontSize: pxToRem(size),
+    fontSize: pxToRem(size2),
     // Unitless following https://meyerweb.com/eric/thoughts/2006/02/08/unitless-line-heights/
     lineHeight
   }, fontFamily === defaultFontFamily ? {
-    letterSpacing: `${round(letterSpacing / size)}em`
+    letterSpacing: `${round(letterSpacing / size2)}em`
   } : {}, casing, allVariants), variants = {
     h1: buildVariant(fontWeightLight, 96, 1.167, -1.5),
     h2: buildVariant(fontWeightLight, 60, 1.2, -0.5),
@@ -26830,7 +30872,7 @@ function createTypography(palette2, typography) {
       letterSpacing: "inherit"
     }
   };
-  return deepmerge(_extends6({
+  return deepmerge2(_extends6({
     htmlFontSize,
     pxToRem,
     fontFamily,
@@ -26878,10 +30920,10 @@ var _excluded11 = ["duration", "easing", "delay"], easing = {
 function formatMs(milliseconds) {
   return `${Math.round(milliseconds)}ms`;
 }
-function getAutoHeightDuration(height2) {
-  if (!height2)
+function getAutoHeightDuration(height3) {
+  if (!height3)
     return 0;
-  let constant = height2 / 36;
+  let constant = height3 / 36;
   return Math.round((4 + 15 * constant ** 0.25 + constant / 5) * 10);
 }
 function createTransitions(inputTransitions) {
@@ -26908,7 +30950,7 @@ function createTransitions(inputTransitions) {
 }
 
 // node_modules/@mui/material/styles/zIndex.js
-var zIndex = {
+var zIndex2 = {
   mobileStepper: 1e3,
   fab: 1050,
   speedDial: 1050,
@@ -26917,7 +30959,7 @@ var zIndex = {
   modal: 1300,
   snackbar: 1400,
   tooltip: 1500
-}, zIndex_default = zIndex;
+}, zIndex_default = zIndex2;
 
 // node_modules/@mui/material/styles/createTheme.js
 var _excluded12 = ["breakpoints", "mixins", "spacing", "palette", "transitions", "typography", "shape"];
@@ -26930,7 +30972,7 @@ function createTheme2(options = {}, ...args) {
   } = options, other = _objectWithoutPropertiesLoose2(options, _excluded12);
   if (options.vars)
     throw new Error("MUI: `vars` is a private field used for CSS variables support.\nPlease use another name.");
-  let palette2 = createPalette(paletteInput), systemTheme = createTheme_default(options), muiTheme = deepmerge(systemTheme, {
+  let palette2 = createPalette(paletteInput), systemTheme = createTheme_default(options), muiTheme = deepmerge2(systemTheme, {
     mixins: createMixins(systemTheme.breakpoints, mixinsInput),
     palette: palette2,
     // Don't use [...shadows] until you've verified its transpiled code is not invoking the iterator protocol.
@@ -26939,7 +30981,7 @@ function createTheme2(options = {}, ...args) {
     transitions: createTransitions(transitionsInput),
     zIndex: _extends6({}, zIndex_default)
   });
-  muiTheme = deepmerge(muiTheme, other), muiTheme = args.reduce((acc, argument) => deepmerge(acc, argument), muiTheme);
+  muiTheme = deepmerge2(muiTheme, other), muiTheme = args.reduce((acc, argument) => deepmerge2(acc, argument), muiTheme);
   {
     let stateClasses = ["active", "checked", "completed", "disabled", "error", "expanded", "focused", "focusVisible", "required", "selected"], traverse = (node, component) => {
       let key;
@@ -26974,7 +31016,7 @@ function createTheme2(options = {}, ...args) {
 var createTheme_default2 = createTheme2;
 
 // node_modules/@mui/material/styles/useTheme.js
-var React18 = __toESM(require_react());
+var React25 = __toESM(require_react());
 
 // node_modules/@mui/material/styles/defaultTheme.js
 var defaultTheme = createTheme_default2(), defaultTheme_default = defaultTheme;
@@ -26982,7 +31024,7 @@ var defaultTheme = createTheme_default2(), defaultTheme_default = defaultTheme;
 // node_modules/@mui/material/styles/useTheme.js
 function useTheme4() {
   let theme = useTheme_default(defaultTheme_default);
-  return React18.useDebugValue(theme), theme[identifier_default] || theme;
+  return React25.useDebugValue(theme), theme[identifier_default] || theme;
 }
 
 // node_modules/@mui/material/styles/useThemeProps.js
@@ -27010,10 +31052,10 @@ var styled2 = createStyled({
 var capitalize_default = capitalize;
 
 // node_modules/@mui/material/utils/createSvgIcon.js
-var React20 = __toESM(require_react());
+var React27 = __toESM(require_react());
 
 // node_modules/@mui/material/SvgIcon/SvgIcon.js
-var React19 = __toESM(require_react()), import_prop_types4 = __toESM(require_prop_types());
+var React26 = __toESM(require_react()), import_prop_types5 = __toESM(require_prop_types());
 
 // node_modules/@mui/material/SvgIcon/svgIconClasses.js
 function getSvgIconUtilityClass(slot) {
@@ -27024,21 +31066,21 @@ var svgIconClasses = generateUtilityClasses("MuiSvgIcon", ["root", "colorPrimary
 // node_modules/@mui/material/SvgIcon/SvgIcon.js
 var import_jsx_runtime6 = __toESM(require_jsx_runtime()), import_jsx_runtime7 = __toESM(require_jsx_runtime()), _excluded13 = ["children", "className", "color", "component", "fontSize", "htmlColor", "inheritViewBox", "titleAccess", "viewBox"], useUtilityClasses = (ownerState) => {
   let {
-    color: color2,
+    color: color3,
     fontSize,
     classes
   } = ownerState, slots = {
-    root: ["root", color2 !== "inherit" && `color${capitalize_default(color2)}`, `fontSize${capitalize_default(fontSize)}`]
+    root: ["root", color3 !== "inherit" && `color${capitalize_default(color3)}`, `fontSize${capitalize_default(fontSize)}`]
   };
   return composeClasses(slots, getSvgIconUtilityClass, classes);
 }, SvgIconRoot = styled_default("svg", {
   name: "MuiSvgIcon",
   slot: "Root",
-  overridesResolver: (props, styles2) => {
+  overridesResolver: (props, styles4) => {
     let {
       ownerState
     } = props;
-    return [styles2.root, ownerState.color !== "inherit" && styles2[`color${capitalize_default(ownerState.color)}`], styles2[`fontSize${capitalize_default(ownerState.fontSize)}`]];
+    return [styles4.root, ownerState.color !== "inherit" && styles4[`color${capitalize_default(ownerState.color)}`], styles4[`fontSize${capitalize_default(ownerState.fontSize)}`]];
   }
 })(({
   theme,
@@ -27070,22 +31112,22 @@ var import_jsx_runtime6 = __toESM(require_jsx_runtime()), import_jsx_runtime7 = 
       inherit: void 0
     }[ownerState.color]
   };
-}), SvgIcon = /* @__PURE__ */ React19.forwardRef(function(inProps, ref) {
+}), SvgIcon = /* @__PURE__ */ React26.forwardRef(function(inProps, ref) {
   let props = useThemeProps2({
     props: inProps,
     name: "MuiSvgIcon"
   }), {
     children,
     className,
-    color: color2 = "inherit",
+    color: color3 = "inherit",
     component = "svg",
     fontSize = "medium",
     htmlColor,
     inheritViewBox = !1,
     titleAccess,
     viewBox = "0 0 24 24"
-  } = props, other = _objectWithoutPropertiesLoose2(props, _excluded13), hasSvgAsChild = /* @__PURE__ */ React19.isValidElement(children) && children.type === "svg", ownerState = _extends6({}, props, {
-    color: color2,
+  } = props, other = _objectWithoutPropertiesLoose2(props, _excluded13), hasSvgAsChild = /* @__PURE__ */ React26.isValidElement(children) && children.type === "svg", ownerState = _extends6({}, props, {
+    color: color3,
     component,
     fontSize,
     instanceFontSize: inProps.fontSize,
@@ -27118,15 +31160,15 @@ SvgIcon.propTypes = {
   /**
    * Node passed into the SVG element.
    */
-  children: import_prop_types4.default.node,
+  children: import_prop_types5.default.node,
   /**
    * Override or extend the styles applied to the component.
    */
-  classes: import_prop_types4.default.object,
+  classes: import_prop_types5.default.object,
   /**
    * @ignore
    */
-  className: import_prop_types4.default.string,
+  className: import_prop_types5.default.string,
   /**
    * The color of the component.
    * It supports both default and custom theme colors, which can be added as shown in the
@@ -27134,21 +31176,21 @@ SvgIcon.propTypes = {
    * You can use the `htmlColor` prop to apply a color attribute to the SVG element.
    * @default 'inherit'
    */
-  color: import_prop_types4.default.oneOfType([import_prop_types4.default.oneOf(["inherit", "action", "disabled", "primary", "secondary", "error", "info", "success", "warning"]), import_prop_types4.default.string]),
+  color: import_prop_types5.default.oneOfType([import_prop_types5.default.oneOf(["inherit", "action", "disabled", "primary", "secondary", "error", "info", "success", "warning"]), import_prop_types5.default.string]),
   /**
    * The component used for the root node.
    * Either a string to use a HTML element or a component.
    */
-  component: import_prop_types4.default.elementType,
+  component: import_prop_types5.default.elementType,
   /**
    * The fontSize applied to the icon. Defaults to 24px, but can be configure to inherit font size.
    * @default 'medium'
    */
-  fontSize: import_prop_types4.default.oneOfType([import_prop_types4.default.oneOf(["inherit", "large", "medium", "small"]), import_prop_types4.default.string]),
+  fontSize: import_prop_types5.default.oneOfType([import_prop_types5.default.oneOf(["inherit", "large", "medium", "small"]), import_prop_types5.default.string]),
   /**
    * Applies a color attribute to the SVG element.
    */
-  htmlColor: import_prop_types4.default.string,
+  htmlColor: import_prop_types5.default.string,
   /**
    * If `true`, the root node will inherit the custom `component`'s viewBox and the `viewBox`
    * prop will be ignored.
@@ -27156,22 +31198,22 @@ SvgIcon.propTypes = {
    * `component`'s viewBox to the root node.
    * @default false
    */
-  inheritViewBox: import_prop_types4.default.bool,
+  inheritViewBox: import_prop_types5.default.bool,
   /**
    * The shape-rendering attribute. The behavior of the different options is described on the
    * [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/shape-rendering).
    * If you are having issues with blurry icons you should investigate this prop.
    */
-  shapeRendering: import_prop_types4.default.string,
+  shapeRendering: import_prop_types5.default.string,
   /**
    * The system prop that allows defining system overrides as well as additional CSS styles.
    */
-  sx: import_prop_types4.default.oneOfType([import_prop_types4.default.arrayOf(import_prop_types4.default.oneOfType([import_prop_types4.default.func, import_prop_types4.default.object, import_prop_types4.default.bool])), import_prop_types4.default.func, import_prop_types4.default.object]),
+  sx: import_prop_types5.default.oneOfType([import_prop_types5.default.arrayOf(import_prop_types5.default.oneOfType([import_prop_types5.default.func, import_prop_types5.default.object, import_prop_types5.default.bool])), import_prop_types5.default.func, import_prop_types5.default.object]),
   /**
    * Provides a human-readable title for the element that contains it.
    * https://www.w3.org/TR/SVG-access/#Equivalent
    */
-  titleAccess: import_prop_types4.default.string,
+  titleAccess: import_prop_types5.default.string,
   /**
    * Allows you to redefine what the coordinates without units mean inside an SVG element.
    * For example, if the SVG element is 500 (width) by 200 (height),
@@ -27180,7 +31222,7 @@ SvgIcon.propTypes = {
    * to bottom right (50,20) and each unit will be worth 10px.
    * @default '0 0 24 24'
    */
-  viewBox: import_prop_types4.default.string
+  viewBox: import_prop_types5.default.string
 };
 SvgIcon.muiName = "SvgIcon";
 var SvgIcon_default = SvgIcon;
@@ -27196,7 +31238,7 @@ function createSvgIcon(path, displayName) {
       children: path
     }));
   }
-  return Component4.displayName = `${displayName}Icon`, Component4.muiName = SvgIcon_default.muiName, /* @__PURE__ */ React20.memo(/* @__PURE__ */ React20.forwardRef(Component4));
+  return Component4.displayName = `${displayName}Icon`, Component4.muiName = SvgIcon_default.muiName, /* @__PURE__ */ React27.memo(/* @__PURE__ */ React27.forwardRef(Component4));
 }
 
 // node_modules/@mui/material/utils/debounce.js
@@ -27225,213 +31267,6 @@ var useForkRef_default = useForkRef;
 
 // node_modules/@mui/material/utils/useIsFocusVisible.js
 var useIsFocusVisible_default = useIsFocusVisible;
-
-// node_modules/@babel/runtime/helpers/esm/setPrototypeOf.js
-function _setPrototypeOf(o, p) {
-  return _setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function(o2, p2) {
-    return o2.__proto__ = p2, o2;
-  }, _setPrototypeOf(o, p);
-}
-
-// node_modules/@babel/runtime/helpers/esm/inheritsLoose.js
-function _inheritsLoose(subClass, superClass) {
-  subClass.prototype = Object.create(superClass.prototype), subClass.prototype.constructor = subClass, _setPrototypeOf(subClass, superClass);
-}
-
-// node_modules/react-transition-group/esm/TransitionGroupContext.js
-var import_react20 = __toESM(require_react()), TransitionGroupContext_default = import_react20.default.createContext(null);
-
-// node_modules/@babel/runtime/helpers/esm/assertThisInitialized.js
-function _assertThisInitialized(self2) {
-  if (self2 === void 0)
-    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
-  return self2;
-}
-
-// node_modules/react-transition-group/esm/TransitionGroup.js
-var import_prop_types5 = __toESM(require_prop_types()), import_react22 = __toESM(require_react());
-
-// node_modules/react-transition-group/esm/utils/ChildMapping.js
-var import_react21 = __toESM(require_react());
-function getChildMapping(children, mapFn) {
-  var mapper = function(child) {
-    return mapFn && (0, import_react21.isValidElement)(child) ? mapFn(child) : child;
-  }, result = /* @__PURE__ */ Object.create(null);
-  return children && import_react21.Children.map(children, function(c) {
-    return c;
-  }).forEach(function(child) {
-    result[child.key] = mapper(child);
-  }), result;
-}
-function mergeChildMappings(prev, next) {
-  prev = prev || {}, next = next || {};
-  function getValueForKey(key) {
-    return key in next ? next[key] : prev[key];
-  }
-  var nextKeysPending = /* @__PURE__ */ Object.create(null), pendingKeys = [];
-  for (var prevKey in prev)
-    prevKey in next ? pendingKeys.length && (nextKeysPending[prevKey] = pendingKeys, pendingKeys = []) : pendingKeys.push(prevKey);
-  var i, childMapping = {};
-  for (var nextKey in next) {
-    if (nextKeysPending[nextKey])
-      for (i = 0; i < nextKeysPending[nextKey].length; i++) {
-        var pendingNextKey = nextKeysPending[nextKey][i];
-        childMapping[nextKeysPending[nextKey][i]] = getValueForKey(pendingNextKey);
-      }
-    childMapping[nextKey] = getValueForKey(nextKey);
-  }
-  for (i = 0; i < pendingKeys.length; i++)
-    childMapping[pendingKeys[i]] = getValueForKey(pendingKeys[i]);
-  return childMapping;
-}
-function getProp(child, prop, props) {
-  return props[prop] != null ? props[prop] : child.props[prop];
-}
-function getInitialChildMapping(props, onExited) {
-  return getChildMapping(props.children, function(child) {
-    return (0, import_react21.cloneElement)(child, {
-      onExited: onExited.bind(null, child),
-      in: !0,
-      appear: getProp(child, "appear", props),
-      enter: getProp(child, "enter", props),
-      exit: getProp(child, "exit", props)
-    });
-  });
-}
-function getNextChildMapping(nextProps, prevChildMapping, onExited) {
-  var nextChildMapping = getChildMapping(nextProps.children), children = mergeChildMappings(prevChildMapping, nextChildMapping);
-  return Object.keys(children).forEach(function(key) {
-    var child = children[key];
-    if ((0, import_react21.isValidElement)(child)) {
-      var hasPrev = key in prevChildMapping, hasNext = key in nextChildMapping, prevChild = prevChildMapping[key], isLeaving = (0, import_react21.isValidElement)(prevChild) && !prevChild.props.in;
-      hasNext && (!hasPrev || isLeaving) ? children[key] = (0, import_react21.cloneElement)(child, {
-        onExited: onExited.bind(null, child),
-        in: !0,
-        exit: getProp(child, "exit", nextProps),
-        enter: getProp(child, "enter", nextProps)
-      }) : !hasNext && hasPrev && !isLeaving ? children[key] = (0, import_react21.cloneElement)(child, {
-        in: !1
-      }) : hasNext && hasPrev && (0, import_react21.isValidElement)(prevChild) && (children[key] = (0, import_react21.cloneElement)(child, {
-        onExited: onExited.bind(null, child),
-        in: prevChild.props.in,
-        exit: getProp(child, "exit", nextProps),
-        enter: getProp(child, "enter", nextProps)
-      }));
-    }
-  }), children;
-}
-
-// node_modules/react-transition-group/esm/TransitionGroup.js
-var values2 = Object.values || function(obj) {
-  return Object.keys(obj).map(function(k) {
-    return obj[k];
-  });
-}, defaultProps = {
-  component: "div",
-  childFactory: function(child) {
-    return child;
-  }
-}, TransitionGroup = /* @__PURE__ */ function(_React$Component) {
-  _inheritsLoose(TransitionGroup2, _React$Component);
-  function TransitionGroup2(props, context) {
-    var _this;
-    _this = _React$Component.call(this, props, context) || this;
-    var handleExited = _this.handleExited.bind(_assertThisInitialized(_this));
-    return _this.state = {
-      contextValue: {
-        isMounting: !0
-      },
-      handleExited,
-      firstRender: !0
-    }, _this;
-  }
-  var _proto = TransitionGroup2.prototype;
-  return _proto.componentDidMount = function() {
-    this.mounted = !0, this.setState({
-      contextValue: {
-        isMounting: !1
-      }
-    });
-  }, _proto.componentWillUnmount = function() {
-    this.mounted = !1;
-  }, TransitionGroup2.getDerivedStateFromProps = function(nextProps, _ref) {
-    var prevChildMapping = _ref.children, handleExited = _ref.handleExited, firstRender = _ref.firstRender;
-    return {
-      children: firstRender ? getInitialChildMapping(nextProps, handleExited) : getNextChildMapping(nextProps, prevChildMapping, handleExited),
-      firstRender: !1
-    };
-  }, _proto.handleExited = function(child, node) {
-    var currentChildMapping = getChildMapping(this.props.children);
-    child.key in currentChildMapping || (child.props.onExited && child.props.onExited(node), this.mounted && this.setState(function(state) {
-      var children = _extends6({}, state.children);
-      return delete children[child.key], {
-        children
-      };
-    }));
-  }, _proto.render = function() {
-    var _this$props = this.props, Component4 = _this$props.component, childFactory2 = _this$props.childFactory, props = _objectWithoutPropertiesLoose2(_this$props, ["component", "childFactory"]), contextValue = this.state.contextValue, children = values2(this.state.children).map(childFactory2);
-    return delete props.appear, delete props.enter, delete props.exit, Component4 === null ? /* @__PURE__ */ import_react22.default.createElement(TransitionGroupContext_default.Provider, {
-      value: contextValue
-    }, children) : /* @__PURE__ */ import_react22.default.createElement(TransitionGroupContext_default.Provider, {
-      value: contextValue
-    }, /* @__PURE__ */ import_react22.default.createElement(Component4, props, children));
-  }, TransitionGroup2;
-}(import_react22.default.Component);
-TransitionGroup.propTypes = {
-  /**
-   * `<TransitionGroup>` renders a `<div>` by default. You can change this
-   * behavior by providing a `component` prop.
-   * If you use React v16+ and would like to avoid a wrapping `<div>` element
-   * you can pass in `component={null}`. This is useful if the wrapping div
-   * borks your css styles.
-   */
-  component: import_prop_types5.default.any,
-  /**
-   * A set of `<Transition>` components, that are toggled `in` and out as they
-   * leave. the `<TransitionGroup>` will inject specific transition props, so
-   * remember to spread them through if you are wrapping the `<Transition>` as
-   * with our `<Fade>` example.
-   *
-   * While this component is meant for multiple `Transition` or `CSSTransition`
-   * children, sometimes you may want to have a single transition child with
-   * content that you want to be transitioned out and in when you change it
-   * (e.g. routes, images etc.) In that case you can change the `key` prop of
-   * the transition child as you change its content, this will cause
-   * `TransitionGroup` to transition the child out and back in.
-   */
-  children: import_prop_types5.default.node,
-  /**
-   * A convenience prop that enables or disables appear animations
-   * for all children. Note that specifying this will override any defaults set
-   * on individual children Transitions.
-   */
-  appear: import_prop_types5.default.bool,
-  /**
-   * A convenience prop that enables or disables enter animations
-   * for all children. Note that specifying this will override any defaults set
-   * on individual children Transitions.
-   */
-  enter: import_prop_types5.default.bool,
-  /**
-   * A convenience prop that enables or disables exit animations
-   * for all children. Note that specifying this will override any defaults set
-   * on individual children Transitions.
-   */
-  exit: import_prop_types5.default.bool,
-  /**
-   * You may need to apply reactive updates to a child as it is exiting.
-   * This is generally done by using `cloneElement` however in the case of an exiting
-   * child the element has already been removed and not accessible to the consumer.
-   *
-   * If you do need to update a child as it leaves you can provide a `childFactory`
-   * to wrap every child, even the ones that are leaving.
-   *
-   * @type Function(child: ReactElement) -> ReactElement
-   */
-  childFactory: import_prop_types5.default.func
-};
-TransitionGroup.defaultProps = defaultProps;
-var TransitionGroup_default = TransitionGroup;
 
 // node_modules/@mui/base/utils/isHostComponent.js
 function isHostComponent(element) {
@@ -27514,13 +31349,13 @@ function useSlotProps(parameters) {
 }
 
 // node_modules/@mui/material/ButtonBase/ButtonBase.js
-var React25 = __toESM(require_react()), import_prop_types8 = __toESM(require_prop_types());
+var React30 = __toESM(require_react()), import_prop_types8 = __toESM(require_prop_types());
 
 // node_modules/@mui/material/ButtonBase/TouchRipple.js
-var React24 = __toESM(require_react()), import_prop_types7 = __toESM(require_prop_types());
+var React29 = __toESM(require_react()), import_prop_types7 = __toESM(require_prop_types());
 
 // node_modules/@mui/material/ButtonBase/Ripple.js
-var React23 = __toESM(require_react()), import_prop_types6 = __toESM(require_prop_types());
+var React28 = __toESM(require_react()), import_prop_types6 = __toESM(require_prop_types());
 var import_jsx_runtime9 = __toESM(require_jsx_runtime());
 function Ripple(props) {
   let {
@@ -27533,13 +31368,13 @@ function Ripple(props) {
     in: inProp,
     onExited,
     timeout
-  } = props, [leaving, setLeaving] = React23.useState(!1), rippleClassName = clsx_default(className, classes.ripple, classes.rippleVisible, pulsate && classes.ripplePulsate), rippleStyles = {
+  } = props, [leaving, setLeaving] = React28.useState(!1), rippleClassName = clsx_default(className, classes.ripple, classes.rippleVisible, pulsate && classes.ripplePulsate), rippleStyles = {
     width: rippleSize,
     height: rippleSize,
     top: -(rippleSize / 2) + rippleY,
     left: -(rippleSize / 2) + rippleX
   }, childClassName = clsx_default(classes.child, leaving && classes.childLeaving, pulsate && classes.childPulsate);
-  return !inProp && !leaving && setLeaving(!0), React23.useEffect(() => {
+  return !inProp && !leaving && setLeaving(!0), React28.useEffect(() => {
     if (!inProp && onExited != null) {
       let timeoutId = setTimeout(onExited, timeout);
       return () => {
@@ -27693,7 +31528,7 @@ var import_jsx_runtime10 = __toESM(require_jsx_runtime()), _excluded15 = ["cente
   theme
 }) => theme.transitions.easing.easeInOut, touchRippleClasses_default.childPulsate, pulsateKeyframe, ({
   theme
-}) => theme.transitions.easing.easeInOut), TouchRipple = /* @__PURE__ */ React24.forwardRef(function(inProps, ref) {
+}) => theme.transitions.easing.easeInOut), TouchRipple = /* @__PURE__ */ React29.forwardRef(function(inProps, ref) {
   let props = useThemeProps2({
     props: inProps,
     name: "MuiTouchRipple"
@@ -27701,11 +31536,11 @@ var import_jsx_runtime10 = __toESM(require_jsx_runtime()), _excluded15 = ["cente
     center: centerProp = !1,
     classes = {},
     className
-  } = props, other = _objectWithoutPropertiesLoose2(props, _excluded15), [ripples, setRipples] = React24.useState([]), nextKey = React24.useRef(0), rippleCallback = React24.useRef(null);
-  React24.useEffect(() => {
+  } = props, other = _objectWithoutPropertiesLoose2(props, _excluded15), [ripples, setRipples] = React29.useState([]), nextKey = React29.useRef(0), rippleCallback = React29.useRef(null);
+  React29.useEffect(() => {
     rippleCallback.current && (rippleCallback.current(), rippleCallback.current = null);
   }, [ripples]);
-  let ignoringMouseDown = React24.useRef(!1), startTimer = useTimeout(), startTimerCommit = React24.useRef(null), container = React24.useRef(null), startCommit = React24.useCallback((params) => {
+  let ignoringMouseDown = React29.useRef(!1), startTimer = useTimeout(), startTimerCommit = React29.useRef(null), container = React29.useRef(null), startCommit = React29.useCallback((params) => {
     let {
       pulsate: pulsate2,
       rippleX,
@@ -27728,7 +31563,7 @@ var import_jsx_runtime10 = __toESM(require_jsx_runtime()), _excluded15 = ["cente
       rippleY,
       rippleSize
     }, nextKey.current)]), nextKey.current += 1, rippleCallback.current = cb;
-  }, [classes]), start = React24.useCallback((event = {}, options = {}, cb = () => {
+  }, [classes]), start = React29.useCallback((event = {}, options = {}, cb = () => {
   }) => {
     let {
       pulsate: pulsate2 = !1,
@@ -27779,11 +31614,11 @@ var import_jsx_runtime10 = __toESM(require_jsx_runtime()), _excluded15 = ["cente
       rippleSize,
       cb
     });
-  }, [centerProp, startCommit, startTimer]), pulsate = React24.useCallback(() => {
+  }, [centerProp, startCommit, startTimer]), pulsate = React29.useCallback(() => {
     start({}, {
       pulsate: !0
     });
-  }, [start]), stop = React24.useCallback((event, cb) => {
+  }, [start]), stop = React29.useCallback((event, cb) => {
     if (startTimer.clear(), event?.type === "touchend" && startTimerCommit.current) {
       startTimerCommit.current(), startTimerCommit.current = null, startTimer.start(0, () => {
         stop(event, cb);
@@ -27792,7 +31627,7 @@ var import_jsx_runtime10 = __toESM(require_jsx_runtime()), _excluded15 = ["cente
     }
     startTimerCommit.current = null, setRipples((oldRipples) => oldRipples.length > 0 ? oldRipples.slice(1) : oldRipples), rippleCallback.current = cb;
   }, [startTimer]);
-  return React24.useImperativeHandle(ref, () => ({
+  return React29.useImperativeHandle(ref, () => ({
     pulsate,
     start,
     stop
@@ -27845,7 +31680,7 @@ var import_jsx_runtime11 = __toESM(require_jsx_runtime()), import_jsx_runtime12 
 }, ButtonBaseRoot = styled_default("button", {
   name: "MuiButtonBase",
   slot: "Root",
-  overridesResolver: (props, styles2) => styles2.root
+  overridesResolver: (props, styles4) => styles4.root
 })({
   display: "inline-flex",
   alignItems: "center",
@@ -27885,7 +31720,7 @@ var import_jsx_runtime11 = __toESM(require_jsx_runtime()), import_jsx_runtime12 
   "@media print": {
     colorAdjust: "exact"
   }
-}), ButtonBase = /* @__PURE__ */ React25.forwardRef(function(inProps, ref) {
+}), ButtonBase = /* @__PURE__ */ React30.forwardRef(function(inProps, ref) {
   let props = useThemeProps2({
     props: inProps,
     name: "MuiButtonBase"
@@ -27918,23 +31753,23 @@ var import_jsx_runtime11 = __toESM(require_jsx_runtime()), import_jsx_runtime12 
     TouchRippleProps,
     touchRippleRef,
     type
-  } = props, other = _objectWithoutPropertiesLoose2(props, _excluded16), buttonRef = React25.useRef(null), rippleRef = React25.useRef(null), handleRippleRef = useForkRef_default(rippleRef, touchRippleRef), {
+  } = props, other = _objectWithoutPropertiesLoose2(props, _excluded16), buttonRef = React30.useRef(null), rippleRef = React30.useRef(null), handleRippleRef = useForkRef_default(rippleRef, touchRippleRef), {
     isFocusVisibleRef,
     onFocus: handleFocusVisible,
     onBlur: handleBlurVisible,
     ref: focusVisibleRef
-  } = useIsFocusVisible_default(), [focusVisible, setFocusVisible] = React25.useState(!1);
-  disabled && focusVisible && setFocusVisible(!1), React25.useImperativeHandle(action11, () => ({
+  } = useIsFocusVisible_default(), [focusVisible, setFocusVisible] = React30.useState(!1);
+  disabled && focusVisible && setFocusVisible(!1), React30.useImperativeHandle(action11, () => ({
     focusVisible: () => {
       setFocusVisible(!0), buttonRef.current.focus();
     }
   }), []);
-  let [mountedState, setMountedState] = React25.useState(!1);
-  React25.useEffect(() => {
+  let [mountedState, setMountedState] = React30.useState(!1);
+  React30.useEffect(() => {
     setMountedState(!0);
   }, []);
   let enableTouchRipple = mountedState && !disableRipple && !disabled;
-  React25.useEffect(() => {
+  React30.useEffect(() => {
     focusVisible && focusRipple && !disableRipple && mountedState && rippleRef.current.pulsate();
   }, [disableRipple, focusRipple, focusVisible, mountedState]);
   function useRippleHandler(rippleAction, eventCallback, skipRippleAction = disableTouchRipple) {
@@ -27949,7 +31784,7 @@ var import_jsx_runtime11 = __toESM(require_jsx_runtime()), import_jsx_runtime12 
   }), isNonNativeButton = () => {
     let button = buttonRef.current;
     return component && component !== "button" && !(button.tagName === "A" && button.href);
-  }, keydownRef = React25.useRef(!1), handleKeyDown2 = useEventCallback_default2((event) => {
+  }, keydownRef = React30.useRef(!1), handleKeyDown2 = useEventCallback_default2((event) => {
     focusRipple && !keydownRef.current && focusVisible && rippleRef.current && event.key === " " && (keydownRef.current = !0, rippleRef.current.stop(event, () => {
       rippleRef.current.start(event);
     })), event.target === event.currentTarget && isNonNativeButton() && event.key === " " && event.preventDefault(), onKeyDown && onKeyDown(event), event.target === event.currentTarget && isNonNativeButton() && event.key === "Enter" && !disabled && (event.preventDefault(), onClick && onClick(event));
@@ -27962,7 +31797,7 @@ var import_jsx_runtime11 = __toESM(require_jsx_runtime()), import_jsx_runtime12 
   let buttonProps = {};
   ComponentProp === "button" ? (buttonProps.type = type === void 0 ? "button" : type, buttonProps.disabled = disabled) : (!other.href && !other.to && (buttonProps.role = "button"), disabled && (buttonProps["aria-disabled"] = disabled));
   let handleRef = useForkRef_default(ref, focusVisibleRef, buttonRef);
-  React25.useEffect(() => {
+  React30.useEffect(() => {
     enableTouchRipple && !rippleRef.current && console.error(["MUI: The `component` prop provided to ButtonBase is invalid.", "Please make sure the children prop is rendered in this custom component."].join(`
 `));
   }, [enableTouchRipple]);
@@ -28201,10 +32036,10 @@ Box.propTypes = {
 var Box_default = Box;
 
 // node_modules/@mui/material/Grid/Grid.js
-var React27 = __toESM(require_react()), import_prop_types10 = __toESM(require_prop_types());
+var React32 = __toESM(require_react()), import_prop_types10 = __toESM(require_prop_types());
 
 // node_modules/@mui/material/Grid/GridContext.js
-var React26 = __toESM(require_react()), GridContext = /* @__PURE__ */ React26.createContext();
+var React31 = __toESM(require_react()), GridContext = /* @__PURE__ */ React31.createContext();
 GridContext.displayName = "GridContext";
 var GridContext_default = GridContext;
 
@@ -28224,11 +32059,11 @@ var SPACINGS = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10], DIRECTIONS = ["column-reverse
   // wrap values
   ...WRAPS.map((wrap) => `wrap-xs-${wrap}`),
   // grid sizes for all breakpoints
-  ...GRID_SIZES.map((size) => `grid-xs-${size}`),
-  ...GRID_SIZES.map((size) => `grid-sm-${size}`),
-  ...GRID_SIZES.map((size) => `grid-md-${size}`),
-  ...GRID_SIZES.map((size) => `grid-lg-${size}`),
-  ...GRID_SIZES.map((size) => `grid-xl-${size}`)
+  ...GRID_SIZES.map((size2) => `grid-xs-${size2}`),
+  ...GRID_SIZES.map((size2) => `grid-sm-${size2}`),
+  ...GRID_SIZES.map((size2) => `grid-md-${size2}`),
+  ...GRID_SIZES.map((size2) => `grid-lg-${size2}`),
+  ...GRID_SIZES.map((size2) => `grid-xl-${size2}`)
 ]), gridClasses_default = gridClasses;
 
 // node_modules/@mui/material/Grid/Grid.js
@@ -28241,19 +32076,19 @@ function generateGrid({
   theme,
   ownerState
 }) {
-  let size;
+  let size2;
   return theme.breakpoints.keys.reduce((globalStyles, breakpoint) => {
-    let styles2 = {};
-    if (ownerState[breakpoint] && (size = ownerState[breakpoint]), !size)
+    let styles4 = {};
+    if (ownerState[breakpoint] && (size2 = ownerState[breakpoint]), !size2)
       return globalStyles;
-    if (size === !0)
-      styles2 = {
+    if (size2 === !0)
+      styles4 = {
         flexBasis: 0,
         flexGrow: 1,
         maxWidth: "100%"
       };
-    else if (size === "auto")
-      styles2 = {
+    else if (size2 === "auto")
+      styles4 = {
         flexBasis: "auto",
         flexGrow: 0,
         flexShrink: 0,
@@ -28267,24 +32102,24 @@ function generateGrid({
       }), columnValue = typeof columnsBreakpointValues == "object" ? columnsBreakpointValues[breakpoint] : columnsBreakpointValues;
       if (columnValue == null)
         return globalStyles;
-      let width2 = `${Math.round(size / columnValue * 1e8) / 1e6}%`, more = {};
+      let width3 = `${Math.round(size2 / columnValue * 1e8) / 1e6}%`, more = {};
       if (ownerState.container && ownerState.item && ownerState.columnSpacing !== 0) {
         let themeSpacing = theme.spacing(ownerState.columnSpacing);
         if (themeSpacing !== "0px") {
-          let fullWidth = `calc(${width2} + ${getOffset(themeSpacing)})`;
+          let fullWidth = `calc(${width3} + ${getOffset(themeSpacing)})`;
           more = {
             flexBasis: fullWidth,
             maxWidth: fullWidth
           };
         }
       }
-      styles2 = _extends6({
-        flexBasis: width2,
+      styles4 = _extends6({
+        flexBasis: width3,
         flexGrow: 0,
-        maxWidth: width2
+        maxWidth: width3
       }, more);
     }
-    return theme.breakpoints.values[breakpoint] === 0 ? Object.assign(globalStyles, styles2) : globalStyles[theme.breakpoints.up(breakpoint)] = styles2, globalStyles;
+    return theme.breakpoints.values[breakpoint] === 0 ? Object.assign(globalStyles, styles4) : globalStyles[theme.breakpoints.up(breakpoint)] = styles4, globalStyles;
   }, {});
 }
 function generateDirection({
@@ -28307,14 +32142,14 @@ function generateDirection({
   });
 }
 function extractZeroValueBreakpointKeys({
-  breakpoints,
+  breakpoints: breakpoints2,
   values: values3
 }) {
   let nonZeroKey = "";
   Object.keys(values3).forEach((key) => {
     nonZeroKey === "" && values3[key] !== 0 && (nonZeroKey = key);
   });
-  let sortedBreakpointKeysByValue = Object.keys(breakpoints).sort((a, b) => breakpoints[a] - breakpoints[b]);
+  let sortedBreakpointKeysByValue = Object.keys(breakpoints2).sort((a, b) => breakpoints2[a] - breakpoints2[b]);
   return sortedBreakpointKeysByValue.slice(0, sortedBreakpointKeysByValue.indexOf(nonZeroKey));
 }
 function generateRowGap({
@@ -28324,7 +32159,7 @@ function generateRowGap({
   let {
     container,
     rowSpacing
-  } = ownerState, styles2 = {};
+  } = ownerState, styles4 = {};
   if (container && rowSpacing !== 0) {
     let rowSpacingValues = resolveBreakpointValues({
       values: rowSpacing,
@@ -28333,7 +32168,7 @@ function generateRowGap({
     typeof rowSpacingValues == "object" && (zeroValueBreakpointKeys = extractZeroValueBreakpointKeys({
       breakpoints: theme.breakpoints.values,
       values: rowSpacingValues
-    })), styles2 = handleBreakpoints({
+    })), styles4 = handleBreakpoints({
       theme
     }, rowSpacingValues, (propValue, breakpoint) => {
       var _zeroValueBreakpointK;
@@ -28351,7 +32186,7 @@ function generateRowGap({
       };
     });
   }
-  return styles2;
+  return styles4;
 }
 function generateColumnGap({
   theme,
@@ -28360,7 +32195,7 @@ function generateColumnGap({
   let {
     container,
     columnSpacing
-  } = ownerState, styles2 = {};
+  } = ownerState, styles4 = {};
   if (container && columnSpacing !== 0) {
     let columnSpacingValues = resolveBreakpointValues({
       values: columnSpacing,
@@ -28369,7 +32204,7 @@ function generateColumnGap({
     typeof columnSpacingValues == "object" && (zeroValueBreakpointKeys = extractZeroValueBreakpointKeys({
       breakpoints: theme.breakpoints.values,
       values: columnSpacingValues
-    })), styles2 = handleBreakpoints({
+    })), styles4 = handleBreakpoints({
       theme
     }, columnSpacingValues, (propValue, breakpoint) => {
       var _zeroValueBreakpointK2;
@@ -28389,23 +32224,23 @@ function generateColumnGap({
       };
     });
   }
-  return styles2;
+  return styles4;
 }
-function resolveSpacingStyles(spacing2, breakpoints, styles2 = {}) {
+function resolveSpacingStyles(spacing2, breakpoints2, styles4 = {}) {
   if (!spacing2 || spacing2 <= 0)
     return [];
   if (typeof spacing2 == "string" && !Number.isNaN(Number(spacing2)) || typeof spacing2 == "number")
-    return [styles2[`spacing-xs-${String(spacing2)}`]];
+    return [styles4[`spacing-xs-${String(spacing2)}`]];
   let spacingStyles = [];
-  return breakpoints.forEach((breakpoint) => {
+  return breakpoints2.forEach((breakpoint) => {
     let value = spacing2[breakpoint];
-    Number(value) > 0 && spacingStyles.push(styles2[`spacing-${breakpoint}-${String(value)}`]);
+    Number(value) > 0 && spacingStyles.push(styles4[`spacing-${breakpoint}-${String(value)}`]);
   }), spacingStyles;
 }
 var GridRoot = styled_default("div", {
   name: "MuiGrid",
   slot: "Root",
-  overridesResolver: (props, styles2) => {
+  overridesResolver: (props, styles4) => {
     let {
       ownerState
     } = props, {
@@ -28415,14 +32250,14 @@ var GridRoot = styled_default("div", {
       spacing: spacing2,
       wrap,
       zeroMinWidth,
-      breakpoints
+      breakpoints: breakpoints2
     } = ownerState, spacingStyles = [];
-    container && (spacingStyles = resolveSpacingStyles(spacing2, breakpoints, styles2));
+    container && (spacingStyles = resolveSpacingStyles(spacing2, breakpoints2, styles4));
     let breakpointsStyles = [];
-    return breakpoints.forEach((breakpoint) => {
+    return breakpoints2.forEach((breakpoint) => {
       let value = ownerState[breakpoint];
-      value && breakpointsStyles.push(styles2[`grid-${breakpoint}-${String(value)}`]);
-    }), [styles2.root, container && styles2.container, item && styles2.item, zeroMinWidth && styles2.zeroMinWidth, ...spacingStyles, direction !== "row" && styles2[`direction-xs-${String(direction)}`], wrap !== "wrap" && styles2[`wrap-xs-${String(wrap)}`], ...breakpointsStyles];
+      value && breakpointsStyles.push(styles4[`grid-${breakpoint}-${String(value)}`]);
+    }), [styles4.root, container && styles4.container, item && styles4.item, zeroMinWidth && styles4.zeroMinWidth, ...spacingStyles, direction !== "row" && styles4[`direction-xs-${String(direction)}`], wrap !== "wrap" && styles4[`wrap-xs-${String(wrap)}`], ...breakpointsStyles];
   }
 })(({
   ownerState
@@ -28440,13 +32275,13 @@ var GridRoot = styled_default("div", {
 }, ownerState.wrap !== "wrap" && {
   flexWrap: ownerState.wrap
 }), generateDirection, generateRowGap, generateColumnGap, generateGrid);
-function resolveSpacingClasses(spacing2, breakpoints) {
+function resolveSpacingClasses(spacing2, breakpoints2) {
   if (!spacing2 || spacing2 <= 0)
     return [];
   if (typeof spacing2 == "string" && !Number.isNaN(Number(spacing2)) || typeof spacing2 == "number")
     return [`spacing-xs-${String(spacing2)}`];
   let classes = [];
-  return breakpoints.forEach((breakpoint) => {
+  return breakpoints2.forEach((breakpoint) => {
     let value = spacing2[breakpoint];
     if (Number(value) > 0) {
       let className = `spacing-${breakpoint}-${String(value)}`;
@@ -28463,11 +32298,11 @@ var useUtilityClasses3 = (ownerState) => {
     spacing: spacing2,
     wrap,
     zeroMinWidth,
-    breakpoints
+    breakpoints: breakpoints2
   } = ownerState, spacingClasses = [];
-  container && (spacingClasses = resolveSpacingClasses(spacing2, breakpoints));
+  container && (spacingClasses = resolveSpacingClasses(spacing2, breakpoints2));
   let breakpointsClasses = [];
-  breakpoints.forEach((breakpoint) => {
+  breakpoints2.forEach((breakpoint) => {
     let value = ownerState[breakpoint];
     value && breakpointsClasses.push(`grid-${breakpoint}-${String(value)}`);
   });
@@ -28475,12 +32310,12 @@ var useUtilityClasses3 = (ownerState) => {
     root: ["root", container && "container", item && "item", zeroMinWidth && "zeroMinWidth", ...spacingClasses, direction !== "row" && `direction-xs-${String(direction)}`, wrap !== "wrap" && `wrap-xs-${String(wrap)}`, ...breakpointsClasses]
   };
   return composeClasses(slots, getGridUtilityClass, classes);
-}, Grid = /* @__PURE__ */ React27.forwardRef(function(inProps, ref) {
+}, Grid = /* @__PURE__ */ React32.forwardRef(function(inProps, ref) {
   let themeProps = useThemeProps2({
     props: inProps,
     name: "MuiGrid"
   }), {
-    breakpoints
+    breakpoints: breakpoints2
   } = useTheme4(), props = extendSxProp(themeProps), {
     className,
     columns: columnsProp,
@@ -28493,8 +32328,8 @@ var useUtilityClasses3 = (ownerState) => {
     spacing: spacing2 = 0,
     wrap = "wrap",
     zeroMinWidth = !1
-  } = props, other = _objectWithoutPropertiesLoose2(props, _excluded17), rowSpacing = rowSpacingProp || spacing2, columnSpacing = columnSpacingProp || spacing2, columnsContext = React27.useContext(GridContext_default), columns = container ? columnsProp || 12 : columnsContext, breakpointsValues = {}, otherFiltered = _extends6({}, other);
-  breakpoints.keys.forEach((breakpoint) => {
+  } = props, other = _objectWithoutPropertiesLoose2(props, _excluded17), rowSpacing = rowSpacingProp || spacing2, columnSpacing = columnSpacingProp || spacing2, columnsContext = React32.useContext(GridContext_default), columns = container ? columnsProp || 12 : columnsContext, breakpointsValues = {}, otherFiltered = _extends6({}, other);
+  breakpoints2.keys.forEach((breakpoint) => {
     other[breakpoint] != null && (breakpointsValues[breakpoint] = other[breakpoint], delete otherFiltered[breakpoint]);
   });
   let ownerState = _extends6({}, props, {
@@ -28508,7 +32343,7 @@ var useUtilityClasses3 = (ownerState) => {
     zeroMinWidth,
     spacing: spacing2
   }, breakpointsValues, {
-    breakpoints: breakpoints.keys
+    breakpoints: breakpoints2.keys
   }), classes = useUtilityClasses3(ownerState);
   return /* @__PURE__ */ (0, import_jsx_runtime13.jsx)(GridContext_default.Provider, {
     value: columns,
@@ -28664,7 +32499,7 @@ Grid.propTypes = {
 var Grid_default = Grid;
 
 // node_modules/@mui/material/Tab/Tab.js
-var React28 = __toESM(require_react()), import_prop_types11 = __toESM(require_prop_types());
+var React33 = __toESM(require_react()), import_prop_types11 = __toESM(require_prop_types());
 
 // node_modules/@mui/material/Tab/tabClasses.js
 function getTabUtilityClass(slot) {
@@ -28691,11 +32526,11 @@ var import_jsx_runtime14 = __toESM(require_jsx_runtime()), _excluded18 = ["class
 }, TabRoot = styled_default(ButtonBase_default, {
   name: "MuiTab",
   slot: "Root",
-  overridesResolver: (props, styles2) => {
+  overridesResolver: (props, styles4) => {
     let {
       ownerState
     } = props;
-    return [styles2.root, ownerState.label && ownerState.icon && styles2.labelIcon, styles2[`textColor${capitalize_default(ownerState.textColor)}`], ownerState.fullWidth && styles2.fullWidth, ownerState.wrapped && styles2.wrapped];
+    return [styles4.root, ownerState.label && ownerState.icon && styles4.labelIcon, styles4[`textColor${capitalize_default(ownerState.textColor)}`], ownerState.fullWidth && styles4.fullWidth, ownerState.wrapped && styles4.wrapped];
   }
 })(({
   theme,
@@ -28760,7 +32595,7 @@ var import_jsx_runtime14 = __toESM(require_jsx_runtime()), _excluded18 = ["class
   maxWidth: "none"
 }, ownerState.wrapped && {
   fontSize: theme.typography.pxToRem(12)
-})), Tab = /* @__PURE__ */ React28.forwardRef(function(inProps, ref) {
+})), Tab = /* @__PURE__ */ React33.forwardRef(function(inProps, ref) {
   let props = useThemeProps2({
     props: inProps,
     name: "MuiTab"
@@ -28796,7 +32631,7 @@ var import_jsx_runtime14 = __toESM(require_jsx_runtime()), _excluded18 = ["class
     fullWidth,
     textColor,
     wrapped
-  }), classes = useUtilityClasses4(ownerState), icon = iconProp && label && /* @__PURE__ */ React28.isValidElement(iconProp) ? /* @__PURE__ */ React28.cloneElement(iconProp, {
+  }), classes = useUtilityClasses4(ownerState), icon = iconProp && label && /* @__PURE__ */ React33.isValidElement(iconProp) ? /* @__PURE__ */ React33.cloneElement(iconProp, {
     className: clsx_default(classes.iconWrapper, iconProp.props.className)
   }) : iconProp, handleClick = (event) => {
     !selected && onChange && onChange(event, value), onClick && onClick(event);
@@ -28815,9 +32650,9 @@ var import_jsx_runtime14 = __toESM(require_jsx_runtime()), _excluded18 = ["class
     ownerState,
     tabIndex: selected ? 0 : -1
   }, other, {
-    children: [iconPosition === "top" || iconPosition === "start" ? /* @__PURE__ */ (0, import_jsx_runtime14.jsxs)(React28.Fragment, {
+    children: [iconPosition === "top" || iconPosition === "start" ? /* @__PURE__ */ (0, import_jsx_runtime14.jsxs)(React33.Fragment, {
       children: [icon, label]
-    }) : /* @__PURE__ */ (0, import_jsx_runtime14.jsxs)(React28.Fragment, {
+    }) : /* @__PURE__ */ (0, import_jsx_runtime14.jsxs)(React33.Fragment, {
       children: [label, icon]
     }), indicator]
   }));
@@ -28901,19 +32736,19 @@ Tab.propTypes = {
 var Tab_default = Tab;
 
 // node_modules/@mui/material/internal/svg-icons/KeyboardArrowLeft.js
-var React29 = __toESM(require_react());
+var React34 = __toESM(require_react());
 var import_jsx_runtime15 = __toESM(require_jsx_runtime()), KeyboardArrowLeft_default = createSvgIcon(/* @__PURE__ */ (0, import_jsx_runtime15.jsx)("path", {
   d: "M15.41 16.09l-4.58-4.59 4.58-4.59L14 5.5l-6 6 6 6z"
 }), "KeyboardArrowLeft");
 
 // node_modules/@mui/material/internal/svg-icons/KeyboardArrowRight.js
-var React30 = __toESM(require_react());
+var React35 = __toESM(require_react());
 var import_jsx_runtime16 = __toESM(require_jsx_runtime()), KeyboardArrowRight_default = createSvgIcon(/* @__PURE__ */ (0, import_jsx_runtime16.jsx)("path", {
   d: "M8.59 16.34l4.58-4.59-4.58-4.59L10 5.75l6 6-6 6z"
 }), "KeyboardArrowRight");
 
 // node_modules/@mui/material/Tabs/Tabs.js
-var React33 = __toESM(require_react()), import_react_is2 = __toESM(require_react_is3()), import_prop_types14 = __toESM(require_prop_types());
+var React38 = __toESM(require_react()), import_react_is2 = __toESM(require_react_is3()), import_prop_types14 = __toESM(require_prop_types());
 
 // node_modules/@mui/material/internal/animate.js
 function easeInOutSin(time) {
@@ -28946,8 +32781,8 @@ function animate(property, element, to, options = {}, cb = () => {
 }
 
 // node_modules/@mui/material/Tabs/ScrollbarSize.js
-var React31 = __toESM(require_react()), import_prop_types12 = __toESM(require_prop_types());
-var import_jsx_runtime17 = __toESM(require_jsx_runtime()), _excluded19 = ["onChange"], styles = {
+var React36 = __toESM(require_react()), import_prop_types12 = __toESM(require_prop_types());
+var import_jsx_runtime17 = __toESM(require_jsx_runtime()), _excluded19 = ["onChange"], styles3 = {
   width: 99,
   height: 99,
   position: "absolute",
@@ -28957,7 +32792,7 @@ var import_jsx_runtime17 = __toESM(require_jsx_runtime()), _excluded19 = ["onCha
 function ScrollbarSize(props) {
   let {
     onChange
-  } = props, other = _objectWithoutPropertiesLoose2(props, _excluded19), scrollbarHeight = React31.useRef(), nodeRef = React31.useRef(null), setMeasurements = () => {
+  } = props, other = _objectWithoutPropertiesLoose2(props, _excluded19), scrollbarHeight = React36.useRef(), nodeRef = React36.useRef(null), setMeasurements = () => {
     scrollbarHeight.current = nodeRef.current.offsetHeight - nodeRef.current.clientHeight;
   };
   return useEnhancedEffect_default2(() => {
@@ -28968,10 +32803,10 @@ function ScrollbarSize(props) {
     return containerWindow.addEventListener("resize", handleResize), () => {
       handleResize.clear(), containerWindow.removeEventListener("resize", handleResize);
     };
-  }, [onChange]), React31.useEffect(() => {
+  }, [onChange]), React36.useEffect(() => {
     setMeasurements(), onChange(scrollbarHeight.current);
   }, [onChange]), /* @__PURE__ */ (0, import_jsx_runtime17.jsx)("div", _extends6({
-    style: styles,
+    style: styles3,
     ref: nodeRef
   }, other));
 }
@@ -28980,7 +32815,7 @@ ScrollbarSize.propTypes = {
 };
 
 // node_modules/@mui/material/TabScrollButton/TabScrollButton.js
-var React32 = __toESM(require_react()), import_prop_types13 = __toESM(require_prop_types());
+var React37 = __toESM(require_react()), import_prop_types13 = __toESM(require_prop_types());
 
 // node_modules/@mui/material/TabScrollButton/tabScrollButtonClasses.js
 function getTabScrollButtonUtilityClass(slot) {
@@ -29001,11 +32836,11 @@ var import_jsx_runtime18 = __toESM(require_jsx_runtime()), _excluded20 = ["class
 }, TabScrollButtonRoot = styled_default(ButtonBase_default, {
   name: "MuiTabScrollButton",
   slot: "Root",
-  overridesResolver: (props, styles2) => {
+  overridesResolver: (props, styles4) => {
     let {
       ownerState
     } = props;
-    return [styles2.root, ownerState.orientation && styles2[ownerState.orientation]];
+    return [styles4.root, ownerState.orientation && styles4[ownerState.orientation]];
   }
 })(({
   ownerState
@@ -29022,7 +32857,7 @@ var import_jsx_runtime18 = __toESM(require_jsx_runtime()), _excluded20 = ["class
   "& svg": {
     transform: `rotate(${ownerState.isRtl ? -90 : 90}deg)`
   }
-})), TabScrollButton = /* @__PURE__ */ React32.forwardRef(function(inProps, ref) {
+})), TabScrollButton = /* @__PURE__ */ React37.forwardRef(function(inProps, ref) {
   var _slots$StartScrollBut, _slots$EndScrollButto;
   let props = useThemeProps2({
     props: inProps,
@@ -29160,15 +32995,15 @@ var import_jsx_runtime19 = __toESM(require_jsx_runtime()), import_jsx_runtime20 
 }, TabsRoot = styled_default("div", {
   name: "MuiTabs",
   slot: "Root",
-  overridesResolver: (props, styles2) => {
+  overridesResolver: (props, styles4) => {
     let {
       ownerState
     } = props;
     return [{
-      [`& .${tabsClasses_default.scrollButtons}`]: styles2.scrollButtons
+      [`& .${tabsClasses_default.scrollButtons}`]: styles4.scrollButtons
     }, {
-      [`& .${tabsClasses_default.scrollButtons}`]: ownerState.scrollButtonsHideMobile && styles2.scrollButtonsHideMobile
-    }, styles2.root, ownerState.vertical && styles2.vertical];
+      [`& .${tabsClasses_default.scrollButtons}`]: ownerState.scrollButtonsHideMobile && styles4.scrollButtonsHideMobile
+    }, styles4.root, ownerState.vertical && styles4.vertical];
   }
 })(({
   ownerState,
@@ -29190,11 +33025,11 @@ var import_jsx_runtime19 = __toESM(require_jsx_runtime()), import_jsx_runtime20 
 })), TabsScroller = styled_default("div", {
   name: "MuiTabs",
   slot: "Scroller",
-  overridesResolver: (props, styles2) => {
+  overridesResolver: (props, styles4) => {
     let {
       ownerState
     } = props;
-    return [styles2.scroller, ownerState.fixed && styles2.fixed, ownerState.hideScrollbar && styles2.hideScrollbar, ownerState.scrollableX && styles2.scrollableX, ownerState.scrollableY && styles2.scrollableY];
+    return [styles4.scroller, ownerState.fixed && styles4.fixed, ownerState.hideScrollbar && styles4.hideScrollbar, ownerState.scrollableX && styles4.scrollableX, ownerState.scrollableY && styles4.scrollableY];
   }
 })(({
   ownerState
@@ -29223,11 +33058,11 @@ var import_jsx_runtime19 = __toESM(require_jsx_runtime()), import_jsx_runtime20 
 })), FlexContainer = styled_default("div", {
   name: "MuiTabs",
   slot: "FlexContainer",
-  overridesResolver: (props, styles2) => {
+  overridesResolver: (props, styles4) => {
     let {
       ownerState
     } = props;
-    return [styles2.flexContainer, ownerState.vertical && styles2.flexContainerVertical, ownerState.centered && styles2.centered];
+    return [styles4.flexContainer, ownerState.vertical && styles4.flexContainerVertical, ownerState.centered && styles4.centered];
   }
 })(({
   ownerState
@@ -29240,7 +33075,7 @@ var import_jsx_runtime19 = __toESM(require_jsx_runtime()), import_jsx_runtime20 
 })), TabsIndicator = styled_default("span", {
   name: "MuiTabs",
   slot: "Indicator",
-  overridesResolver: (props, styles2) => styles2.indicator
+  overridesResolver: (props, styles4) => styles4.indicator
 })(({
   ownerState,
   theme
@@ -29268,7 +33103,7 @@ var import_jsx_runtime19 = __toESM(require_jsx_runtime()), import_jsx_runtime20 
     display: "none"
     // Safari + Chrome
   }
-}), defaultIndicatorStyle = {}, warnedOnceTabPresent = !1, Tabs = /* @__PURE__ */ React33.forwardRef(function(inProps, ref) {
+}), defaultIndicatorStyle = {}, warnedOnceTabPresent = !1, Tabs = /* @__PURE__ */ React38.forwardRef(function(inProps, ref) {
   let props = useThemeProps2({
     props: inProps,
     name: "MuiTabs"
@@ -29295,7 +33130,7 @@ var import_jsx_runtime19 = __toESM(require_jsx_runtime()), import_jsx_runtime20 
     value,
     variant = "standard",
     visibleScrollbar = !1
-  } = props, other = _objectWithoutPropertiesLoose2(props, _excluded21), scrollable = variant === "scrollable", vertical = orientation === "vertical", scrollStart = vertical ? "scrollTop" : "scrollLeft", start = vertical ? "top" : "left", end = vertical ? "bottom" : "right", clientSize = vertical ? "clientHeight" : "clientWidth", size = vertical ? "height" : "width", ownerState = _extends6({}, props, {
+  } = props, other = _objectWithoutPropertiesLoose2(props, _excluded21), scrollable = variant === "scrollable", vertical = orientation === "vertical", scrollStart = vertical ? "scrollTop" : "scrollLeft", start = vertical ? "top" : "left", end = vertical ? "bottom" : "right", clientSize = vertical ? "clientHeight" : "clientWidth", size2 = vertical ? "height" : "width", ownerState = _extends6({}, props, {
     component,
     allowScrollButtonsMobile,
     indicatorColor,
@@ -29321,10 +33156,10 @@ var import_jsx_runtime19 = __toESM(require_jsx_runtime()), import_jsx_runtime20 
     ownerState
   });
   centered && scrollable && console.error('MUI: You can not use the `centered={true}` and `variant="scrollable"` properties at the same time on a `Tabs` component.');
-  let [mounted, setMounted] = React33.useState(!1), [indicatorStyle, setIndicatorStyle] = React33.useState(defaultIndicatorStyle), [displayStartScroll, setDisplayStartScroll] = React33.useState(!1), [displayEndScroll, setDisplayEndScroll] = React33.useState(!1), [updateScrollObserver, setUpdateScrollObserver] = React33.useState(!1), [scrollerStyle, setScrollerStyle] = React33.useState({
+  let [mounted, setMounted] = React38.useState(!1), [indicatorStyle, setIndicatorStyle] = React38.useState(defaultIndicatorStyle), [displayStartScroll, setDisplayStartScroll] = React38.useState(!1), [displayEndScroll, setDisplayEndScroll] = React38.useState(!1), [updateScrollObserver, setUpdateScrollObserver] = React38.useState(!1), [scrollerStyle, setScrollerStyle] = React38.useState({
     overflow: "hidden",
     scrollbarWidth: 0
-  }), valueToIndex = /* @__PURE__ */ new Map(), tabsRef = React33.useRef(null), tabListRef = React33.useRef(null), getTabsMeta = () => {
+  }), valueToIndex = /* @__PURE__ */ new Map(), tabsRef = React38.useRef(null), tabListRef = React38.useRef(null), getTabsMeta = () => {
     let tabsNode = tabsRef.current, tabsMeta;
     if (tabsNode) {
       let rect = tabsNode.getBoundingClientRect();
@@ -29369,12 +33204,12 @@ var import_jsx_runtime19 = __toESM(require_jsx_runtime()), import_jsx_runtime20 
     let newIndicatorStyle = {
       [startIndicator]: startValue,
       // May be wrong until the font is loaded.
-      [size]: tabMeta ? tabMeta[size] : 0
+      [size2]: tabMeta ? tabMeta[size2] : 0
     };
-    if (isNaN(indicatorStyle[startIndicator]) || isNaN(indicatorStyle[size]))
+    if (isNaN(indicatorStyle[startIndicator]) || isNaN(indicatorStyle[size2]))
       setIndicatorStyle(newIndicatorStyle);
     else {
-      let dStart = Math.abs(indicatorStyle[startIndicator] - newIndicatorStyle[startIndicator]), dSize = Math.abs(indicatorStyle[size] - newIndicatorStyle[size]);
+      let dStart = Math.abs(indicatorStyle[startIndicator] - newIndicatorStyle[startIndicator]), dSize = Math.abs(indicatorStyle[size2] - newIndicatorStyle[size2]);
       (dStart >= 1 || dSize >= 1) && setIndicatorStyle(newIndicatorStyle);
     }
   }), scroll = (scrollValue, {
@@ -29401,7 +33236,7 @@ var import_jsx_runtime19 = __toESM(require_jsx_runtime()), import_jsx_runtime20 
     moveTabsScroll(-1 * getScrollSize());
   }, handleEndScrollClick = () => {
     moveTabsScroll(getScrollSize());
-  }, handleScrollbarSizeChange = React33.useCallback((scrollbarWidth) => {
+  }, handleScrollbarSizeChange = React38.useCallback((scrollbarWidth) => {
     setScrollerStyle({
       overflow: null,
       scrollbarWidth
@@ -29461,7 +33296,7 @@ var import_jsx_runtime19 = __toESM(require_jsx_runtime()), import_jsx_runtime20 
   }), updateScrollButtonState = useEventCallback_default2(() => {
     scrollable && scrollButtons !== !1 && setUpdateScrollObserver(!updateScrollObserver);
   });
-  React33.useEffect(() => {
+  React38.useEffect(() => {
     let handleResize = debounce_default(() => {
       tabsRef.current && updateIndicatorState();
     }), resizeObserver, handleMutation = (records) => {
@@ -29485,7 +33320,7 @@ var import_jsx_runtime19 = __toESM(require_jsx_runtime()), import_jsx_runtime20 
       var _mutationObserver, _resizeObserver3;
       handleResize.clear(), win.removeEventListener("resize", handleResize), (_mutationObserver = mutationObserver) == null || _mutationObserver.disconnect(), (_resizeObserver3 = resizeObserver) == null || _resizeObserver3.disconnect();
     };
-  }, [updateIndicatorState, updateScrollButtonState]), React33.useEffect(() => {
+  }, [updateIndicatorState, updateScrollButtonState]), React38.useEffect(() => {
     let tabListChildren = Array.from(tabListRef.current.children), length = tabListChildren.length;
     if (typeof IntersectionObserver < "u" && length > 0 && scrollable && scrollButtons !== !1) {
       let firstTab = tabListChildren[0], lastTab = tabListChildren[length - 1], observerOptions = {
@@ -29502,13 +33337,13 @@ var import_jsx_runtime19 = __toESM(require_jsx_runtime()), import_jsx_runtime20 
         firstObserver.disconnect(), lastObserver.disconnect();
       };
     }
-  }, [scrollable, scrollButtons, updateScrollObserver, childrenProp?.length]), React33.useEffect(() => {
+  }, [scrollable, scrollButtons, updateScrollObserver, childrenProp?.length]), React38.useEffect(() => {
     setMounted(!0);
-  }, []), React33.useEffect(() => {
+  }, []), React38.useEffect(() => {
     updateIndicatorState();
-  }), React33.useEffect(() => {
+  }), React38.useEffect(() => {
     scrollSelectedIntoView(defaultIndicatorStyle !== indicatorStyle);
-  }, [scrollSelectedIntoView, indicatorStyle]), React33.useImperativeHandle(action11, () => ({
+  }, [scrollSelectedIntoView, indicatorStyle]), React38.useImperativeHandle(action11, () => ({
     updateIndicator: updateIndicatorState,
     updateScrollButtons: updateScrollButtonState
   }), [updateIndicatorState, updateScrollButtonState]);
@@ -29516,15 +33351,15 @@ var import_jsx_runtime19 = __toESM(require_jsx_runtime()), import_jsx_runtime20 
     className: clsx_default(classes.indicator, TabIndicatorProps.className),
     ownerState,
     style: _extends6({}, indicatorStyle, TabIndicatorProps.style)
-  })), childIndex = 0, children = React33.Children.map(childrenProp, (child) => {
-    if (!/* @__PURE__ */ React33.isValidElement(child))
+  })), childIndex = 0, children = React38.Children.map(childrenProp, (child) => {
+    if (!/* @__PURE__ */ React38.isValidElement(child))
       return null;
     (0, import_react_is2.isFragment)(child) && console.error(["MUI: The Tabs component doesn't accept a Fragment as a child.", "Consider providing an array instead."].join(`
 `));
     let childValue = child.props.value === void 0 ? childIndex : child.props.value;
     valueToIndex.set(childValue, childIndex);
     let selected = childValue === value;
-    return childIndex += 1, /* @__PURE__ */ React33.cloneElement(child, _extends6({
+    return childIndex += 1, /* @__PURE__ */ React38.cloneElement(child, _extends6({
       fullWidth: variant === "fullWidth",
       indicator: selected && !mounted && indicator,
       selected,
@@ -29737,11 +33572,11 @@ Tabs.propTypes = {
 var Tabs_default = Tabs;
 
 // node_modules/@mui/lab/TabContext/TabContext.js
-var React34 = __toESM(require_react()), import_prop_types15 = __toESM(require_prop_types()), import_jsx_runtime21 = __toESM(require_jsx_runtime()), Context = /* @__PURE__ */ React34.createContext(null);
+var React39 = __toESM(require_react()), import_prop_types15 = __toESM(require_prop_types()), import_jsx_runtime21 = __toESM(require_jsx_runtime()), Context = /* @__PURE__ */ React39.createContext(null);
 Context.displayName = "TabContext";
 function useUniquePrefix() {
-  let [id, setId] = React34.useState(null);
-  return React34.useEffect(() => {
+  let [id, setId] = React39.useState(null);
+  return React39.useEffect(() => {
     setId(`mui-p-${Math.round(Math.random() * 1e5)}`);
   }, []), id;
 }
@@ -29749,7 +33584,7 @@ function TabContext(props) {
   let {
     children,
     value
-  } = props, idPrefix = useUniquePrefix(), context = React34.useMemo(() => ({
+  } = props, idPrefix = useUniquePrefix(), context = React39.useMemo(() => ({
     idPrefix,
     value
   }), [idPrefix, value]);
@@ -29773,7 +33608,7 @@ TabContext.propTypes = {
   value: import_prop_types15.default.oneOfType([import_prop_types15.default.number, import_prop_types15.default.string]).isRequired
 };
 function useTabContext() {
-  return React34.useContext(Context);
+  return React39.useContext(Context);
 }
 function getPanelId(context, value) {
   let {
@@ -29789,14 +33624,14 @@ function getTabId(context, value) {
 }
 
 // node_modules/@mui/lab/TabList/TabList.js
-var React35 = __toESM(require_react()), import_prop_types16 = __toESM(require_prop_types());
-var import_jsx_runtime22 = __toESM(require_jsx_runtime()), _excluded23 = ["children"], TabList = /* @__PURE__ */ React35.forwardRef(function(props, ref) {
+var React40 = __toESM(require_react()), import_prop_types16 = __toESM(require_prop_types());
+var import_jsx_runtime22 = __toESM(require_jsx_runtime()), _excluded23 = ["children"], TabList = /* @__PURE__ */ React40.forwardRef(function(props, ref) {
   let {
     children: childrenProp
   } = props, other = _objectWithoutPropertiesLoose2(props, _excluded23), context = useTabContext();
   if (context === null)
     throw new TypeError("No TabContext provided");
-  let children = React35.Children.map(childrenProp, (child) => /* @__PURE__ */ React35.isValidElement(child) ? /* @__PURE__ */ React35.cloneElement(child, {
+  let children = React40.Children.map(childrenProp, (child) => /* @__PURE__ */ React40.isValidElement(child) ? /* @__PURE__ */ React40.cloneElement(child, {
     // SOMEDAY: `Tabs` will set those themselves
     "aria-controls": getPanelId(context, child.props.value),
     id: getTabId(context, child.props.value)
@@ -29820,7 +33655,7 @@ TabList.propTypes = {
 var TabList_default = TabList;
 
 // node_modules/@mui/lab/TabPanel/TabPanel.js
-var React36 = __toESM(require_react()), import_prop_types17 = __toESM(require_prop_types());
+var React41 = __toESM(require_react()), import_prop_types17 = __toESM(require_prop_types());
 
 // node_modules/@mui/lab/TabPanel/tabPanelClasses.js
 function getTabPanelUtilityClass(slot) {
@@ -29839,12 +33674,12 @@ var import_jsx_runtime23 = __toESM(require_jsx_runtime()), _excluded24 = ["child
 }, TabPanelRoot = styled_default("div", {
   name: "MuiTabPanel",
   slot: "Root",
-  overridesResolver: (props, styles2) => styles2.root
+  overridesResolver: (props, styles4) => styles4.root
 })(({
   theme
 }) => ({
   padding: theme.spacing(3)
-})), TabPanel = /* @__PURE__ */ React36.forwardRef(function(inProps, ref) {
+})), TabPanel = /* @__PURE__ */ React41.forwardRef(function(inProps, ref) {
   let props = useThemeProps2({
     props: inProps,
     name: "MuiTabPanel"
@@ -29915,7 +33750,7 @@ async function loader4({ request, params, context }) {
   return json5({ collection });
 }
 function ProductInfo({ collection }) {
-  let products = collection.products.nodes.map((product) => /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)(ProductItem, { product }, void 0, !1, {
+  let productImages = collection.products.nodes.map((product) => /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)(ProductItem, { product }, void 0, !1, {
     fileName: "app/routes/($locale).collectioncarousel.$handle.jsx",
     lineNumber: 51,
     columnNumber: 13
@@ -29961,9 +33796,43 @@ function ProductInfo({ collection }) {
           justifyContent: "center",
           alignItems: "center"
         },
-        children: /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)("div", { style: { display: "block" }, children: products[0] }, void 0, !1, {
+        children: /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)(
+          "div",
+          {
+            className: "collection-description",
+            style: { paddingTop: "16px" },
+            children: collection.description
+          },
+          void 0,
+          !1,
+          {
+            fileName: "app/routes/($locale).collectioncarousel.$handle.jsx",
+            lineNumber: 75,
+            columnNumber: 9
+          },
+          this
+        )
+      },
+      void 0,
+      !1,
+      {
+        fileName: "app/routes/($locale).collectioncarousel.$handle.jsx",
+        lineNumber: 68,
+        columnNumber: 7
+      },
+      this
+    ),
+    /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)(
+      "div",
+      {
+        style: {
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center"
+        },
+        children: /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)("div", { style: { display: "block" }, children: productImages[1] }, void 0, !1, {
           fileName: "app/routes/($locale).collectioncarousel.$handle.jsx",
-          lineNumber: 76,
+          lineNumber: 89,
           columnNumber: 9
         }, this)
       },
@@ -29971,7 +33840,7 @@ function ProductInfo({ collection }) {
       !1,
       {
         fileName: "app/routes/($locale).collectioncarousel.$handle.jsx",
-        lineNumber: 69,
+        lineNumber: 82,
         columnNumber: 7
       },
       this
@@ -29985,14 +33854,14 @@ function ProductInfo({ collection }) {
           alignItems: "center"
         },
         children: /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)("div", { style: { display: "block" }, children: [
-          /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)("h4", { children: collection.products.nodes[0].title }, void 0, !1, {
+          /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)("h4", { children: collection.products.nodes[1].title }, void 0, !1, {
             fileName: "app/routes/($locale).collectioncarousel.$handle.jsx",
-            lineNumber: 89,
+            lineNumber: 102,
             columnNumber: 11
           }, this),
           /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)("hr", {}, void 0, !1, {
             fileName: "app/routes/($locale).collectioncarousel.$handle.jsx",
-            lineNumber: 92,
+            lineNumber: 105,
             columnNumber: 11
           }, this),
           /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)(
@@ -30003,9 +33872,9 @@ function ProductInfo({ collection }) {
                 justifyContent: "center",
                 alignItems: "center"
               },
-              children: /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)(Money, { data: collection.products.nodes[0].priceRange.minVariantPrice }, void 0, !1, {
+              children: /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)(Money, { data: collection.products.nodes[1].priceRange.minVariantPrice }, void 0, !1, {
                 fileName: "app/routes/($locale).collectioncarousel.$handle.jsx",
-                lineNumber: 100,
+                lineNumber: 113,
                 columnNumber: 13
               }, this)
             },
@@ -30013,14 +33882,14 @@ function ProductInfo({ collection }) {
             !1,
             {
               fileName: "app/routes/($locale).collectioncarousel.$handle.jsx",
-              lineNumber: 93,
+              lineNumber: 106,
               columnNumber: 11
             },
             this
           )
         ] }, void 0, !0, {
           fileName: "app/routes/($locale).collectioncarousel.$handle.jsx",
-          lineNumber: 88,
+          lineNumber: 101,
           columnNumber: 9
         }, this)
       },
@@ -30028,41 +33897,7 @@ function ProductInfo({ collection }) {
       !1,
       {
         fileName: "app/routes/($locale).collectioncarousel.$handle.jsx",
-        lineNumber: 81,
-        columnNumber: 7
-      },
-      this
-    ),
-    /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)(
-      "div",
-      {
-        style: {
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center"
-        },
-        children: /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)(
-          "div",
-          {
-            className: "collection-description",
-            style: { paddingTop: "16px" },
-            children: collection.description
-          },
-          void 0,
-          !1,
-          {
-            fileName: "app/routes/($locale).collectioncarousel.$handle.jsx",
-            lineNumber: 112,
-            columnNumber: 9
-          },
-          this
-        )
-      },
-      void 0,
-      !1,
-      {
-        fileName: "app/routes/($locale).collectioncarousel.$handle.jsx",
-        lineNumber: 105,
+        lineNumber: 94,
         columnNumber: 7
       },
       this
@@ -30073,12 +33908,19 @@ function ProductInfo({ collection }) {
     columnNumber: 5
   }, this);
 }
-function Swatch() {
-  return /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)("div", { children: "swatch image" }, void 0, !1, {
+function Swatch(product) {
+  return /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)("div", {}, void 0, !1, {
     fileName: "app/routes/($locale).collectioncarousel.$handle.jsx",
-    lineNumber: 126,
+    lineNumber: 124,
     columnNumber: 5
   }, this);
+}
+function SwatchSet({ collection, tag }) {
+  return console.log(collection), collection.products.nodes.map((product) => /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)(Swatch, {}, product.id, !1, {
+    fileName: "app/routes/($locale).collectioncarousel.$handle.jsx",
+    lineNumber: 133,
+    columnNumber: 9
+  }, this));
 }
 function ProductFilter({ collection }) {
   let products = collection.products.nodes.map((product) => /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)("div", { style: { display: "flex", justifyContent: "center", alignItems: "center" }, children: /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)(
@@ -30094,113 +33936,141 @@ function ProductFilter({ collection }) {
     !1,
     {
       fileName: "app/routes/($locale).collectioncarousel.$handle.jsx",
-      lineNumber: 134,
+      lineNumber: 143,
       columnNumber: 9
     },
     this
   ) }, void 0, !1, {
     fileName: "app/routes/($locale).collectioncarousel.$handle.jsx",
-    lineNumber: 133,
+    lineNumber: 142,
     columnNumber: 7
-  }, this)), [value, setValue] = React37.useState("0"), handleChange = (_2, newValue) => {
+  }, this)), [value, setValue] = React42.useState("M"), handleChange = (_2, newValue) => {
     setValue(newValue);
-  }, panel_child = /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)("b", { children: "HI!" }, void 0, !1, {
-    fileName: "app/routes/($locale).collectioncarousel.$handle.jsx",
-    lineNumber: 151,
-    columnNumber: 21
-  }, this);
-  return /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)("div", { className: "productFilter", children: /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)("div", { className: "productTabs", children: /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)(TabContext, { value, children: [
+  }, [tabWidth, setTabWidth] = React42.useState({ minWidth: "8em" }), handleResize = () => {
+    window.innerWidth < 720 ? setTabWidth({ minWidth: "3em" }) : setTabWidth({ minWidth: "8em" });
+  };
+  return React42.useEffect(() => {
+    window.addEventListener("resize", handleResize);
+  }), /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)("div", { className: "productFilter", children: /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)("div", { className: "productTabs", children: /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)(TabContext, { value, children: [
     /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)(Box_default, { sx: { borderBottom: 1, borderColor: "divider" }, children: /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)(TabList_default, { onChange: handleChange, "aria-label": "collection items", children: [
-      /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)(Tab_default, { label: "S", value: "0" }, void 0, !1, {
+      /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)(Tab_default, { label: "XS", value: "XS", sx: tabWidth }, void 0, !1, {
         fileName: "app/routes/($locale).collectioncarousel.$handle.jsx",
-        lineNumber: 159,
+        lineNumber: 182,
         columnNumber: 15
       }, this),
-      /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)(Tab_default, { label: "M", value: "1" }, void 0, !1, {
+      /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)(Tab_default, { label: "S", value: "S", sx: tabWidth }, void 0, !1, {
         fileName: "app/routes/($locale).collectioncarousel.$handle.jsx",
-        lineNumber: 160,
+        lineNumber: 183,
         columnNumber: 15
       }, this),
-      /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)(Tab_default, { label: "L", value: "2" }, void 0, !1, {
+      /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)(Tab_default, { label: "M", value: "M", sx: tabWidth }, void 0, !1, {
         fileName: "app/routes/($locale).collectioncarousel.$handle.jsx",
-        lineNumber: 161,
+        lineNumber: 184,
         columnNumber: 15
       }, this),
-      /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)(Tab_default, { label: "XL", value: "3" }, void 0, !1, {
+      /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)(Tab_default, { label: "L", value: "L", sx: tabWidth }, void 0, !1, {
         fileName: "app/routes/($locale).collectioncarousel.$handle.jsx",
-        lineNumber: 162,
+        lineNumber: 185,
         columnNumber: 15
       }, this),
-      /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)(Tab_default, { label: "XXL", value: "4" }, void 0, !1, {
+      /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)(Tab_default, { label: "XL", value: "XL", sx: tabWidth }, void 0, !1, {
         fileName: "app/routes/($locale).collectioncarousel.$handle.jsx",
-        lineNumber: 163,
+        lineNumber: 186,
+        columnNumber: 15
+      }, this),
+      /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)(Tab_default, { label: "XXL", value: "XXL", sx: tabWidth }, void 0, !1, {
+        fileName: "app/routes/($locale).collectioncarousel.$handle.jsx",
+        lineNumber: 187,
+        columnNumber: 15
+      }, this),
+      /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)(Tab_default, { label: "XXXL", value: "XXXL", sx: tabWidth }, void 0, !1, {
+        fileName: "app/routes/($locale).collectioncarousel.$handle.jsx",
+        lineNumber: 188,
         columnNumber: 15
       }, this)
     ] }, void 0, !0, {
       fileName: "app/routes/($locale).collectioncarousel.$handle.jsx",
-      lineNumber: 158,
+      lineNumber: 181,
       columnNumber: 13
     }, this) }, void 0, !1, {
       fileName: "app/routes/($locale).collectioncarousel.$handle.jsx",
-      lineNumber: 157,
+      lineNumber: 180,
       columnNumber: 11
     }, this),
-    /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)(TabPanel_default, { value: "0", children: /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)(Swatch, {}, void 0, !1, {
+    /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)(TabPanel_default, { value: "XS", children: /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)(SwatchSet, { collection, tag: "XS" }, void 0, !1, {
       fileName: "app/routes/($locale).collectioncarousel.$handle.jsx",
-      lineNumber: 166,
+      lineNumber: 191,
+      columnNumber: 32
+    }, this) }, void 0, !1, {
+      fileName: "app/routes/($locale).collectioncarousel.$handle.jsx",
+      lineNumber: 191,
+      columnNumber: 11
+    }, this),
+    /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)(TabPanel_default, { value: "S", children: /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)(SwatchSet, { collection, tag: "S" }, void 0, !1, {
+      fileName: "app/routes/($locale).collectioncarousel.$handle.jsx",
+      lineNumber: 192,
       columnNumber: 31
     }, this) }, void 0, !1, {
       fileName: "app/routes/($locale).collectioncarousel.$handle.jsx",
-      lineNumber: 166,
+      lineNumber: 192,
       columnNumber: 11
     }, this),
-    /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)(TabPanel_default, { value: "1", children: /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)(Swatch, {}, void 0, !1, {
+    /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)(TabPanel_default, { value: "M", children: /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)(SwatchSet, { collection, tag: "M" }, void 0, !1, {
       fileName: "app/routes/($locale).collectioncarousel.$handle.jsx",
-      lineNumber: 167,
+      lineNumber: 193,
       columnNumber: 31
     }, this) }, void 0, !1, {
       fileName: "app/routes/($locale).collectioncarousel.$handle.jsx",
-      lineNumber: 167,
+      lineNumber: 193,
       columnNumber: 11
     }, this),
-    /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)(TabPanel_default, { value: "2", children: /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)(Swatch, {}, void 0, !1, {
+    /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)(TabPanel_default, { value: "L", children: /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)(SwatchSet, { collection, tag: "L" }, void 0, !1, {
       fileName: "app/routes/($locale).collectioncarousel.$handle.jsx",
-      lineNumber: 168,
+      lineNumber: 194,
       columnNumber: 31
     }, this) }, void 0, !1, {
       fileName: "app/routes/($locale).collectioncarousel.$handle.jsx",
-      lineNumber: 168,
+      lineNumber: 194,
       columnNumber: 11
     }, this),
-    /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)(TabPanel_default, { value: "3", children: /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)(Swatch, {}, void 0, !1, {
+    /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)(TabPanel_default, { value: "XL", children: /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)(SwatchSet, { collection, tag: "XL" }, void 0, !1, {
       fileName: "app/routes/($locale).collectioncarousel.$handle.jsx",
-      lineNumber: 169,
-      columnNumber: 31
+      lineNumber: 195,
+      columnNumber: 32
     }, this) }, void 0, !1, {
       fileName: "app/routes/($locale).collectioncarousel.$handle.jsx",
-      lineNumber: 169,
+      lineNumber: 195,
       columnNumber: 11
     }, this),
-    /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)(TabPanel_default, { value: "4", children: /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)(Swatch, {}, void 0, !1, {
+    /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)(TabPanel_default, { value: "XXL", children: /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)(SwatchSet, { collection, tag: "XXL" }, void 0, !1, {
       fileName: "app/routes/($locale).collectioncarousel.$handle.jsx",
-      lineNumber: 170,
-      columnNumber: 31
+      lineNumber: 196,
+      columnNumber: 33
     }, this) }, void 0, !1, {
       fileName: "app/routes/($locale).collectioncarousel.$handle.jsx",
-      lineNumber: 170,
+      lineNumber: 196,
+      columnNumber: 11
+    }, this),
+    /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)(TabPanel_default, { value: "XXXL", children: /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)(SwatchSet, { collection, tag: "XXXL" }, void 0, !1, {
+      fileName: "app/routes/($locale).collectioncarousel.$handle.jsx",
+      lineNumber: 197,
+      columnNumber: 34
+    }, this) }, void 0, !1, {
+      fileName: "app/routes/($locale).collectioncarousel.$handle.jsx",
+      lineNumber: 197,
       columnNumber: 11
     }, this)
   ] }, void 0, !0, {
     fileName: "app/routes/($locale).collectioncarousel.$handle.jsx",
-    lineNumber: 156,
+    lineNumber: 179,
     columnNumber: 9
   }, this) }, void 0, !1, {
     fileName: "app/routes/($locale).collectioncarousel.$handle.jsx",
-    lineNumber: 155,
+    lineNumber: 178,
     columnNumber: 7
   }, this) }, void 0, !1, {
     fileName: "app/routes/($locale).collectioncarousel.$handle.jsx",
-    lineNumber: 154,
+    lineNumber: 177,
     columnNumber: 5
   }, this);
 }
@@ -30209,17 +34079,17 @@ function Collection() {
   return /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)("div", { className: "collectionPanel", children: [
     /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)(ProductInfo, { collection }, void 0, !1, {
       fileName: "app/routes/($locale).collectioncarousel.$handle.jsx",
-      lineNumber: 183,
+      lineNumber: 210,
       columnNumber: 7
     }, this),
     /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)(ProductFilter, { collection }, void 0, !1, {
       fileName: "app/routes/($locale).collectioncarousel.$handle.jsx",
-      lineNumber: 184,
+      lineNumber: 211,
       columnNumber: 7
     }, this)
   ] }, void 0, !0, {
     fileName: "app/routes/($locale).collectioncarousel.$handle.jsx",
-    lineNumber: 182,
+    lineNumber: 209,
     columnNumber: 5
   }, this);
 }
@@ -30243,13 +34113,13 @@ function ProductItem({ product }) {
         !1,
         {
           fileName: "app/routes/($locale).collectioncarousel.$handle.jsx",
-          lineNumber: 208,
+          lineNumber: 235,
           columnNumber: 15
         },
         this
       ) }, void 0, !1, {
         fileName: "app/routes/($locale).collectioncarousel.$handle.jsx",
-        lineNumber: 207,
+        lineNumber: 234,
         columnNumber: 13
       }, this)
     },
@@ -30257,17 +34127,17 @@ function ProductItem({ product }) {
     !1,
     {
       fileName: "app/routes/($locale).collectioncarousel.$handle.jsx",
-      lineNumber: 201,
+      lineNumber: 228,
       columnNumber: 9
     },
     this
   ) }, void 0, !1, {
     fileName: "app/routes/($locale).collectioncarousel.$handle.jsx",
-    lineNumber: 200,
+    lineNumber: 227,
     columnNumber: 7
   }, this) }, void 0, !1, {
     fileName: "app/routes/($locale).collectioncarousel.$handle.jsx",
-    lineNumber: 199,
+    lineNumber: 226,
     columnNumber: 5
   }, this);
 }
@@ -30295,7 +34165,7 @@ var PRODUCT_ITEM_FRAGMENT = `#graphql
         ...MoneyProductItem
       }
     }
-    variants(first: 1) {
+    variants(first: 5) {
       nodes {
         selectedOptions {
           name
@@ -30554,10 +34424,10 @@ async function loader6({ request, params, context }) {
   return json5({ collection });
 }
 function Collection2() {
-  let { collection } = useLoaderData2(), products = collection.products.nodes.map((product) => /* @__PURE__ */ (0, import_jsx_dev_runtime13.jsxDEV)(Grid_default, { item: !0, xs: 3, children: /* @__PURE__ */ (0, import_jsx_dev_runtime13.jsxDEV)(ProductTile, { product }, void 0, !1, {
+  let { collection } = useLoaderData2(), products = collection.products.nodes.map((product) => /* @__PURE__ */ (0, import_jsx_dev_runtime13.jsxDEV)(Grid_default, { item: !0, xs: !0, children: /* @__PURE__ */ (0, import_jsx_dev_runtime13.jsxDEV)(ProductTile, { product }, void 0, !1, {
     fileName: "app/routes/($locale).collectiongrid.$handle.jsx",
     lineNumber: 52,
-    columnNumber: 9
+    columnNumber: 7
   }, this) }, void 0, !1, {
     fileName: "app/routes/($locale).collectiongrid.$handle.jsx",
     lineNumber: 51,
@@ -30644,7 +34514,7 @@ function Collection2() {
               justifyContent: "center",
               alignItems: "center"
             },
-            children: /* @__PURE__ */ (0, import_jsx_dev_runtime13.jsxDEV)("div", { style: { display: "block", width: "50%" }, children: /* @__PURE__ */ (0, import_jsx_dev_runtime13.jsxDEV)(Grid_default, { container: !0, spacing: 2, children: products }, void 0, !1, {
+            children: /* @__PURE__ */ (0, import_jsx_dev_runtime13.jsxDEV)("div", { style: { display: "block", width: "75%" }, children: /* @__PURE__ */ (0, import_jsx_dev_runtime13.jsxDEV)(Grid_default, { container: !0, spacing: 2, children: products }, void 0, !1, {
               fileName: "app/routes/($locale).collectiongrid.$handle.jsx",
               lineNumber: 97,
               columnNumber: 11
@@ -30689,7 +34559,7 @@ function ProductTile({ product }) {
             alt: product.featuredImage.altText || product.title,
             aspectRatio: "1/1",
             data: product.featuredImage,
-            width: 128,
+            width: 256,
             style: { display: "block" }
           },
           void 0,
@@ -30720,14 +34590,32 @@ function ProductTile({ product }) {
       columnNumber: 9
     }, this),
     /* @__PURE__ */ (0, import_jsx_dev_runtime13.jsxDEV)("div", { style: { diplay: "block" }, children: [
-      /* @__PURE__ */ (0, import_jsx_dev_runtime13.jsxDEV)("h4", { children: product.title }, void 0, !1, {
+      /* @__PURE__ */ (0, import_jsx_dev_runtime13.jsxDEV)("h4", { children: /* @__PURE__ */ (0, import_jsx_dev_runtime13.jsxDEV)(
+        "div",
+        {
+          style: {
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center"
+          },
+          children: product.title
+        },
+        void 0,
+        !1,
+        {
+          fileName: "app/routes/($locale).collectiongrid.$handle.jsx",
+          lineNumber: 139,
+          columnNumber: 13
+        },
+        this
+      ) }, void 0, !1, {
         fileName: "app/routes/($locale).collectiongrid.$handle.jsx",
         lineNumber: 138,
         columnNumber: 11
       }, this),
       /* @__PURE__ */ (0, import_jsx_dev_runtime13.jsxDEV)("hr", {}, void 0, !1, {
         fileName: "app/routes/($locale).collectiongrid.$handle.jsx",
-        lineNumber: 141,
+        lineNumber: 149,
         columnNumber: 11
       }, this),
       /* @__PURE__ */ (0, import_jsx_dev_runtime13.jsxDEV)(
@@ -30740,7 +34628,7 @@ function ProductTile({ product }) {
           },
           children: /* @__PURE__ */ (0, import_jsx_dev_runtime13.jsxDEV)(Money, { data: product.priceRange.minVariantPrice }, void 0, !1, {
             fileName: "app/routes/($locale).collectiongrid.$handle.jsx",
-            lineNumber: 149,
+            lineNumber: 157,
             columnNumber: 13
           }, this)
         },
@@ -30748,7 +34636,7 @@ function ProductTile({ product }) {
         !1,
         {
           fileName: "app/routes/($locale).collectiongrid.$handle.jsx",
-          lineNumber: 142,
+          lineNumber: 150,
           columnNumber: 11
         },
         this
@@ -33091,7 +36979,7 @@ __export(locale_products_handle_exports, {
   loader: () => loader13,
   meta: () => meta11
 });
-var import_react32 = __toESM(require_react());
+var import_react38 = __toESM(require_react());
 var import_jsx_dev_runtime20 = __toESM(require_jsx_dev_runtime()), meta11 = ({ data }) => [{ title: `Hydrogen | ${data?.product.title ?? ""}` }];
 async function loader13({ params, request, context }) {
   let { handle } = params, { storefront } = context, selectedOptions = getSelectedProductOptions(request).filter(
@@ -33212,7 +37100,7 @@ function ProductMain({ selectedVariant, product, variants }) {
       columnNumber: 7
     }, this),
     /* @__PURE__ */ (0, import_jsx_dev_runtime20.jsxDEV)(
-      import_react32.Suspense,
+      import_react38.Suspense,
       {
         fallback: /* @__PURE__ */ (0, import_jsx_dev_runtime20.jsxDEV)(
           ProductForm,
@@ -34816,8 +38704,8 @@ __export(locale_index_exports, {
 var import_jsx_dev_runtime27 = __toESM(require_jsx_dev_runtime());
 function meta17() {
   return [
-    { title: "Hydrogen" },
-    { description: "A custom storefront powered by Hydrogen" }
+    { title: "KnockTwice" },
+    { description: "KnockTwice Toronto Marketing Site" }
   ];
 }
 async function loader25({ context }) {
@@ -34825,71 +38713,59 @@ async function loader25({ context }) {
 }
 function Index() {
   let { collections } = useLoaderData2();
-  return console.log(collections), /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)("div", { className: "index", children: [
+  return /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)("div", { className: "index", children: [
     /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)("div", { className: "index-header", children: /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)("h2", { className: "whitespace-pre-wrap max-w-prose font-bold text-lead", children: "Collections" }, void 0, !1, {
       fileName: "app/routes/($locale)._index.jsx",
-      lineNumber: 24,
+      lineNumber: 22,
       columnNumber: 9
     }, this) }, void 0, !1, {
       fileName: "app/routes/($locale)._index.jsx",
-      lineNumber: 23,
+      lineNumber: 21,
       columnNumber: 7
     }, this),
-    /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)("div", { class: "index-grid", children: /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)(Grid_default, { container: !0, spacing: 2, children: collections.nodes.map((collection) => /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)(Grid_default, { item: !0, xs: 3, children: /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)(Link2, { to: `/collectiongrid/${collection.handle}`, children: /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)("div", { class: "index-collection-item", children: [
+    collections.nodes.map((collection) => /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)("div", { class: "index-collection-item", children: /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)(Link2, { to: `/collectiongrid/${collection.handle}`, children: [
       collection.products.nodes.map((product) => /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)(
         Image,
         {
           alt: `Image of ${collection.title}`,
           data: product.featuredImage,
           sizes: "(max-width: 32em) 100vw, 33vw",
-          width: 128,
-          height: 128,
+          width: 256,
+          height: 256,
           crop: "center"
         },
         collection.id,
         !1,
         {
           fileName: "app/routes/($locale)._index.jsx",
-          lineNumber: 38,
-          columnNumber: 25
+          lineNumber: 33,
+          columnNumber: 23
         },
         this
       )),
-      /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)("div", { className: "font-medium text-copy index-collection-grid-title", children: collection.title }, void 0, !1, {
+      /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)("div", { className: "font-medium text-copy index-collection-title", children: collection.products.nodes.length > 0 && collection.title }, void 0, !1, {
         fileName: "app/routes/($locale)._index.jsx",
-        lineNumber: 49,
-        columnNumber: 21
+        lineNumber: 44,
+        columnNumber: 19
       }, this)
-    ] }, void 0, !0, {
+    ] }, collection.id, !0, {
       fileName: "app/routes/($locale)._index.jsx",
-      lineNumber: 35,
-      columnNumber: 19
-    }, this) }, collection.id, !1, {
-      fileName: "app/routes/($locale)._index.jsx",
-      lineNumber: 34,
+      lineNumber: 30,
       columnNumber: 17
     }, this) }, void 0, !1, {
       fileName: "app/routes/($locale)._index.jsx",
-      lineNumber: 33,
-      columnNumber: 15
-    }, this)) }, void 0, !1, {
-      fileName: "app/routes/($locale)._index.jsx",
-      lineNumber: 30,
-      columnNumber: 9
-    }, this) }, void 0, !1, {
-      fileName: "app/routes/($locale)._index.jsx",
       lineNumber: 29,
-      columnNumber: 7
-    }, this)
+      columnNumber: 15
+    }, this))
   ] }, void 0, !0, {
     fileName: "app/routes/($locale)._index.jsx",
-    lineNumber: 22,
+    lineNumber: 20,
     columnNumber: 5
   }, this);
 }
 var COLLECTIONS_QUERY = `#graphql
   query FeaturedCollections {
-    collections(first: 250, query: "collection_type:smart") {
+    collections(first: 250) {
       nodes {
         id
         title
@@ -35080,7 +38956,7 @@ __export(locale_cart_exports, {
   default: () => Cart,
   meta: () => meta19
 });
-var import_react43 = __toESM(require_react());
+var import_react49 = __toESM(require_react());
 var import_jsx_dev_runtime29 = __toESM(require_jsx_dev_runtime()), meta19 = () => [{ title: "Hydrogen | Cart" }];
 async function action10({ request, context }) {
   let { session, cart } = context, [formData, customerAccessToken] = await Promise.all([
@@ -35135,7 +39011,7 @@ function Cart() {
       lineNumber: 96,
       columnNumber: 7
     }, this),
-    /* @__PURE__ */ (0, import_jsx_dev_runtime29.jsxDEV)(import_react43.Suspense, { fallback: /* @__PURE__ */ (0, import_jsx_dev_runtime29.jsxDEV)("p", { children: "Loading cart ..." }, void 0, !1, {
+    /* @__PURE__ */ (0, import_jsx_dev_runtime29.jsxDEV)(import_react49.Suspense, { fallback: /* @__PURE__ */ (0, import_jsx_dev_runtime29.jsxDEV)("p", { children: "Loading cart ..." }, void 0, !1, {
       fileName: "app/routes/($locale).cart.jsx",
       lineNumber: 97,
       columnNumber: 27
@@ -35345,21 +39221,21 @@ var debug_network_exports = {};
 __export(debug_network_exports, {
   default: () => DebugNetwork
 });
-var import_jsx_runtime25 = __toESM(require_jsx_runtime(), 1), import_react47 = __toESM(require_react(), 1);
+var import_jsx_runtime25 = __toESM(require_jsx_runtime(), 1), import_react53 = __toESM(require_react(), 1);
 
 // node_modules/@shopify/cli-hydrogen/dist/virtual-routes/components/FlameChartWrapper.jsx
-var import_jsx_runtime24 = __toESM(require_jsx_runtime(), 1), import_react46 = __toESM(require_react(), 1);
+var import_jsx_runtime24 = __toESM(require_jsx_runtime(), 1), import_react52 = __toESM(require_react(), 1);
 
 // node_modules/use-resize-observer/dist/bundle.esm.js
-var import_react45 = __toESM(require_react());
+var import_react51 = __toESM(require_react());
 function useResolvedElement(subscriber, refOrElement) {
-  var lastReportRef = (0, import_react45.useRef)(null), refOrElementRef = (0, import_react45.useRef)(null);
+  var lastReportRef = (0, import_react51.useRef)(null), refOrElementRef = (0, import_react51.useRef)(null);
   refOrElementRef.current = refOrElement;
-  var cbElementRef = (0, import_react45.useRef)(null);
-  (0, import_react45.useEffect)(function() {
+  var cbElementRef = (0, import_react51.useRef)(null);
+  (0, import_react51.useEffect)(function() {
     evaluateSubscription();
   });
-  var evaluateSubscription = (0, import_react45.useCallback)(function() {
+  var evaluateSubscription = (0, import_react51.useCallback)(function() {
     var cbElement = cbElementRef.current, refOrElement2 = refOrElementRef.current, element = cbElement || (refOrElement2 ? refOrElement2 instanceof Element ? refOrElement2 : refOrElement2.current : null);
     lastReportRef.current && lastReportRef.current.element === element && lastReportRef.current.subscriber === subscriber || (lastReportRef.current && lastReportRef.current.cleanup && lastReportRef.current.cleanup(), lastReportRef.current = {
       element,
@@ -35369,11 +39245,11 @@ function useResolvedElement(subscriber, refOrElement) {
       cleanup: element ? subscriber(element) : void 0
     });
   }, [subscriber]);
-  return (0, import_react45.useEffect)(function() {
+  return (0, import_react51.useEffect)(function() {
     return function() {
       lastReportRef.current && lastReportRef.current.cleanup && (lastReportRef.current.cleanup(), lastReportRef.current = null);
     };
-  }, []), (0, import_react45.useCallback)(function(element) {
+  }, []), (0, import_react51.useCallback)(function(element) {
     cbElementRef.current = element, evaluateSubscription();
   }, [evaluateSubscription]);
 }
@@ -35387,21 +39263,21 @@ function extractSize(entry2, boxProp, sizeType) {
 }
 function useResizeObserver(opts) {
   opts === void 0 && (opts = {});
-  var onResize = opts.onResize, onResizeRef = (0, import_react45.useRef)(void 0);
+  var onResize = opts.onResize, onResizeRef = (0, import_react51.useRef)(void 0);
   onResizeRef.current = onResize;
-  var round2 = opts.round || Math.round, resizeObserverRef = (0, import_react45.useRef)(), _useState = (0, import_react45.useState)({
+  var round2 = opts.round || Math.round, resizeObserverRef = (0, import_react51.useRef)(), _useState = (0, import_react51.useState)({
     width: void 0,
     height: void 0
-  }), size = _useState[0], setSize = _useState[1], didUnmount = (0, import_react45.useRef)(!1);
-  (0, import_react45.useEffect)(function() {
+  }), size2 = _useState[0], setSize = _useState[1], didUnmount = (0, import_react51.useRef)(!1);
+  (0, import_react51.useEffect)(function() {
     return didUnmount.current = !1, function() {
       didUnmount.current = !0;
     };
   }, []);
-  var previous = (0, import_react45.useRef)({
+  var previous = (0, import_react51.useRef)({
     width: void 0,
     height: void 0
-  }), refCallback = useResolvedElement((0, import_react45.useCallback)(function(element) {
+  }), refCallback = useResolvedElement((0, import_react51.useCallback)(function(element) {
     return (!resizeObserverRef.current || resizeObserverRef.current.box !== opts.box || resizeObserverRef.current.round !== round2) && (resizeObserverRef.current = {
       box: opts.box,
       round: round2,
@@ -35421,23 +39297,23 @@ function useResizeObserver(opts) {
       resizeObserverRef.current && resizeObserverRef.current.instance.unobserve(element);
     };
   }, [opts.box, round2]), opts.ref);
-  return (0, import_react45.useMemo)(function() {
+  return (0, import_react51.useMemo)(function() {
     return {
       ref: refCallback,
-      width: size.width,
-      height: size.height
+      width: size2.width,
+      height: size2.height
     };
-  }, [refCallback, size.width, size.height]);
+  }, [refCallback, size2.width, size2.height]);
 }
 
 // node_modules/@shopify/cli-hydrogen/dist/virtual-routes/components/FlameChartWrapper.jsx
 var useResizeObserver2 = useResizeObserver, FlameChartWrapper = (props) => {
-  let boxRef = (0, import_react46.useRef)(null), canvasRef = (0, import_react46.useRef)(null), flameChart = (0, import_react46.useRef)(null);
+  let boxRef = (0, import_react52.useRef)(null), canvasRef = (0, import_react52.useRef)(null), flameChart = (0, import_react52.useRef)(null);
   useResizeObserver2({
     ref: boxRef,
-    onResize: ({ width: width2 = 0, height: height2 = 0 }) => flameChart.current?.resize(width2, height2 - 3)
+    onResize: ({ width: width3 = 0, height: height3 = 0 }) => flameChart.current?.resize(width3, height3 - 3)
   });
-  let initialize = (0, import_react46.useCallback)(() => {
+  let initialize = (0, import_react52.useCallback)(() => {
     let {
       data,
       marks,
@@ -35449,8 +39325,8 @@ var useResizeObserver2 = useResizeObserver, FlameChartWrapper = (props) => {
       timeframeTimeseries
     } = props;
     if (canvasRef.current && boxRef.current) {
-      let { width: width2 = 0, height: height2 = 0 } = boxRef.current.getBoundingClientRect();
-      canvasRef.current.width = width2, canvasRef.current.height = height2 - 3, flameChart.current = new flameChartJs.FlameChart({
+      let { width: width3 = 0, height: height3 = 0 } = boxRef.current.getBoundingClientRect();
+      canvasRef.current.width = width3, canvasRef.current.height = height3 - 3, flameChart.current = new flameChartJs.FlameChart({
         canvas: canvasRef.current,
         data,
         marks,
@@ -35462,36 +39338,36 @@ var useResizeObserver2 = useResizeObserver, FlameChartWrapper = (props) => {
         plugins
       });
     }
-  }, [props]), setBoxRef = (0, import_react46.useCallback)(
+  }, [props]), setBoxRef = (0, import_react52.useCallback)(
     (ref) => {
       let isNewRef = ref !== boxRef.current;
       boxRef.current = ref, isNewRef && initialize();
     },
     [initialize]
-  ), setCanvasRef = (0, import_react46.useCallback)(
+  ), setCanvasRef = (0, import_react52.useCallback)(
     (ref) => {
       let isNewRef = ref !== canvasRef.current;
       canvasRef.current = ref, isNewRef && initialize();
     },
     [initialize]
   );
-  return (0, import_react46.useEffect)(() => {
+  return (0, import_react52.useEffect)(() => {
     props.data && flameChart.current?.setNodes(props.data);
-  }, [props.data]), (0, import_react46.useEffect)(() => {
+  }, [props.data]), (0, import_react52.useEffect)(() => {
     props.marks && flameChart.current?.setMarks(props.marks);
-  }, [props.marks]), (0, import_react46.useEffect)(() => {
+  }, [props.marks]), (0, import_react52.useEffect)(() => {
     props.waterfall && flameChart.current?.setWaterfall(props.waterfall);
-  }, [props.waterfall]), (0, import_react46.useEffect)(() => {
+  }, [props.waterfall]), (0, import_react52.useEffect)(() => {
     props.timeseries && flameChart.current?.setTimeseries(props.timeseries);
-  }, [props.timeseries]), (0, import_react46.useEffect)(() => {
+  }, [props.timeseries]), (0, import_react52.useEffect)(() => {
     props.timeframeTimeseries && flameChart.current?.setTimeframeTimeseries(props.timeframeTimeseries);
-  }, [props.timeframeTimeseries]), (0, import_react46.useEffect)(() => {
+  }, [props.timeframeTimeseries]), (0, import_react52.useEffect)(() => {
     props.settings && flameChart.current && (flameChart.current.setSettings(props.settings), flameChart.current.renderEngine.recalcChildrenSizes(), flameChart.current.render());
-  }, [props.settings]), (0, import_react46.useEffect)(() => {
+  }, [props.settings]), (0, import_react52.useEffect)(() => {
     props.position && flameChart.current?.setFlameChartPosition(props.position);
-  }, [props.position]), (0, import_react46.useEffect)(() => {
+  }, [props.position]), (0, import_react52.useEffect)(() => {
     props.zoom && flameChart.current?.setZoom(props.zoom.start, props.zoom.end);
-  }, [props.zoom]), (0, import_react46.useEffect)(() => (props.onSelect && flameChart.current?.on("select", props.onSelect), () => {
+  }, [props.zoom]), (0, import_react52.useEffect)(() => (props.onSelect && flameChart.current?.on("select", props.onSelect), () => {
     props.onSelect && flameChart.current?.removeListener("select", props.onSelect);
   }), [props.onSelect]), /* @__PURE__ */ (0, import_jsx_runtime24.jsx)(
     "div",
@@ -35506,12 +39382,12 @@ var useResizeObserver2 = useResizeObserver, FlameChartWrapper = (props) => {
 
 // node_modules/@shopify/cli-hydrogen/dist/virtual-routes/routes/debug-network.jsx
 function DebugNetwork() {
-  let serverEvents = (0, import_react47.useRef)({
+  let serverEvents = (0, import_react53.useRef)({
     smallestStartTime: 0,
     mainRequests: [],
     subRequests: {},
     showPutRequests: !1
-  }), [timestamp, setTimestamp] = (0, import_react47.useState)();
+  }), [timestamp, setTimestamp] = (0, import_react53.useState)();
   function serverEventHandler(onEvent) {
     return (event) => {
       let data = JSON.parse(event.data);
@@ -35523,7 +39399,7 @@ function DebugNetwork() {
       }, 0);
     };
   }
-  return (0, import_react47.useEffect)(() => {
+  return (0, import_react53.useEffect)(() => {
     let evtSource = new EventSource("/debug-network-server", {
       withCredentials: !0
     }), mainRequestHandler = serverEventHandler((data) => {
@@ -36611,7 +40487,7 @@ var LAYOUT_QUERY = `#graphql
 `;
 
 // server-assets-manifest:@remix-run/dev/assets-manifest
-var assets_manifest_default = { entry: { module: "/build/entry.client-4M42FBCQ.js", imports: ["/build/_shared/chunk-776LNBDF.js", "/build/_shared/chunk-IEDAELJY.js", "/build/_shared/chunk-UHAUI7PR.js", "/build/_shared/chunk-A7ADF3B4.js", "/build/_shared/chunk-BVWHYGSQ.js", "/build/_shared/chunk-ZM7RJEKX.js", "/build/_shared/chunk-LSHG36UU.js", "/build/_shared/chunk-PNG5AS42.js"] }, routes: { root: { id: "root", parentId: void 0, path: "", index: void 0, caseSensitive: void 0, module: "/build/root-JR26GXT2.js", imports: ["/build/_shared/chunk-RCPNAVDT.js", "/build/_shared/chunk-3757K5JE.js", "/build/_shared/chunk-B26HRCCK.js", "/build/_shared/chunk-ADIXOBES.js", "/build/_shared/chunk-YOSDW4RD.js"], hasAction: !1, hasLoader: !0, hasErrorBoundary: !0 }, "routes/($locale).$": { id: "routes/($locale).$", parentId: "root", path: ":locale?/*", index: void 0, caseSensitive: void 0, module: "/build/routes/($locale).$-AI3DE24H.js", imports: void 0, hasAction: !1, hasLoader: !0, hasErrorBoundary: !1 }, "routes/($locale).[sitemap.xml]": { id: "routes/($locale).[sitemap.xml]", parentId: "root", path: ":locale?/sitemap.xml", index: void 0, caseSensitive: void 0, module: "/build/routes/($locale).[sitemap.xml]-H6EIDNVM.js", imports: void 0, hasAction: !1, hasLoader: !0, hasErrorBoundary: !1 }, "routes/($locale)._index": { id: "routes/($locale)._index", parentId: "root", path: ":locale?", index: !0, caseSensitive: void 0, module: "/build/routes/($locale)._index-UZNB5RU6.js", imports: ["/build/_shared/chunk-F5HEY3ZX.js"], hasAction: !1, hasLoader: !0, hasErrorBoundary: !1 }, "routes/($locale).account": { id: "routes/($locale).account", parentId: "root", path: ":locale?/account", index: void 0, caseSensitive: void 0, module: "/build/routes/($locale).account-IWJX4GQJ.js", imports: void 0, hasAction: !1, hasLoader: !0, hasErrorBoundary: !1 }, "routes/($locale).account.$": { id: "routes/($locale).account.$", parentId: "routes/($locale).account", path: "*", index: void 0, caseSensitive: void 0, module: "/build/routes/($locale).account.$-IDA7PP7J.js", imports: void 0, hasAction: !1, hasLoader: !0, hasErrorBoundary: !1 }, "routes/($locale).account.addresses": { id: "routes/($locale).account.addresses", parentId: "routes/($locale).account", path: "addresses", index: void 0, caseSensitive: void 0, module: "/build/routes/($locale).account.addresses-V6JSFKDD.js", imports: void 0, hasAction: !0, hasLoader: !0, hasErrorBoundary: !1 }, "routes/($locale).account.orders.$id": { id: "routes/($locale).account.orders.$id", parentId: "routes/($locale).account", path: "orders/:id", index: void 0, caseSensitive: void 0, module: "/build/routes/($locale).account.orders.$id-W35PTMDE.js", imports: ["/build/_shared/chunk-ADIXOBES.js", "/build/_shared/chunk-YOSDW4RD.js"], hasAction: !1, hasLoader: !0, hasErrorBoundary: !1 }, "routes/($locale).account.orders._index": { id: "routes/($locale).account.orders._index", parentId: "routes/($locale).account", path: "orders", index: !0, caseSensitive: void 0, module: "/build/routes/($locale).account.orders._index-CDUMYDET.js", imports: ["/build/_shared/chunk-ADIXOBES.js", "/build/_shared/chunk-YOSDW4RD.js"], hasAction: !1, hasLoader: !0, hasErrorBoundary: !1 }, "routes/($locale).account.profile": { id: "routes/($locale).account.profile", parentId: "routes/($locale).account", path: "profile", index: void 0, caseSensitive: void 0, module: "/build/routes/($locale).account.profile-33UDM3EO.js", imports: void 0, hasAction: !0, hasLoader: !0, hasErrorBoundary: !1 }, "routes/($locale).account_.activate.$id.$activationToken": { id: "routes/($locale).account_.activate.$id.$activationToken", parentId: "root", path: ":locale?/account/activate/:id/:activationToken", index: void 0, caseSensitive: void 0, module: "/build/routes/($locale).account_.activate.$id.$activationToken-YDLBKUPS.js", imports: void 0, hasAction: !0, hasLoader: !0, hasErrorBoundary: !1 }, "routes/($locale).account_.login": { id: "routes/($locale).account_.login", parentId: "root", path: ":locale?/account/login", index: void 0, caseSensitive: void 0, module: "/build/routes/($locale).account_.login-YZDXCPYW.js", imports: void 0, hasAction: !0, hasLoader: !0, hasErrorBoundary: !1 }, "routes/($locale).account_.logout": { id: "routes/($locale).account_.logout", parentId: "root", path: ":locale?/account/logout", index: void 0, caseSensitive: void 0, module: "/build/routes/($locale).account_.logout-5DXONABL.js", imports: void 0, hasAction: !0, hasLoader: !0, hasErrorBoundary: !1 }, "routes/($locale).account_.recover": { id: "routes/($locale).account_.recover", parentId: "root", path: ":locale?/account/recover", index: void 0, caseSensitive: void 0, module: "/build/routes/($locale).account_.recover-L6YZPAEL.js", imports: void 0, hasAction: !0, hasLoader: !0, hasErrorBoundary: !1 }, "routes/($locale).account_.register": { id: "routes/($locale).account_.register", parentId: "root", path: ":locale?/account/register", index: void 0, caseSensitive: void 0, module: "/build/routes/($locale).account_.register-RVPPTYDF.js", imports: void 0, hasAction: !0, hasLoader: !0, hasErrorBoundary: !1 }, "routes/($locale).account_.reset.$id.$resetToken": { id: "routes/($locale).account_.reset.$id.$resetToken", parentId: "root", path: ":locale?/account/reset/:id/:resetToken", index: void 0, caseSensitive: void 0, module: "/build/routes/($locale).account_.reset.$id.$resetToken-GX2EAHXN.js", imports: void 0, hasAction: !0, hasLoader: !1, hasErrorBoundary: !1 }, "routes/($locale).api.predictive-search": { id: "routes/($locale).api.predictive-search", parentId: "root", path: ":locale?/api/predictive-search", index: void 0, caseSensitive: void 0, module: "/build/routes/($locale).api.predictive-search-6SBFKV26.js", imports: void 0, hasAction: !0, hasLoader: !1, hasErrorBoundary: !1 }, "routes/($locale).blogs.$blogHandle.$articleHandle": { id: "routes/($locale).blogs.$blogHandle.$articleHandle", parentId: "root", path: ":locale?/blogs/:blogHandle/:articleHandle", index: void 0, caseSensitive: void 0, module: "/build/routes/($locale).blogs.$blogHandle.$articleHandle-X3YRBHJU.js", imports: void 0, hasAction: !1, hasLoader: !0, hasErrorBoundary: !1 }, "routes/($locale).blogs.$blogHandle._index": { id: "routes/($locale).blogs.$blogHandle._index", parentId: "root", path: ":locale?/blogs/:blogHandle", index: !0, caseSensitive: void 0, module: "/build/routes/($locale).blogs.$blogHandle._index-BBMYM2SR.js", imports: void 0, hasAction: !1, hasLoader: !0, hasErrorBoundary: !1 }, "routes/($locale).blogs._index": { id: "routes/($locale).blogs._index", parentId: "root", path: ":locale?/blogs", index: !0, caseSensitive: void 0, module: "/build/routes/($locale).blogs._index-IFZS3WC5.js", imports: void 0, hasAction: !1, hasLoader: !0, hasErrorBoundary: !1 }, "routes/($locale).cart": { id: "routes/($locale).cart", parentId: "root", path: ":locale?/cart", index: void 0, caseSensitive: void 0, module: "/build/routes/($locale).cart-DB7V6ZBT.js", imports: void 0, hasAction: !0, hasLoader: !1, hasErrorBoundary: !1 }, "routes/($locale).cart.$lines": { id: "routes/($locale).cart.$lines", parentId: "routes/($locale).cart", path: ":lines", index: void 0, caseSensitive: void 0, module: "/build/routes/($locale).cart.$lines-LW7MVLFP.js", imports: void 0, hasAction: !1, hasLoader: !0, hasErrorBoundary: !1 }, "routes/($locale).collectioncarousel.$handle": { id: "routes/($locale).collectioncarousel.$handle", parentId: "root", path: ":locale?/collectioncarousel/:handle", index: void 0, caseSensitive: void 0, module: "/build/routes/($locale).collectioncarousel.$handle-N4BALZWN.js", imports: ["/build/_shared/chunk-F5HEY3ZX.js"], hasAction: !1, hasLoader: !0, hasErrorBoundary: !1 }, "routes/($locale).collectiongrid.$handle": { id: "routes/($locale).collectiongrid.$handle", parentId: "root", path: ":locale?/collectiongrid/:handle", index: void 0, caseSensitive: void 0, module: "/build/routes/($locale).collectiongrid.$handle-YBVAS3MS.js", imports: ["/build/_shared/chunk-F5HEY3ZX.js"], hasAction: !1, hasLoader: !0, hasErrorBoundary: !1 }, "routes/($locale).discount.$code": { id: "routes/($locale).discount.$code", parentId: "root", path: ":locale?/discount/:code", index: void 0, caseSensitive: void 0, module: "/build/routes/($locale).discount.$code-YCTJBBXD.js", imports: void 0, hasAction: !1, hasLoader: !0, hasErrorBoundary: !1 }, "routes/($locale).pages.$handle": { id: "routes/($locale).pages.$handle", parentId: "root", path: ":locale?/pages/:handle", index: void 0, caseSensitive: void 0, module: "/build/routes/($locale).pages.$handle-PJNAYGPE.js", imports: void 0, hasAction: !1, hasLoader: !0, hasErrorBoundary: !1 }, "routes/($locale).policies.$handle": { id: "routes/($locale).policies.$handle", parentId: "root", path: ":locale?/policies/:handle", index: void 0, caseSensitive: void 0, module: "/build/routes/($locale).policies.$handle-EFVABBHB.js", imports: void 0, hasAction: !1, hasLoader: !0, hasErrorBoundary: !1 }, "routes/($locale).policies._index": { id: "routes/($locale).policies._index", parentId: "root", path: ":locale?/policies", index: !0, caseSensitive: void 0, module: "/build/routes/($locale).policies._index-TDQT3PNJ.js", imports: void 0, hasAction: !1, hasLoader: !0, hasErrorBoundary: !1 }, "routes/($locale).products.$handle": { id: "routes/($locale).products.$handle", parentId: "root", path: ":locale?/products/:handle", index: void 0, caseSensitive: void 0, module: "/build/routes/($locale).products.$handle-3Y7S2MB3.js", imports: void 0, hasAction: !1, hasLoader: !0, hasErrorBoundary: !1 }, "routes/($locale).search": { id: "routes/($locale).search", parentId: "root", path: ":locale?/search", index: void 0, caseSensitive: void 0, module: "/build/routes/($locale).search-XXJH5USN.js", imports: void 0, hasAction: !1, hasLoader: !0, hasErrorBoundary: !1 }, "routes/[robots.txt]": { id: "routes/[robots.txt]", parentId: "root", path: "robots.txt", index: void 0, caseSensitive: void 0, module: "/build/routes/[robots.txt]-T2LPYFME.js", imports: void 0, hasAction: !1, hasLoader: !0, hasErrorBoundary: !0 }, "virtual-routes/routes/debug-network": { id: "virtual-routes/routes/debug-network", parentId: "virtual-routes/virtual-root", path: "debug-network", index: void 0, caseSensitive: void 0, module: "/build/virtual-routes/routes/debug-network-U7L663H4.js", imports: void 0, hasAction: !1, hasLoader: !1, hasErrorBoundary: !1 }, "virtual-routes/routes/graphiql": { id: "virtual-routes/routes/graphiql", parentId: "virtual-routes/virtual-root", path: "graphiql", index: void 0, caseSensitive: void 0, module: "/build/virtual-routes/routes/graphiql-IUV5DDHT.js", imports: void 0, hasAction: !1, hasLoader: !0, hasErrorBoundary: !1 }, "virtual-routes/routes/index": { id: "virtual-routes/routes/index", parentId: "virtual-routes/virtual-root", path: void 0, index: !0, caseSensitive: void 0, module: "/build/virtual-routes/routes/index-LNSKQWHK.js", imports: void 0, hasAction: !1, hasLoader: !0, hasErrorBoundary: !0 }, "virtual-routes/virtual-root": { id: "virtual-routes/virtual-root", parentId: void 0, path: "", index: void 0, caseSensitive: void 0, module: "/build/virtual-routes/virtual-root-AAS2OGCK.js", imports: ["/build/_shared/chunk-Z7RIBLB2.js", "/build/_shared/chunk-ADIXOBES.js", "/build/_shared/chunk-YOSDW4RD.js"], hasAction: !1, hasLoader: !1, hasErrorBoundary: !0 } }, version: "d1747505", hmr: { runtime: "/build/_shared/chunk-ZM7RJEKX.js", timestamp: 1709876325768 }, url: "/build/manifest-D1747505.js" };
+var assets_manifest_default = { entry: { module: "/build/entry.client-4M42FBCQ.js", imports: ["/build/_shared/chunk-776LNBDF.js", "/build/_shared/chunk-IEDAELJY.js", "/build/_shared/chunk-UHAUI7PR.js", "/build/_shared/chunk-A7ADF3B4.js", "/build/_shared/chunk-BVWHYGSQ.js", "/build/_shared/chunk-ZM7RJEKX.js", "/build/_shared/chunk-LSHG36UU.js", "/build/_shared/chunk-PNG5AS42.js"] }, routes: { root: { id: "root", parentId: void 0, path: "", index: void 0, caseSensitive: void 0, module: "/build/root-2EBXLTTA.js", imports: ["/build/_shared/chunk-34GME4LJ.js", "/build/_shared/chunk-3757K5JE.js", "/build/_shared/chunk-B26HRCCK.js", "/build/_shared/chunk-ADIXOBES.js", "/build/_shared/chunk-YOSDW4RD.js"], hasAction: !1, hasLoader: !0, hasErrorBoundary: !0 }, "routes/($locale).$": { id: "routes/($locale).$", parentId: "root", path: ":locale?/*", index: void 0, caseSensitive: void 0, module: "/build/routes/($locale).$-AI3DE24H.js", imports: void 0, hasAction: !1, hasLoader: !0, hasErrorBoundary: !1 }, "routes/($locale).[sitemap.xml]": { id: "routes/($locale).[sitemap.xml]", parentId: "root", path: ":locale?/sitemap.xml", index: void 0, caseSensitive: void 0, module: "/build/routes/($locale).[sitemap.xml]-H6EIDNVM.js", imports: void 0, hasAction: !1, hasLoader: !0, hasErrorBoundary: !1 }, "routes/($locale)._index": { id: "routes/($locale)._index", parentId: "root", path: ":locale?", index: !0, caseSensitive: void 0, module: "/build/routes/($locale)._index-QDHQHHGM.js", imports: void 0, hasAction: !1, hasLoader: !0, hasErrorBoundary: !1 }, "routes/($locale).account": { id: "routes/($locale).account", parentId: "root", path: ":locale?/account", index: void 0, caseSensitive: void 0, module: "/build/routes/($locale).account-IWJX4GQJ.js", imports: void 0, hasAction: !1, hasLoader: !0, hasErrorBoundary: !1 }, "routes/($locale).account.$": { id: "routes/($locale).account.$", parentId: "routes/($locale).account", path: "*", index: void 0, caseSensitive: void 0, module: "/build/routes/($locale).account.$-IDA7PP7J.js", imports: void 0, hasAction: !1, hasLoader: !0, hasErrorBoundary: !1 }, "routes/($locale).account.addresses": { id: "routes/($locale).account.addresses", parentId: "routes/($locale).account", path: "addresses", index: void 0, caseSensitive: void 0, module: "/build/routes/($locale).account.addresses-V6JSFKDD.js", imports: void 0, hasAction: !0, hasLoader: !0, hasErrorBoundary: !1 }, "routes/($locale).account.orders.$id": { id: "routes/($locale).account.orders.$id", parentId: "routes/($locale).account", path: "orders/:id", index: void 0, caseSensitive: void 0, module: "/build/routes/($locale).account.orders.$id-W35PTMDE.js", imports: ["/build/_shared/chunk-ADIXOBES.js", "/build/_shared/chunk-YOSDW4RD.js"], hasAction: !1, hasLoader: !0, hasErrorBoundary: !1 }, "routes/($locale).account.orders._index": { id: "routes/($locale).account.orders._index", parentId: "routes/($locale).account", path: "orders", index: !0, caseSensitive: void 0, module: "/build/routes/($locale).account.orders._index-CDUMYDET.js", imports: ["/build/_shared/chunk-ADIXOBES.js", "/build/_shared/chunk-YOSDW4RD.js"], hasAction: !1, hasLoader: !0, hasErrorBoundary: !1 }, "routes/($locale).account.profile": { id: "routes/($locale).account.profile", parentId: "routes/($locale).account", path: "profile", index: void 0, caseSensitive: void 0, module: "/build/routes/($locale).account.profile-33UDM3EO.js", imports: void 0, hasAction: !0, hasLoader: !0, hasErrorBoundary: !1 }, "routes/($locale).account_.activate.$id.$activationToken": { id: "routes/($locale).account_.activate.$id.$activationToken", parentId: "root", path: ":locale?/account/activate/:id/:activationToken", index: void 0, caseSensitive: void 0, module: "/build/routes/($locale).account_.activate.$id.$activationToken-YDLBKUPS.js", imports: void 0, hasAction: !0, hasLoader: !0, hasErrorBoundary: !1 }, "routes/($locale).account_.login": { id: "routes/($locale).account_.login", parentId: "root", path: ":locale?/account/login", index: void 0, caseSensitive: void 0, module: "/build/routes/($locale).account_.login-YZDXCPYW.js", imports: void 0, hasAction: !0, hasLoader: !0, hasErrorBoundary: !1 }, "routes/($locale).account_.logout": { id: "routes/($locale).account_.logout", parentId: "root", path: ":locale?/account/logout", index: void 0, caseSensitive: void 0, module: "/build/routes/($locale).account_.logout-5DXONABL.js", imports: void 0, hasAction: !0, hasLoader: !0, hasErrorBoundary: !1 }, "routes/($locale).account_.recover": { id: "routes/($locale).account_.recover", parentId: "root", path: ":locale?/account/recover", index: void 0, caseSensitive: void 0, module: "/build/routes/($locale).account_.recover-L6YZPAEL.js", imports: void 0, hasAction: !0, hasLoader: !0, hasErrorBoundary: !1 }, "routes/($locale).account_.register": { id: "routes/($locale).account_.register", parentId: "root", path: ":locale?/account/register", index: void 0, caseSensitive: void 0, module: "/build/routes/($locale).account_.register-RVPPTYDF.js", imports: void 0, hasAction: !0, hasLoader: !0, hasErrorBoundary: !1 }, "routes/($locale).account_.reset.$id.$resetToken": { id: "routes/($locale).account_.reset.$id.$resetToken", parentId: "root", path: ":locale?/account/reset/:id/:resetToken", index: void 0, caseSensitive: void 0, module: "/build/routes/($locale).account_.reset.$id.$resetToken-GX2EAHXN.js", imports: void 0, hasAction: !0, hasLoader: !1, hasErrorBoundary: !1 }, "routes/($locale).api.predictive-search": { id: "routes/($locale).api.predictive-search", parentId: "root", path: ":locale?/api/predictive-search", index: void 0, caseSensitive: void 0, module: "/build/routes/($locale).api.predictive-search-6SBFKV26.js", imports: void 0, hasAction: !0, hasLoader: !1, hasErrorBoundary: !1 }, "routes/($locale).blogs.$blogHandle.$articleHandle": { id: "routes/($locale).blogs.$blogHandle.$articleHandle", parentId: "root", path: ":locale?/blogs/:blogHandle/:articleHandle", index: void 0, caseSensitive: void 0, module: "/build/routes/($locale).blogs.$blogHandle.$articleHandle-X3YRBHJU.js", imports: void 0, hasAction: !1, hasLoader: !0, hasErrorBoundary: !1 }, "routes/($locale).blogs.$blogHandle._index": { id: "routes/($locale).blogs.$blogHandle._index", parentId: "root", path: ":locale?/blogs/:blogHandle", index: !0, caseSensitive: void 0, module: "/build/routes/($locale).blogs.$blogHandle._index-BBMYM2SR.js", imports: void 0, hasAction: !1, hasLoader: !0, hasErrorBoundary: !1 }, "routes/($locale).blogs._index": { id: "routes/($locale).blogs._index", parentId: "root", path: ":locale?/blogs", index: !0, caseSensitive: void 0, module: "/build/routes/($locale).blogs._index-IFZS3WC5.js", imports: void 0, hasAction: !1, hasLoader: !0, hasErrorBoundary: !1 }, "routes/($locale).cart": { id: "routes/($locale).cart", parentId: "root", path: ":locale?/cart", index: void 0, caseSensitive: void 0, module: "/build/routes/($locale).cart-WNOQ4BV3.js", imports: void 0, hasAction: !0, hasLoader: !1, hasErrorBoundary: !1 }, "routes/($locale).cart.$lines": { id: "routes/($locale).cart.$lines", parentId: "routes/($locale).cart", path: ":lines", index: void 0, caseSensitive: void 0, module: "/build/routes/($locale).cart.$lines-LW7MVLFP.js", imports: void 0, hasAction: !1, hasLoader: !0, hasErrorBoundary: !1 }, "routes/($locale).collectioncarousel.$handle": { id: "routes/($locale).collectioncarousel.$handle", parentId: "root", path: ":locale?/collectioncarousel/:handle", index: void 0, caseSensitive: void 0, module: "/build/routes/($locale).collectioncarousel.$handle-XSVJYU4Q.js", imports: ["/build/_shared/chunk-F5HEY3ZX.js"], hasAction: !1, hasLoader: !0, hasErrorBoundary: !1 }, "routes/($locale).collectiongrid.$handle": { id: "routes/($locale).collectiongrid.$handle", parentId: "root", path: ":locale?/collectiongrid/:handle", index: void 0, caseSensitive: void 0, module: "/build/routes/($locale).collectiongrid.$handle-LZGK3JFX.js", imports: ["/build/_shared/chunk-F5HEY3ZX.js"], hasAction: !1, hasLoader: !0, hasErrorBoundary: !1 }, "routes/($locale).discount.$code": { id: "routes/($locale).discount.$code", parentId: "root", path: ":locale?/discount/:code", index: void 0, caseSensitive: void 0, module: "/build/routes/($locale).discount.$code-YCTJBBXD.js", imports: void 0, hasAction: !1, hasLoader: !0, hasErrorBoundary: !1 }, "routes/($locale).pages.$handle": { id: "routes/($locale).pages.$handle", parentId: "root", path: ":locale?/pages/:handle", index: void 0, caseSensitive: void 0, module: "/build/routes/($locale).pages.$handle-PJNAYGPE.js", imports: void 0, hasAction: !1, hasLoader: !0, hasErrorBoundary: !1 }, "routes/($locale).policies.$handle": { id: "routes/($locale).policies.$handle", parentId: "root", path: ":locale?/policies/:handle", index: void 0, caseSensitive: void 0, module: "/build/routes/($locale).policies.$handle-EFVABBHB.js", imports: void 0, hasAction: !1, hasLoader: !0, hasErrorBoundary: !1 }, "routes/($locale).policies._index": { id: "routes/($locale).policies._index", parentId: "root", path: ":locale?/policies", index: !0, caseSensitive: void 0, module: "/build/routes/($locale).policies._index-TDQT3PNJ.js", imports: void 0, hasAction: !1, hasLoader: !0, hasErrorBoundary: !1 }, "routes/($locale).products.$handle": { id: "routes/($locale).products.$handle", parentId: "root", path: ":locale?/products/:handle", index: void 0, caseSensitive: void 0, module: "/build/routes/($locale).products.$handle-3Y7S2MB3.js", imports: void 0, hasAction: !1, hasLoader: !0, hasErrorBoundary: !1 }, "routes/($locale).search": { id: "routes/($locale).search", parentId: "root", path: ":locale?/search", index: void 0, caseSensitive: void 0, module: "/build/routes/($locale).search-XXJH5USN.js", imports: void 0, hasAction: !1, hasLoader: !0, hasErrorBoundary: !1 }, "routes/[robots.txt]": { id: "routes/[robots.txt]", parentId: "root", path: "robots.txt", index: void 0, caseSensitive: void 0, module: "/build/routes/[robots.txt]-T2LPYFME.js", imports: void 0, hasAction: !1, hasLoader: !0, hasErrorBoundary: !0 }, "virtual-routes/routes/debug-network": { id: "virtual-routes/routes/debug-network", parentId: "virtual-routes/virtual-root", path: "debug-network", index: void 0, caseSensitive: void 0, module: "/build/virtual-routes/routes/debug-network-U7L663H4.js", imports: void 0, hasAction: !1, hasLoader: !1, hasErrorBoundary: !1 }, "virtual-routes/routes/graphiql": { id: "virtual-routes/routes/graphiql", parentId: "virtual-routes/virtual-root", path: "graphiql", index: void 0, caseSensitive: void 0, module: "/build/virtual-routes/routes/graphiql-IUV5DDHT.js", imports: void 0, hasAction: !1, hasLoader: !0, hasErrorBoundary: !1 }, "virtual-routes/routes/index": { id: "virtual-routes/routes/index", parentId: "virtual-routes/virtual-root", path: void 0, index: !0, caseSensitive: void 0, module: "/build/virtual-routes/routes/index-LNSKQWHK.js", imports: void 0, hasAction: !1, hasLoader: !0, hasErrorBoundary: !0 }, "virtual-routes/virtual-root": { id: "virtual-routes/virtual-root", parentId: void 0, path: "", index: void 0, caseSensitive: void 0, module: "/build/virtual-routes/virtual-root-AAS2OGCK.js", imports: ["/build/_shared/chunk-Z7RIBLB2.js", "/build/_shared/chunk-ADIXOBES.js", "/build/_shared/chunk-YOSDW4RD.js"], hasAction: !1, hasLoader: !1, hasErrorBoundary: !0 } }, version: "c19029f6", hmr: { runtime: "/build/_shared/chunk-ZM7RJEKX.js", timestamp: 1711321941284 }, url: "/build/manifest-C19029F6.js" };
 
 // server-entry-module:@remix-run/dev/server-build
 var mode = "development", assetsBuildDirectory = "dist/client/build", future = {}, publicPath = "/build/", entry = { module: entry_server_exports }, routes = {
@@ -37204,6 +41080,13 @@ react-is/cjs/react-is.development.js:
    * LICENSE file in the root directory of this source tree.
    *)
 
+object-assign/index.js:
+  (*
+  object-assign
+  (c) Sindre Sorhus
+  @license MIT
+  *)
+
 react-is/cjs/react-is.development.js:
   (** @license React v16.13.1
    * react-is.development.js
@@ -37213,13 +41096,6 @@ react-is/cjs/react-is.development.js:
    * This source code is licensed under the MIT license found in the
    * LICENSE file in the root directory of this source tree.
    *)
-
-object-assign/index.js:
-  (*
-  object-assign
-  (c) Sindre Sorhus
-  @license MIT
-  *)
 
 react-is/cjs/react-is.development.js:
   (**

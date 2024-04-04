@@ -48,8 +48,8 @@ export default function Collection() {
 
   const products = collection.products.nodes.map((product) => {
     return (
-    <Grid item xs={3}>
-        <ProductTile product={product}></ProductTile>
+    <Grid item xs={true}>
+      <ProductTile product={product} />
     </Grid>
     );
   })
@@ -93,7 +93,7 @@ export default function Collection() {
           alignItems: 'center',
         }}
       >
-        <div style={{display: "block", width: "50%"}}>
+        <div style={{display: "block", width: "75%"}}>
           <Grid container spacing={2}>
             {products}
           </Grid>
@@ -127,7 +127,7 @@ function ProductTile({product}) {
                   alt={product.featuredImage.altText || product.title}
                   aspectRatio="1/1"
                   data={product.featuredImage}
-                  width={128}
+                  width={256}
                   style={{display: "block"}}
                 />
               </div>
@@ -136,7 +136,15 @@ function ProductTile({product}) {
         </div>
         <div style={{diplay: "block"}}>
           <h4>
+            <div
+              style={{
+                display: "flex",
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}
+            >
               {product.title}
+              </div>
           </h4>
           <hr/>
           <div

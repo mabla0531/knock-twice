@@ -1,4 +1,6 @@
 import {Await} from '@remix-run/react';
+import {Icon} from '@shopify/polaris';
+import {SearchIcon} from '@shopify/polaris-icons';
 import {Suspense} from 'react';
 import {Aside} from '~/components/Aside';
 import {Header, HeaderMenu} from '~/components/Header';
@@ -49,18 +51,14 @@ function SearchAside() {
         <br />
         <PredictiveSearchForm>
           {({fetchResults, inputRef}) => (
-            <div>
-              <input
-                name="q"
-                onChange={fetchResults}
-                onFocus={fetchResults}
-                placeholder="Search"
-                ref={inputRef}
-                type="search"
-              />
-              &nbsp;
-              <button type="submit">Search</button>
-            </div>
+            <input
+              name="q"
+              onChange={fetchResults}
+              onFocus={fetchResults}
+              placeholder="Search"
+              ref={inputRef}
+              type="search"
+            />
           )}
         </PredictiveSearchForm>
         <PredictiveSearchResults />

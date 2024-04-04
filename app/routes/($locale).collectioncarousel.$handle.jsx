@@ -47,8 +47,8 @@ export async function loader({request, params, context}) {
 
 export function ProductInfo({collection}) {
 
-  const products = collection.products.nodes.map((product) => {
-    return (<ProductItem product = {product}></ProductItem>);
+  const productImages = collection.products.nodes.map((product) => {
+    return (<ProductItem product = {product} />);
   })
 
   return (
@@ -65,43 +65,6 @@ export function ProductInfo({collection}) {
       >
         <h2>{collection.title}</h2>
       </div>
-
-      <div
-        style={{
-          display: "flex",
-          justifyContent: 'center',
-          alignItems: 'center',
-        }}
-      >
-        <div style={{display: "block"}}>
-          {products[0]}
-        </div>
-      </div>
-
-      <div
-        style={{
-          display: "flex",
-          justifyContent: 'center',
-          alignItems: 'center',
-        }}
-      >
-        <div style={{display: "block"}}>
-          <h4>
-            {collection.products.nodes[0].title}
-          </h4>
-          <hr/>
-          <div
-            style={{
-              display: "flex",
-              justifyContent: 'center',
-              alignItems: 'center',
-            }}
-          >
-            <Money data={collection.products.nodes[0].priceRange.minVariantPrice} />
-          </div>
-        </div>
-      </div>
-
       <div
         style={{
           display: "flex",
@@ -116,14 +79,60 @@ export function ProductInfo({collection}) {
           {collection.description}
         </div>
       </div>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}
+      >
+        <div style={{display: "block"}}>
+          {productImages[1]}
+        </div>
+      </div>
+
+      <div
+        style={{
+          display: "flex",
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}
+      >
+        <div style={{display: "block"}}>
+          <h4>
+            {collection.products.nodes[1].title}
+          </h4>
+          <hr/>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}
+          >
+            <Money data={collection.products.nodes[1].priceRange.minVariantPrice} />
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
 
-export function Swatch() {
+export function Swatch(product) {
 
   return (
-    <div>swatch image</div>
+    <div></div>
+  )
+}
+
+export function SwatchSet({collection, tag}) {
+  console.log(collection);
+  return (
+    collection.products.nodes.map((product) => {
+      return (
+        <Swatch key={product.id} />
+      )
+    })
   )
 }
 
@@ -142,32 +151,50 @@ export function ProductFilter({collection}) {
     );
   });
 
-  const [value, setValue] = React.useState("0");
+  const [value, setValue] = React.useState("M");
 
   const handleChange = (_, newValue) => {
     setValue(newValue);
   }
 
-  let panel_child = <b>HI!</b>;
+  const [tabWidth, setTabWidth] = React.useState({minWidth: "8em"})
+ 
+//choose the screen size 
+const handleResize = () => {
+  if (window.innerWidth < 720) {
+    setTabWidth({minWidth: "3em"})
+  } else {
+    setTabWidth({minWidth: "8em"})
+  }
+}
+
+// create an event listener
+React.useEffect(() => {
+  window.addEventListener("resize", handleResize)
+})
 
   return (
     <div className='productFilter'>
       <div className='productTabs'>
         <TabContext value={value}>
-          <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+          <Box sx={{ borderBottom: 1, borderColor: 'divider'}}>
             <TabList onChange={handleChange} aria-label="collection items">
-              <Tab label="S"   value="0" />
-              <Tab label="M"   value="1" />
-              <Tab label="L"   value="2" />
-              <Tab label="XL"  value="3" />
-              <Tab label="XXL" value="4" />
+              <Tab label="XS" value="XS" sx={tabWidth}/>
+              <Tab label="S" value="S" sx={tabWidth}/>
+              <Tab label="M" value="M" sx={tabWidth}/>
+              <Tab label="L" value="L" sx={tabWidth}/>
+              <Tab label="XL" value="XL" sx={tabWidth}/>
+              <Tab label="XXL" value="XXL" sx={tabWidth}/>
+              <Tab label="XXXL" value="XXXL" sx={tabWidth}/>
             </TabList>
           </Box>
-          <TabPanel value="0"><Swatch /></TabPanel>
-          <TabPanel value="1"><Swatch /></TabPanel>
-          <TabPanel value="2"><Swatch /></TabPanel>
-          <TabPanel value="3"><Swatch /></TabPanel>
-          <TabPanel value="4"><Swatch /></TabPanel>
+          <TabPanel value="XS"><SwatchSet collection={collection} tag={"XS"}/></TabPanel>
+          <TabPanel value="S"><SwatchSet collection={collection} tag={"S"}/></TabPanel>
+          <TabPanel value="M"><SwatchSet collection={collection} tag={"M"}/></TabPanel>
+          <TabPanel value="L"><SwatchSet collection={collection} tag={"L"}/></TabPanel>
+          <TabPanel value="XL"><SwatchSet collection={collection} tag={"XL"}/></TabPanel>
+          <TabPanel value="XXL"><SwatchSet collection={collection} tag={"XXL"}/></TabPanel>
+          <TabPanel value="XXXL"><SwatchSet collection={collection} tag={"XXXL"}/></TabPanel>
         </TabContext>
       </div>
     </div>
@@ -244,7 +271,7 @@ const PRODUCT_ITEM_FRAGMENT = `#graphql
         ...MoneyProductItem
       }
     }
-    variants(first: 1) {
+    variants(first: 5) {
       nodes {
         selectedOptions {
           name
