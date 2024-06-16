@@ -26,8 +26,8 @@ export default function Index() {
 
           {collections.nodes.map((collection) => {
             return (
-              <div class="index-collection-item">
-                <Link to={`/collectiongrid/${collection.handle}`} key={collection.id}>
+              <div className="index-collection-item">
+                <Link to={`/collectioncarousel/${collection.handle}`} key={collection.id}>
                   {collection.products.nodes.map((product) => {
                     return (
                       <Image

@@ -558,18 +558,10 @@ aside li {
 }
 
 .productFilter {
-  display: flex;
+  display: block;
   justify-content: center;
   align-items: center;
   width: 100%;
-}
-
-.productTabs {
-  display: inline-block;
-}
-
-.tabWrapper {
-  display: flex;
 }
 
 .collectionPanel {
@@ -580,4 +572,38 @@ aside li {
     justify-content: center;
     align-items: center;
   }
+}
+
+.swatchContainer {
+  display: inline-block;
+  justify-content: center;
+  align-items: center;
+  margin: 4px;
+  min-width: 96px;
+  width: 96px;
+  @media (min-width: 45em) {
+    min-width: 192px;
+    width: 192px;
+  }
+}
+
+.tabList {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.tab {
+  width: 4em;
+}
+
+.tabPanel {
+  display: inline-block;
+  width: 100%;
+  text-align: center;
+}
+
+.productTitle {
+  margin-top: 1em;
+  margin-bottom: 0.2em;
 }

@@ -235,7 +235,7 @@ var require_react_development = __commonJS({
         if (willCoercionThrow(value))
           return error("The provided key is an unsupported type %s. This value must be coerced to a string before before using it here.", typeName(value)), testStringCoercion(value);
       }
-      function getWrappedName2(outerType, innerType, wrapperName) {
+      function getWrappedName(outerType, innerType, wrapperName) {
         var displayName = outerType.displayName;
         if (displayName)
           return displayName;
@@ -275,7 +275,7 @@ var require_react_development = __commonJS({
               var provider = type;
               return getContextName(provider._context) + ".Provider";
             case REACT_FORWARD_REF_TYPE:
-              return getWrappedName2(type, type.render, "ForwardRef");
+              return getWrappedName(type, type.render, "ForwardRef");
             case REACT_MEMO_TYPE:
               var outerName = type.displayName || null;
               return outerName !== null ? outerName : getComponentNameFromType(type.type) || "Memo";
@@ -337,7 +337,7 @@ var require_react_development = __commonJS({
           didWarnAboutStringRefs[componentName] || (error('Component "%s" contains the string ref "%s". Support for string refs will be removed in a future major release. This case cannot be automatically converted to an arrow function. We ask you to manually fix this case by using useRef() or createRef() instead. Learn more about using refs safely here: https://reactjs.org/link/strict-mode-string-ref', componentName, config.ref), didWarnAboutStringRefs[componentName] = !0);
         }
       }
-      var ReactElement = function(type, key, ref, self2, source, owner, props) {
+      var ReactElement = function(type, key, ref, self, source, owner, props) {
         var element = {
           // This tag allows us to uniquely identify this as a React Element
           $$typeof: REACT_ELEMENT_TYPE,
@@ -358,7 +358,7 @@ var require_react_development = __commonJS({
           configurable: !1,
           enumerable: !1,
           writable: !1,
-          value: self2
+          value: self
         }), Object.defineProperty(element, "_source", {
           configurable: !1,
           enumerable: !1,
@@ -366,10 +366,10 @@ var require_react_development = __commonJS({
           value: source
         }), Object.freeze && (Object.freeze(element.props), Object.freeze(element)), element;
       };
-      function createElement10(type, config, children) {
-        var propName, props = {}, key = null, ref = null, self2 = null, source = null;
+      function createElement9(type, config, children) {
+        var propName, props = {}, key = null, ref = null, self = null, source = null;
         if (config != null) {
-          hasValidRef(config) && (ref = config.ref, warnIfStringRefCannotBeAutoConverted(config)), hasValidKey(config) && (checkKeyStringCoercion(config.key), key = "" + config.key), self2 = config.__self === void 0 ? null : config.__self, source = config.__source === void 0 ? null : config.__source;
+          hasValidRef(config) && (ref = config.ref, warnIfStringRefCannotBeAutoConverted(config)), hasValidKey(config) && (checkKeyStringCoercion(config.key), key = "" + config.key), self = config.__self === void 0 ? null : config.__self, source = config.__source === void 0 ? null : config.__source;
           for (propName in config)
             hasOwnProperty.call(config, propName) && !RESERVED_PROPS.hasOwnProperty(propName) && (props[propName] = config[propName]);
         }
@@ -382,30 +382,30 @@ var require_react_development = __commonJS({
           Object.freeze && Object.freeze(childArray), props.children = childArray;
         }
         if (type && type.defaultProps) {
-          var defaultProps2 = type.defaultProps;
-          for (propName in defaultProps2)
-            props[propName] === void 0 && (props[propName] = defaultProps2[propName]);
+          var defaultProps = type.defaultProps;
+          for (propName in defaultProps)
+            props[propName] === void 0 && (props[propName] = defaultProps[propName]);
         }
         if (key || ref) {
           var displayName = typeof type == "function" ? type.displayName || type.name || "Unknown" : type;
           key && defineKeyPropWarningGetter(props, displayName), ref && defineRefPropWarningGetter(props, displayName);
         }
-        return ReactElement(type, key, ref, self2, source, ReactCurrentOwner.current, props);
+        return ReactElement(type, key, ref, self, source, ReactCurrentOwner.current, props);
       }
       function cloneAndReplaceKey(oldElement, newKey) {
         var newElement = ReactElement(oldElement.type, newKey, oldElement.ref, oldElement._self, oldElement._source, oldElement._owner, oldElement.props);
         return newElement;
       }
-      function cloneElement5(element, config, children) {
+      function cloneElement(element, config, children) {
         if (element == null)
           throw new Error("React.cloneElement(...): The argument must be a React element, but you passed " + element + ".");
-        var propName, props = assign({}, element.props), key = element.key, ref = element.ref, self2 = element._self, source = element._source, owner = element._owner;
+        var propName, props = assign({}, element.props), key = element.key, ref = element.ref, self = element._self, source = element._source, owner = element._owner;
         if (config != null) {
           hasValidRef(config) && (ref = config.ref, owner = ReactCurrentOwner.current), hasValidKey(config) && (checkKeyStringCoercion(config.key), key = "" + config.key);
-          var defaultProps2;
-          element.type && element.type.defaultProps && (defaultProps2 = element.type.defaultProps);
+          var defaultProps;
+          element.type && element.type.defaultProps && (defaultProps = element.type.defaultProps);
           for (propName in config)
-            hasOwnProperty.call(config, propName) && !RESERVED_PROPS.hasOwnProperty(propName) && (config[propName] === void 0 && defaultProps2 !== void 0 ? props[propName] = defaultProps2[propName] : props[propName] = config[propName]);
+            hasOwnProperty.call(config, propName) && !RESERVED_PROPS.hasOwnProperty(propName) && (config[propName] === void 0 && defaultProps !== void 0 ? props[propName] = defaultProps[propName] : props[propName] = config[propName]);
         }
         var childrenLength = arguments.length - 2;
         if (childrenLength === 1)
@@ -415,9 +415,9 @@ var require_react_development = __commonJS({
             childArray[i] = arguments[i + 2];
           props.children = childArray;
         }
-        return ReactElement(element.type, key, ref, self2, source, owner, props);
+        return ReactElement(element.type, key, ref, self, source, owner, props);
       }
-      function isValidElement7(object) {
+      function isValidElement2(object) {
         return typeof object == "object" && object !== null && object.$$typeof === REACT_ELEMENT_TYPE;
       }
       var SEPARATOR = ".", SUBSEPARATOR = ":";
@@ -464,7 +464,7 @@ var require_react_development = __commonJS({
               return c;
             });
           } else
-            mappedChild != null && (isValidElement7(mappedChild) && (mappedChild.key && (!_child || _child.key !== mappedChild.key) && checkKeyStringCoercion(mappedChild.key), mappedChild = cloneAndReplaceKey(
+            mappedChild != null && (isValidElement2(mappedChild) && (mappedChild.key && (!_child || _child.key !== mappedChild.key) && checkKeyStringCoercion(mappedChild.key), mappedChild = cloneAndReplaceKey(
               mappedChild,
               // Keep both the (mapped) and old keys if they differ, just as
               // traverseAllChildren used to do for objects as children
@@ -520,11 +520,11 @@ var require_react_development = __commonJS({
         }) || [];
       }
       function onlyChild(children) {
-        if (!isValidElement7(children))
+        if (!isValidElement2(children))
           throw new Error("React.Children.only expected to receive a single React element child.");
         return children;
       }
-      function createContext8(defaultValue) {
+      function createContext6(defaultValue) {
         var context = {
           $$typeof: REACT_CONTEXT_TYPE,
           // As a workaround to support multiple concurrent renderers, we categorize
@@ -648,15 +648,15 @@ Your code should look like:
           _init: lazyInitializer
         };
         {
-          var defaultProps2, propTypes;
+          var defaultProps, propTypes;
           Object.defineProperties(lazyType, {
             defaultProps: {
               configurable: !0,
               get: function() {
-                return defaultProps2;
+                return defaultProps;
               },
               set: function(newDefaultProps) {
-                error("React.lazy(...): It is not supported to assign `defaultProps` to a lazy component import. Either specify them where the component is defined, or create a wrapping component around it."), defaultProps2 = newDefaultProps, Object.defineProperty(lazyType, "defaultProps", {
+                error("React.lazy(...): It is not supported to assign `defaultProps` to a lazy component import. Either specify them where the component is defined, or create a wrapping component around it."), defaultProps = newDefaultProps, Object.defineProperty(lazyType, "defaultProps", {
                   enumerable: !0
                 });
               }
@@ -676,7 +676,7 @@ Your code should look like:
         }
         return lazyType;
       }
-      function forwardRef16(render) {
+      function forwardRef5(render) {
         render != null && render.$$typeof === REACT_MEMO_TYPE ? error("forwardRef requires a render function but received a `memo` component. Instead of forwardRef(memo(...)), use memo(forwardRef(...)).") : typeof render != "function" ? error("forwardRef requires a render function but was given %s.", render === null ? "null" : typeof render) : render.length !== 0 && render.length !== 2 && error("forwardRef render functions accept exactly two parameters: props and ref. %s", render.length === 1 ? "Did you forget to use the ref parameter?" : "Any additional parameter will be undefined."), render != null && (render.defaultProps != null || render.propTypes != null) && error("forwardRef render functions do not support propTypes or defaultProps. Did you accidentally pass a React component?");
         var elementType = {
           $$typeof: REACT_FORWARD_REF_TYPE,
@@ -706,7 +706,7 @@ Your code should look like:
         // with.
         type.$$typeof === REACT_MODULE_REFERENCE || type.getModuleId !== void 0));
       }
-      function memo2(type, compare) {
+      function memo(type, compare) {
         isValidElementType(type) || error("memo: The first argument must be a component. Instead received: %s", type === null ? "null" : typeof type);
         var elementType = {
           $$typeof: REACT_MEMO_TYPE,
@@ -736,15 +736,15 @@ Your code should look like:
 3. You might have more than one copy of React in the same app
 See https://reactjs.org/link/invalid-hook-call for tips about how to debug and fix this problem.`), dispatcher;
       }
-      function useContext9(Context2) {
+      function useContext6(Context) {
         var dispatcher = resolveDispatcher();
-        if (Context2._context !== void 0) {
-          var realContext = Context2._context;
-          realContext.Consumer === Context2 ? error("Calling useContext(Context.Consumer) is not supported, may cause bugs, and will be removed in a future major release. Did you mean to call useContext(Context) instead?") : realContext.Provider === Context2 && error("Calling useContext(Context.Provider) is not supported. Did you mean to call useContext(Context) instead?");
+        if (Context._context !== void 0) {
+          var realContext = Context._context;
+          realContext.Consumer === Context ? error("Calling useContext(Context.Consumer) is not supported, may cause bugs, and will be removed in a future major release. Did you mean to call useContext(Context) instead?") : realContext.Provider === Context && error("Calling useContext(Context.Provider) is not supported. Did you mean to call useContext(Context) instead?");
         }
-        return dispatcher.useContext(Context2);
+        return dispatcher.useContext(Context);
       }
-      function useState12(initialState) {
+      function useState7(initialState) {
         var dispatcher = resolveDispatcher();
         return dispatcher.useState(initialState);
       }
@@ -752,11 +752,11 @@ See https://reactjs.org/link/invalid-hook-call for tips about how to debug and f
         var dispatcher = resolveDispatcher();
         return dispatcher.useReducer(reducer, initialArg, init);
       }
-      function useRef16(initialValue) {
+      function useRef9(initialValue) {
         var dispatcher = resolveDispatcher();
         return dispatcher.useRef(initialValue);
       }
-      function useEffect18(create, deps) {
+      function useEffect9(create, deps) {
         var dispatcher = resolveDispatcher();
         return dispatcher.useEffect(create, deps);
       }
@@ -764,23 +764,23 @@ See https://reactjs.org/link/invalid-hook-call for tips about how to debug and f
         var dispatcher = resolveDispatcher();
         return dispatcher.useInsertionEffect(create, deps);
       }
-      function useLayoutEffect4(create, deps) {
+      function useLayoutEffect3(create, deps) {
         var dispatcher = resolveDispatcher();
         return dispatcher.useLayoutEffect(create, deps);
       }
-      function useCallback8(callback, deps) {
+      function useCallback5(callback, deps) {
         var dispatcher = resolveDispatcher();
         return dispatcher.useCallback(callback, deps);
       }
-      function useMemo13(create, deps) {
+      function useMemo11(create, deps) {
         var dispatcher = resolveDispatcher();
         return dispatcher.useMemo(create, deps);
       }
-      function useImperativeHandle4(ref, create, deps) {
+      function useImperativeHandle(ref, create, deps) {
         var dispatcher = resolveDispatcher();
         return dispatcher.useImperativeHandle(ref, create, deps);
       }
-      function useDebugValue2(value, formatterFn) {
+      function useDebugValue(value, formatterFn) {
         {
           var dispatcher = resolveDispatcher();
           return dispatcher.useDebugValue(value, formatterFn);
@@ -998,7 +998,7 @@ See https://reactjs.org/link/invalid-hook-call for tips about how to debug and f
         } else
           ReactDebugCurrentFrame$1.setExtraStackFrame(null);
       }
-      function checkPropTypes(typeSpecs, values3, location2, componentName, element) {
+      function checkPropTypes(typeSpecs, values, location2, componentName, element) {
         {
           var has = Function.call.bind(hasOwnProperty);
           for (var typeSpecName in typeSpecs)
@@ -1009,7 +1009,7 @@ See https://reactjs.org/link/invalid-hook-call for tips about how to debug and f
                   var err = Error((componentName || "React class") + ": " + location2 + " type `" + typeSpecName + "` is invalid; it must be a function, usually from the `prop-types` package, but received `" + typeof typeSpecs[typeSpecName] + "`.This often happens because of typos such as `PropTypes.function` instead of `PropTypes.func`.");
                   throw err.name = "Invariant Violation", err;
                 }
-                error$1 = typeSpecs[typeSpecName](values3, typeSpecName, componentName, location2, null, "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED");
+                error$1 = typeSpecs[typeSpecName](values, typeSpecName, componentName, location2, null, "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED");
               } catch (ex) {
                 error$1 = ex;
               }
@@ -1075,15 +1075,15 @@ Check the top-level render call using <` + parentName + ">.");
           if (isArray(node))
             for (var i = 0; i < node.length; i++) {
               var child = node[i];
-              isValidElement7(child) && validateExplicitKey(child, parentType);
+              isValidElement2(child) && validateExplicitKey(child, parentType);
             }
-          else if (isValidElement7(node))
+          else if (isValidElement2(node))
             node._store && (node._store.validated = !0);
           else if (node) {
             var iteratorFn = getIteratorFn(node);
             if (typeof iteratorFn == "function" && iteratorFn !== node.entries)
               for (var iterator = iteratorFn.call(node), step; !(step = iterator.next()).done; )
-                isValidElement7(step.value) && validateExplicitKey(step.value, parentType);
+                isValidElement2(step.value) && validateExplicitKey(step.value, parentType);
           }
         }
       }
@@ -1134,7 +1134,7 @@ Check the top-level render call using <` + parentName + ">.");
           var typeString;
           type === null ? typeString = "null" : isArray(type) ? typeString = "array" : type !== void 0 && type.$$typeof === REACT_ELEMENT_TYPE ? (typeString = "<" + (getComponentNameFromType(type.type) || "Unknown") + " />", info = " Did you accidentally export a JSX literal instead of a component?") : typeString = typeof type, error("React.createElement: type is invalid -- expected a string (for built-in components) or a class/function (for composite components) but got: %s.%s", typeString, info);
         }
-        var element = createElement10.apply(this, arguments);
+        var element = createElement9.apply(this, arguments);
         if (element == null)
           return element;
         if (validType)
@@ -1155,7 +1155,7 @@ Check the top-level render call using <` + parentName + ">.");
         }), validatedFactory;
       }
       function cloneElementWithValidation(element, props, children) {
-        for (var newElement = cloneElement5.apply(this, arguments), i = 2; i < arguments.length; i++)
+        for (var newElement = cloneElement.apply(this, arguments), i = 2; i < arguments.length; i++)
           validateChildKeys(arguments[i], newElement.type);
         return validatePropTypes(newElement), newElement;
       }
@@ -1278,14 +1278,14 @@ Check the top-level render call using <` + parentName + ">.");
           }
         }
       }
-      var createElement$1 = createElementWithValidation, cloneElement$1 = cloneElementWithValidation, createFactory = createFactoryWithValidation, Children5 = {
+      var createElement$1 = createElementWithValidation, cloneElement$1 = cloneElementWithValidation, createFactory = createFactoryWithValidation, Children2 = {
         map: mapChildren,
         forEach: forEachChildren,
         count: countChildren,
         toArray,
         only: onlyChild
       };
-      exports.Children = Children5, exports.Component = Component4, exports.Fragment = REACT_FRAGMENT_TYPE, exports.Profiler = REACT_PROFILER_TYPE, exports.PureComponent = PureComponent, exports.StrictMode = REACT_STRICT_MODE_TYPE, exports.Suspense = REACT_SUSPENSE_TYPE, exports.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED = ReactSharedInternals, exports.cloneElement = cloneElement$1, exports.createContext = createContext8, exports.createElement = createElement$1, exports.createFactory = createFactory, exports.createRef = createRef, exports.forwardRef = forwardRef16, exports.isValidElement = isValidElement7, exports.lazy = lazy2, exports.memo = memo2, exports.startTransition = startTransition, exports.unstable_act = act, exports.useCallback = useCallback8, exports.useContext = useContext9, exports.useDebugValue = useDebugValue2, exports.useDeferredValue = useDeferredValue, exports.useEffect = useEffect18, exports.useId = useId, exports.useImperativeHandle = useImperativeHandle4, exports.useInsertionEffect = useInsertionEffect, exports.useLayoutEffect = useLayoutEffect4, exports.useMemo = useMemo13, exports.useReducer = useReducer, exports.useRef = useRef16, exports.useState = useState12, exports.useSyncExternalStore = useSyncExternalStore, exports.useTransition = useTransition, exports.version = ReactVersion, typeof __REACT_DEVTOOLS_GLOBAL_HOOK__ < "u" && typeof __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStop == "function" && __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStop(new Error());
+      exports.Children = Children2, exports.Component = Component4, exports.Fragment = REACT_FRAGMENT_TYPE, exports.Profiler = REACT_PROFILER_TYPE, exports.PureComponent = PureComponent, exports.StrictMode = REACT_STRICT_MODE_TYPE, exports.Suspense = REACT_SUSPENSE_TYPE, exports.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED = ReactSharedInternals, exports.cloneElement = cloneElement$1, exports.createContext = createContext6, exports.createElement = createElement$1, exports.createFactory = createFactory, exports.createRef = createRef, exports.forwardRef = forwardRef5, exports.isValidElement = isValidElement2, exports.lazy = lazy2, exports.memo = memo, exports.startTransition = startTransition, exports.unstable_act = act, exports.useCallback = useCallback5, exports.useContext = useContext6, exports.useDebugValue = useDebugValue, exports.useDeferredValue = useDeferredValue, exports.useEffect = useEffect9, exports.useId = useId, exports.useImperativeHandle = useImperativeHandle, exports.useInsertionEffect = useInsertionEffect, exports.useLayoutEffect = useLayoutEffect3, exports.useMemo = useMemo11, exports.useReducer = useReducer, exports.useRef = useRef9, exports.useState = useState7, exports.useSyncExternalStore = useSyncExternalStore, exports.useTransition = useTransition, exports.version = ReactVersion, typeof __REACT_DEVTOOLS_GLOBAL_HOOK__ < "u" && typeof __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStop == "function" && __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStop(new Error());
     })();
   }
 });
@@ -1688,14 +1688,14 @@ function convertRouteMatchToUiMatch(match, loaderData) {
 function flattenRoutes(routes2, branches, parentsMeta, parentPath) {
   branches === void 0 && (branches = []), parentsMeta === void 0 && (parentsMeta = []), parentPath === void 0 && (parentPath = "");
   let flattenRoute = (route, index, relativePath) => {
-    let meta20 = {
+    let meta19 = {
       relativePath: relativePath === void 0 ? route.path || "" : relativePath,
       caseSensitive: route.caseSensitive === !0,
       childrenIndex: index,
       route
     };
-    meta20.relativePath.startsWith("/") && (invariant(meta20.relativePath.startsWith(parentPath), 'Absolute route path "' + meta20.relativePath + '" nested under path ' + ('"' + parentPath + '" is not valid. An absolute child route path ') + "must start with the combined path of all its parent routes."), meta20.relativePath = meta20.relativePath.slice(parentPath.length));
-    let path = joinPaths([parentPath, meta20.relativePath]), routesMeta = parentsMeta.concat(meta20);
+    meta19.relativePath.startsWith("/") && (invariant(meta19.relativePath.startsWith(parentPath), 'Absolute route path "' + meta19.relativePath + '" nested under path ' + ('"' + parentPath + '" is not valid. An absolute child route path ') + "must start with the combined path of all its parent routes."), meta19.relativePath = meta19.relativePath.slice(parentPath.length));
+    let path = joinPaths([parentPath, meta19.relativePath]), routesMeta = parentsMeta.concat(meta19);
     route.children && route.children.length > 0 && (invariant(
       // Our types know better, but runtime JS may not!
       // @ts-expect-error
@@ -1727,7 +1727,7 @@ function explodeOptionalSegments(path) {
   return result.push(...restExploded.map((subpath) => subpath === "" ? required : [required, subpath].join("/"))), isOptional && result.push(...restExploded), result.map((exploded) => path.startsWith("/") && exploded === "" ? "/" : exploded);
 }
 function rankRouteBranches(branches) {
-  branches.sort((a, b) => a.score !== b.score ? b.score - a.score : compareIndexes(a.routesMeta.map((meta20) => meta20.childrenIndex), b.routesMeta.map((meta20) => meta20.childrenIndex)));
+  branches.sort((a, b) => a.score !== b.score ? b.score - a.score : compareIndexes(a.routesMeta.map((meta19) => meta19.childrenIndex), b.routesMeta.map((meta19) => meta19.childrenIndex)));
 }
 function computeScore(path, index) {
   let segments = path.split("/"), initialScore = segments.length;
@@ -1751,15 +1751,15 @@ function matchRouteBranch(branch, pathname) {
     routesMeta
   } = branch, matchedParams = {}, matchedPathname = "/", matches = [];
   for (let i = 0; i < routesMeta.length; ++i) {
-    let meta20 = routesMeta[i], end = i === routesMeta.length - 1, remainingPathname = matchedPathname === "/" ? pathname : pathname.slice(matchedPathname.length) || "/", match = matchPath({
-      path: meta20.relativePath,
-      caseSensitive: meta20.caseSensitive,
+    let meta19 = routesMeta[i], end = i === routesMeta.length - 1, remainingPathname = matchedPathname === "/" ? pathname : pathname.slice(matchedPathname.length) || "/", match = matchPath({
+      path: meta19.relativePath,
+      caseSensitive: meta19.caseSensitive,
       end
     }, remainingPathname);
     if (!match)
       return null;
     Object.assign(matchedParams, match.params);
-    let route = meta20.route;
+    let route = meta19.route;
     matches.push({
       // TODO: Can this as be avoided?
       params: matchedParams,
@@ -1797,12 +1797,12 @@ function matchPath(pattern, pathname) {
     return null;
   let matchedPathname = match[0], pathnameBase = matchedPathname.replace(/(.)\/+$/, "$1"), captureGroups = match.slice(1);
   return {
-    params: paramNames.reduce((memo2, paramName, index) => {
+    params: paramNames.reduce((memo, paramName, index) => {
       if (paramName === "*") {
         let splatValue = captureGroups[index] || "";
         pathnameBase = matchedPathname.slice(0, matchedPathname.length - splatValue.length).replace(/(.)\/+$/, "$1");
       }
-      return memo2[paramName] = safelyDecodeURIComponent(captureGroups[index] || "", paramName), memo2;
+      return memo[paramName] = safelyDecodeURIComponent(captureGroups[index] || "", paramName), memo;
     }, {}),
     pathname: matchedPathname,
     pathnameBase,
@@ -1811,7 +1811,7 @@ function matchPath(pattern, pathname) {
 }
 function compilePath(path, caseSensitive, end) {
   caseSensitive === void 0 && (caseSensitive = !1), end === void 0 && (end = !0), warning(path === "*" || !path.endsWith("*") || path.endsWith("/*"), 'Route path "' + path + '" will be treated as if it were ' + ('"' + path.replace(/\*$/, "/*") + '" because the `*` character must ') + "always follow a `/` in the pattern. To get rid of this warning, " + ('please change the route path to "' + path.replace(/\*$/, "/*") + '".'));
-  let paramNames = [], regexpSource = "^" + path.replace(/\/*\*?$/, "").replace(/^\/*/, "/").replace(/[\\.*+^$?{}|()[\]]/g, "\\$&").replace(/\/:(\w+)/g, (_2, paramName) => (paramNames.push(paramName), "/([^\\/]+)"));
+  let paramNames = [], regexpSource = "^" + path.replace(/\/*\*?$/, "").replace(/^\/*/, "/").replace(/[\\.*+^$?{}|()[\]]/g, "\\$&").replace(/\/:(\w+)/g, (_, paramName) => (paramNames.push(paramName), "/([^\\/]+)"));
   return path.endsWith("*") ? (paramNames.push("*"), regexpSource += path === "*" || path === "/*" ? "(.*)$" : "(?:\\/(.+)|\\/*)$") : end ? regexpSource += "\\/*$" : path !== "" && path !== "/" && (regexpSource += "(?:(?=\\/|$))"), [new RegExp(regexpSource, caseSensitive ? void 0 : "i"), paramNames];
 }
 function safelyDecodeURI(value) {
@@ -1993,7 +1993,7 @@ function createRouter(init) {
     return state.initialized || startNavigation(Action.Pop, state.location), router;
   }
   function dispose() {
-    unlistenHistory && unlistenHistory(), removePageHideEventListener && removePageHideEventListener(), subscribers.clear(), pendingNavigationController && pendingNavigationController.abort(), state.fetchers.forEach((_2, key) => deleteFetcher(key)), state.blockers.forEach((_2, key) => deleteBlocker(key));
+    unlistenHistory && unlistenHistory(), removePageHideEventListener && removePageHideEventListener(), subscribers.clear(), pendingNavigationController && pendingNavigationController.abort(), state.fetchers.forEach((_, key) => deleteFetcher(key)), state.blockers.forEach((_, key) => deleteBlocker(key));
   }
   function subscribe(fn) {
     return subscribers.add(fn), () => subscribers.delete(fn);
@@ -2008,7 +2008,7 @@ function createRouter(init) {
     let isActionReload = state.actionData != null && state.navigation.formMethod != null && isMutationMethod(state.navigation.formMethod) && state.navigation.state === "loading" && ((_location$state = location2.state) == null ? void 0 : _location$state._isRedirect) !== !0, actionData;
     newState.actionData ? Object.keys(newState.actionData).length > 0 ? actionData = newState.actionData : actionData = null : isActionReload ? actionData = state.actionData : actionData = null;
     let loaderData = newState.loaderData ? mergeLoaderData(state.loaderData, newState.loaderData, newState.matches || [], newState.errors) : state.loaderData, blockers = state.blockers;
-    blockers.size > 0 && (blockers = new Map(blockers), blockers.forEach((_2, k) => blockers.set(k, IDLE_BLOCKER)));
+    blockers.size > 0 && (blockers = new Map(blockers), blockers.forEach((_, k) => blockers.set(k, IDLE_BLOCKER)));
     let preventScrollReset = pendingPreventScrollReset === !0 || state.navigation.formMethod != null && isMutationMethod(state.navigation.formMethod) && ((_location$state2 = location2.state) == null ? void 0 : _location$state2._isRedirect) !== !0;
     inFlightDataRoutes && (dataRoutes = inFlightDataRoutes, inFlightDataRoutes = void 0), isUninterruptedRevalidation || pendingAction === Action.Pop || (pendingAction === Action.Push ? init.history.push(location2, location2.state) : pendingAction === Action.Replace && init.history.replace(location2, location2.state));
     let viewTransitionOpts;
@@ -2404,7 +2404,7 @@ function createRouter(init) {
     } = await callLoadersAndMaybeResolveData(state.matches, matches, matchesToLoad, revalidatingFetchers, revalidationRequest);
     if (abortController.signal.aborted)
       return;
-    abortController.signal.removeEventListener("abort", abortPendingFetchRevalidations), fetchReloadIds.delete(key), fetchControllers.delete(key), revalidatingFetchers.forEach((r2) => fetchControllers.delete(r2.key));
+    abortController.signal.removeEventListener("abort", abortPendingFetchRevalidations), fetchReloadIds.delete(key), fetchControllers.delete(key), revalidatingFetchers.forEach((r) => fetchControllers.delete(r.key));
     let redirect6 = findRedirect(results);
     if (redirect6) {
       if (redirect6.idx >= matchesToLoad.length) {
@@ -2537,7 +2537,7 @@ function createRouter(init) {
     };
   }
   function interruptActiveLoads() {
-    isRevalidationRequired = !0, cancelledDeferredRoutes.push(...cancelActiveDeferreds()), fetchLoadMatches.forEach((_2, key) => {
+    isRevalidationRequired = !0, cancelledDeferredRoutes.push(...cancelActiveDeferreds()), fetchLoadMatches.forEach((_, key) => {
       fetchControllers.has(key) && (cancelledFetcherLoads.push(key), abortFetcher(key));
     });
   }
@@ -3175,7 +3175,7 @@ async function loadLazyRouteModule(route, mapRouteProperties2, manifest) {
 async function callLoaderOrAction(type, request, match, matches, manifest, mapRouteProperties2, basename, opts) {
   opts === void 0 && (opts = {});
   let resultType, result, onReject, runHandler = (handler) => {
-    let reject, abortPromise = new Promise((_2, r2) => reject = r2);
+    let reject, abortPromise = new Promise((_, r) => reject = r);
     return onReject = () => reject(), request.signal.addEventListener("abort", onReject), Promise.race([handler({
       request,
       params: match.params,
@@ -3186,7 +3186,7 @@ async function callLoaderOrAction(type, request, match, matches, manifest, mapRo
     let handler = match.route[type];
     if (match.route.lazy)
       if (handler) {
-        let handlerError, values3 = await Promise.all([
+        let handlerError, values = await Promise.all([
           // If the handler throws, don't let it immediately bubble out,
           // since we need to let the lazy() execution finish so we know if this
           // route has a boundary that can handle the error
@@ -3197,7 +3197,7 @@ async function callLoaderOrAction(type, request, match, matches, manifest, mapRo
         ]);
         if (handlerError)
           throw handlerError;
-        result = values3[0];
+        result = values[0];
       } else if (await loadLazyRouteModule(match.route, mapRouteProperties2, manifest), handler = match.route[type], handler)
         result = await runHandler(handler);
       else if (type === "action") {
@@ -3371,7 +3371,7 @@ function findNearestBoundary(matches, routeId) {
   return (routeId ? matches.slice(0, matches.findIndex((m) => m.route.id === routeId) + 1) : [...matches]).reverse().find((m) => m.route.hasErrorBoundary === !0) || matches[0];
 }
 function getShortCircuitMatches(routes2) {
-  let route = routes2.length === 1 ? routes2[0] : routes2.find((r2) => r2.index || !r2.path || r2.path === "/") || {
+  let route = routes2.length === 1 ? routes2[0] : routes2.find((r) => r.index || !r.path || r.path === "/") || {
     id: "__shim-error-route__"
   };
   return {
@@ -3651,7 +3651,7 @@ var Action, PopStateEventType, ResultType, immutableRouteKeys, paramRe, dynamicS
       constructor(data, responseInit) {
         this.pendingKeysSet = /* @__PURE__ */ new Set(), this.subscribers = /* @__PURE__ */ new Set(), this.deferredKeys = [], invariant(data && typeof data == "object" && !Array.isArray(data), "defer() only accepts plain objects");
         let reject;
-        this.abortPromise = new Promise((_2, r2) => reject = r2), this.controller = new AbortController();
+        this.abortPromise = new Promise((_, r) => reject = r), this.controller = new AbortController();
         let onAbort = () => reject(new AbortedDeferredError("Deferred data aborted"));
         this.unlistenAbortSignal = () => this.controller.signal.removeEventListener("abort", onAbort), this.controller.signal.addEventListener("abort", onAbort), this.data = Object.entries(data).reduce((acc, _ref) => {
           let [key, value] = _ref;
@@ -4693,14 +4693,14 @@ function shouldProcessLinkClick(event, target) {
   !isModifiedEvent(event);
 }
 function createSearchParams(init) {
-  return init === void 0 && (init = ""), new URLSearchParams(typeof init == "string" || Array.isArray(init) || init instanceof URLSearchParams ? init : Object.keys(init).reduce((memo2, key) => {
+  return init === void 0 && (init = ""), new URLSearchParams(typeof init == "string" || Array.isArray(init) || init instanceof URLSearchParams ? init : Object.keys(init).reduce((memo, key) => {
     let value = init[key];
-    return memo2.concat(Array.isArray(value) ? value.map((v) => [key, v]) : [[key, value]]);
+    return memo.concat(Array.isArray(value) ? value.map((v) => [key, v]) : [[key, value]]);
   }, []));
 }
 function getSearchParamsForLocation(locationSearch, defaultSearchParams) {
   let searchParams = createSearchParams(locationSearch);
-  return defaultSearchParams && defaultSearchParams.forEach((_2, key) => {
+  return defaultSearchParams && defaultSearchParams.forEach((_, key) => {
     searchParams.has(key) || defaultSearchParams.getAll(key).forEach((value) => {
       searchParams.append(key, value);
     });
@@ -5358,12 +5358,12 @@ var React2, defaultMethod, defaultEncType, _formDataSupportsSubmitter, supported
         isTransitioning
       }, ariaCurrent = isActive ? ariaCurrentProp : void 0, className;
       typeof classNameProp == "function" ? className = classNameProp(renderProps) : className = [classNameProp, isActive ? "active" : null, isPending ? "pending" : null, isTransitioning ? "transitioning" : null].filter(Boolean).join(" ");
-      let style3 = typeof styleProp == "function" ? styleProp(renderProps) : styleProp;
+      let style = typeof styleProp == "function" ? styleProp(renderProps) : styleProp;
       return /* @__PURE__ */ React2.createElement(Link, _extends3({}, rest, {
         "aria-current": ariaCurrent,
         className,
         ref,
-        style: style3,
+        style,
         to,
         unstable_viewTransition
       }), typeof children == "function" ? children(renderProps) : children);
@@ -5430,7 +5430,7 @@ var require_server = __commonJS({
   "node_modules/react-router-dom/server.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: !0 });
-    var React43 = require_react(), router = (init_router(), __toCommonJS(router_exports)), reactRouter = (init_dist(), __toCommonJS(dist_exports)), reactRouterDom = (init_dist2(), __toCommonJS(dist_exports2));
+    var React16 = require_react(), router = (init_router(), __toCommonJS(router_exports)), reactRouter = (init_dist(), __toCommonJS(dist_exports)), reactRouterDom = (init_dist2(), __toCommonJS(dist_exports2));
     function _interopNamespace(e) {
       if (e && e.__esModule)
         return e;
@@ -5447,7 +5447,7 @@ var require_server = __commonJS({
         }
       }), n.default = e, Object.freeze(n);
     }
-    var React__namespace = /* @__PURE__ */ _interopNamespace(React43);
+    var React__namespace = /* @__PURE__ */ _interopNamespace(React16);
     function StaticRouter({
       basename,
       children,
@@ -5682,7 +5682,7 @@ var require_react_dom_server_legacy_browser_development = __commonJS({
     "use strict";
     (function() {
       "use strict";
-      var React43 = require_react(), ReactVersion = "18.2.0", ReactSharedInternals = React43.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED;
+      var React16 = require_react(), ReactVersion = "18.2.0", ReactSharedInternals = React16.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED;
       function warn(format) {
         {
           for (var _len = arguments.length, args = new Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++)
@@ -5784,12 +5784,12 @@ var require_react_dom_server_legacy_browser_development = __commonJS({
         }
       }
       function getPropertyInfo(name) {
-        return properties2.hasOwnProperty(name) ? properties2[name] : null;
+        return properties.hasOwnProperty(name) ? properties[name] : null;
       }
       function PropertyInfoRecord(name, type, mustUseProperty, attributeName, attributeNamespace, sanitizeURL2, removeEmptyString) {
         this.acceptsBooleans = type === BOOLEANISH_STRING || type === BOOLEAN || type === OVERLOADED_BOOLEAN, this.attributeName = attributeName, this.attributeNamespace = attributeNamespace, this.mustUseProperty = mustUseProperty, this.propertyName = name, this.type = type, this.sanitizeURL = sanitizeURL2, this.removeEmptyString = removeEmptyString;
       }
-      var properties2 = {}, reservedProps = [
+      var properties = {}, reservedProps = [
         "children",
         "dangerouslySetInnerHTML",
         // TODO: This prevents the assignment of defaultValue to regular
@@ -5803,7 +5803,7 @@ var require_react_dom_server_legacy_browser_development = __commonJS({
         "style"
       ];
       reservedProps.forEach(function(name) {
-        properties2[name] = new PropertyInfoRecord(
+        properties[name] = new PropertyInfoRecord(
           name,
           RESERVED,
           !1,
@@ -5818,7 +5818,7 @@ var require_react_dom_server_legacy_browser_development = __commonJS({
         );
       }), [["acceptCharset", "accept-charset"], ["className", "class"], ["htmlFor", "for"], ["httpEquiv", "http-equiv"]].forEach(function(_ref) {
         var name = _ref[0], attributeName = _ref[1];
-        properties2[name] = new PropertyInfoRecord(
+        properties[name] = new PropertyInfoRecord(
           name,
           STRING,
           !1,
@@ -5832,7 +5832,7 @@ var require_react_dom_server_legacy_browser_development = __commonJS({
           !1
         );
       }), ["contentEditable", "draggable", "spellCheck", "value"].forEach(function(name) {
-        properties2[name] = new PropertyInfoRecord(
+        properties[name] = new PropertyInfoRecord(
           name,
           BOOLEANISH_STRING,
           !1,
@@ -5846,7 +5846,7 @@ var require_react_dom_server_legacy_browser_development = __commonJS({
           !1
         );
       }), ["autoReverse", "externalResourcesRequired", "focusable", "preserveAlpha"].forEach(function(name) {
-        properties2[name] = new PropertyInfoRecord(
+        properties[name] = new PropertyInfoRecord(
           name,
           BOOLEANISH_STRING,
           !1,
@@ -5887,7 +5887,7 @@ var require_react_dom_server_legacy_browser_development = __commonJS({
         // Microdata
         "itemScope"
       ].forEach(function(name) {
-        properties2[name] = new PropertyInfoRecord(
+        properties[name] = new PropertyInfoRecord(
           name,
           BOOLEAN,
           !1,
@@ -5911,7 +5911,7 @@ var require_react_dom_server_legacy_browser_development = __commonJS({
         // you'll need to set attributeName to name.toLowerCase()
         // instead in the assignment below.
       ].forEach(function(name) {
-        properties2[name] = new PropertyInfoRecord(
+        properties[name] = new PropertyInfoRecord(
           name,
           BOOLEAN,
           !0,
@@ -5931,7 +5931,7 @@ var require_react_dom_server_legacy_browser_development = __commonJS({
         // you'll need to set attributeName to name.toLowerCase()
         // instead in the assignment below.
       ].forEach(function(name) {
-        properties2[name] = new PropertyInfoRecord(
+        properties[name] = new PropertyInfoRecord(
           name,
           OVERLOADED_BOOLEAN,
           !1,
@@ -5953,7 +5953,7 @@ var require_react_dom_server_legacy_browser_development = __commonJS({
         // you'll need to set attributeName to name.toLowerCase()
         // instead in the assignment below.
       ].forEach(function(name) {
-        properties2[name] = new PropertyInfoRecord(
+        properties[name] = new PropertyInfoRecord(
           name,
           POSITIVE_NUMERIC,
           !1,
@@ -5967,7 +5967,7 @@ var require_react_dom_server_legacy_browser_development = __commonJS({
           !1
         );
       }), ["rowSpan", "start"].forEach(function(name) {
-        properties2[name] = new PropertyInfoRecord(
+        properties[name] = new PropertyInfoRecord(
           name,
           NUMERIC,
           !1,
@@ -5981,7 +5981,7 @@ var require_react_dom_server_legacy_browser_development = __commonJS({
           !1
         );
       });
-      var CAMELIZE = /[\-\:]([a-z])/g, capitalize2 = function(token) {
+      var CAMELIZE = /[\-\:]([a-z])/g, capitalize = function(token) {
         return token[1].toUpperCase();
       };
       [
@@ -6062,8 +6062,8 @@ var require_react_dom_server_legacy_browser_development = __commonJS({
         // you'll need to set attributeName to name.toLowerCase()
         // instead in the assignment below.
       ].forEach(function(attributeName) {
-        var name = attributeName.replace(CAMELIZE, capitalize2);
-        properties2[name] = new PropertyInfoRecord(
+        var name = attributeName.replace(CAMELIZE, capitalize);
+        properties[name] = new PropertyInfoRecord(
           name,
           STRING,
           !1,
@@ -6086,8 +6086,8 @@ var require_react_dom_server_legacy_browser_development = __commonJS({
         // you'll need to set attributeName to name.toLowerCase()
         // instead in the assignment below.
       ].forEach(function(attributeName) {
-        var name = attributeName.replace(CAMELIZE, capitalize2);
-        properties2[name] = new PropertyInfoRecord(
+        var name = attributeName.replace(CAMELIZE, capitalize);
+        properties[name] = new PropertyInfoRecord(
           name,
           STRING,
           !1,
@@ -6106,8 +6106,8 @@ var require_react_dom_server_legacy_browser_development = __commonJS({
         // you'll need to set attributeName to name.toLowerCase()
         // instead in the assignment below.
       ].forEach(function(attributeName) {
-        var name = attributeName.replace(CAMELIZE, capitalize2);
-        properties2[name] = new PropertyInfoRecord(
+        var name = attributeName.replace(CAMELIZE, capitalize);
+        properties[name] = new PropertyInfoRecord(
           name,
           STRING,
           !1,
@@ -6119,7 +6119,7 @@ var require_react_dom_server_legacy_browser_development = __commonJS({
           !1
         );
       }), ["tabIndex", "crossOrigin"].forEach(function(attributeName) {
-        properties2[attributeName] = new PropertyInfoRecord(
+        properties[attributeName] = new PropertyInfoRecord(
           attributeName,
           STRING,
           !1,
@@ -6134,7 +6134,7 @@ var require_react_dom_server_legacy_browser_development = __commonJS({
         );
       });
       var xlinkHref = "xlinkHref";
-      properties2[xlinkHref] = new PropertyInfoRecord(
+      properties[xlinkHref] = new PropertyInfoRecord(
         "xlinkHref",
         STRING,
         !1,
@@ -6145,7 +6145,7 @@ var require_react_dom_server_legacy_browser_development = __commonJS({
         // sanitizeURL
         !1
       ), ["src", "href", "action", "formAction"].forEach(function(attributeName) {
-        properties2[attributeName] = new PropertyInfoRecord(
+        properties[attributeName] = new PropertyInfoRecord(
           attributeName,
           STRING,
           !1,
@@ -6896,7 +6896,7 @@ var require_react_dom_server_legacy_browser_development = __commonJS({
       };
       {
         var badVendoredStyleNamePattern = /^(?:webkit|moz|o)[A-Z]/, msPattern = /^-ms-/, hyphenPattern = /-(.)/g, badStyleValueWithSemicolonPattern = /;\s*$/, warnedStyleNames = {}, warnedStyleValues = {}, warnedForNaNValue = !1, warnedForInfinityValue = !1, camelize = function(string) {
-          return string.replace(hyphenPattern, function(_2, character) {
+          return string.replace(hyphenPattern, function(_, character) {
             return character.toUpperCase();
           });
         }, warnHyphenatedStyleName = function(name) {
@@ -7053,13 +7053,13 @@ var require_react_dom_server_legacy_browser_development = __commonJS({
         return styleNameCache.set(styleName, result), result;
       }
       var styleAttributeStart = ' style="', styleAssign = ":", styleSeparator = ";";
-      function pushStyle(target, responseState, style3) {
-        if (typeof style3 != "object")
+      function pushStyle(target, responseState, style) {
+        if (typeof style != "object")
           throw new Error("The `style` prop expects a mapping from style properties to values, not a string. For example, style={{marginRight: spacing + 'em'}} when using JSX.");
         var isFirst = !0;
-        for (var styleName in style3)
-          if (hasOwnProperty.call(style3, styleName)) {
-            var styleValue = style3[styleName];
+        for (var styleName in style)
+          if (hasOwnProperty.call(style, styleName)) {
+            var styleValue = style[styleName];
             if (!(styleValue == null || typeof styleValue == "boolean" || styleValue === "")) {
               var nameChunk = void 0, valueChunk = void 0, isCustomProperty = styleName.indexOf("--") === 0;
               isCustomProperty ? (nameChunk = escapeTextForBrowser(styleName), checkCSSPropertyStringCoercion(styleValue, styleName), valueChunk = escapeTextForBrowser(("" + styleValue).trim())) : (warnValidStyle$1(styleName, styleValue), nameChunk = processStyleName(styleName), typeof styleValue == "number" ? styleValue !== 0 && !hasOwnProperty.call(isUnitlessNumber, styleName) ? valueChunk = styleValue + "px" : valueChunk = "" + styleValue : (checkCSSPropertyStringCoercion(styleValue, styleName), valueChunk = escapeTextForBrowser(("" + styleValue).trim()))), isFirst ? (isFirst = !1, target.push(styleAttributeStart, nameChunk, styleAssign, valueChunk)) : target.push(styleSeparator, nameChunk, styleAssign, valueChunk);
@@ -7176,7 +7176,7 @@ var require_react_dom_server_legacy_browser_development = __commonJS({
       }
       function flattenOptionChildren(children) {
         var content = "";
-        return React43.Children.forEach(children, function(child) {
+        return React16.Children.forEach(children, function(child) {
           child != null && (content += child, !didWarnInvalidOptionChildren && typeof child != "string" && typeof child != "number" && (didWarnInvalidOptionChildren = !0, error("Cannot infer the option value of complex children. Pass a `value` prop or use a plain string as children to <option>.")));
         }), content;
       }
@@ -7682,7 +7682,7 @@ var require_react_dom_server_legacy_browser_development = __commonJS({
         var maybeIterator = MAYBE_ITERATOR_SYMBOL && maybeIterable[MAYBE_ITERATOR_SYMBOL] || maybeIterable[FAUX_ITERATOR_SYMBOL];
         return typeof maybeIterator == "function" ? maybeIterator : null;
       }
-      function getWrappedName2(outerType, innerType, wrapperName) {
+      function getWrappedName(outerType, innerType, wrapperName) {
         var displayName = outerType.displayName;
         if (displayName)
           return displayName;
@@ -7722,7 +7722,7 @@ var require_react_dom_server_legacy_browser_development = __commonJS({
               var provider = type;
               return getContextName(provider._context) + ".Provider";
             case REACT_FORWARD_REF_TYPE:
-              return getWrappedName2(type, type.render, "ForwardRef");
+              return getWrappedName(type, type.render, "ForwardRef");
             case REACT_MEMO_TYPE:
               var outerName = type.displayName || null;
               return outerName !== null ? outerName : getComponentNameFromType(type.type) || "Memo";
@@ -7936,7 +7936,7 @@ var require_react_dom_server_legacy_browser_development = __commonJS({
         } else
           ReactDebugCurrentFrame.setExtraStackFrame(null);
       }
-      function checkPropTypes(typeSpecs, values3, location2, componentName, element) {
+      function checkPropTypes(typeSpecs, values, location2, componentName, element) {
         {
           var has = Function.call.bind(hasOwnProperty);
           for (var typeSpecName in typeSpecs)
@@ -7947,7 +7947,7 @@ var require_react_dom_server_legacy_browser_development = __commonJS({
                   var err = Error((componentName || "React class") + ": " + location2 + " type `" + typeSpecName + "` is invalid; it must be a function, usually from the `prop-types` package, but received `" + typeof typeSpecs[typeSpecName] + "`.This often happens because of typos such as `PropTypes.function` instead of `PropTypes.func`.");
                   throw err.name = "Invariant Violation", err;
                 }
-                error$1 = typeSpecs[typeSpecName](values3, typeSpecName, componentName, location2, null, "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED");
+                error$1 = typeSpecs[typeSpecName](values, typeSpecName, componentName, location2, null, "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED");
               } catch (ex) {
                 error$1 = ex;
               }
@@ -8318,13 +8318,13 @@ Incoming: %s`, currentHookNameInDev, "[" + nextDeps.join(", ") + "]", "[" + prev
       function readContext$1(context) {
         return isInHookUserCodeInDev && error("Context can only be read while React is rendering. In classes, you can read it in the render method or getDerivedStateFromProps. In function components, you can read it directly in the function body, but not inside Hooks like useReducer() or useMemo()."), readContext(context);
       }
-      function useContext9(context) {
+      function useContext6(context) {
         return currentHookNameInDev = "useContext", resolveCurrentlyRenderingComponent(), readContext(context);
       }
       function basicStateReducer(state, action11) {
         return typeof action11 == "function" ? action11(state) : action11;
       }
-      function useState12(initialState) {
+      function useState7(initialState) {
         return currentHookNameInDev = "useState", useReducer(
           basicStateReducer,
           // useReducer has a special case to support lazy useState initializers
@@ -8358,7 +8358,7 @@ Incoming: %s`, currentHookNameInDev, "[" + nextDeps.join(", ") + "]", "[" + prev
           return [workInProgressHook.memoizedState, _dispatch];
         }
       }
-      function useMemo13(nextCreate, deps) {
+      function useMemo11(nextCreate, deps) {
         currentlyRenderingComponent = resolveCurrentlyRenderingComponent(), workInProgressHook = createWorkInProgressHook();
         var nextDeps = deps === void 0 ? null : deps;
         if (workInProgressHook !== null) {
@@ -8373,7 +8373,7 @@ Incoming: %s`, currentHookNameInDev, "[" + nextDeps.join(", ") + "]", "[" + prev
         var nextValue = nextCreate();
         return isInHookUserCodeInDev = !1, workInProgressHook.memoizedState = [nextValue, nextDeps], nextValue;
       }
-      function useRef16(initialValue) {
+      function useRef9(initialValue) {
         currentlyRenderingComponent = resolveCurrentlyRenderingComponent(), workInProgressHook = createWorkInProgressHook();
         var previousRef = workInProgressHook.memoizedState;
         if (previousRef === null) {
@@ -8384,7 +8384,7 @@ Incoming: %s`, currentHookNameInDev, "[" + nextDeps.join(", ") + "]", "[" + prev
         } else
           return previousRef;
       }
-      function useLayoutEffect4(create, inputs) {
+      function useLayoutEffect3(create, inputs) {
         currentHookNameInDev = "useLayoutEffect", error("useLayoutEffect does nothing on the server, because its effect cannot be encoded into the server renderer's output format. This will lead to a mismatch between the initial, non-hydrated UI and the intended UI. To avoid this, useLayoutEffect should only be used in components that render exclusively on the client. See https://reactjs.org/link/uselayouteffect-ssr for common fixes.");
       }
       function dispatchAction(componentIdentity, queue, action11) {
@@ -8407,8 +8407,8 @@ Incoming: %s`, currentHookNameInDev, "[" + nextDeps.join(", ") + "]", "[" + prev
           }
         }
       }
-      function useCallback8(callback, deps) {
-        return useMemo13(function() {
+      function useCallback5(callback, deps) {
+        return useMemo11(function() {
           return callback;
         }, deps);
       }
@@ -8440,14 +8440,14 @@ Incoming: %s`, currentHookNameInDev, "[" + nextDeps.join(", ") + "]", "[" + prev
       }
       var Dispatcher = {
         readContext: readContext$1,
-        useContext: useContext9,
-        useMemo: useMemo13,
+        useContext: useContext6,
+        useMemo: useMemo11,
         useReducer,
-        useRef: useRef16,
-        useState: useState12,
+        useRef: useRef9,
+        useState: useState7,
         useInsertionEffect: noop,
-        useLayoutEffect: useLayoutEffect4,
-        useCallback: useCallback8,
+        useLayoutEffect: useLayoutEffect3,
+        useCallback: useCallback5,
         // useImperativeHandle is not run in the server environment
         useImperativeHandle: noop,
         // Effects are not run in the server environment.
@@ -8744,9 +8744,9 @@ Error generating stack: ` + x.message + `
       }
       function resolveDefaultProps(Component4, baseProps) {
         if (Component4 && Component4.defaultProps) {
-          var props = assign({}, baseProps), defaultProps2 = Component4.defaultProps;
-          for (var propName in defaultProps2)
-            props[propName] === void 0 && (props[propName] = defaultProps2[propName]);
+          var props = assign({}, baseProps), defaultProps = Component4.defaultProps;
+          for (var propName in defaultProps)
+            props[propName] === void 0 && (props[propName] = defaultProps[propName]);
           return props;
         }
         return baseProps;
@@ -9079,14 +9079,14 @@ Error generating stack: ` + x.message + `
           }
           case COMPLETED: {
             segment.status = FLUSHED;
-            for (var r2 = !0, chunks = segment.chunks, chunkIdx = 0, children = segment.children, childIdx = 0; childIdx < children.length; childIdx++) {
+            for (var r = !0, chunks = segment.chunks, chunkIdx = 0, children = segment.children, childIdx = 0; childIdx < children.length; childIdx++) {
               for (var nextChild = children[childIdx]; chunkIdx < nextChild.index; chunkIdx++)
                 writeChunk(destination, chunks[chunkIdx]);
-              r2 = flushSegment(request, destination, nextChild);
+              r = flushSegment(request, destination, nextChild);
             }
             for (; chunkIdx < chunks.length - 1; chunkIdx++)
               writeChunk(destination, chunks[chunkIdx]);
-            return chunkIdx < chunks.length && (r2 = writeChunkAndReturn(destination, chunks[chunkIdx])), r2;
+            return chunkIdx < chunks.length && (r = writeChunkAndReturn(destination, chunks[chunkIdx])), r;
           }
           default:
             throw new Error("Aborted, errored or already flushed boundaries should not be flushed again. This is a bug in React.");
@@ -9263,7 +9263,7 @@ var require_react_dom_server_browser_development = __commonJS({
     "use strict";
     (function() {
       "use strict";
-      var React43 = require_react(), ReactVersion = "18.2.0", ReactSharedInternals = React43.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED;
+      var React16 = require_react(), ReactVersion = "18.2.0", ReactSharedInternals = React16.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED;
       function warn(format) {
         {
           for (var _len = arguments.length, args = new Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++)
@@ -9376,12 +9376,12 @@ var require_react_dom_server_browser_development = __commonJS({
         }
       }
       function getPropertyInfo(name) {
-        return properties2.hasOwnProperty(name) ? properties2[name] : null;
+        return properties.hasOwnProperty(name) ? properties[name] : null;
       }
       function PropertyInfoRecord(name, type, mustUseProperty, attributeName, attributeNamespace, sanitizeURL2, removeEmptyString) {
         this.acceptsBooleans = type === BOOLEANISH_STRING || type === BOOLEAN || type === OVERLOADED_BOOLEAN, this.attributeName = attributeName, this.attributeNamespace = attributeNamespace, this.mustUseProperty = mustUseProperty, this.propertyName = name, this.type = type, this.sanitizeURL = sanitizeURL2, this.removeEmptyString = removeEmptyString;
       }
-      var properties2 = {}, reservedProps = [
+      var properties = {}, reservedProps = [
         "children",
         "dangerouslySetInnerHTML",
         // TODO: This prevents the assignment of defaultValue to regular
@@ -9395,7 +9395,7 @@ var require_react_dom_server_browser_development = __commonJS({
         "style"
       ];
       reservedProps.forEach(function(name) {
-        properties2[name] = new PropertyInfoRecord(
+        properties[name] = new PropertyInfoRecord(
           name,
           RESERVED,
           !1,
@@ -9410,7 +9410,7 @@ var require_react_dom_server_browser_development = __commonJS({
         );
       }), [["acceptCharset", "accept-charset"], ["className", "class"], ["htmlFor", "for"], ["httpEquiv", "http-equiv"]].forEach(function(_ref) {
         var name = _ref[0], attributeName = _ref[1];
-        properties2[name] = new PropertyInfoRecord(
+        properties[name] = new PropertyInfoRecord(
           name,
           STRING,
           !1,
@@ -9424,7 +9424,7 @@ var require_react_dom_server_browser_development = __commonJS({
           !1
         );
       }), ["contentEditable", "draggable", "spellCheck", "value"].forEach(function(name) {
-        properties2[name] = new PropertyInfoRecord(
+        properties[name] = new PropertyInfoRecord(
           name,
           BOOLEANISH_STRING,
           !1,
@@ -9438,7 +9438,7 @@ var require_react_dom_server_browser_development = __commonJS({
           !1
         );
       }), ["autoReverse", "externalResourcesRequired", "focusable", "preserveAlpha"].forEach(function(name) {
-        properties2[name] = new PropertyInfoRecord(
+        properties[name] = new PropertyInfoRecord(
           name,
           BOOLEANISH_STRING,
           !1,
@@ -9479,7 +9479,7 @@ var require_react_dom_server_browser_development = __commonJS({
         // Microdata
         "itemScope"
       ].forEach(function(name) {
-        properties2[name] = new PropertyInfoRecord(
+        properties[name] = new PropertyInfoRecord(
           name,
           BOOLEAN,
           !1,
@@ -9503,7 +9503,7 @@ var require_react_dom_server_browser_development = __commonJS({
         // you'll need to set attributeName to name.toLowerCase()
         // instead in the assignment below.
       ].forEach(function(name) {
-        properties2[name] = new PropertyInfoRecord(
+        properties[name] = new PropertyInfoRecord(
           name,
           BOOLEAN,
           !0,
@@ -9523,7 +9523,7 @@ var require_react_dom_server_browser_development = __commonJS({
         // you'll need to set attributeName to name.toLowerCase()
         // instead in the assignment below.
       ].forEach(function(name) {
-        properties2[name] = new PropertyInfoRecord(
+        properties[name] = new PropertyInfoRecord(
           name,
           OVERLOADED_BOOLEAN,
           !1,
@@ -9545,7 +9545,7 @@ var require_react_dom_server_browser_development = __commonJS({
         // you'll need to set attributeName to name.toLowerCase()
         // instead in the assignment below.
       ].forEach(function(name) {
-        properties2[name] = new PropertyInfoRecord(
+        properties[name] = new PropertyInfoRecord(
           name,
           POSITIVE_NUMERIC,
           !1,
@@ -9559,7 +9559,7 @@ var require_react_dom_server_browser_development = __commonJS({
           !1
         );
       }), ["rowSpan", "start"].forEach(function(name) {
-        properties2[name] = new PropertyInfoRecord(
+        properties[name] = new PropertyInfoRecord(
           name,
           NUMERIC,
           !1,
@@ -9573,7 +9573,7 @@ var require_react_dom_server_browser_development = __commonJS({
           !1
         );
       });
-      var CAMELIZE = /[\-\:]([a-z])/g, capitalize2 = function(token) {
+      var CAMELIZE = /[\-\:]([a-z])/g, capitalize = function(token) {
         return token[1].toUpperCase();
       };
       [
@@ -9654,8 +9654,8 @@ var require_react_dom_server_browser_development = __commonJS({
         // you'll need to set attributeName to name.toLowerCase()
         // instead in the assignment below.
       ].forEach(function(attributeName) {
-        var name = attributeName.replace(CAMELIZE, capitalize2);
-        properties2[name] = new PropertyInfoRecord(
+        var name = attributeName.replace(CAMELIZE, capitalize);
+        properties[name] = new PropertyInfoRecord(
           name,
           STRING,
           !1,
@@ -9678,8 +9678,8 @@ var require_react_dom_server_browser_development = __commonJS({
         // you'll need to set attributeName to name.toLowerCase()
         // instead in the assignment below.
       ].forEach(function(attributeName) {
-        var name = attributeName.replace(CAMELIZE, capitalize2);
-        properties2[name] = new PropertyInfoRecord(
+        var name = attributeName.replace(CAMELIZE, capitalize);
+        properties[name] = new PropertyInfoRecord(
           name,
           STRING,
           !1,
@@ -9698,8 +9698,8 @@ var require_react_dom_server_browser_development = __commonJS({
         // you'll need to set attributeName to name.toLowerCase()
         // instead in the assignment below.
       ].forEach(function(attributeName) {
-        var name = attributeName.replace(CAMELIZE, capitalize2);
-        properties2[name] = new PropertyInfoRecord(
+        var name = attributeName.replace(CAMELIZE, capitalize);
+        properties[name] = new PropertyInfoRecord(
           name,
           STRING,
           !1,
@@ -9711,7 +9711,7 @@ var require_react_dom_server_browser_development = __commonJS({
           !1
         );
       }), ["tabIndex", "crossOrigin"].forEach(function(attributeName) {
-        properties2[attributeName] = new PropertyInfoRecord(
+        properties[attributeName] = new PropertyInfoRecord(
           attributeName,
           STRING,
           !1,
@@ -9726,7 +9726,7 @@ var require_react_dom_server_browser_development = __commonJS({
         );
       });
       var xlinkHref = "xlinkHref";
-      properties2[xlinkHref] = new PropertyInfoRecord(
+      properties[xlinkHref] = new PropertyInfoRecord(
         "xlinkHref",
         STRING,
         !1,
@@ -9737,7 +9737,7 @@ var require_react_dom_server_browser_development = __commonJS({
         // sanitizeURL
         !1
       ), ["src", "href", "action", "formAction"].forEach(function(attributeName) {
-        properties2[attributeName] = new PropertyInfoRecord(
+        properties[attributeName] = new PropertyInfoRecord(
           attributeName,
           STRING,
           !1,
@@ -10488,7 +10488,7 @@ var require_react_dom_server_browser_development = __commonJS({
       };
       {
         var badVendoredStyleNamePattern = /^(?:webkit|moz|o)[A-Z]/, msPattern = /^-ms-/, hyphenPattern = /-(.)/g, badStyleValueWithSemicolonPattern = /;\s*$/, warnedStyleNames = {}, warnedStyleValues = {}, warnedForNaNValue = !1, warnedForInfinityValue = !1, camelize = function(string) {
-          return string.replace(hyphenPattern, function(_2, character) {
+          return string.replace(hyphenPattern, function(_, character) {
             return character.toUpperCase();
           });
         }, warnHyphenatedStyleName = function(name) {
@@ -10649,13 +10649,13 @@ var require_react_dom_server_browser_development = __commonJS({
         return styleNameCache.set(styleName, result), result;
       }
       var styleAttributeStart = stringToPrecomputedChunk(' style="'), styleAssign = stringToPrecomputedChunk(":"), styleSeparator = stringToPrecomputedChunk(";");
-      function pushStyle(target, responseState, style3) {
-        if (typeof style3 != "object")
+      function pushStyle(target, responseState, style) {
+        if (typeof style != "object")
           throw new Error("The `style` prop expects a mapping from style properties to values, not a string. For example, style={{marginRight: spacing + 'em'}} when using JSX.");
         var isFirst = !0;
-        for (var styleName in style3)
-          if (hasOwnProperty.call(style3, styleName)) {
-            var styleValue = style3[styleName];
+        for (var styleName in style)
+          if (hasOwnProperty.call(style, styleName)) {
+            var styleValue = style[styleName];
             if (!(styleValue == null || typeof styleValue == "boolean" || styleValue === "")) {
               var nameChunk = void 0, valueChunk = void 0, isCustomProperty = styleName.indexOf("--") === 0;
               isCustomProperty ? (nameChunk = stringToChunk(escapeTextForBrowser(styleName)), checkCSSPropertyStringCoercion(styleValue, styleName), valueChunk = stringToChunk(escapeTextForBrowser(("" + styleValue).trim()))) : (warnValidStyle$1(styleName, styleValue), nameChunk = processStyleName(styleName), typeof styleValue == "number" ? styleValue !== 0 && !hasOwnProperty.call(isUnitlessNumber, styleName) ? valueChunk = stringToChunk(styleValue + "px") : valueChunk = stringToChunk("" + styleValue) : (checkCSSPropertyStringCoercion(styleValue, styleName), valueChunk = stringToChunk(escapeTextForBrowser(("" + styleValue).trim())))), isFirst ? (isFirst = !1, target.push(styleAttributeStart, nameChunk, styleAssign, valueChunk)) : target.push(styleSeparator, nameChunk, styleAssign, valueChunk);
@@ -10772,7 +10772,7 @@ var require_react_dom_server_browser_development = __commonJS({
       }
       function flattenOptionChildren(children) {
         var content = "";
-        return React43.Children.forEach(children, function(child) {
+        return React16.Children.forEach(children, function(child) {
           child != null && (content += child, !didWarnInvalidOptionChildren && typeof child != "string" && typeof child != "number" && (didWarnInvalidOptionChildren = !0, error("Cannot infer the option value of complex children. Pass a `value` prop or use a plain string as children to <option>.")));
         }), content;
       }
@@ -11234,7 +11234,7 @@ var require_react_dom_server_browser_development = __commonJS({
         var maybeIterator = MAYBE_ITERATOR_SYMBOL && maybeIterable[MAYBE_ITERATOR_SYMBOL] || maybeIterable[FAUX_ITERATOR_SYMBOL];
         return typeof maybeIterator == "function" ? maybeIterator : null;
       }
-      function getWrappedName2(outerType, innerType, wrapperName) {
+      function getWrappedName(outerType, innerType, wrapperName) {
         var displayName = outerType.displayName;
         if (displayName)
           return displayName;
@@ -11274,7 +11274,7 @@ var require_react_dom_server_browser_development = __commonJS({
               var provider = type;
               return getContextName(provider._context) + ".Provider";
             case REACT_FORWARD_REF_TYPE:
-              return getWrappedName2(type, type.render, "ForwardRef");
+              return getWrappedName(type, type.render, "ForwardRef");
             case REACT_MEMO_TYPE:
               var outerName = type.displayName || null;
               return outerName !== null ? outerName : getComponentNameFromType(type.type) || "Memo";
@@ -11488,7 +11488,7 @@ var require_react_dom_server_browser_development = __commonJS({
         } else
           ReactDebugCurrentFrame.setExtraStackFrame(null);
       }
-      function checkPropTypes(typeSpecs, values3, location2, componentName, element) {
+      function checkPropTypes(typeSpecs, values, location2, componentName, element) {
         {
           var has = Function.call.bind(hasOwnProperty);
           for (var typeSpecName in typeSpecs)
@@ -11499,7 +11499,7 @@ var require_react_dom_server_browser_development = __commonJS({
                   var err = Error((componentName || "React class") + ": " + location2 + " type `" + typeSpecName + "` is invalid; it must be a function, usually from the `prop-types` package, but received `" + typeof typeSpecs[typeSpecName] + "`.This often happens because of typos such as `PropTypes.function` instead of `PropTypes.func`.");
                   throw err.name = "Invariant Violation", err;
                 }
-                error$1 = typeSpecs[typeSpecName](values3, typeSpecName, componentName, location2, null, "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED");
+                error$1 = typeSpecs[typeSpecName](values, typeSpecName, componentName, location2, null, "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED");
               } catch (ex) {
                 error$1 = ex;
               }
@@ -11870,13 +11870,13 @@ Incoming: %s`, currentHookNameInDev, "[" + nextDeps.join(", ") + "]", "[" + prev
       function readContext$1(context) {
         return isInHookUserCodeInDev && error("Context can only be read while React is rendering. In classes, you can read it in the render method or getDerivedStateFromProps. In function components, you can read it directly in the function body, but not inside Hooks like useReducer() or useMemo()."), readContext(context);
       }
-      function useContext9(context) {
+      function useContext6(context) {
         return currentHookNameInDev = "useContext", resolveCurrentlyRenderingComponent(), readContext(context);
       }
       function basicStateReducer(state, action11) {
         return typeof action11 == "function" ? action11(state) : action11;
       }
-      function useState12(initialState) {
+      function useState7(initialState) {
         return currentHookNameInDev = "useState", useReducer(
           basicStateReducer,
           // useReducer has a special case to support lazy useState initializers
@@ -11910,7 +11910,7 @@ Incoming: %s`, currentHookNameInDev, "[" + nextDeps.join(", ") + "]", "[" + prev
           return [workInProgressHook.memoizedState, _dispatch];
         }
       }
-      function useMemo13(nextCreate, deps) {
+      function useMemo11(nextCreate, deps) {
         currentlyRenderingComponent = resolveCurrentlyRenderingComponent(), workInProgressHook = createWorkInProgressHook();
         var nextDeps = deps === void 0 ? null : deps;
         if (workInProgressHook !== null) {
@@ -11925,7 +11925,7 @@ Incoming: %s`, currentHookNameInDev, "[" + nextDeps.join(", ") + "]", "[" + prev
         var nextValue = nextCreate();
         return isInHookUserCodeInDev = !1, workInProgressHook.memoizedState = [nextValue, nextDeps], nextValue;
       }
-      function useRef16(initialValue) {
+      function useRef9(initialValue) {
         currentlyRenderingComponent = resolveCurrentlyRenderingComponent(), workInProgressHook = createWorkInProgressHook();
         var previousRef = workInProgressHook.memoizedState;
         if (previousRef === null) {
@@ -11936,7 +11936,7 @@ Incoming: %s`, currentHookNameInDev, "[" + nextDeps.join(", ") + "]", "[" + prev
         } else
           return previousRef;
       }
-      function useLayoutEffect4(create, inputs) {
+      function useLayoutEffect3(create, inputs) {
         currentHookNameInDev = "useLayoutEffect", error("useLayoutEffect does nothing on the server, because its effect cannot be encoded into the server renderer's output format. This will lead to a mismatch between the initial, non-hydrated UI and the intended UI. To avoid this, useLayoutEffect should only be used in components that render exclusively on the client. See https://reactjs.org/link/uselayouteffect-ssr for common fixes.");
       }
       function dispatchAction(componentIdentity, queue, action11) {
@@ -11959,8 +11959,8 @@ Incoming: %s`, currentHookNameInDev, "[" + nextDeps.join(", ") + "]", "[" + prev
           }
         }
       }
-      function useCallback8(callback, deps) {
-        return useMemo13(function() {
+      function useCallback5(callback, deps) {
+        return useMemo11(function() {
           return callback;
         }, deps);
       }
@@ -11992,14 +11992,14 @@ Incoming: %s`, currentHookNameInDev, "[" + nextDeps.join(", ") + "]", "[" + prev
       }
       var Dispatcher = {
         readContext: readContext$1,
-        useContext: useContext9,
-        useMemo: useMemo13,
+        useContext: useContext6,
+        useMemo: useMemo11,
         useReducer,
-        useRef: useRef16,
-        useState: useState12,
+        useRef: useRef9,
+        useState: useState7,
         useInsertionEffect: noop,
-        useLayoutEffect: useLayoutEffect4,
-        useCallback: useCallback8,
+        useLayoutEffect: useLayoutEffect3,
+        useCallback: useCallback5,
         // useImperativeHandle is not run in the server environment
         useImperativeHandle: noop,
         // Effects are not run in the server environment.
@@ -12296,9 +12296,9 @@ Error generating stack: ` + x.message + `
       }
       function resolveDefaultProps(Component4, baseProps) {
         if (Component4 && Component4.defaultProps) {
-          var props = assign({}, baseProps), defaultProps2 = Component4.defaultProps;
-          for (var propName in defaultProps2)
-            props[propName] === void 0 && (props[propName] = defaultProps2[propName]);
+          var props = assign({}, baseProps), defaultProps = Component4.defaultProps;
+          for (var propName in defaultProps)
+            props[propName] === void 0 && (props[propName] = defaultProps[propName]);
           return props;
         }
         return baseProps;
@@ -12631,14 +12631,14 @@ Error generating stack: ` + x.message + `
           }
           case COMPLETED: {
             segment.status = FLUSHED;
-            for (var r2 = !0, chunks = segment.chunks, chunkIdx = 0, children = segment.children, childIdx = 0; childIdx < children.length; childIdx++) {
+            for (var r = !0, chunks = segment.chunks, chunkIdx = 0, children = segment.children, childIdx = 0; childIdx < children.length; childIdx++) {
               for (var nextChild = children[childIdx]; chunkIdx < nextChild.index; chunkIdx++)
                 writeChunk(destination, chunks[chunkIdx]);
-              r2 = flushSegment(request, destination, nextChild);
+              r = flushSegment(request, destination, nextChild);
             }
             for (; chunkIdx < chunks.length - 1; chunkIdx++)
               writeChunk(destination, chunks[chunkIdx]);
-            return chunkIdx < chunks.length && (r2 = writeChunkAndReturn(destination, chunks[chunkIdx])), r2;
+            return chunkIdx < chunks.length && (r = writeChunkAndReturn(destination, chunks[chunkIdx])), r;
           }
           default:
             throw new Error("Aborted, errored or already flushed boundaries should not be flushed again. This is a bug in React.");
@@ -12835,14 +12835,14 @@ var require_react_jsx_runtime_development = __commonJS({
     "use strict";
     (function() {
       "use strict";
-      var React43 = require_react(), REACT_ELEMENT_TYPE = Symbol.for("react.element"), REACT_PORTAL_TYPE = Symbol.for("react.portal"), REACT_FRAGMENT_TYPE = Symbol.for("react.fragment"), REACT_STRICT_MODE_TYPE = Symbol.for("react.strict_mode"), REACT_PROFILER_TYPE = Symbol.for("react.profiler"), REACT_PROVIDER_TYPE = Symbol.for("react.provider"), REACT_CONTEXT_TYPE = Symbol.for("react.context"), REACT_FORWARD_REF_TYPE = Symbol.for("react.forward_ref"), REACT_SUSPENSE_TYPE = Symbol.for("react.suspense"), REACT_SUSPENSE_LIST_TYPE = Symbol.for("react.suspense_list"), REACT_MEMO_TYPE = Symbol.for("react.memo"), REACT_LAZY_TYPE = Symbol.for("react.lazy"), REACT_OFFSCREEN_TYPE = Symbol.for("react.offscreen"), MAYBE_ITERATOR_SYMBOL = Symbol.iterator, FAUX_ITERATOR_SYMBOL = "@@iterator";
+      var React16 = require_react(), REACT_ELEMENT_TYPE = Symbol.for("react.element"), REACT_PORTAL_TYPE = Symbol.for("react.portal"), REACT_FRAGMENT_TYPE = Symbol.for("react.fragment"), REACT_STRICT_MODE_TYPE = Symbol.for("react.strict_mode"), REACT_PROFILER_TYPE = Symbol.for("react.profiler"), REACT_PROVIDER_TYPE = Symbol.for("react.provider"), REACT_CONTEXT_TYPE = Symbol.for("react.context"), REACT_FORWARD_REF_TYPE = Symbol.for("react.forward_ref"), REACT_SUSPENSE_TYPE = Symbol.for("react.suspense"), REACT_SUSPENSE_LIST_TYPE = Symbol.for("react.suspense_list"), REACT_MEMO_TYPE = Symbol.for("react.memo"), REACT_LAZY_TYPE = Symbol.for("react.lazy"), REACT_OFFSCREEN_TYPE = Symbol.for("react.offscreen"), MAYBE_ITERATOR_SYMBOL = Symbol.iterator, FAUX_ITERATOR_SYMBOL = "@@iterator";
       function getIteratorFn(maybeIterable) {
         if (maybeIterable === null || typeof maybeIterable != "object")
           return null;
         var maybeIterator = MAYBE_ITERATOR_SYMBOL && maybeIterable[MAYBE_ITERATOR_SYMBOL] || maybeIterable[FAUX_ITERATOR_SYMBOL];
         return typeof maybeIterator == "function" ? maybeIterator : null;
       }
-      var ReactSharedInternals = React43.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED;
+      var ReactSharedInternals = React16.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED;
       function error(format) {
         {
           for (var _len2 = arguments.length, args = new Array(_len2 > 1 ? _len2 - 1 : 0), _key2 = 1; _key2 < _len2; _key2++)
@@ -12869,7 +12869,7 @@ var require_react_jsx_runtime_development = __commonJS({
         // with.
         type.$$typeof === REACT_MODULE_REFERENCE || type.getModuleId !== void 0));
       }
-      function getWrappedName2(outerType, innerType, wrapperName) {
+      function getWrappedName(outerType, innerType, wrapperName) {
         var displayName = outerType.displayName;
         if (displayName)
           return displayName;
@@ -12909,7 +12909,7 @@ var require_react_jsx_runtime_development = __commonJS({
               var provider = type;
               return getContextName(provider._context) + ".Provider";
             case REACT_FORWARD_REF_TYPE:
-              return getWrappedName2(type, type.render, "ForwardRef");
+              return getWrappedName(type, type.render, "ForwardRef");
             case REACT_MEMO_TYPE:
               var outerName = type.displayName || null;
               return outerName !== null ? outerName : getComponentNameFromType(type.type) || "Memo";
@@ -13120,7 +13120,7 @@ var require_react_jsx_runtime_development = __commonJS({
         } else
           ReactDebugCurrentFrame.setExtraStackFrame(null);
       }
-      function checkPropTypes(typeSpecs, values3, location2, componentName, element) {
+      function checkPropTypes(typeSpecs, values, location2, componentName, element) {
         {
           var has = Function.call.bind(hasOwnProperty);
           for (var typeSpecName in typeSpecs)
@@ -13131,7 +13131,7 @@ var require_react_jsx_runtime_development = __commonJS({
                   var err = Error((componentName || "React class") + ": " + location2 + " type `" + typeSpecName + "` is invalid; it must be a function, usually from the `prop-types` package, but received `" + typeof typeSpecs[typeSpecName] + "`.This often happens because of typos such as `PropTypes.function` instead of `PropTypes.func`.");
                   throw err.name = "Invariant Violation", err;
                 }
-                error$1 = typeSpecs[typeSpecName](values3, typeSpecName, componentName, location2, null, "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED");
+                error$1 = typeSpecs[typeSpecName](values, typeSpecName, componentName, location2, null, "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED");
               } catch (ex) {
                 error$1 = ex;
               }
@@ -13186,8 +13186,8 @@ var require_react_jsx_runtime_development = __commonJS({
         }
         return config.key !== void 0;
       }
-      function warnIfStringRefCannotBeAutoConverted(config, self2) {
-        if (typeof config.ref == "string" && ReactCurrentOwner.current && self2 && ReactCurrentOwner.current.stateNode !== self2) {
+      function warnIfStringRefCannotBeAutoConverted(config, self) {
+        if (typeof config.ref == "string" && ReactCurrentOwner.current && self && ReactCurrentOwner.current.stateNode !== self) {
           var componentName = getComponentNameFromType(ReactCurrentOwner.current.type);
           didWarnAboutStringRefs[componentName] || (error('Component "%s" contains the string ref "%s". Support for string refs will be removed in a future major release. This case cannot be automatically converted to an arrow function. We ask you to manually fix this case by using useRef() or createRef() instead. Learn more about using refs safely here: https://reactjs.org/link/strict-mode-string-ref', getComponentNameFromType(ReactCurrentOwner.current.type), config.ref), didWarnAboutStringRefs[componentName] = !0);
         }
@@ -13214,7 +13214,7 @@ var require_react_jsx_runtime_development = __commonJS({
           });
         }
       }
-      var ReactElement = function(type, key, ref, self2, source, owner, props) {
+      var ReactElement = function(type, key, ref, self, source, owner, props) {
         var element = {
           // This tag allows us to uniquely identify this as a React Element
           $$typeof: REACT_ELEMENT_TYPE,
@@ -13235,7 +13235,7 @@ var require_react_jsx_runtime_development = __commonJS({
           configurable: !1,
           enumerable: !1,
           writable: !1,
-          value: self2
+          value: self
         }), Object.defineProperty(element, "_source", {
           configurable: !1,
           enumerable: !1,
@@ -13243,22 +13243,22 @@ var require_react_jsx_runtime_development = __commonJS({
           value: source
         }), Object.freeze && (Object.freeze(element.props), Object.freeze(element)), element;
       };
-      function jsxDEV31(type, config, maybeKey, source, self2) {
+      function jsxDEV30(type, config, maybeKey, source, self) {
         {
           var propName, props = {}, key = null, ref = null;
-          maybeKey !== void 0 && (checkKeyStringCoercion(maybeKey), key = "" + maybeKey), hasValidKey(config) && (checkKeyStringCoercion(config.key), key = "" + config.key), hasValidRef(config) && (ref = config.ref, warnIfStringRefCannotBeAutoConverted(config, self2));
+          maybeKey !== void 0 && (checkKeyStringCoercion(maybeKey), key = "" + maybeKey), hasValidKey(config) && (checkKeyStringCoercion(config.key), key = "" + config.key), hasValidRef(config) && (ref = config.ref, warnIfStringRefCannotBeAutoConverted(config, self));
           for (propName in config)
             hasOwnProperty.call(config, propName) && !RESERVED_PROPS.hasOwnProperty(propName) && (props[propName] = config[propName]);
           if (type && type.defaultProps) {
-            var defaultProps2 = type.defaultProps;
-            for (propName in defaultProps2)
-              props[propName] === void 0 && (props[propName] = defaultProps2[propName]);
+            var defaultProps = type.defaultProps;
+            for (propName in defaultProps)
+              props[propName] === void 0 && (props[propName] = defaultProps[propName]);
           }
           if (key || ref) {
             var displayName = typeof type == "function" ? type.displayName || type.name || "Unknown" : type;
             key && defineKeyPropWarningGetter(props, displayName), ref && defineRefPropWarningGetter(props, displayName);
           }
-          return ReactElement(type, key, ref, self2, source, ReactCurrentOwner.current, props);
+          return ReactElement(type, key, ref, self, source, ReactCurrentOwner.current, props);
         }
       }
       var ReactCurrentOwner$1 = ReactSharedInternals.ReactCurrentOwner, ReactDebugCurrentFrame$1 = ReactSharedInternals.ReactDebugCurrentFrame;
@@ -13271,7 +13271,7 @@ var require_react_jsx_runtime_development = __commonJS({
       }
       var propTypesMisspellWarningShown;
       propTypesMisspellWarningShown = !1;
-      function isValidElement7(object) {
+      function isValidElement2(object) {
         return typeof object == "object" && object !== null && object.$$typeof === REACT_ELEMENT_TYPE;
       }
       function getDeclarationErrorAddendum() {
@@ -13330,15 +13330,15 @@ Check the top-level render call using <` + parentName + ">.");
           if (isArray(node))
             for (var i = 0; i < node.length; i++) {
               var child = node[i];
-              isValidElement7(child) && validateExplicitKey(child, parentType);
+              isValidElement2(child) && validateExplicitKey(child, parentType);
             }
-          else if (isValidElement7(node))
+          else if (isValidElement2(node))
             node._store && (node._store.validated = !0);
           else if (node) {
             var iteratorFn = getIteratorFn(node);
             if (typeof iteratorFn == "function" && iteratorFn !== node.entries)
               for (var iterator = iteratorFn.call(node), step; !(step = iterator.next()).done; )
-                isValidElement7(step.value) && validateExplicitKey(step.value, parentType);
+                isValidElement2(step.value) && validateExplicitKey(step.value, parentType);
           }
         }
       }
@@ -13379,7 +13379,7 @@ Check the top-level render call using <` + parentName + ">.");
           fragment.ref !== null && (setCurrentlyValidatingElement$1(fragment), error("Invalid attribute `ref` supplied to `React.Fragment`."), setCurrentlyValidatingElement$1(null));
         }
       }
-      function jsxWithValidation(type, props, key, isStaticChildren, source, self2) {
+      function jsxWithValidation(type, props, key, isStaticChildren, source, self) {
         {
           var validType = isValidElementType(type);
           if (!validType) {
@@ -13390,7 +13390,7 @@ Check the top-level render call using <` + parentName + ">.");
             var typeString;
             type === null ? typeString = "null" : isArray(type) ? typeString = "array" : type !== void 0 && type.$$typeof === REACT_ELEMENT_TYPE ? (typeString = "<" + (getComponentNameFromType(type.type) || "Unknown") + " />", info = " Did you accidentally export a JSX literal instead of a component?") : typeString = typeof type, error("React.jsx: type is invalid -- expected a string (for built-in components) or a class/function (for composite components) but got: %s.%s", typeString, info);
           }
-          var element = jsxDEV31(type, props, key, source, self2);
+          var element = jsxDEV30(type, props, key, source, self);
           if (element == null)
             return element;
           if (validType) {
@@ -13415,8 +13415,8 @@ Check the top-level render call using <` + parentName + ">.");
       function jsxWithValidationDynamic(type, props, key) {
         return jsxWithValidation(type, props, key, !1);
       }
-      var jsx17 = jsxWithValidationDynamic, jsxs10 = jsxWithValidationStatic;
-      exports.Fragment = REACT_FRAGMENT_TYPE, exports.jsx = jsx17, exports.jsxs = jsxs10;
+      var jsx16 = jsxWithValidationDynamic, jsxs10 = jsxWithValidationStatic;
+      exports.Fragment = REACT_FRAGMENT_TYPE, exports.jsx = jsx16, exports.jsxs = jsxs10;
     })();
   }
 });
@@ -13729,14 +13729,14 @@ var require_react_jsx_dev_runtime_development = __commonJS({
     "use strict";
     (function() {
       "use strict";
-      var React43 = require_react(), REACT_ELEMENT_TYPE = Symbol.for("react.element"), REACT_PORTAL_TYPE = Symbol.for("react.portal"), REACT_FRAGMENT_TYPE = Symbol.for("react.fragment"), REACT_STRICT_MODE_TYPE = Symbol.for("react.strict_mode"), REACT_PROFILER_TYPE = Symbol.for("react.profiler"), REACT_PROVIDER_TYPE = Symbol.for("react.provider"), REACT_CONTEXT_TYPE = Symbol.for("react.context"), REACT_FORWARD_REF_TYPE = Symbol.for("react.forward_ref"), REACT_SUSPENSE_TYPE = Symbol.for("react.suspense"), REACT_SUSPENSE_LIST_TYPE = Symbol.for("react.suspense_list"), REACT_MEMO_TYPE = Symbol.for("react.memo"), REACT_LAZY_TYPE = Symbol.for("react.lazy"), REACT_OFFSCREEN_TYPE = Symbol.for("react.offscreen"), MAYBE_ITERATOR_SYMBOL = Symbol.iterator, FAUX_ITERATOR_SYMBOL = "@@iterator";
+      var React16 = require_react(), REACT_ELEMENT_TYPE = Symbol.for("react.element"), REACT_PORTAL_TYPE = Symbol.for("react.portal"), REACT_FRAGMENT_TYPE = Symbol.for("react.fragment"), REACT_STRICT_MODE_TYPE = Symbol.for("react.strict_mode"), REACT_PROFILER_TYPE = Symbol.for("react.profiler"), REACT_PROVIDER_TYPE = Symbol.for("react.provider"), REACT_CONTEXT_TYPE = Symbol.for("react.context"), REACT_FORWARD_REF_TYPE = Symbol.for("react.forward_ref"), REACT_SUSPENSE_TYPE = Symbol.for("react.suspense"), REACT_SUSPENSE_LIST_TYPE = Symbol.for("react.suspense_list"), REACT_MEMO_TYPE = Symbol.for("react.memo"), REACT_LAZY_TYPE = Symbol.for("react.lazy"), REACT_OFFSCREEN_TYPE = Symbol.for("react.offscreen"), MAYBE_ITERATOR_SYMBOL = Symbol.iterator, FAUX_ITERATOR_SYMBOL = "@@iterator";
       function getIteratorFn(maybeIterable) {
         if (maybeIterable === null || typeof maybeIterable != "object")
           return null;
         var maybeIterator = MAYBE_ITERATOR_SYMBOL && maybeIterable[MAYBE_ITERATOR_SYMBOL] || maybeIterable[FAUX_ITERATOR_SYMBOL];
         return typeof maybeIterator == "function" ? maybeIterator : null;
       }
-      var ReactSharedInternals = React43.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED;
+      var ReactSharedInternals = React16.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED;
       function error(format) {
         {
           for (var _len2 = arguments.length, args = new Array(_len2 > 1 ? _len2 - 1 : 0), _key2 = 1; _key2 < _len2; _key2++)
@@ -13763,7 +13763,7 @@ var require_react_jsx_dev_runtime_development = __commonJS({
         // with.
         type.$$typeof === REACT_MODULE_REFERENCE || type.getModuleId !== void 0));
       }
-      function getWrappedName2(outerType, innerType, wrapperName) {
+      function getWrappedName(outerType, innerType, wrapperName) {
         var displayName = outerType.displayName;
         if (displayName)
           return displayName;
@@ -13803,7 +13803,7 @@ var require_react_jsx_dev_runtime_development = __commonJS({
               var provider = type;
               return getContextName(provider._context) + ".Provider";
             case REACT_FORWARD_REF_TYPE:
-              return getWrappedName2(type, type.render, "ForwardRef");
+              return getWrappedName(type, type.render, "ForwardRef");
             case REACT_MEMO_TYPE:
               var outerName = type.displayName || null;
               return outerName !== null ? outerName : getComponentNameFromType(type.type) || "Memo";
@@ -14014,7 +14014,7 @@ var require_react_jsx_dev_runtime_development = __commonJS({
         } else
           ReactDebugCurrentFrame.setExtraStackFrame(null);
       }
-      function checkPropTypes(typeSpecs, values3, location2, componentName, element) {
+      function checkPropTypes(typeSpecs, values, location2, componentName, element) {
         {
           var has = Function.call.bind(hasOwnProperty);
           for (var typeSpecName in typeSpecs)
@@ -14025,7 +14025,7 @@ var require_react_jsx_dev_runtime_development = __commonJS({
                   var err = Error((componentName || "React class") + ": " + location2 + " type `" + typeSpecName + "` is invalid; it must be a function, usually from the `prop-types` package, but received `" + typeof typeSpecs[typeSpecName] + "`.This often happens because of typos such as `PropTypes.function` instead of `PropTypes.func`.");
                   throw err.name = "Invariant Violation", err;
                 }
-                error$1 = typeSpecs[typeSpecName](values3, typeSpecName, componentName, location2, null, "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED");
+                error$1 = typeSpecs[typeSpecName](values, typeSpecName, componentName, location2, null, "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED");
               } catch (ex) {
                 error$1 = ex;
               }
@@ -14080,8 +14080,8 @@ var require_react_jsx_dev_runtime_development = __commonJS({
         }
         return config.key !== void 0;
       }
-      function warnIfStringRefCannotBeAutoConverted(config, self2) {
-        if (typeof config.ref == "string" && ReactCurrentOwner.current && self2 && ReactCurrentOwner.current.stateNode !== self2) {
+      function warnIfStringRefCannotBeAutoConverted(config, self) {
+        if (typeof config.ref == "string" && ReactCurrentOwner.current && self && ReactCurrentOwner.current.stateNode !== self) {
           var componentName = getComponentNameFromType(ReactCurrentOwner.current.type);
           didWarnAboutStringRefs[componentName] || (error('Component "%s" contains the string ref "%s". Support for string refs will be removed in a future major release. This case cannot be automatically converted to an arrow function. We ask you to manually fix this case by using useRef() or createRef() instead. Learn more about using refs safely here: https://reactjs.org/link/strict-mode-string-ref', getComponentNameFromType(ReactCurrentOwner.current.type), config.ref), didWarnAboutStringRefs[componentName] = !0);
         }
@@ -14108,7 +14108,7 @@ var require_react_jsx_dev_runtime_development = __commonJS({
           });
         }
       }
-      var ReactElement = function(type, key, ref, self2, source, owner, props) {
+      var ReactElement = function(type, key, ref, self, source, owner, props) {
         var element = {
           // This tag allows us to uniquely identify this as a React Element
           $$typeof: REACT_ELEMENT_TYPE,
@@ -14129,7 +14129,7 @@ var require_react_jsx_dev_runtime_development = __commonJS({
           configurable: !1,
           enumerable: !1,
           writable: !1,
-          value: self2
+          value: self
         }), Object.defineProperty(element, "_source", {
           configurable: !1,
           enumerable: !1,
@@ -14137,22 +14137,22 @@ var require_react_jsx_dev_runtime_development = __commonJS({
           value: source
         }), Object.freeze && (Object.freeze(element.props), Object.freeze(element)), element;
       };
-      function jsxDEV31(type, config, maybeKey, source, self2) {
+      function jsxDEV30(type, config, maybeKey, source, self) {
         {
           var propName, props = {}, key = null, ref = null;
-          maybeKey !== void 0 && (checkKeyStringCoercion(maybeKey), key = "" + maybeKey), hasValidKey(config) && (checkKeyStringCoercion(config.key), key = "" + config.key), hasValidRef(config) && (ref = config.ref, warnIfStringRefCannotBeAutoConverted(config, self2));
+          maybeKey !== void 0 && (checkKeyStringCoercion(maybeKey), key = "" + maybeKey), hasValidKey(config) && (checkKeyStringCoercion(config.key), key = "" + config.key), hasValidRef(config) && (ref = config.ref, warnIfStringRefCannotBeAutoConverted(config, self));
           for (propName in config)
             hasOwnProperty.call(config, propName) && !RESERVED_PROPS.hasOwnProperty(propName) && (props[propName] = config[propName]);
           if (type && type.defaultProps) {
-            var defaultProps2 = type.defaultProps;
-            for (propName in defaultProps2)
-              props[propName] === void 0 && (props[propName] = defaultProps2[propName]);
+            var defaultProps = type.defaultProps;
+            for (propName in defaultProps)
+              props[propName] === void 0 && (props[propName] = defaultProps[propName]);
           }
           if (key || ref) {
             var displayName = typeof type == "function" ? type.displayName || type.name || "Unknown" : type;
             key && defineKeyPropWarningGetter(props, displayName), ref && defineRefPropWarningGetter(props, displayName);
           }
-          return ReactElement(type, key, ref, self2, source, ReactCurrentOwner.current, props);
+          return ReactElement(type, key, ref, self, source, ReactCurrentOwner.current, props);
         }
       }
       var ReactCurrentOwner$1 = ReactSharedInternals.ReactCurrentOwner, ReactDebugCurrentFrame$1 = ReactSharedInternals.ReactDebugCurrentFrame;
@@ -14165,7 +14165,7 @@ var require_react_jsx_dev_runtime_development = __commonJS({
       }
       var propTypesMisspellWarningShown;
       propTypesMisspellWarningShown = !1;
-      function isValidElement7(object) {
+      function isValidElement2(object) {
         return typeof object == "object" && object !== null && object.$$typeof === REACT_ELEMENT_TYPE;
       }
       function getDeclarationErrorAddendum() {
@@ -14224,15 +14224,15 @@ Check the top-level render call using <` + parentName + ">.");
           if (isArray(node))
             for (var i = 0; i < node.length; i++) {
               var child = node[i];
-              isValidElement7(child) && validateExplicitKey(child, parentType);
+              isValidElement2(child) && validateExplicitKey(child, parentType);
             }
-          else if (isValidElement7(node))
+          else if (isValidElement2(node))
             node._store && (node._store.validated = !0);
           else if (node) {
             var iteratorFn = getIteratorFn(node);
             if (typeof iteratorFn == "function" && iteratorFn !== node.entries)
               for (var iterator = iteratorFn.call(node), step; !(step = iterator.next()).done; )
-                isValidElement7(step.value) && validateExplicitKey(step.value, parentType);
+                isValidElement2(step.value) && validateExplicitKey(step.value, parentType);
           }
         }
       }
@@ -14273,7 +14273,7 @@ Check the top-level render call using <` + parentName + ">.");
           fragment.ref !== null && (setCurrentlyValidatingElement$1(fragment), error("Invalid attribute `ref` supplied to `React.Fragment`."), setCurrentlyValidatingElement$1(null));
         }
       }
-      function jsxWithValidation(type, props, key, isStaticChildren, source, self2) {
+      function jsxWithValidation(type, props, key, isStaticChildren, source, self) {
         {
           var validType = isValidElementType(type);
           if (!validType) {
@@ -14284,7 +14284,7 @@ Check the top-level render call using <` + parentName + ">.");
             var typeString;
             type === null ? typeString = "null" : isArray(type) ? typeString = "array" : type !== void 0 && type.$$typeof === REACT_ELEMENT_TYPE ? (typeString = "<" + (getComponentNameFromType(type.type) || "Unknown") + " />", info = " Did you accidentally export a JSX literal instead of a component?") : typeString = typeof type, error("React.jsx: type is invalid -- expected a string (for built-in components) or a class/function (for composite components) but got: %s.%s", typeString, info);
           }
-          var element = jsxDEV31(type, props, key, source, self2);
+          var element = jsxDEV30(type, props, key, source, self);
           if (element == null)
             return element;
           if (validType) {
@@ -14339,7 +14339,7 @@ var require_cjs = __commonJS({
       return Array.isArray(val) ? [] : {};
     }
     function cloneUnlessOtherwiseSpecified(value, options) {
-      return options.clone !== !1 && options.isMergeableObject(value) ? deepmerge3(emptyTarget(value), value, options) : value;
+      return options.clone !== !1 && options.isMergeableObject(value) ? deepmerge2(emptyTarget(value), value, options) : value;
     }
     function defaultArrayMerge(target, source, options) {
       return target.concat(source).map(function(element) {
@@ -14348,9 +14348,9 @@ var require_cjs = __commonJS({
     }
     function getMergeFunction(key, options) {
       if (!options.customMerge)
-        return deepmerge3;
+        return deepmerge2;
       var customMerge = options.customMerge(key);
-      return typeof customMerge == "function" ? customMerge : deepmerge3;
+      return typeof customMerge == "function" ? customMerge : deepmerge2;
     }
     function getEnumerableOwnPropertySymbols(target) {
       return Object.getOwnPropertySymbols ? Object.getOwnPropertySymbols(target).filter(function(symbol) {
@@ -14378,2983 +14378,20 @@ var require_cjs = __commonJS({
         propertyIsUnsafe(target, key) || (propertyIsOnObject(target, key) && options.isMergeableObject(source[key]) ? destination[key] = getMergeFunction(key, options)(target[key], source[key], options) : destination[key] = cloneUnlessOtherwiseSpecified(source[key], options));
       }), destination;
     }
-    function deepmerge3(target, source, options) {
+    function deepmerge2(target, source, options) {
       options = options || {}, options.arrayMerge = options.arrayMerge || defaultArrayMerge, options.isMergeableObject = options.isMergeableObject || isMergeableObject, options.cloneUnlessOtherwiseSpecified = cloneUnlessOtherwiseSpecified;
       var sourceIsArray = Array.isArray(source), targetIsArray = Array.isArray(target), sourceAndTargetTypesMatch = sourceIsArray === targetIsArray;
       return sourceAndTargetTypesMatch ? sourceIsArray ? options.arrayMerge(target, source, options) : mergeObject(target, source, options) : cloneUnlessOtherwiseSpecified(source, options);
     }
-    deepmerge3.all = function(array, options) {
+    deepmerge2.all = function(array, options) {
       if (!Array.isArray(array))
         throw new Error("first argument should be an array");
       return array.reduce(function(prev, next) {
-        return deepmerge3(prev, next, options);
+        return deepmerge2(prev, next, options);
       }, {});
     };
-    var deepmerge_1 = deepmerge3;
+    var deepmerge_1 = deepmerge2;
     module.exports = deepmerge_1;
-  }
-});
-
-// node_modules/prop-types/node_modules/react-is/cjs/react-is.development.js
-var require_react_is_development = __commonJS({
-  "node_modules/prop-types/node_modules/react-is/cjs/react-is.development.js"(exports) {
-    "use strict";
-    (function() {
-      "use strict";
-      var hasSymbol = typeof Symbol == "function" && Symbol.for, REACT_ELEMENT_TYPE = hasSymbol ? Symbol.for("react.element") : 60103, REACT_PORTAL_TYPE = hasSymbol ? Symbol.for("react.portal") : 60106, REACT_FRAGMENT_TYPE = hasSymbol ? Symbol.for("react.fragment") : 60107, REACT_STRICT_MODE_TYPE = hasSymbol ? Symbol.for("react.strict_mode") : 60108, REACT_PROFILER_TYPE = hasSymbol ? Symbol.for("react.profiler") : 60114, REACT_PROVIDER_TYPE = hasSymbol ? Symbol.for("react.provider") : 60109, REACT_CONTEXT_TYPE = hasSymbol ? Symbol.for("react.context") : 60110, REACT_ASYNC_MODE_TYPE = hasSymbol ? Symbol.for("react.async_mode") : 60111, REACT_CONCURRENT_MODE_TYPE = hasSymbol ? Symbol.for("react.concurrent_mode") : 60111, REACT_FORWARD_REF_TYPE = hasSymbol ? Symbol.for("react.forward_ref") : 60112, REACT_SUSPENSE_TYPE = hasSymbol ? Symbol.for("react.suspense") : 60113, REACT_SUSPENSE_LIST_TYPE = hasSymbol ? Symbol.for("react.suspense_list") : 60120, REACT_MEMO_TYPE = hasSymbol ? Symbol.for("react.memo") : 60115, REACT_LAZY_TYPE = hasSymbol ? Symbol.for("react.lazy") : 60116, REACT_BLOCK_TYPE = hasSymbol ? Symbol.for("react.block") : 60121, REACT_FUNDAMENTAL_TYPE = hasSymbol ? Symbol.for("react.fundamental") : 60117, REACT_RESPONDER_TYPE = hasSymbol ? Symbol.for("react.responder") : 60118, REACT_SCOPE_TYPE = hasSymbol ? Symbol.for("react.scope") : 60119;
-      function isValidElementType(type) {
-        return typeof type == "string" || typeof type == "function" || // Note: its typeof might be other than 'symbol' or 'number' if it's a polyfill.
-        type === REACT_FRAGMENT_TYPE || type === REACT_CONCURRENT_MODE_TYPE || type === REACT_PROFILER_TYPE || type === REACT_STRICT_MODE_TYPE || type === REACT_SUSPENSE_TYPE || type === REACT_SUSPENSE_LIST_TYPE || typeof type == "object" && type !== null && (type.$$typeof === REACT_LAZY_TYPE || type.$$typeof === REACT_MEMO_TYPE || type.$$typeof === REACT_PROVIDER_TYPE || type.$$typeof === REACT_CONTEXT_TYPE || type.$$typeof === REACT_FORWARD_REF_TYPE || type.$$typeof === REACT_FUNDAMENTAL_TYPE || type.$$typeof === REACT_RESPONDER_TYPE || type.$$typeof === REACT_SCOPE_TYPE || type.$$typeof === REACT_BLOCK_TYPE);
-      }
-      function typeOf(object) {
-        if (typeof object == "object" && object !== null) {
-          var $$typeof = object.$$typeof;
-          switch ($$typeof) {
-            case REACT_ELEMENT_TYPE:
-              var type = object.type;
-              switch (type) {
-                case REACT_ASYNC_MODE_TYPE:
-                case REACT_CONCURRENT_MODE_TYPE:
-                case REACT_FRAGMENT_TYPE:
-                case REACT_PROFILER_TYPE:
-                case REACT_STRICT_MODE_TYPE:
-                case REACT_SUSPENSE_TYPE:
-                  return type;
-                default:
-                  var $$typeofType = type && type.$$typeof;
-                  switch ($$typeofType) {
-                    case REACT_CONTEXT_TYPE:
-                    case REACT_FORWARD_REF_TYPE:
-                    case REACT_LAZY_TYPE:
-                    case REACT_MEMO_TYPE:
-                    case REACT_PROVIDER_TYPE:
-                      return $$typeofType;
-                    default:
-                      return $$typeof;
-                  }
-              }
-            case REACT_PORTAL_TYPE:
-              return $$typeof;
-          }
-        }
-      }
-      var AsyncMode = REACT_ASYNC_MODE_TYPE, ConcurrentMode = REACT_CONCURRENT_MODE_TYPE, ContextConsumer = REACT_CONTEXT_TYPE, ContextProvider = REACT_PROVIDER_TYPE, Element2 = REACT_ELEMENT_TYPE, ForwardRef2 = REACT_FORWARD_REF_TYPE, Fragment16 = REACT_FRAGMENT_TYPE, Lazy = REACT_LAZY_TYPE, Memo2 = REACT_MEMO_TYPE, Portal = REACT_PORTAL_TYPE, Profiler = REACT_PROFILER_TYPE, StrictMode = REACT_STRICT_MODE_TYPE, Suspense7 = REACT_SUSPENSE_TYPE, hasWarnedAboutDeprecatedIsAsyncMode = !1;
-      function isAsyncMode(object) {
-        return hasWarnedAboutDeprecatedIsAsyncMode || (hasWarnedAboutDeprecatedIsAsyncMode = !0, console.warn("The ReactIs.isAsyncMode() alias has been deprecated, and will be removed in React 17+. Update your code to use ReactIs.isConcurrentMode() instead. It has the exact same API.")), isConcurrentMode(object) || typeOf(object) === REACT_ASYNC_MODE_TYPE;
-      }
-      function isConcurrentMode(object) {
-        return typeOf(object) === REACT_CONCURRENT_MODE_TYPE;
-      }
-      function isContextConsumer(object) {
-        return typeOf(object) === REACT_CONTEXT_TYPE;
-      }
-      function isContextProvider(object) {
-        return typeOf(object) === REACT_PROVIDER_TYPE;
-      }
-      function isElement(object) {
-        return typeof object == "object" && object !== null && object.$$typeof === REACT_ELEMENT_TYPE;
-      }
-      function isForwardRef(object) {
-        return typeOf(object) === REACT_FORWARD_REF_TYPE;
-      }
-      function isFragment2(object) {
-        return typeOf(object) === REACT_FRAGMENT_TYPE;
-      }
-      function isLazy(object) {
-        return typeOf(object) === REACT_LAZY_TYPE;
-      }
-      function isMemo(object) {
-        return typeOf(object) === REACT_MEMO_TYPE;
-      }
-      function isPortal(object) {
-        return typeOf(object) === REACT_PORTAL_TYPE;
-      }
-      function isProfiler(object) {
-        return typeOf(object) === REACT_PROFILER_TYPE;
-      }
-      function isStrictMode(object) {
-        return typeOf(object) === REACT_STRICT_MODE_TYPE;
-      }
-      function isSuspense(object) {
-        return typeOf(object) === REACT_SUSPENSE_TYPE;
-      }
-      exports.AsyncMode = AsyncMode, exports.ConcurrentMode = ConcurrentMode, exports.ContextConsumer = ContextConsumer, exports.ContextProvider = ContextProvider, exports.Element = Element2, exports.ForwardRef = ForwardRef2, exports.Fragment = Fragment16, exports.Lazy = Lazy, exports.Memo = Memo2, exports.Portal = Portal, exports.Profiler = Profiler, exports.StrictMode = StrictMode, exports.Suspense = Suspense7, exports.isAsyncMode = isAsyncMode, exports.isConcurrentMode = isConcurrentMode, exports.isContextConsumer = isContextConsumer, exports.isContextProvider = isContextProvider, exports.isElement = isElement, exports.isForwardRef = isForwardRef, exports.isFragment = isFragment2, exports.isLazy = isLazy, exports.isMemo = isMemo, exports.isPortal = isPortal, exports.isProfiler = isProfiler, exports.isStrictMode = isStrictMode, exports.isSuspense = isSuspense, exports.isValidElementType = isValidElementType, exports.typeOf = typeOf;
-    })();
-  }
-});
-
-// node_modules/prop-types/node_modules/react-is/index.js
-var require_react_is = __commonJS({
-  "node_modules/prop-types/node_modules/react-is/index.js"(exports, module) {
-    "use strict";
-    module.exports = require_react_is_development();
-  }
-});
-
-// node_modules/object-assign/index.js
-var require_object_assign = __commonJS({
-  "node_modules/object-assign/index.js"(exports, module) {
-    "use strict";
-    var getOwnPropertySymbols = Object.getOwnPropertySymbols, hasOwnProperty = Object.prototype.hasOwnProperty, propIsEnumerable = Object.prototype.propertyIsEnumerable;
-    function toObject(val) {
-      if (val == null)
-        throw new TypeError("Object.assign cannot be called with null or undefined");
-      return Object(val);
-    }
-    function shouldUseNative() {
-      try {
-        if (!Object.assign)
-          return !1;
-        var test1 = new String("abc");
-        if (test1[5] = "de", Object.getOwnPropertyNames(test1)[0] === "5")
-          return !1;
-        for (var test2 = {}, i = 0; i < 10; i++)
-          test2["_" + String.fromCharCode(i)] = i;
-        var order2 = Object.getOwnPropertyNames(test2).map(function(n) {
-          return test2[n];
-        });
-        if (order2.join("") !== "0123456789")
-          return !1;
-        var test3 = {};
-        return "abcdefghijklmnopqrst".split("").forEach(function(letter) {
-          test3[letter] = letter;
-        }), Object.keys(Object.assign({}, test3)).join("") === "abcdefghijklmnopqrst";
-      } catch {
-        return !1;
-      }
-    }
-    module.exports = shouldUseNative() ? Object.assign : function(target, source) {
-      for (var from, to = toObject(target), symbols, s = 1; s < arguments.length; s++) {
-        from = Object(arguments[s]);
-        for (var key in from)
-          hasOwnProperty.call(from, key) && (to[key] = from[key]);
-        if (getOwnPropertySymbols) {
-          symbols = getOwnPropertySymbols(from);
-          for (var i = 0; i < symbols.length; i++)
-            propIsEnumerable.call(from, symbols[i]) && (to[symbols[i]] = from[symbols[i]]);
-        }
-      }
-      return to;
-    };
-  }
-});
-
-// node_modules/prop-types/lib/ReactPropTypesSecret.js
-var require_ReactPropTypesSecret = __commonJS({
-  "node_modules/prop-types/lib/ReactPropTypesSecret.js"(exports, module) {
-    "use strict";
-    var ReactPropTypesSecret = "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED";
-    module.exports = ReactPropTypesSecret;
-  }
-});
-
-// node_modules/prop-types/lib/has.js
-var require_has = __commonJS({
-  "node_modules/prop-types/lib/has.js"(exports, module) {
-    module.exports = Function.call.bind(Object.prototype.hasOwnProperty);
-  }
-});
-
-// node_modules/prop-types/checkPropTypes.js
-var require_checkPropTypes = __commonJS({
-  "node_modules/prop-types/checkPropTypes.js"(exports, module) {
-    "use strict";
-    var printWarning = function() {
-    };
-    ReactPropTypesSecret = require_ReactPropTypesSecret(), loggedTypeFailures = {}, has = require_has(), printWarning = function(text2) {
-      var message = "Warning: " + text2;
-      typeof console < "u" && console.error(message);
-      try {
-        throw new Error(message);
-      } catch {
-      }
-    };
-    var ReactPropTypesSecret, loggedTypeFailures, has;
-    function checkPropTypes(typeSpecs, values3, location2, componentName, getStack) {
-      for (var typeSpecName in typeSpecs)
-        if (has(typeSpecs, typeSpecName)) {
-          var error;
-          try {
-            if (typeof typeSpecs[typeSpecName] != "function") {
-              var err = Error(
-                (componentName || "React class") + ": " + location2 + " type `" + typeSpecName + "` is invalid; it must be a function, usually from the `prop-types` package, but received `" + typeof typeSpecs[typeSpecName] + "`.This often happens because of typos such as `PropTypes.function` instead of `PropTypes.func`."
-              );
-              throw err.name = "Invariant Violation", err;
-            }
-            error = typeSpecs[typeSpecName](values3, typeSpecName, componentName, location2, null, ReactPropTypesSecret);
-          } catch (ex) {
-            error = ex;
-          }
-          if (error && !(error instanceof Error) && printWarning(
-            (componentName || "React class") + ": type specification of " + location2 + " `" + typeSpecName + "` is invalid; the type checker function must return `null` or an `Error` but returned a " + typeof error + ". You may have forgotten to pass an argument to the type checker creator (arrayOf, instanceOf, objectOf, oneOf, oneOfType, and shape all require an argument)."
-          ), error instanceof Error && !(error.message in loggedTypeFailures)) {
-            loggedTypeFailures[error.message] = !0;
-            var stack = getStack ? getStack() : "";
-            printWarning(
-              "Failed " + location2 + " type: " + error.message + (stack ?? "")
-            );
-          }
-        }
-    }
-    checkPropTypes.resetWarningCache = function() {
-      loggedTypeFailures = {};
-    };
-    module.exports = checkPropTypes;
-  }
-});
-
-// node_modules/prop-types/factoryWithTypeCheckers.js
-var require_factoryWithTypeCheckers = __commonJS({
-  "node_modules/prop-types/factoryWithTypeCheckers.js"(exports, module) {
-    "use strict";
-    var ReactIs = require_react_is(), assign = require_object_assign(), ReactPropTypesSecret = require_ReactPropTypesSecret(), has = require_has(), checkPropTypes = require_checkPropTypes(), printWarning = function() {
-    };
-    printWarning = function(text2) {
-      var message = "Warning: " + text2;
-      typeof console < "u" && console.error(message);
-      try {
-        throw new Error(message);
-      } catch {
-      }
-    };
-    function emptyFunctionThatReturnsNull() {
-      return null;
-    }
-    module.exports = function(isValidElement7, throwOnDirectAccess) {
-      var ITERATOR_SYMBOL = typeof Symbol == "function" && Symbol.iterator, FAUX_ITERATOR_SYMBOL = "@@iterator";
-      function getIteratorFn(maybeIterable) {
-        var iteratorFn = maybeIterable && (ITERATOR_SYMBOL && maybeIterable[ITERATOR_SYMBOL] || maybeIterable[FAUX_ITERATOR_SYMBOL]);
-        if (typeof iteratorFn == "function")
-          return iteratorFn;
-      }
-      var ANONYMOUS = "<<anonymous>>", ReactPropTypes = {
-        array: createPrimitiveTypeChecker("array"),
-        bigint: createPrimitiveTypeChecker("bigint"),
-        bool: createPrimitiveTypeChecker("boolean"),
-        func: createPrimitiveTypeChecker("function"),
-        number: createPrimitiveTypeChecker("number"),
-        object: createPrimitiveTypeChecker("object"),
-        string: createPrimitiveTypeChecker("string"),
-        symbol: createPrimitiveTypeChecker("symbol"),
-        any: createAnyTypeChecker(),
-        arrayOf: createArrayOfTypeChecker,
-        element: createElementTypeChecker(),
-        elementType: createElementTypeTypeChecker(),
-        instanceOf: createInstanceTypeChecker,
-        node: createNodeChecker(),
-        objectOf: createObjectOfTypeChecker,
-        oneOf: createEnumTypeChecker,
-        oneOfType: createUnionTypeChecker,
-        shape: createShapeTypeChecker,
-        exact: createStrictShapeTypeChecker
-      };
-      function is(x, y) {
-        return x === y ? x !== 0 || 1 / x === 1 / y : x !== x && y !== y;
-      }
-      function PropTypeError(message, data) {
-        this.message = message, this.data = data && typeof data == "object" ? data : {}, this.stack = "";
-      }
-      PropTypeError.prototype = Error.prototype;
-      function createChainableTypeChecker(validate) {
-        var manualPropTypeCallCache = {}, manualPropTypeWarningCount = 0;
-        function checkType(isRequired, props, propName, componentName, location2, propFullName, secret) {
-          if (componentName = componentName || ANONYMOUS, propFullName = propFullName || propName, secret !== ReactPropTypesSecret) {
-            if (throwOnDirectAccess) {
-              var err = new Error(
-                "Calling PropTypes validators directly is not supported by the `prop-types` package. Use `PropTypes.checkPropTypes()` to call them. Read more at http://fb.me/use-check-prop-types"
-              );
-              throw err.name = "Invariant Violation", err;
-            } else if (typeof console < "u") {
-              var cacheKey = componentName + ":" + propName;
-              !manualPropTypeCallCache[cacheKey] && // Avoid spamming the console because they are often not actionable except for lib authors
-              manualPropTypeWarningCount < 3 && (printWarning(
-                "You are manually calling a React.PropTypes validation function for the `" + propFullName + "` prop on `" + componentName + "`. This is deprecated and will throw in the standalone `prop-types` package. You may be seeing this warning due to a third-party PropTypes library. See https://fb.me/react-warning-dont-call-proptypes for details."
-              ), manualPropTypeCallCache[cacheKey] = !0, manualPropTypeWarningCount++);
-            }
-          }
-          return props[propName] == null ? isRequired ? props[propName] === null ? new PropTypeError("The " + location2 + " `" + propFullName + "` is marked as required " + ("in `" + componentName + "`, but its value is `null`.")) : new PropTypeError("The " + location2 + " `" + propFullName + "` is marked as required in " + ("`" + componentName + "`, but its value is `undefined`.")) : null : validate(props, propName, componentName, location2, propFullName);
-        }
-        var chainedCheckType = checkType.bind(null, !1);
-        return chainedCheckType.isRequired = checkType.bind(null, !0), chainedCheckType;
-      }
-      function createPrimitiveTypeChecker(expectedType) {
-        function validate(props, propName, componentName, location2, propFullName, secret) {
-          var propValue = props[propName], propType = getPropType(propValue);
-          if (propType !== expectedType) {
-            var preciseType = getPreciseType(propValue);
-            return new PropTypeError(
-              "Invalid " + location2 + " `" + propFullName + "` of type " + ("`" + preciseType + "` supplied to `" + componentName + "`, expected ") + ("`" + expectedType + "`."),
-              { expectedType }
-            );
-          }
-          return null;
-        }
-        return createChainableTypeChecker(validate);
-      }
-      function createAnyTypeChecker() {
-        return createChainableTypeChecker(emptyFunctionThatReturnsNull);
-      }
-      function createArrayOfTypeChecker(typeChecker) {
-        function validate(props, propName, componentName, location2, propFullName) {
-          if (typeof typeChecker != "function")
-            return new PropTypeError("Property `" + propFullName + "` of component `" + componentName + "` has invalid PropType notation inside arrayOf.");
-          var propValue = props[propName];
-          if (!Array.isArray(propValue)) {
-            var propType = getPropType(propValue);
-            return new PropTypeError("Invalid " + location2 + " `" + propFullName + "` of type " + ("`" + propType + "` supplied to `" + componentName + "`, expected an array."));
-          }
-          for (var i = 0; i < propValue.length; i++) {
-            var error = typeChecker(propValue, i, componentName, location2, propFullName + "[" + i + "]", ReactPropTypesSecret);
-            if (error instanceof Error)
-              return error;
-          }
-          return null;
-        }
-        return createChainableTypeChecker(validate);
-      }
-      function createElementTypeChecker() {
-        function validate(props, propName, componentName, location2, propFullName) {
-          var propValue = props[propName];
-          if (!isValidElement7(propValue)) {
-            var propType = getPropType(propValue);
-            return new PropTypeError("Invalid " + location2 + " `" + propFullName + "` of type " + ("`" + propType + "` supplied to `" + componentName + "`, expected a single ReactElement."));
-          }
-          return null;
-        }
-        return createChainableTypeChecker(validate);
-      }
-      function createElementTypeTypeChecker() {
-        function validate(props, propName, componentName, location2, propFullName) {
-          var propValue = props[propName];
-          if (!ReactIs.isValidElementType(propValue)) {
-            var propType = getPropType(propValue);
-            return new PropTypeError("Invalid " + location2 + " `" + propFullName + "` of type " + ("`" + propType + "` supplied to `" + componentName + "`, expected a single ReactElement type."));
-          }
-          return null;
-        }
-        return createChainableTypeChecker(validate);
-      }
-      function createInstanceTypeChecker(expectedClass) {
-        function validate(props, propName, componentName, location2, propFullName) {
-          if (!(props[propName] instanceof expectedClass)) {
-            var expectedClassName = expectedClass.name || ANONYMOUS, actualClassName = getClassName(props[propName]);
-            return new PropTypeError("Invalid " + location2 + " `" + propFullName + "` of type " + ("`" + actualClassName + "` supplied to `" + componentName + "`, expected ") + ("instance of `" + expectedClassName + "`."));
-          }
-          return null;
-        }
-        return createChainableTypeChecker(validate);
-      }
-      function createEnumTypeChecker(expectedValues) {
-        if (!Array.isArray(expectedValues))
-          return arguments.length > 1 ? printWarning(
-            "Invalid arguments supplied to oneOf, expected an array, got " + arguments.length + " arguments. A common mistake is to write oneOf(x, y, z) instead of oneOf([x, y, z])."
-          ) : printWarning("Invalid argument supplied to oneOf, expected an array."), emptyFunctionThatReturnsNull;
-        function validate(props, propName, componentName, location2, propFullName) {
-          for (var propValue = props[propName], i = 0; i < expectedValues.length; i++)
-            if (is(propValue, expectedValues[i]))
-              return null;
-          var valuesString = JSON.stringify(expectedValues, function(key, value) {
-            var type = getPreciseType(value);
-            return type === "symbol" ? String(value) : value;
-          });
-          return new PropTypeError("Invalid " + location2 + " `" + propFullName + "` of value `" + String(propValue) + "` " + ("supplied to `" + componentName + "`, expected one of " + valuesString + "."));
-        }
-        return createChainableTypeChecker(validate);
-      }
-      function createObjectOfTypeChecker(typeChecker) {
-        function validate(props, propName, componentName, location2, propFullName) {
-          if (typeof typeChecker != "function")
-            return new PropTypeError("Property `" + propFullName + "` of component `" + componentName + "` has invalid PropType notation inside objectOf.");
-          var propValue = props[propName], propType = getPropType(propValue);
-          if (propType !== "object")
-            return new PropTypeError("Invalid " + location2 + " `" + propFullName + "` of type " + ("`" + propType + "` supplied to `" + componentName + "`, expected an object."));
-          for (var key in propValue)
-            if (has(propValue, key)) {
-              var error = typeChecker(propValue, key, componentName, location2, propFullName + "." + key, ReactPropTypesSecret);
-              if (error instanceof Error)
-                return error;
-            }
-          return null;
-        }
-        return createChainableTypeChecker(validate);
-      }
-      function createUnionTypeChecker(arrayOfTypeCheckers) {
-        if (!Array.isArray(arrayOfTypeCheckers))
-          return printWarning("Invalid argument supplied to oneOfType, expected an instance of array."), emptyFunctionThatReturnsNull;
-        for (var i = 0; i < arrayOfTypeCheckers.length; i++) {
-          var checker = arrayOfTypeCheckers[i];
-          if (typeof checker != "function")
-            return printWarning(
-              "Invalid argument supplied to oneOfType. Expected an array of check functions, but received " + getPostfixForTypeWarning(checker) + " at index " + i + "."
-            ), emptyFunctionThatReturnsNull;
-        }
-        function validate(props, propName, componentName, location2, propFullName) {
-          for (var expectedTypes = [], i2 = 0; i2 < arrayOfTypeCheckers.length; i2++) {
-            var checker2 = arrayOfTypeCheckers[i2], checkerResult = checker2(props, propName, componentName, location2, propFullName, ReactPropTypesSecret);
-            if (checkerResult == null)
-              return null;
-            checkerResult.data && has(checkerResult.data, "expectedType") && expectedTypes.push(checkerResult.data.expectedType);
-          }
-          var expectedTypesMessage = expectedTypes.length > 0 ? ", expected one of type [" + expectedTypes.join(", ") + "]" : "";
-          return new PropTypeError("Invalid " + location2 + " `" + propFullName + "` supplied to " + ("`" + componentName + "`" + expectedTypesMessage + "."));
-        }
-        return createChainableTypeChecker(validate);
-      }
-      function createNodeChecker() {
-        function validate(props, propName, componentName, location2, propFullName) {
-          return isNode(props[propName]) ? null : new PropTypeError("Invalid " + location2 + " `" + propFullName + "` supplied to " + ("`" + componentName + "`, expected a ReactNode."));
-        }
-        return createChainableTypeChecker(validate);
-      }
-      function invalidValidatorError(componentName, location2, propFullName, key, type) {
-        return new PropTypeError(
-          (componentName || "React class") + ": " + location2 + " type `" + propFullName + "." + key + "` is invalid; it must be a function, usually from the `prop-types` package, but received `" + type + "`."
-        );
-      }
-      function createShapeTypeChecker(shapeTypes) {
-        function validate(props, propName, componentName, location2, propFullName) {
-          var propValue = props[propName], propType = getPropType(propValue);
-          if (propType !== "object")
-            return new PropTypeError("Invalid " + location2 + " `" + propFullName + "` of type `" + propType + "` " + ("supplied to `" + componentName + "`, expected `object`."));
-          for (var key in shapeTypes) {
-            var checker = shapeTypes[key];
-            if (typeof checker != "function")
-              return invalidValidatorError(componentName, location2, propFullName, key, getPreciseType(checker));
-            var error = checker(propValue, key, componentName, location2, propFullName + "." + key, ReactPropTypesSecret);
-            if (error)
-              return error;
-          }
-          return null;
-        }
-        return createChainableTypeChecker(validate);
-      }
-      function createStrictShapeTypeChecker(shapeTypes) {
-        function validate(props, propName, componentName, location2, propFullName) {
-          var propValue = props[propName], propType = getPropType(propValue);
-          if (propType !== "object")
-            return new PropTypeError("Invalid " + location2 + " `" + propFullName + "` of type `" + propType + "` " + ("supplied to `" + componentName + "`, expected `object`."));
-          var allKeys = assign({}, props[propName], shapeTypes);
-          for (var key in allKeys) {
-            var checker = shapeTypes[key];
-            if (has(shapeTypes, key) && typeof checker != "function")
-              return invalidValidatorError(componentName, location2, propFullName, key, getPreciseType(checker));
-            if (!checker)
-              return new PropTypeError(
-                "Invalid " + location2 + " `" + propFullName + "` key `" + key + "` supplied to `" + componentName + "`.\nBad object: " + JSON.stringify(props[propName], null, "  ") + `
-Valid keys: ` + JSON.stringify(Object.keys(shapeTypes), null, "  ")
-              );
-            var error = checker(propValue, key, componentName, location2, propFullName + "." + key, ReactPropTypesSecret);
-            if (error)
-              return error;
-          }
-          return null;
-        }
-        return createChainableTypeChecker(validate);
-      }
-      function isNode(propValue) {
-        switch (typeof propValue) {
-          case "number":
-          case "string":
-          case "undefined":
-            return !0;
-          case "boolean":
-            return !propValue;
-          case "object":
-            if (Array.isArray(propValue))
-              return propValue.every(isNode);
-            if (propValue === null || isValidElement7(propValue))
-              return !0;
-            var iteratorFn = getIteratorFn(propValue);
-            if (iteratorFn) {
-              var iterator = iteratorFn.call(propValue), step;
-              if (iteratorFn !== propValue.entries) {
-                for (; !(step = iterator.next()).done; )
-                  if (!isNode(step.value))
-                    return !1;
-              } else
-                for (; !(step = iterator.next()).done; ) {
-                  var entry2 = step.value;
-                  if (entry2 && !isNode(entry2[1]))
-                    return !1;
-                }
-            } else
-              return !1;
-            return !0;
-          default:
-            return !1;
-        }
-      }
-      function isSymbol(propType, propValue) {
-        return propType === "symbol" ? !0 : propValue ? propValue["@@toStringTag"] === "Symbol" || typeof Symbol == "function" && propValue instanceof Symbol : !1;
-      }
-      function getPropType(propValue) {
-        var propType = typeof propValue;
-        return Array.isArray(propValue) ? "array" : propValue instanceof RegExp ? "object" : isSymbol(propType, propValue) ? "symbol" : propType;
-      }
-      function getPreciseType(propValue) {
-        if (typeof propValue > "u" || propValue === null)
-          return "" + propValue;
-        var propType = getPropType(propValue);
-        if (propType === "object") {
-          if (propValue instanceof Date)
-            return "date";
-          if (propValue instanceof RegExp)
-            return "regexp";
-        }
-        return propType;
-      }
-      function getPostfixForTypeWarning(value) {
-        var type = getPreciseType(value);
-        switch (type) {
-          case "array":
-          case "object":
-            return "an " + type;
-          case "boolean":
-          case "date":
-          case "regexp":
-            return "a " + type;
-          default:
-            return type;
-        }
-      }
-      function getClassName(propValue) {
-        return !propValue.constructor || !propValue.constructor.name ? ANONYMOUS : propValue.constructor.name;
-      }
-      return ReactPropTypes.checkPropTypes = checkPropTypes, ReactPropTypes.resetWarningCache = checkPropTypes.resetWarningCache, ReactPropTypes.PropTypes = ReactPropTypes, ReactPropTypes;
-    };
-  }
-});
-
-// node_modules/prop-types/index.js
-var require_prop_types = __commonJS({
-  "node_modules/prop-types/index.js"(exports, module) {
-    ReactIs = require_react_is(), throwOnDirectAccess = !0, module.exports = require_factoryWithTypeCheckers()(ReactIs.isElement, throwOnDirectAccess);
-    var ReactIs, throwOnDirectAccess;
-  }
-});
-
-// node_modules/@babel/runtime/helpers/extends.js
-var require_extends = __commonJS({
-  "node_modules/@babel/runtime/helpers/extends.js"(exports, module) {
-    function _extends7() {
-      return module.exports = _extends7 = Object.assign ? Object.assign.bind() : function(target) {
-        for (var i = 1; i < arguments.length; i++) {
-          var source = arguments[i];
-          for (var key in source)
-            Object.prototype.hasOwnProperty.call(source, key) && (target[key] = source[key]);
-        }
-        return target;
-      }, module.exports.__esModule = !0, module.exports.default = module.exports, _extends7.apply(this, arguments);
-    }
-    module.exports = _extends7, module.exports.__esModule = !0, module.exports.default = module.exports;
-  }
-});
-
-// node_modules/@emotion/memoize/dist/emotion-memoize.cjs.dev.js
-var require_emotion_memoize_cjs_dev = __commonJS({
-  "node_modules/@emotion/memoize/dist/emotion-memoize.cjs.dev.js"(exports) {
-    "use strict";
-    Object.defineProperty(exports, "__esModule", { value: !0 });
-    function memoize2(fn) {
-      var cache = /* @__PURE__ */ Object.create(null);
-      return function(arg) {
-        return cache[arg] === void 0 && (cache[arg] = fn(arg)), cache[arg];
-      };
-    }
-    exports.default = memoize2;
-  }
-});
-
-// node_modules/@emotion/memoize/dist/emotion-memoize.cjs.js
-var require_emotion_memoize_cjs = __commonJS({
-  "node_modules/@emotion/memoize/dist/emotion-memoize.cjs.js"(exports, module) {
-    "use strict";
-    module.exports = require_emotion_memoize_cjs_dev();
-  }
-});
-
-// node_modules/@emotion/is-prop-valid/dist/emotion-is-prop-valid.cjs.dev.js
-var require_emotion_is_prop_valid_cjs_dev = __commonJS({
-  "node_modules/@emotion/is-prop-valid/dist/emotion-is-prop-valid.cjs.dev.js"(exports) {
-    "use strict";
-    Object.defineProperty(exports, "__esModule", { value: !0 });
-    var memoize2 = require_emotion_memoize_cjs();
-    function _interopDefault(e) {
-      return e && e.__esModule ? e : { default: e };
-    }
-    var memoize__default = /* @__PURE__ */ _interopDefault(memoize2), reactPropsRegex = /^((children|dangerouslySetInnerHTML|key|ref|autoFocus|defaultValue|defaultChecked|innerHTML|suppressContentEditableWarning|suppressHydrationWarning|valueLink|abbr|accept|acceptCharset|accessKey|action|allow|allowUserMedia|allowPaymentRequest|allowFullScreen|allowTransparency|alt|async|autoComplete|autoPlay|capture|cellPadding|cellSpacing|challenge|charSet|checked|cite|classID|className|cols|colSpan|content|contentEditable|contextMenu|controls|controlsList|coords|crossOrigin|data|dateTime|decoding|default|defer|dir|disabled|disablePictureInPicture|download|draggable|encType|enterKeyHint|form|formAction|formEncType|formMethod|formNoValidate|formTarget|frameBorder|headers|height|hidden|high|href|hrefLang|htmlFor|httpEquiv|id|inputMode|integrity|is|keyParams|keyType|kind|label|lang|list|loading|loop|low|marginHeight|marginWidth|max|maxLength|media|mediaGroup|method|min|minLength|multiple|muted|name|nonce|noValidate|open|optimum|pattern|placeholder|playsInline|poster|preload|profile|radioGroup|readOnly|referrerPolicy|rel|required|reversed|role|rows|rowSpan|sandbox|scope|scoped|scrolling|seamless|selected|shape|size|sizes|slot|span|spellCheck|src|srcDoc|srcLang|srcSet|start|step|style|summary|tabIndex|target|title|translate|type|useMap|value|width|wmode|wrap|about|datatype|inlist|prefix|property|resource|typeof|vocab|autoCapitalize|autoCorrect|autoSave|color|incremental|fallback|inert|itemProp|itemScope|itemType|itemID|itemRef|on|option|results|security|unselectable|accentHeight|accumulate|additive|alignmentBaseline|allowReorder|alphabetic|amplitude|arabicForm|ascent|attributeName|attributeType|autoReverse|azimuth|baseFrequency|baselineShift|baseProfile|bbox|begin|bias|by|calcMode|capHeight|clip|clipPathUnits|clipPath|clipRule|colorInterpolation|colorInterpolationFilters|colorProfile|colorRendering|contentScriptType|contentStyleType|cursor|cx|cy|d|decelerate|descent|diffuseConstant|direction|display|divisor|dominantBaseline|dur|dx|dy|edgeMode|elevation|enableBackground|end|exponent|externalResourcesRequired|fill|fillOpacity|fillRule|filter|filterRes|filterUnits|floodColor|floodOpacity|focusable|fontFamily|fontSize|fontSizeAdjust|fontStretch|fontStyle|fontVariant|fontWeight|format|from|fr|fx|fy|g1|g2|glyphName|glyphOrientationHorizontal|glyphOrientationVertical|glyphRef|gradientTransform|gradientUnits|hanging|horizAdvX|horizOriginX|ideographic|imageRendering|in|in2|intercept|k|k1|k2|k3|k4|kernelMatrix|kernelUnitLength|kerning|keyPoints|keySplines|keyTimes|lengthAdjust|letterSpacing|lightingColor|limitingConeAngle|local|markerEnd|markerMid|markerStart|markerHeight|markerUnits|markerWidth|mask|maskContentUnits|maskUnits|mathematical|mode|numOctaves|offset|opacity|operator|order|orient|orientation|origin|overflow|overlinePosition|overlineThickness|panose1|paintOrder|pathLength|patternContentUnits|patternTransform|patternUnits|pointerEvents|points|pointsAtX|pointsAtY|pointsAtZ|preserveAlpha|preserveAspectRatio|primitiveUnits|r|radius|refX|refY|renderingIntent|repeatCount|repeatDur|requiredExtensions|requiredFeatures|restart|result|rotate|rx|ry|scale|seed|shapeRendering|slope|spacing|specularConstant|specularExponent|speed|spreadMethod|startOffset|stdDeviation|stemh|stemv|stitchTiles|stopColor|stopOpacity|strikethroughPosition|strikethroughThickness|string|stroke|strokeDasharray|strokeDashoffset|strokeLinecap|strokeLinejoin|strokeMiterlimit|strokeOpacity|strokeWidth|surfaceScale|systemLanguage|tableValues|targetX|targetY|textAnchor|textDecoration|textRendering|textLength|to|transform|u1|u2|underlinePosition|underlineThickness|unicode|unicodeBidi|unicodeRange|unitsPerEm|vAlphabetic|vHanging|vIdeographic|vMathematical|values|vectorEffect|version|vertAdvY|vertOriginX|vertOriginY|viewBox|viewTarget|visibility|widths|wordSpacing|writingMode|x|xHeight|x1|x2|xChannelSelector|xlinkActuate|xlinkArcrole|xlinkHref|xlinkRole|xlinkShow|xlinkTitle|xlinkType|xmlBase|xmlns|xmlnsXlink|xmlLang|xmlSpace|y|y1|y2|yChannelSelector|z|zoomAndPan|for|class|autofocus)|(([Dd][Aa][Tt][Aa]|[Aa][Rr][Ii][Aa]|x)-.*))$/, isPropValid = /* @__PURE__ */ memoize__default.default(
-      function(prop) {
-        return reactPropsRegex.test(prop) || prop.charCodeAt(0) === 111 && prop.charCodeAt(1) === 110 && prop.charCodeAt(2) < 91;
-      }
-      /* Z+1 */
-    );
-    exports.default = isPropValid;
-  }
-});
-
-// node_modules/@emotion/is-prop-valid/dist/emotion-is-prop-valid.cjs.js
-var require_emotion_is_prop_valid_cjs = __commonJS({
-  "node_modules/@emotion/is-prop-valid/dist/emotion-is-prop-valid.cjs.js"(exports, module) {
-    "use strict";
-    module.exports = require_emotion_is_prop_valid_cjs_dev();
-  }
-});
-
-// node_modules/@emotion/sheet/dist/emotion-sheet.cjs.dev.js
-var require_emotion_sheet_cjs_dev = __commonJS({
-  "node_modules/@emotion/sheet/dist/emotion-sheet.cjs.dev.js"(exports) {
-    "use strict";
-    Object.defineProperty(exports, "__esModule", { value: !0 });
-    function sheetForTag(tag) {
-      if (tag.sheet)
-        return tag.sheet;
-      for (var i = 0; i < document.styleSheets.length; i++)
-        if (document.styleSheets[i].ownerNode === tag)
-          return document.styleSheets[i];
-    }
-    function createStyleElement(options) {
-      var tag = document.createElement("style");
-      return tag.setAttribute("data-emotion", options.key), options.nonce !== void 0 && tag.setAttribute("nonce", options.nonce), tag.appendChild(document.createTextNode("")), tag.setAttribute("data-s", ""), tag;
-    }
-    var StyleSheet = /* @__PURE__ */ function() {
-      function StyleSheet2(options) {
-        var _this = this;
-        this._insertTag = function(tag) {
-          var before;
-          _this.tags.length === 0 ? _this.insertionPoint ? before = _this.insertionPoint.nextSibling : _this.prepend ? before = _this.container.firstChild : before = _this.before : before = _this.tags[_this.tags.length - 1].nextSibling, _this.container.insertBefore(tag, before), _this.tags.push(tag);
-        }, this.isSpeedy = options.speedy === void 0 ? !1 : options.speedy, this.tags = [], this.ctr = 0, this.nonce = options.nonce, this.key = options.key, this.container = options.container, this.prepend = options.prepend, this.insertionPoint = options.insertionPoint, this.before = null;
-      }
-      var _proto = StyleSheet2.prototype;
-      return _proto.hydrate = function(nodes) {
-        nodes.forEach(this._insertTag);
-      }, _proto.insert = function(rule) {
-        this.ctr % (this.isSpeedy ? 65e3 : 1) === 0 && this._insertTag(createStyleElement(this));
-        var tag = this.tags[this.tags.length - 1], isImportRule = rule.charCodeAt(0) === 64 && rule.charCodeAt(1) === 105;
-        if (isImportRule && this._alreadyInsertedOrderInsensitiveRule && console.error(`You're attempting to insert the following rule:
-` + rule + "\n\n`@import` rules must be before all other types of rules in a stylesheet but other rules have already been inserted. Please ensure that `@import` rules are before all other rules."), this._alreadyInsertedOrderInsensitiveRule = this._alreadyInsertedOrderInsensitiveRule || !isImportRule, this.isSpeedy) {
-          var sheet = sheetForTag(tag);
-          try {
-            sheet.insertRule(rule, sheet.cssRules.length);
-          } catch (e) {
-            /:(-moz-placeholder|-moz-focus-inner|-moz-focusring|-ms-input-placeholder|-moz-read-write|-moz-read-only|-ms-clear|-ms-expand|-ms-reveal){/.test(rule) || console.error('There was a problem inserting the following rule: "' + rule + '"', e);
-          }
-        } else
-          tag.appendChild(document.createTextNode(rule));
-        this.ctr++;
-      }, _proto.flush = function() {
-        this.tags.forEach(function(tag) {
-          return tag.parentNode && tag.parentNode.removeChild(tag);
-        }), this.tags = [], this.ctr = 0, this._alreadyInsertedOrderInsensitiveRule = !1;
-      }, StyleSheet2;
-    }();
-    exports.StyleSheet = StyleSheet;
-  }
-});
-
-// node_modules/@emotion/sheet/dist/emotion-sheet.cjs.js
-var require_emotion_sheet_cjs = __commonJS({
-  "node_modules/@emotion/sheet/dist/emotion-sheet.cjs.js"(exports, module) {
-    "use strict";
-    module.exports = require_emotion_sheet_cjs_dev();
-  }
-});
-
-// node_modules/stylis/dist/umd/stylis.js
-var require_stylis = __commonJS({
-  "node_modules/stylis/dist/umd/stylis.js"(exports, module) {
-    (function(e, r2) {
-      typeof exports == "object" && typeof module < "u" ? r2(exports) : typeof define == "function" && define.amd ? define(["exports"], r2) : (e = e || self, r2(e.stylis = {}));
-    })(exports, function(e) {
-      "use strict";
-      var r2 = "-ms-", a = "-moz-", c = "-webkit-", n = "comm", t = "rule", s = "decl", i = "@page", u3 = "@media", o = "@import", f = "@charset", l2 = "@viewport", p = "@supports", h = "@document", v = "@namespace", d = "@keyframes", b = "@font-face", w = "@counter-style", m = "@font-feature-values", g3 = "@layer", k = Math.abs, $ = String.fromCharCode, x = Object.assign;
-      function E(e2, r3) {
-        return M(e2, 0) ^ 45 ? (((r3 << 2 ^ M(e2, 0)) << 2 ^ M(e2, 1)) << 2 ^ M(e2, 2)) << 2 ^ M(e2, 3) : 0;
-      }
-      function y(e2) {
-        return e2.trim();
-      }
-      function T(e2, r3) {
-        return (e2 = r3.exec(e2)) ? e2[0] : e2;
-      }
-      function A(e2, r3, a2) {
-        return e2.replace(r3, a2);
-      }
-      function O(e2, r3) {
-        return e2.indexOf(r3);
-      }
-      function M(e2, r3) {
-        return e2.charCodeAt(r3) | 0;
-      }
-      function C(e2, r3, a2) {
-        return e2.slice(r3, a2);
-      }
-      function R(e2) {
-        return e2.length;
-      }
-      function S(e2) {
-        return e2.length;
-      }
-      function z(e2, r3) {
-        return r3.push(e2), e2;
-      }
-      function N(e2, r3) {
-        return e2.map(r3).join("");
-      }
-      e.line = 1, e.column = 1, e.length = 0, e.position = 0, e.character = 0, e.characters = "";
-      function P(r3, a2, c2, n2, t2, s2, i2) {
-        return { value: r3, root: a2, parent: c2, type: n2, props: t2, children: s2, line: e.line, column: e.column, length: i2, return: "" };
-      }
-      function j(e2, r3) {
-        return x(P("", null, null, "", null, null, 0), e2, { length: -e2.length }, r3);
-      }
-      function U() {
-        return e.character;
-      }
-      function _2() {
-        return e.character = e.position > 0 ? M(e.characters, --e.position) : 0, e.column--, e.character === 10 && (e.column = 1, e.line--), e.character;
-      }
-      function F() {
-        return e.character = e.position < e.length ? M(e.characters, e.position++) : 0, e.column++, e.character === 10 && (e.column = 1, e.line++), e.character;
-      }
-      function I() {
-        return M(e.characters, e.position);
-      }
-      function L() {
-        return e.position;
-      }
-      function D(r3, a2) {
-        return C(e.characters, r3, a2);
-      }
-      function Y(e2) {
-        switch (e2) {
-          case 0:
-          case 9:
-          case 10:
-          case 13:
-          case 32:
-            return 5;
-          case 33:
-          case 43:
-          case 44:
-          case 47:
-          case 62:
-          case 64:
-          case 126:
-          case 59:
-          case 123:
-          case 125:
-            return 4;
-          case 58:
-            return 3;
-          case 34:
-          case 39:
-          case 40:
-          case 91:
-            return 2;
-          case 41:
-          case 93:
-            return 1;
-        }
-        return 0;
-      }
-      function K(r3) {
-        return e.line = e.column = 1, e.length = R(e.characters = r3), e.position = 0, [];
-      }
-      function V(r3) {
-        return e.characters = "", r3;
-      }
-      function W(r3) {
-        return y(D(e.position - 1, q(r3 === 91 ? r3 + 2 : r3 === 40 ? r3 + 1 : r3)));
-      }
-      function B(e2) {
-        return V(H(K(e2)));
-      }
-      function G(r3) {
-        for (; (e.character = I()) && e.character < 33; )
-          F();
-        return Y(r3) > 2 || Y(e.character) > 3 ? "" : " ";
-      }
-      function H(r3) {
-        for (; F(); )
-          switch (Y(e.character)) {
-            case 0:
-              z(Q(e.position - 1), r3);
-              break;
-            case 2:
-              z(W(e.character), r3);
-              break;
-            default:
-              z($(e.character), r3);
-          }
-        return r3;
-      }
-      function Z(r3, a2) {
-        for (; --a2 && F() && !(e.character < 48 || e.character > 102 || e.character > 57 && e.character < 65 || e.character > 70 && e.character < 97); )
-          ;
-        return D(r3, L() + (a2 < 6 && I() == 32 && F() == 32));
-      }
-      function q(r3) {
-        for (; F(); )
-          switch (e.character) {
-            case r3:
-              return e.position;
-            case 34:
-            case 39:
-              r3 !== 34 && r3 !== 39 && q(e.character);
-              break;
-            case 40:
-              r3 === 41 && q(r3);
-              break;
-            case 92:
-              F();
-              break;
-          }
-        return e.position;
-      }
-      function J(r3, a2) {
-        for (; F() && r3 + e.character !== 47 + 10; )
-          if (r3 + e.character === 42 + 42 && I() === 47)
-            break;
-        return "/*" + D(a2, e.position - 1) + "*" + $(r3 === 47 ? r3 : F());
-      }
-      function Q(r3) {
-        for (; !Y(I()); )
-          F();
-        return D(r3, e.position);
-      }
-      function X(e2) {
-        return V(ee("", null, null, null, [""], e2 = K(e2), 0, [0], e2));
-      }
-      function ee(e2, r3, a2, c2, n2, t2, s2, i2, u4) {
-        for (var o2 = 0, f2 = 0, l3 = s2, p2 = 0, h2 = 0, v2 = 0, d2 = 1, b2 = 1, w2 = 1, m2 = 0, g4 = "", k2 = n2, x2 = t2, E2 = c2, y2 = g4; b2; )
-          switch (v2 = m2, m2 = F()) {
-            case 40:
-              if (v2 != 108 && M(y2, l3 - 1) == 58) {
-                O(y2 += A(W(m2), "&", "&\f"), "&\f") != -1 && (w2 = -1);
-                break;
-              }
-            case 34:
-            case 39:
-            case 91:
-              y2 += W(m2);
-              break;
-            case 9:
-            case 10:
-            case 13:
-            case 32:
-              y2 += G(v2);
-              break;
-            case 92:
-              y2 += Z(L() - 1, 7);
-              continue;
-            case 47:
-              switch (I()) {
-                case 42:
-                case 47:
-                  z(ae(J(F(), L()), r3, a2), u4);
-                  break;
-                default:
-                  y2 += "/";
-              }
-              break;
-            case 123 * d2:
-              i2[o2++] = R(y2) * w2;
-            case 125 * d2:
-            case 59:
-            case 0:
-              switch (m2) {
-                case 0:
-                case 125:
-                  b2 = 0;
-                case 59 + f2:
-                  w2 == -1 && (y2 = A(y2, /\f/g, "")), h2 > 0 && R(y2) - l3 && z(h2 > 32 ? ce(y2 + ";", c2, a2, l3 - 1) : ce(A(y2, " ", "") + ";", c2, a2, l3 - 2), u4);
-                  break;
-                case 59:
-                  y2 += ";";
-                default:
-                  if (z(E2 = re(y2, r3, a2, o2, f2, n2, i2, g4, k2 = [], x2 = [], l3), t2), m2 === 123)
-                    if (f2 === 0)
-                      ee(y2, r3, E2, E2, k2, t2, l3, i2, x2);
-                    else
-                      switch (p2 === 99 && M(y2, 3) === 110 ? 100 : p2) {
-                        case 100:
-                        case 108:
-                        case 109:
-                        case 115:
-                          ee(e2, E2, E2, c2 && z(re(e2, E2, E2, 0, 0, n2, i2, g4, n2, k2 = [], l3), x2), n2, x2, l3, i2, c2 ? k2 : x2);
-                          break;
-                        default:
-                          ee(y2, E2, E2, E2, [""], x2, 0, i2, x2);
-                      }
-              }
-              o2 = f2 = h2 = 0, d2 = w2 = 1, g4 = y2 = "", l3 = s2;
-              break;
-            case 58:
-              l3 = 1 + R(y2), h2 = v2;
-            default:
-              if (d2 < 1) {
-                if (m2 == 123)
-                  --d2;
-                else if (m2 == 125 && d2++ == 0 && _2() == 125)
-                  continue;
-              }
-              switch (y2 += $(m2), m2 * d2) {
-                case 38:
-                  w2 = f2 > 0 ? 1 : (y2 += "\f", -1);
-                  break;
-                case 44:
-                  i2[o2++] = (R(y2) - 1) * w2, w2 = 1;
-                  break;
-                case 64:
-                  I() === 45 && (y2 += W(F())), p2 = I(), f2 = l3 = R(g4 = y2 += Q(L())), m2++;
-                  break;
-                case 45:
-                  v2 === 45 && R(y2) == 2 && (d2 = 0);
-              }
-          }
-        return t2;
-      }
-      function re(e2, r3, a2, c2, n2, s2, i2, u4, o2, f2, l3) {
-        for (var p2 = n2 - 1, h2 = n2 === 0 ? s2 : [""], v2 = S(h2), d2 = 0, b2 = 0, w2 = 0; d2 < c2; ++d2)
-          for (var m2 = 0, g4 = C(e2, p2 + 1, p2 = k(b2 = i2[d2])), $2 = e2; m2 < v2; ++m2)
-            ($2 = y(b2 > 0 ? h2[m2] + " " + g4 : A(g4, /&\f/g, h2[m2]))) && (o2[w2++] = $2);
-        return P(e2, r3, a2, n2 === 0 ? t : u4, o2, f2, l3);
-      }
-      function ae(e2, r3, a2) {
-        return P(e2, r3, a2, n, $(U()), C(e2, 2, -2), 0);
-      }
-      function ce(e2, r3, a2, c2) {
-        return P(e2, r3, a2, s, C(e2, 0, c2), C(e2, c2 + 1, -1), c2);
-      }
-      function ne(e2, n2, t2) {
-        switch (E(e2, n2)) {
-          case 5103:
-            return c + "print-" + e2 + e2;
-          case 5737:
-          case 4201:
-          case 3177:
-          case 3433:
-          case 1641:
-          case 4457:
-          case 2921:
-          case 5572:
-          case 6356:
-          case 5844:
-          case 3191:
-          case 6645:
-          case 3005:
-          case 6391:
-          case 5879:
-          case 5623:
-          case 6135:
-          case 4599:
-          case 4855:
-          case 4215:
-          case 6389:
-          case 5109:
-          case 5365:
-          case 5621:
-          case 3829:
-            return c + e2 + e2;
-          case 4789:
-            return a + e2 + e2;
-          case 5349:
-          case 4246:
-          case 4810:
-          case 6968:
-          case 2756:
-            return c + e2 + a + e2 + r2 + e2 + e2;
-          case 5936:
-            switch (M(e2, n2 + 11)) {
-              case 114:
-                return c + e2 + r2 + A(e2, /[svh]\w+-[tblr]{2}/, "tb") + e2;
-              case 108:
-                return c + e2 + r2 + A(e2, /[svh]\w+-[tblr]{2}/, "tb-rl") + e2;
-              case 45:
-                return c + e2 + r2 + A(e2, /[svh]\w+-[tblr]{2}/, "lr") + e2;
-            }
-          case 6828:
-          case 4268:
-          case 2903:
-            return c + e2 + r2 + e2 + e2;
-          case 6165:
-            return c + e2 + r2 + "flex-" + e2 + e2;
-          case 5187:
-            return c + e2 + A(e2, /(\w+).+(:[^]+)/, c + "box-$1$2" + r2 + "flex-$1$2") + e2;
-          case 5443:
-            return c + e2 + r2 + "flex-item-" + A(e2, /flex-|-self/g, "") + (T(e2, /flex-|baseline/) ? "" : r2 + "grid-row-" + A(e2, /flex-|-self/g, "")) + e2;
-          case 4675:
-            return c + e2 + r2 + "flex-line-pack" + A(e2, /align-content|flex-|-self/g, "") + e2;
-          case 5548:
-            return c + e2 + r2 + A(e2, "shrink", "negative") + e2;
-          case 5292:
-            return c + e2 + r2 + A(e2, "basis", "preferred-size") + e2;
-          case 6060:
-            return c + "box-" + A(e2, "-grow", "") + c + e2 + r2 + A(e2, "grow", "positive") + e2;
-          case 4554:
-            return c + A(e2, /([^-])(transform)/g, "$1" + c + "$2") + e2;
-          case 6187:
-            return A(A(A(e2, /(zoom-|grab)/, c + "$1"), /(image-set)/, c + "$1"), e2, "") + e2;
-          case 5495:
-          case 3959:
-            return A(e2, /(image-set\([^]*)/, c + "$1$`$1");
-          case 4968:
-            return A(A(e2, /(.+:)(flex-)?(.*)/, c + "box-pack:$3" + r2 + "flex-pack:$3"), /s.+-b[^;]+/, "justify") + c + e2 + e2;
-          case 4200:
-            if (!T(e2, /flex-|baseline/))
-              return r2 + "grid-column-align" + C(e2, n2) + e2;
-            break;
-          case 2592:
-          case 3360:
-            return r2 + A(e2, "template-", "") + e2;
-          case 4384:
-          case 3616:
-            return t2 && t2.some(function(e3, r3) {
-              return n2 = r3, T(e3.props, /grid-\w+-end/);
-            }) ? ~O(e2 + (t2 = t2[n2].value), "span") ? e2 : r2 + A(e2, "-start", "") + e2 + r2 + "grid-row-span:" + (~O(t2, "span") ? T(t2, /\d+/) : +T(t2, /\d+/) - +T(e2, /\d+/)) + ";" : r2 + A(e2, "-start", "") + e2;
-          case 4896:
-          case 4128:
-            return t2 && t2.some(function(e3) {
-              return T(e3.props, /grid-\w+-start/);
-            }) ? e2 : r2 + A(A(e2, "-end", "-span"), "span ", "") + e2;
-          case 4095:
-          case 3583:
-          case 4068:
-          case 2532:
-            return A(e2, /(.+)-inline(.+)/, c + "$1$2") + e2;
-          case 8116:
-          case 7059:
-          case 5753:
-          case 5535:
-          case 5445:
-          case 5701:
-          case 4933:
-          case 4677:
-          case 5533:
-          case 5789:
-          case 5021:
-          case 4765:
-            if (R(e2) - 1 - n2 > 6)
-              switch (M(e2, n2 + 1)) {
-                case 109:
-                  if (M(e2, n2 + 4) !== 45)
-                    break;
-                case 102:
-                  return A(e2, /(.+:)(.+)-([^]+)/, "$1" + c + "$2-$3$1" + a + (M(e2, n2 + 3) == 108 ? "$3" : "$2-$3")) + e2;
-                case 115:
-                  return ~O(e2, "stretch") ? ne(A(e2, "stretch", "fill-available"), n2, t2) + e2 : e2;
-              }
-            break;
-          case 5152:
-          case 5920:
-            return A(e2, /(.+?):(\d+)(\s*\/\s*(span)?\s*(\d+))?(.*)/, function(a2, c2, n3, t3, s2, i2, u4) {
-              return r2 + c2 + ":" + n3 + u4 + (t3 ? r2 + c2 + "-span:" + (s2 ? i2 : +i2 - +n3) + u4 : "") + e2;
-            });
-          case 4949:
-            if (M(e2, n2 + 6) === 121)
-              return A(e2, ":", ":" + c) + e2;
-            break;
-          case 6444:
-            switch (M(e2, M(e2, 14) === 45 ? 18 : 11)) {
-              case 120:
-                return A(e2, /(.+:)([^;\s!]+)(;|(\s+)?!.+)?/, "$1" + c + (M(e2, 14) === 45 ? "inline-" : "") + "box$3$1" + c + "$2$3$1" + r2 + "$2box$3") + e2;
-              case 100:
-                return A(e2, ":", ":" + r2) + e2;
-            }
-            break;
-          case 5719:
-          case 2647:
-          case 2135:
-          case 3927:
-          case 2391:
-            return A(e2, "scroll-", "scroll-snap-") + e2;
-        }
-        return e2;
-      }
-      function te(e2, r3) {
-        for (var a2 = "", c2 = S(e2), n2 = 0; n2 < c2; n2++)
-          a2 += r3(e2[n2], n2, e2, r3) || "";
-        return a2;
-      }
-      function se(e2, r3, a2, c2) {
-        switch (e2.type) {
-          case g3:
-            if (e2.children.length)
-              break;
-          case o:
-          case s:
-            return e2.return = e2.return || e2.value;
-          case n:
-            return "";
-          case d:
-            return e2.return = e2.value + "{" + te(e2.children, c2) + "}";
-          case t:
-            e2.value = e2.props.join(",");
-        }
-        return R(a2 = te(e2.children, c2)) ? e2.return = e2.value + "{" + a2 + "}" : "";
-      }
-      function ie(e2) {
-        var r3 = S(e2);
-        return function(a2, c2, n2, t2) {
-          for (var s2 = "", i2 = 0; i2 < r3; i2++)
-            s2 += e2[i2](a2, c2, n2, t2) || "";
-          return s2;
-        };
-      }
-      function ue(e2) {
-        return function(r3) {
-          r3.root || (r3 = r3.return) && e2(r3);
-        };
-      }
-      function oe(e2, n2, i2, u4) {
-        if (e2.length > -1 && !e2.return)
-          switch (e2.type) {
-            case s:
-              e2.return = ne(e2.value, e2.length, i2);
-              return;
-            case d:
-              return te([j(e2, { value: A(e2.value, "@", "@" + c) })], u4);
-            case t:
-              if (e2.length)
-                return N(e2.props, function(n3) {
-                  switch (T(n3, /(::plac\w+|:read-\w+)/)) {
-                    case ":read-only":
-                    case ":read-write":
-                      return te([j(e2, { props: [A(n3, /:(read-\w+)/, ":" + a + "$1")] })], u4);
-                    case "::placeholder":
-                      return te([j(e2, { props: [A(n3, /:(plac\w+)/, ":" + c + "input-$1")] }), j(e2, { props: [A(n3, /:(plac\w+)/, ":" + a + "$1")] }), j(e2, { props: [A(n3, /:(plac\w+)/, r2 + "input-$1")] })], u4);
-                  }
-                  return "";
-                });
-          }
-      }
-      function fe(e2) {
-        switch (e2.type) {
-          case t:
-            e2.props = e2.props.map(function(r3) {
-              return N(B(r3), function(r4, a2, c2) {
-                switch (M(r4, 0)) {
-                  case 12:
-                    return C(r4, 1, R(r4));
-                  case 0:
-                  case 40:
-                  case 43:
-                  case 62:
-                  case 126:
-                    return r4;
-                  case 58:
-                    c2[++a2] === "global" && (c2[a2] = "", c2[++a2] = "\f" + C(c2[a2], a2 = 1, -1));
-                  case 32:
-                    return a2 === 1 ? "" : r4;
-                  default:
-                    switch (a2) {
-                      case 0:
-                        return e2 = r4, S(c2) > 1 ? "" : r4;
-                      case (a2 = S(c2) - 1):
-                      case 2:
-                        return a2 === 2 ? r4 + e2 + e2 : r4 + e2;
-                      default:
-                        return r4;
-                    }
-                }
-              });
-            });
-        }
-      }
-      e.CHARSET = f, e.COMMENT = n, e.COUNTER_STYLE = w, e.DECLARATION = s, e.DOCUMENT = h, e.FONT_FACE = b, e.FONT_FEATURE_VALUES = m, e.IMPORT = o, e.KEYFRAMES = d, e.LAYER = g3, e.MEDIA = u3, e.MOZ = a, e.MS = r2, e.NAMESPACE = v, e.PAGE = i, e.RULESET = t, e.SUPPORTS = p, e.VIEWPORT = l2, e.WEBKIT = c, e.abs = k, e.alloc = K, e.append = z, e.assign = x, e.caret = L, e.char = U, e.charat = M, e.combine = N, e.comment = ae, e.commenter = J, e.compile = X, e.copy = j, e.dealloc = V, e.declaration = ce, e.delimit = W, e.delimiter = q, e.escaping = Z, e.from = $, e.hash = E, e.identifier = Q, e.indexof = O, e.match = T, e.middleware = ie, e.namespace = fe, e.next = F, e.node = P, e.parse = ee, e.peek = I, e.prefix = ne, e.prefixer = oe, e.prev = _2, e.replace = A, e.ruleset = re, e.rulesheet = ue, e.serialize = te, e.sizeof = S, e.slice = D, e.stringify = se, e.strlen = R, e.substr = C, e.token = Y, e.tokenize = B, e.tokenizer = H, e.trim = y, e.whitespace = G, Object.defineProperty(e, "__esModule", { value: !0 });
-    });
-  }
-});
-
-// node_modules/@emotion/weak-memoize/dist/emotion-weak-memoize.cjs.dev.js
-var require_emotion_weak_memoize_cjs_dev = __commonJS({
-  "node_modules/@emotion/weak-memoize/dist/emotion-weak-memoize.cjs.dev.js"(exports) {
-    "use strict";
-    Object.defineProperty(exports, "__esModule", { value: !0 });
-    var weakMemoize = function(func) {
-      var cache = /* @__PURE__ */ new WeakMap();
-      return function(arg) {
-        if (cache.has(arg))
-          return cache.get(arg);
-        var ret = func(arg);
-        return cache.set(arg, ret), ret;
-      };
-    };
-    exports.default = weakMemoize;
-  }
-});
-
-// node_modules/@emotion/weak-memoize/dist/emotion-weak-memoize.cjs.js
-var require_emotion_weak_memoize_cjs = __commonJS({
-  "node_modules/@emotion/weak-memoize/dist/emotion-weak-memoize.cjs.js"(exports, module) {
-    "use strict";
-    module.exports = require_emotion_weak_memoize_cjs_dev();
-  }
-});
-
-// node_modules/@emotion/cache/dist/emotion-cache.cjs.dev.js
-var require_emotion_cache_cjs_dev = __commonJS({
-  "node_modules/@emotion/cache/dist/emotion-cache.cjs.dev.js"(exports) {
-    "use strict";
-    Object.defineProperty(exports, "__esModule", { value: !0 });
-    var sheet = require_emotion_sheet_cjs(), stylis = require_stylis(), weakMemoize = require_emotion_weak_memoize_cjs(), memoize2 = require_emotion_memoize_cjs();
-    function _interopDefault(e) {
-      return e && e.__esModule ? e : { default: e };
-    }
-    var weakMemoize__default = /* @__PURE__ */ _interopDefault(weakMemoize), memoize__default = /* @__PURE__ */ _interopDefault(memoize2), identifierWithPointTracking = function(begin, points, index) {
-      for (var previous = 0, character = 0; previous = character, character = stylis.peek(), previous === 38 && character === 12 && (points[index] = 1), !stylis.token(character); )
-        stylis.next();
-      return stylis.slice(begin, stylis.position);
-    }, toRules = function(parsed, points) {
-      var index = -1, character = 44;
-      do
-        switch (stylis.token(character)) {
-          case 0:
-            character === 38 && stylis.peek() === 12 && (points[index] = 1), parsed[index] += identifierWithPointTracking(stylis.position - 1, points, index);
-            break;
-          case 2:
-            parsed[index] += stylis.delimit(character);
-            break;
-          case 4:
-            if (character === 44) {
-              parsed[++index] = stylis.peek() === 58 ? "&\f" : "", points[index] = parsed[index].length;
-              break;
-            }
-          default:
-            parsed[index] += stylis.from(character);
-        }
-      while (character = stylis.next());
-      return parsed;
-    }, getRules = function(value, points) {
-      return stylis.dealloc(toRules(stylis.alloc(value), points));
-    }, fixedElements = /* @__PURE__ */ new WeakMap(), compat = function(element) {
-      if (!(element.type !== "rule" || !element.parent || // positive .length indicates that this rule contains pseudo
-      // negative .length indicates that this rule has been already prefixed
-      element.length < 1)) {
-        for (var value = element.value, parent = element.parent, isImplicitRule = element.column === parent.column && element.line === parent.line; parent.type !== "rule"; )
-          if (parent = parent.parent, !parent)
-            return;
-        if (!(element.props.length === 1 && value.charCodeAt(0) !== 58 && !fixedElements.get(parent)) && !isImplicitRule) {
-          fixedElements.set(element, !0);
-          for (var points = [], rules = getRules(value, points), parentRules = parent.props, i = 0, k = 0; i < rules.length; i++)
-            for (var j = 0; j < parentRules.length; j++, k++)
-              element.props[k] = points[i] ? rules[i].replace(/&\f/g, parentRules[j]) : parentRules[j] + " " + rules[i];
-        }
-      }
-    }, removeLabel = function(element) {
-      if (element.type === "decl") {
-        var value = element.value;
-        // charcode for l
-        value.charCodeAt(0) === 108 && // charcode for b
-        value.charCodeAt(2) === 98 && (element.return = "", element.value = "");
-      }
-    }, ignoreFlag = "emotion-disable-server-rendering-unsafe-selector-warning-please-do-not-use-this-the-warning-exists-for-a-reason", isIgnoringComment = function(element) {
-      return element.type === "comm" && element.children.indexOf(ignoreFlag) > -1;
-    }, createUnsafeSelectorsAlarm = function(cache) {
-      return function(element, index, children) {
-        if (!(element.type !== "rule" || cache.compat)) {
-          var unsafePseudoClasses = element.value.match(/(:first|:nth|:nth-last)-child/g);
-          if (unsafePseudoClasses) {
-            for (var isNested = !!element.parent, commentContainer = isNested ? element.parent.children : (
-              // global rule at the root level
-              children
-            ), i = commentContainer.length - 1; i >= 0; i--) {
-              var node = commentContainer[i];
-              if (node.line < element.line)
-                break;
-              if (node.column < element.column) {
-                if (isIgnoringComment(node))
-                  return;
-                break;
-              }
-            }
-            unsafePseudoClasses.forEach(function(unsafePseudoClass) {
-              console.error('The pseudo class "' + unsafePseudoClass + '" is potentially unsafe when doing server-side rendering. Try changing it to "' + unsafePseudoClass.split("-child")[0] + '-of-type".');
-            });
-          }
-        }
-      };
-    }, isImportRule = function(element) {
-      return element.type.charCodeAt(1) === 105 && element.type.charCodeAt(0) === 64;
-    }, isPrependedWithRegularRules = function(index, children) {
-      for (var i = index - 1; i >= 0; i--)
-        if (!isImportRule(children[i]))
-          return !0;
-      return !1;
-    }, nullifyElement = function(element) {
-      element.type = "", element.value = "", element.return = "", element.children = "", element.props = "";
-    }, incorrectImportAlarm = function(element, index, children) {
-      isImportRule(element) && (element.parent ? (console.error("`@import` rules can't be nested inside other rules. Please move it to the top level and put it before regular rules. Keep in mind that they can only be used within global styles."), nullifyElement(element)) : isPrependedWithRegularRules(index, children) && (console.error("`@import` rules can't be after other rules. Please put your `@import` rules before your other rules."), nullifyElement(element)));
-    };
-    function prefix(value, length) {
-      switch (stylis.hash(value, length)) {
-        case 5103:
-          return stylis.WEBKIT + "print-" + value + value;
-        case 5737:
-        case 4201:
-        case 3177:
-        case 3433:
-        case 1641:
-        case 4457:
-        case 2921:
-        case 5572:
-        case 6356:
-        case 5844:
-        case 3191:
-        case 6645:
-        case 3005:
-        case 6391:
-        case 5879:
-        case 5623:
-        case 6135:
-        case 4599:
-        case 4855:
-        case 4215:
-        case 6389:
-        case 5109:
-        case 5365:
-        case 5621:
-        case 3829:
-          return stylis.WEBKIT + value + value;
-        case 5349:
-        case 4246:
-        case 4810:
-        case 6968:
-        case 2756:
-          return stylis.WEBKIT + value + stylis.MOZ + value + stylis.MS + value + value;
-        case 6828:
-        case 4268:
-          return stylis.WEBKIT + value + stylis.MS + value + value;
-        case 6165:
-          return stylis.WEBKIT + value + stylis.MS + "flex-" + value + value;
-        case 5187:
-          return stylis.WEBKIT + value + stylis.replace(value, /(\w+).+(:[^]+)/, stylis.WEBKIT + "box-$1$2" + stylis.MS + "flex-$1$2") + value;
-        case 5443:
-          return stylis.WEBKIT + value + stylis.MS + "flex-item-" + stylis.replace(value, /flex-|-self/, "") + value;
-        case 4675:
-          return stylis.WEBKIT + value + stylis.MS + "flex-line-pack" + stylis.replace(value, /align-content|flex-|-self/, "") + value;
-        case 5548:
-          return stylis.WEBKIT + value + stylis.MS + stylis.replace(value, "shrink", "negative") + value;
-        case 5292:
-          return stylis.WEBKIT + value + stylis.MS + stylis.replace(value, "basis", "preferred-size") + value;
-        case 6060:
-          return stylis.WEBKIT + "box-" + stylis.replace(value, "-grow", "") + stylis.WEBKIT + value + stylis.MS + stylis.replace(value, "grow", "positive") + value;
-        case 4554:
-          return stylis.WEBKIT + stylis.replace(value, /([^-])(transform)/g, "$1" + stylis.WEBKIT + "$2") + value;
-        case 6187:
-          return stylis.replace(stylis.replace(stylis.replace(value, /(zoom-|grab)/, stylis.WEBKIT + "$1"), /(image-set)/, stylis.WEBKIT + "$1"), value, "") + value;
-        case 5495:
-        case 3959:
-          return stylis.replace(value, /(image-set\([^]*)/, stylis.WEBKIT + "$1$`$1");
-        case 4968:
-          return stylis.replace(stylis.replace(value, /(.+:)(flex-)?(.*)/, stylis.WEBKIT + "box-pack:$3" + stylis.MS + "flex-pack:$3"), /s.+-b[^;]+/, "justify") + stylis.WEBKIT + value + value;
-        case 4095:
-        case 3583:
-        case 4068:
-        case 2532:
-          return stylis.replace(value, /(.+)-inline(.+)/, stylis.WEBKIT + "$1$2") + value;
-        case 8116:
-        case 7059:
-        case 5753:
-        case 5535:
-        case 5445:
-        case 5701:
-        case 4933:
-        case 4677:
-        case 5533:
-        case 5789:
-        case 5021:
-        case 4765:
-          if (stylis.strlen(value) - 1 - length > 6)
-            switch (stylis.charat(value, length + 1)) {
-              case 109:
-                if (stylis.charat(value, length + 4) !== 45)
-                  break;
-              case 102:
-                return stylis.replace(value, /(.+:)(.+)-([^]+)/, "$1" + stylis.WEBKIT + "$2-$3$1" + stylis.MOZ + (stylis.charat(value, length + 3) == 108 ? "$3" : "$2-$3")) + value;
-              case 115:
-                return ~stylis.indexof(value, "stretch") ? prefix(stylis.replace(value, "stretch", "fill-available"), length) + value : value;
-            }
-          break;
-        case 4949:
-          if (stylis.charat(value, length + 1) !== 115)
-            break;
-        case 6444:
-          switch (stylis.charat(value, stylis.strlen(value) - 3 - (~stylis.indexof(value, "!important") && 10))) {
-            case 107:
-              return stylis.replace(value, ":", ":" + stylis.WEBKIT) + value;
-            case 101:
-              return stylis.replace(value, /(.+:)([^;!]+)(;|!.+)?/, "$1" + stylis.WEBKIT + (stylis.charat(value, 14) === 45 ? "inline-" : "") + "box$3$1" + stylis.WEBKIT + "$2$3$1" + stylis.MS + "$2box$3") + value;
-          }
-          break;
-        case 5936:
-          switch (stylis.charat(value, length + 11)) {
-            case 114:
-              return stylis.WEBKIT + value + stylis.MS + stylis.replace(value, /[svh]\w+-[tblr]{2}/, "tb") + value;
-            case 108:
-              return stylis.WEBKIT + value + stylis.MS + stylis.replace(value, /[svh]\w+-[tblr]{2}/, "tb-rl") + value;
-            case 45:
-              return stylis.WEBKIT + value + stylis.MS + stylis.replace(value, /[svh]\w+-[tblr]{2}/, "lr") + value;
-          }
-          return stylis.WEBKIT + value + stylis.MS + value + value;
-      }
-      return value;
-    }
-    var prefixer = function(element, index, children, callback) {
-      if (element.length > -1 && !element.return)
-        switch (element.type) {
-          case stylis.DECLARATION:
-            element.return = prefix(element.value, element.length);
-            break;
-          case stylis.KEYFRAMES:
-            return stylis.serialize([stylis.copy(element, {
-              value: stylis.replace(element.value, "@", "@" + stylis.WEBKIT)
-            })], callback);
-          case stylis.RULESET:
-            if (element.length)
-              return stylis.combine(element.props, function(value) {
-                switch (stylis.match(value, /(::plac\w+|:read-\w+)/)) {
-                  case ":read-only":
-                  case ":read-write":
-                    return stylis.serialize([stylis.copy(element, {
-                      props: [stylis.replace(value, /:(read-\w+)/, ":" + stylis.MOZ + "$1")]
-                    })], callback);
-                  case "::placeholder":
-                    return stylis.serialize([stylis.copy(element, {
-                      props: [stylis.replace(value, /:(plac\w+)/, ":" + stylis.WEBKIT + "input-$1")]
-                    }), stylis.copy(element, {
-                      props: [stylis.replace(value, /:(plac\w+)/, ":" + stylis.MOZ + "$1")]
-                    }), stylis.copy(element, {
-                      props: [stylis.replace(value, /:(plac\w+)/, stylis.MS + "input-$1")]
-                    })], callback);
-                }
-                return "";
-              });
-        }
-    }, isBrowser2 = typeof document < "u", getServerStylisCache = isBrowser2 ? void 0 : weakMemoize__default.default(function() {
-      return memoize__default.default(function() {
-        var cache = {};
-        return function(name) {
-          return cache[name];
-        };
-      });
-    }), defaultStylisPlugins = [prefixer], createCache = function(options) {
-      var key = options.key;
-      if (!key)
-        throw new Error(`You have to configure \`key\` for your cache. Please make sure it's unique (and not equal to 'css') as it's used for linking styles to your cache.
-If multiple caches share the same key they might "fight" for each other's style elements.`);
-      if (isBrowser2 && key === "css") {
-        var ssrStyles = document.querySelectorAll("style[data-emotion]:not([data-s])");
-        Array.prototype.forEach.call(ssrStyles, function(node) {
-          var dataEmotionAttribute = node.getAttribute("data-emotion");
-          dataEmotionAttribute.indexOf(" ") !== -1 && (document.head.appendChild(node), node.setAttribute("data-s", ""));
-        });
-      }
-      var stylisPlugins = options.stylisPlugins || defaultStylisPlugins;
-      if (/[^a-z-]/.test(key))
-        throw new Error('Emotion key must only contain lower case alphabetical characters and - but "' + key + '" was passed');
-      var inserted = {}, container, nodesToHydrate = [];
-      isBrowser2 && (container = options.container || document.head, Array.prototype.forEach.call(
-        // this means we will ignore elements which don't have a space in them which
-        // means that the style elements we're looking at are only Emotion 11 server-rendered style elements
-        document.querySelectorAll('style[data-emotion^="' + key + ' "]'),
-        function(node) {
-          for (var attrib = node.getAttribute("data-emotion").split(" "), i = 1; i < attrib.length; i++)
-            inserted[attrib[i]] = !0;
-          nodesToHydrate.push(node);
-        }
-      ));
-      var _insert, omnipresentPlugins = [compat, removeLabel];
-      if (omnipresentPlugins.push(createUnsafeSelectorsAlarm({
-        get compat() {
-          return cache.compat;
-        }
-      }), incorrectImportAlarm), isBrowser2) {
-        var currentSheet, finalizingPlugins = [stylis.stringify, function(element) {
-          element.root || (element.return ? currentSheet.insert(element.return) : element.value && element.type !== stylis.COMMENT && currentSheet.insert(element.value + "{}"));
-        }], serializer = stylis.middleware(omnipresentPlugins.concat(stylisPlugins, finalizingPlugins)), stylis$1 = function(styles4) {
-          return stylis.serialize(stylis.compile(styles4), serializer);
-        };
-        _insert = function(selector, serialized, sheet2, shouldCache) {
-          currentSheet = sheet2, serialized.map !== void 0 && (currentSheet = {
-            insert: function(rule) {
-              sheet2.insert(rule + serialized.map);
-            }
-          }), stylis$1(selector ? selector + "{" + serialized.styles + "}" : serialized.styles), shouldCache && (cache.inserted[serialized.name] = !0);
-        };
-      } else {
-        var _finalizingPlugins = [stylis.stringify], _serializer = stylis.middleware(omnipresentPlugins.concat(stylisPlugins, _finalizingPlugins)), _stylis = function(styles4) {
-          return stylis.serialize(stylis.compile(styles4), _serializer);
-        }, serverStylisCache = getServerStylisCache(stylisPlugins)(key), getRules2 = function(selector, serialized) {
-          var name = serialized.name;
-          return serverStylisCache[name] === void 0 && (serverStylisCache[name] = _stylis(selector ? selector + "{" + serialized.styles + "}" : serialized.styles)), serverStylisCache[name];
-        };
-        _insert = function(selector, serialized, sheet2, shouldCache) {
-          var name = serialized.name, rules = getRules2(selector, serialized);
-          if (cache.compat === void 0)
-            return shouldCache && (cache.inserted[name] = !0), serialized.map !== void 0 ? rules + serialized.map : rules;
-          if (shouldCache)
-            cache.inserted[name] = rules;
-          else
-            return rules;
-        };
-      }
-      var cache = {
-        key,
-        sheet: new sheet.StyleSheet({
-          key,
-          container,
-          nonce: options.nonce,
-          speedy: options.speedy,
-          prepend: options.prepend,
-          insertionPoint: options.insertionPoint
-        }),
-        nonce: options.nonce,
-        inserted,
-        registered: {},
-        insert: _insert
-      };
-      return cache.sheet.hydrate(nodesToHydrate), cache;
-    };
-    exports.default = createCache;
-  }
-});
-
-// node_modules/@emotion/cache/dist/emotion-cache.cjs.js
-var require_emotion_cache_cjs = __commonJS({
-  "node_modules/@emotion/cache/dist/emotion-cache.cjs.js"(exports, module) {
-    "use strict";
-    module.exports = require_emotion_cache_cjs_dev();
-  }
-});
-
-// node_modules/hoist-non-react-statics/node_modules/react-is/cjs/react-is.development.js
-var require_react_is_development2 = __commonJS({
-  "node_modules/hoist-non-react-statics/node_modules/react-is/cjs/react-is.development.js"(exports) {
-    "use strict";
-    (function() {
-      "use strict";
-      var hasSymbol = typeof Symbol == "function" && Symbol.for, REACT_ELEMENT_TYPE = hasSymbol ? Symbol.for("react.element") : 60103, REACT_PORTAL_TYPE = hasSymbol ? Symbol.for("react.portal") : 60106, REACT_FRAGMENT_TYPE = hasSymbol ? Symbol.for("react.fragment") : 60107, REACT_STRICT_MODE_TYPE = hasSymbol ? Symbol.for("react.strict_mode") : 60108, REACT_PROFILER_TYPE = hasSymbol ? Symbol.for("react.profiler") : 60114, REACT_PROVIDER_TYPE = hasSymbol ? Symbol.for("react.provider") : 60109, REACT_CONTEXT_TYPE = hasSymbol ? Symbol.for("react.context") : 60110, REACT_ASYNC_MODE_TYPE = hasSymbol ? Symbol.for("react.async_mode") : 60111, REACT_CONCURRENT_MODE_TYPE = hasSymbol ? Symbol.for("react.concurrent_mode") : 60111, REACT_FORWARD_REF_TYPE = hasSymbol ? Symbol.for("react.forward_ref") : 60112, REACT_SUSPENSE_TYPE = hasSymbol ? Symbol.for("react.suspense") : 60113, REACT_SUSPENSE_LIST_TYPE = hasSymbol ? Symbol.for("react.suspense_list") : 60120, REACT_MEMO_TYPE = hasSymbol ? Symbol.for("react.memo") : 60115, REACT_LAZY_TYPE = hasSymbol ? Symbol.for("react.lazy") : 60116, REACT_BLOCK_TYPE = hasSymbol ? Symbol.for("react.block") : 60121, REACT_FUNDAMENTAL_TYPE = hasSymbol ? Symbol.for("react.fundamental") : 60117, REACT_RESPONDER_TYPE = hasSymbol ? Symbol.for("react.responder") : 60118, REACT_SCOPE_TYPE = hasSymbol ? Symbol.for("react.scope") : 60119;
-      function isValidElementType(type) {
-        return typeof type == "string" || typeof type == "function" || // Note: its typeof might be other than 'symbol' or 'number' if it's a polyfill.
-        type === REACT_FRAGMENT_TYPE || type === REACT_CONCURRENT_MODE_TYPE || type === REACT_PROFILER_TYPE || type === REACT_STRICT_MODE_TYPE || type === REACT_SUSPENSE_TYPE || type === REACT_SUSPENSE_LIST_TYPE || typeof type == "object" && type !== null && (type.$$typeof === REACT_LAZY_TYPE || type.$$typeof === REACT_MEMO_TYPE || type.$$typeof === REACT_PROVIDER_TYPE || type.$$typeof === REACT_CONTEXT_TYPE || type.$$typeof === REACT_FORWARD_REF_TYPE || type.$$typeof === REACT_FUNDAMENTAL_TYPE || type.$$typeof === REACT_RESPONDER_TYPE || type.$$typeof === REACT_SCOPE_TYPE || type.$$typeof === REACT_BLOCK_TYPE);
-      }
-      function typeOf(object) {
-        if (typeof object == "object" && object !== null) {
-          var $$typeof = object.$$typeof;
-          switch ($$typeof) {
-            case REACT_ELEMENT_TYPE:
-              var type = object.type;
-              switch (type) {
-                case REACT_ASYNC_MODE_TYPE:
-                case REACT_CONCURRENT_MODE_TYPE:
-                case REACT_FRAGMENT_TYPE:
-                case REACT_PROFILER_TYPE:
-                case REACT_STRICT_MODE_TYPE:
-                case REACT_SUSPENSE_TYPE:
-                  return type;
-                default:
-                  var $$typeofType = type && type.$$typeof;
-                  switch ($$typeofType) {
-                    case REACT_CONTEXT_TYPE:
-                    case REACT_FORWARD_REF_TYPE:
-                    case REACT_LAZY_TYPE:
-                    case REACT_MEMO_TYPE:
-                    case REACT_PROVIDER_TYPE:
-                      return $$typeofType;
-                    default:
-                      return $$typeof;
-                  }
-              }
-            case REACT_PORTAL_TYPE:
-              return $$typeof;
-          }
-        }
-      }
-      var AsyncMode = REACT_ASYNC_MODE_TYPE, ConcurrentMode = REACT_CONCURRENT_MODE_TYPE, ContextConsumer = REACT_CONTEXT_TYPE, ContextProvider = REACT_PROVIDER_TYPE, Element2 = REACT_ELEMENT_TYPE, ForwardRef2 = REACT_FORWARD_REF_TYPE, Fragment16 = REACT_FRAGMENT_TYPE, Lazy = REACT_LAZY_TYPE, Memo2 = REACT_MEMO_TYPE, Portal = REACT_PORTAL_TYPE, Profiler = REACT_PROFILER_TYPE, StrictMode = REACT_STRICT_MODE_TYPE, Suspense7 = REACT_SUSPENSE_TYPE, hasWarnedAboutDeprecatedIsAsyncMode = !1;
-      function isAsyncMode(object) {
-        return hasWarnedAboutDeprecatedIsAsyncMode || (hasWarnedAboutDeprecatedIsAsyncMode = !0, console.warn("The ReactIs.isAsyncMode() alias has been deprecated, and will be removed in React 17+. Update your code to use ReactIs.isConcurrentMode() instead. It has the exact same API.")), isConcurrentMode(object) || typeOf(object) === REACT_ASYNC_MODE_TYPE;
-      }
-      function isConcurrentMode(object) {
-        return typeOf(object) === REACT_CONCURRENT_MODE_TYPE;
-      }
-      function isContextConsumer(object) {
-        return typeOf(object) === REACT_CONTEXT_TYPE;
-      }
-      function isContextProvider(object) {
-        return typeOf(object) === REACT_PROVIDER_TYPE;
-      }
-      function isElement(object) {
-        return typeof object == "object" && object !== null && object.$$typeof === REACT_ELEMENT_TYPE;
-      }
-      function isForwardRef(object) {
-        return typeOf(object) === REACT_FORWARD_REF_TYPE;
-      }
-      function isFragment2(object) {
-        return typeOf(object) === REACT_FRAGMENT_TYPE;
-      }
-      function isLazy(object) {
-        return typeOf(object) === REACT_LAZY_TYPE;
-      }
-      function isMemo(object) {
-        return typeOf(object) === REACT_MEMO_TYPE;
-      }
-      function isPortal(object) {
-        return typeOf(object) === REACT_PORTAL_TYPE;
-      }
-      function isProfiler(object) {
-        return typeOf(object) === REACT_PROFILER_TYPE;
-      }
-      function isStrictMode(object) {
-        return typeOf(object) === REACT_STRICT_MODE_TYPE;
-      }
-      function isSuspense(object) {
-        return typeOf(object) === REACT_SUSPENSE_TYPE;
-      }
-      exports.AsyncMode = AsyncMode, exports.ConcurrentMode = ConcurrentMode, exports.ContextConsumer = ContextConsumer, exports.ContextProvider = ContextProvider, exports.Element = Element2, exports.ForwardRef = ForwardRef2, exports.Fragment = Fragment16, exports.Lazy = Lazy, exports.Memo = Memo2, exports.Portal = Portal, exports.Profiler = Profiler, exports.StrictMode = StrictMode, exports.Suspense = Suspense7, exports.isAsyncMode = isAsyncMode, exports.isConcurrentMode = isConcurrentMode, exports.isContextConsumer = isContextConsumer, exports.isContextProvider = isContextProvider, exports.isElement = isElement, exports.isForwardRef = isForwardRef, exports.isFragment = isFragment2, exports.isLazy = isLazy, exports.isMemo = isMemo, exports.isPortal = isPortal, exports.isProfiler = isProfiler, exports.isStrictMode = isStrictMode, exports.isSuspense = isSuspense, exports.isValidElementType = isValidElementType, exports.typeOf = typeOf;
-    })();
-  }
-});
-
-// node_modules/hoist-non-react-statics/node_modules/react-is/index.js
-var require_react_is2 = __commonJS({
-  "node_modules/hoist-non-react-statics/node_modules/react-is/index.js"(exports, module) {
-    "use strict";
-    module.exports = require_react_is_development2();
-  }
-});
-
-// node_modules/hoist-non-react-statics/dist/hoist-non-react-statics.cjs.js
-var require_hoist_non_react_statics_cjs = __commonJS({
-  "node_modules/hoist-non-react-statics/dist/hoist-non-react-statics.cjs.js"(exports, module) {
-    "use strict";
-    var reactIs = require_react_is2(), REACT_STATICS = {
-      childContextTypes: !0,
-      contextType: !0,
-      contextTypes: !0,
-      defaultProps: !0,
-      displayName: !0,
-      getDefaultProps: !0,
-      getDerivedStateFromError: !0,
-      getDerivedStateFromProps: !0,
-      mixins: !0,
-      propTypes: !0,
-      type: !0
-    }, KNOWN_STATICS = {
-      name: !0,
-      length: !0,
-      prototype: !0,
-      caller: !0,
-      callee: !0,
-      arguments: !0,
-      arity: !0
-    }, FORWARD_REF_STATICS = {
-      $$typeof: !0,
-      render: !0,
-      defaultProps: !0,
-      displayName: !0,
-      propTypes: !0
-    }, MEMO_STATICS = {
-      $$typeof: !0,
-      compare: !0,
-      defaultProps: !0,
-      displayName: !0,
-      propTypes: !0,
-      type: !0
-    }, TYPE_STATICS = {};
-    TYPE_STATICS[reactIs.ForwardRef] = FORWARD_REF_STATICS;
-    TYPE_STATICS[reactIs.Memo] = MEMO_STATICS;
-    function getStatics(component) {
-      return reactIs.isMemo(component) ? MEMO_STATICS : TYPE_STATICS[component.$$typeof] || REACT_STATICS;
-    }
-    var defineProperty = Object.defineProperty, getOwnPropertyNames = Object.getOwnPropertyNames, getOwnPropertySymbols = Object.getOwnPropertySymbols, getOwnPropertyDescriptor = Object.getOwnPropertyDescriptor, getPrototypeOf = Object.getPrototypeOf, objectPrototype = Object.prototype;
-    function hoistNonReactStatics(targetComponent, sourceComponent, blacklist) {
-      if (typeof sourceComponent != "string") {
-        if (objectPrototype) {
-          var inheritedComponent = getPrototypeOf(sourceComponent);
-          inheritedComponent && inheritedComponent !== objectPrototype && hoistNonReactStatics(targetComponent, inheritedComponent, blacklist);
-        }
-        var keys = getOwnPropertyNames(sourceComponent);
-        getOwnPropertySymbols && (keys = keys.concat(getOwnPropertySymbols(sourceComponent)));
-        for (var targetStatics = getStatics(targetComponent), sourceStatics = getStatics(sourceComponent), i = 0; i < keys.length; ++i) {
-          var key = keys[i];
-          if (!KNOWN_STATICS[key] && !(blacklist && blacklist[key]) && !(sourceStatics && sourceStatics[key]) && !(targetStatics && targetStatics[key])) {
-            var descriptor = getOwnPropertyDescriptor(sourceComponent, key);
-            try {
-              defineProperty(targetComponent, key, descriptor);
-            } catch {
-            }
-          }
-        }
-      }
-      return targetComponent;
-    }
-    module.exports = hoistNonReactStatics;
-  }
-});
-
-// node_modules/@emotion/react/_isolated-hnrs/dist/emotion-react-_isolated-hnrs.cjs.dev.js
-var require_emotion_react_isolated_hnrs_cjs_dev = __commonJS({
-  "node_modules/@emotion/react/_isolated-hnrs/dist/emotion-react-_isolated-hnrs.cjs.dev.js"(exports) {
-    "use strict";
-    Object.defineProperty(exports, "__esModule", { value: !0 });
-    var hoistNonReactStatics$1 = require_hoist_non_react_statics_cjs();
-    function _interopDefault(e) {
-      return e && e.__esModule ? e : { default: e };
-    }
-    var hoistNonReactStatics__default = /* @__PURE__ */ _interopDefault(hoistNonReactStatics$1), hoistNonReactStatics = function(targetComponent, sourceComponent) {
-      return hoistNonReactStatics__default.default(targetComponent, sourceComponent);
-    };
-    exports.default = hoistNonReactStatics;
-  }
-});
-
-// node_modules/@emotion/utils/dist/emotion-utils.cjs.dev.js
-var require_emotion_utils_cjs_dev = __commonJS({
-  "node_modules/@emotion/utils/dist/emotion-utils.cjs.dev.js"(exports) {
-    "use strict";
-    Object.defineProperty(exports, "__esModule", { value: !0 });
-    var isBrowser2 = typeof document < "u";
-    function getRegisteredStyles(registered, registeredStyles, classNames2) {
-      var rawClassName = "";
-      return classNames2.split(" ").forEach(function(className) {
-        registered[className] !== void 0 ? registeredStyles.push(registered[className] + ";") : rawClassName += className + " ";
-      }), rawClassName;
-    }
-    var registerStyles = function(cache, serialized, isStringTag2) {
-      var className = cache.key + "-" + serialized.name;
-      // we only need to add the styles to the registered cache if the
-      // class name could be used further down
-      // the tree but if it's a string tag, we know it won't
-      // so we don't have to add it to registered cache.
-      // this improves memory usage since we can avoid storing the whole style string
-      (isStringTag2 === !1 || // we need to always store it if we're in compat mode and
-      // in node since emotion-server relies on whether a style is in
-      // the registered cache to know whether a style is global or not
-      // also, note that this check will be dead code eliminated in the browser
-      isBrowser2 === !1 && cache.compat !== void 0) && cache.registered[className] === void 0 && (cache.registered[className] = serialized.styles);
-    }, insertStyles = function(cache, serialized, isStringTag2) {
-      registerStyles(cache, serialized, isStringTag2);
-      var className = cache.key + "-" + serialized.name;
-      if (cache.inserted[serialized.name] === void 0) {
-        var stylesForSSR = "", current = serialized;
-        do {
-          var maybeStyles = cache.insert(serialized === current ? "." + className : "", current, cache.sheet, !0);
-          !isBrowser2 && maybeStyles !== void 0 && (stylesForSSR += maybeStyles), current = current.next;
-        } while (current !== void 0);
-        if (!isBrowser2 && stylesForSSR.length !== 0)
-          return stylesForSSR;
-      }
-    };
-    exports.getRegisteredStyles = getRegisteredStyles;
-    exports.insertStyles = insertStyles;
-    exports.registerStyles = registerStyles;
-  }
-});
-
-// node_modules/@emotion/utils/dist/emotion-utils.cjs.js
-var require_emotion_utils_cjs = __commonJS({
-  "node_modules/@emotion/utils/dist/emotion-utils.cjs.js"(exports, module) {
-    "use strict";
-    module.exports = require_emotion_utils_cjs_dev();
-  }
-});
-
-// node_modules/@emotion/hash/dist/emotion-hash.cjs.dev.js
-var require_emotion_hash_cjs_dev = __commonJS({
-  "node_modules/@emotion/hash/dist/emotion-hash.cjs.dev.js"(exports) {
-    "use strict";
-    Object.defineProperty(exports, "__esModule", { value: !0 });
-    function murmur2(str) {
-      for (var h = 0, k, i = 0, len = str.length; len >= 4; ++i, len -= 4)
-        k = str.charCodeAt(i) & 255 | (str.charCodeAt(++i) & 255) << 8 | (str.charCodeAt(++i) & 255) << 16 | (str.charCodeAt(++i) & 255) << 24, k = /* Math.imul(k, m): */
-        (k & 65535) * 1540483477 + ((k >>> 16) * 59797 << 16), k ^= /* k >>> r: */
-        k >>> 24, h = /* Math.imul(k, m): */
-        (k & 65535) * 1540483477 + ((k >>> 16) * 59797 << 16) ^ /* Math.imul(h, m): */
-        (h & 65535) * 1540483477 + ((h >>> 16) * 59797 << 16);
-      switch (len) {
-        case 3:
-          h ^= (str.charCodeAt(i + 2) & 255) << 16;
-        case 2:
-          h ^= (str.charCodeAt(i + 1) & 255) << 8;
-        case 1:
-          h ^= str.charCodeAt(i) & 255, h = /* Math.imul(h, m): */
-          (h & 65535) * 1540483477 + ((h >>> 16) * 59797 << 16);
-      }
-      return h ^= h >>> 13, h = /* Math.imul(h, m): */
-      (h & 65535) * 1540483477 + ((h >>> 16) * 59797 << 16), ((h ^ h >>> 15) >>> 0).toString(36);
-    }
-    exports.default = murmur2;
-  }
-});
-
-// node_modules/@emotion/hash/dist/emotion-hash.cjs.js
-var require_emotion_hash_cjs = __commonJS({
-  "node_modules/@emotion/hash/dist/emotion-hash.cjs.js"(exports, module) {
-    "use strict";
-    module.exports = require_emotion_hash_cjs_dev();
-  }
-});
-
-// node_modules/@emotion/unitless/dist/emotion-unitless.cjs.dev.js
-var require_emotion_unitless_cjs_dev = __commonJS({
-  "node_modules/@emotion/unitless/dist/emotion-unitless.cjs.dev.js"(exports) {
-    "use strict";
-    Object.defineProperty(exports, "__esModule", { value: !0 });
-    var unitlessKeys = {
-      animationIterationCount: 1,
-      aspectRatio: 1,
-      borderImageOutset: 1,
-      borderImageSlice: 1,
-      borderImageWidth: 1,
-      boxFlex: 1,
-      boxFlexGroup: 1,
-      boxOrdinalGroup: 1,
-      columnCount: 1,
-      columns: 1,
-      flex: 1,
-      flexGrow: 1,
-      flexPositive: 1,
-      flexShrink: 1,
-      flexNegative: 1,
-      flexOrder: 1,
-      gridRow: 1,
-      gridRowEnd: 1,
-      gridRowSpan: 1,
-      gridRowStart: 1,
-      gridColumn: 1,
-      gridColumnEnd: 1,
-      gridColumnSpan: 1,
-      gridColumnStart: 1,
-      msGridRow: 1,
-      msGridRowSpan: 1,
-      msGridColumn: 1,
-      msGridColumnSpan: 1,
-      fontWeight: 1,
-      lineHeight: 1,
-      opacity: 1,
-      order: 1,
-      orphans: 1,
-      tabSize: 1,
-      widows: 1,
-      zIndex: 1,
-      zoom: 1,
-      WebkitLineClamp: 1,
-      // SVG-related properties
-      fillOpacity: 1,
-      floodOpacity: 1,
-      stopOpacity: 1,
-      strokeDasharray: 1,
-      strokeDashoffset: 1,
-      strokeMiterlimit: 1,
-      strokeOpacity: 1,
-      strokeWidth: 1
-    };
-    exports.default = unitlessKeys;
-  }
-});
-
-// node_modules/@emotion/unitless/dist/emotion-unitless.cjs.js
-var require_emotion_unitless_cjs = __commonJS({
-  "node_modules/@emotion/unitless/dist/emotion-unitless.cjs.js"(exports, module) {
-    "use strict";
-    module.exports = require_emotion_unitless_cjs_dev();
-  }
-});
-
-// node_modules/@emotion/serialize/dist/emotion-serialize.cjs.dev.js
-var require_emotion_serialize_cjs_dev = __commonJS({
-  "node_modules/@emotion/serialize/dist/emotion-serialize.cjs.dev.js"(exports) {
-    "use strict";
-    Object.defineProperty(exports, "__esModule", { value: !0 });
-    var hashString = require_emotion_hash_cjs(), unitless = require_emotion_unitless_cjs(), memoize2 = require_emotion_memoize_cjs();
-    function _interopDefault(e) {
-      return e && e.__esModule ? e : { default: e };
-    }
-    var hashString__default = /* @__PURE__ */ _interopDefault(hashString), unitless__default = /* @__PURE__ */ _interopDefault(unitless), memoize__default = /* @__PURE__ */ _interopDefault(memoize2), ILLEGAL_ESCAPE_SEQUENCE_ERROR = `You have illegal escape sequence in your template literal, most likely inside content's property value.
-Because you write your CSS inside a JavaScript string you actually have to do double escaping, so for example "content: '\\00d7';" should become "content: '\\\\00d7';".
-You can read more about this here:
-https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals#ES2018_revision_of_illegal_escape_sequences`, UNDEFINED_AS_OBJECT_KEY_ERROR = "You have passed in falsy value as style object's key (can happen when in example you pass unexported component as computed key).", hyphenateRegex = /[A-Z]|^ms/g, animationRegex = /_EMO_([^_]+?)_([^]*?)_EMO_/g, isCustomProperty = function(property) {
-      return property.charCodeAt(1) === 45;
-    }, isProcessableValue = function(value) {
-      return value != null && typeof value != "boolean";
-    }, processStyleName = /* @__PURE__ */ memoize__default.default(function(styleName) {
-      return isCustomProperty(styleName) ? styleName : styleName.replace(hyphenateRegex, "-$&").toLowerCase();
-    }), processStyleValue = function(key, value) {
-      switch (key) {
-        case "animation":
-        case "animationName":
-          if (typeof value == "string")
-            return value.replace(animationRegex, function(match, p1, p2) {
-              return cursor = {
-                name: p1,
-                styles: p2,
-                next: cursor
-              }, p1;
-            });
-      }
-      return unitless__default.default[key] !== 1 && !isCustomProperty(key) && typeof value == "number" && value !== 0 ? value + "px" : value;
-    };
-    contentValuePattern = /(var|attr|counters?|url|element|(((repeating-)?(linear|radial))|conic)-gradient)\(|(no-)?(open|close)-quote/, contentValues = ["normal", "none", "initial", "inherit", "unset"], oldProcessStyleValue = processStyleValue, msPattern = /^-ms-/, hyphenPattern = /-(.)/g, hyphenatedCache = {}, processStyleValue = function(key, value) {
-      if (key === "content" && (typeof value != "string" || contentValues.indexOf(value) === -1 && !contentValuePattern.test(value) && (value.charAt(0) !== value.charAt(value.length - 1) || value.charAt(0) !== '"' && value.charAt(0) !== "'")))
-        throw new Error("You seem to be using a value for 'content' without quotes, try replacing it with `content: '\"" + value + "\"'`");
-      var processed = oldProcessStyleValue(key, value);
-      return processed !== "" && !isCustomProperty(key) && key.indexOf("-") !== -1 && hyphenatedCache[key] === void 0 && (hyphenatedCache[key] = !0, console.error("Using kebab-case for css properties in objects is not supported. Did you mean " + key.replace(msPattern, "ms-").replace(hyphenPattern, function(str, _char) {
-        return _char.toUpperCase();
-      }) + "?")), processed;
-    };
-    var contentValuePattern, contentValues, oldProcessStyleValue, msPattern, hyphenPattern, hyphenatedCache, noComponentSelectorMessage = "Component selectors can only be used in conjunction with @emotion/babel-plugin, the swc Emotion plugin, or another Emotion-aware compiler transform.";
-    function handleInterpolation(mergedProps, registered, interpolation) {
-      if (interpolation == null)
-        return "";
-      if (interpolation.__emotion_styles !== void 0) {
-        if (interpolation.toString() === "NO_COMPONENT_SELECTOR")
-          throw new Error(noComponentSelectorMessage);
-        return interpolation;
-      }
-      switch (typeof interpolation) {
-        case "boolean":
-          return "";
-        case "object": {
-          if (interpolation.anim === 1)
-            return cursor = {
-              name: interpolation.name,
-              styles: interpolation.styles,
-              next: cursor
-            }, interpolation.name;
-          if (interpolation.styles !== void 0) {
-            var next = interpolation.next;
-            if (next !== void 0)
-              for (; next !== void 0; )
-                cursor = {
-                  name: next.name,
-                  styles: next.styles,
-                  next: cursor
-                }, next = next.next;
-            var styles4 = interpolation.styles + ";";
-            return interpolation.map !== void 0 && (styles4 += interpolation.map), styles4;
-          }
-          return createStringFromObject(mergedProps, registered, interpolation);
-        }
-        case "function": {
-          if (mergedProps !== void 0) {
-            var previousCursor = cursor, result = interpolation(mergedProps);
-            return cursor = previousCursor, handleInterpolation(mergedProps, registered, result);
-          } else
-            console.error("Functions that are interpolated in css calls will be stringified.\nIf you want to have a css call based on props, create a function that returns a css call like this\nlet dynamicStyle = (props) => css`color: ${props.color}`\nIt can be called directly with props or interpolated in a styled call like this\nlet SomeComponent = styled('div')`${dynamicStyle}`");
-          break;
-        }
-        case "string":
-          var matched = [], replaced = interpolation.replace(animationRegex, function(match, p1, p2) {
-            var fakeVarName = "animation" + matched.length;
-            return matched.push("const " + fakeVarName + " = keyframes`" + p2.replace(/^@keyframes animation-\w+/, "") + "`"), "${" + fakeVarName + "}";
-          });
-          matched.length && console.error("`keyframes` output got interpolated into plain string, please wrap it with `css`.\n\nInstead of doing this:\n\n" + [].concat(matched, ["`" + replaced + "`"]).join(`
-`) + `
-
-You should wrap it with \`css\` like this:
-
-` + ("css`" + replaced + "`"));
-          break;
-      }
-      if (registered == null)
-        return interpolation;
-      var cached = registered[interpolation];
-      return cached !== void 0 ? cached : interpolation;
-    }
-    function createStringFromObject(mergedProps, registered, obj) {
-      var string = "";
-      if (Array.isArray(obj))
-        for (var i = 0; i < obj.length; i++)
-          string += handleInterpolation(mergedProps, registered, obj[i]) + ";";
-      else
-        for (var _key in obj) {
-          var value = obj[_key];
-          if (typeof value != "object")
-            registered != null && registered[value] !== void 0 ? string += _key + "{" + registered[value] + "}" : isProcessableValue(value) && (string += processStyleName(_key) + ":" + processStyleValue(_key, value) + ";");
-          else {
-            if (_key === "NO_COMPONENT_SELECTOR")
-              throw new Error(noComponentSelectorMessage);
-            if (Array.isArray(value) && typeof value[0] == "string" && (registered == null || registered[value[0]] === void 0))
-              for (var _i = 0; _i < value.length; _i++)
-                isProcessableValue(value[_i]) && (string += processStyleName(_key) + ":" + processStyleValue(_key, value[_i]) + ";");
-            else {
-              var interpolated = handleInterpolation(mergedProps, registered, value);
-              switch (_key) {
-                case "animation":
-                case "animationName": {
-                  string += processStyleName(_key) + ":" + interpolated + ";";
-                  break;
-                }
-                default:
-                  _key === "undefined" && console.error(UNDEFINED_AS_OBJECT_KEY_ERROR), string += _key + "{" + interpolated + "}";
-              }
-            }
-          }
-        }
-      return string;
-    }
-    var labelPattern = /label:\s*([^\s;\n{]+)\s*(;|$)/g, sourceMapPattern;
-    sourceMapPattern = /\/\*#\ssourceMappingURL=data:application\/json;\S+\s+\*\//g;
-    var cursor, serializeStyles = function(args, registered, mergedProps) {
-      if (args.length === 1 && typeof args[0] == "object" && args[0] !== null && args[0].styles !== void 0)
-        return args[0];
-      var stringMode = !0, styles4 = "";
-      cursor = void 0;
-      var strings = args[0];
-      strings == null || strings.raw === void 0 ? (stringMode = !1, styles4 += handleInterpolation(mergedProps, registered, strings)) : (strings[0] === void 0 && console.error(ILLEGAL_ESCAPE_SEQUENCE_ERROR), styles4 += strings[0]);
-      for (var i = 1; i < args.length; i++)
-        styles4 += handleInterpolation(mergedProps, registered, args[i]), stringMode && (strings[i] === void 0 && console.error(ILLEGAL_ESCAPE_SEQUENCE_ERROR), styles4 += strings[i]);
-      var sourceMap;
-      styles4 = styles4.replace(sourceMapPattern, function(match2) {
-        return sourceMap = match2, "";
-      }), labelPattern.lastIndex = 0;
-      for (var identifierName = "", match; (match = labelPattern.exec(styles4)) !== null; )
-        identifierName += "-" + // $FlowFixMe we know it's not null
-        match[1];
-      var name = hashString__default.default(styles4) + identifierName;
-      return {
-        name,
-        styles: styles4,
-        map: sourceMap,
-        next: cursor,
-        toString: function() {
-          return "You have tried to stringify object returned from `css` function. It isn't supposed to be used directly (e.g. as value of the `className` prop), but rather handed to emotion so it can handle it (e.g. as value of `css` prop).";
-        }
-      };
-    };
-    exports.serializeStyles = serializeStyles;
-  }
-});
-
-// node_modules/@emotion/serialize/dist/emotion-serialize.cjs.js
-var require_emotion_serialize_cjs = __commonJS({
-  "node_modules/@emotion/serialize/dist/emotion-serialize.cjs.js"(exports, module) {
-    "use strict";
-    module.exports = require_emotion_serialize_cjs_dev();
-  }
-});
-
-// node_modules/@emotion/use-insertion-effect-with-fallbacks/dist/emotion-use-insertion-effect-with-fallbacks.cjs.dev.js
-var require_emotion_use_insertion_effect_with_fallbacks_cjs_dev = __commonJS({
-  "node_modules/@emotion/use-insertion-effect-with-fallbacks/dist/emotion-use-insertion-effect-with-fallbacks.cjs.dev.js"(exports) {
-    "use strict";
-    Object.defineProperty(exports, "__esModule", { value: !0 });
-    var React43 = require_react();
-    function _interopNamespace(e) {
-      if (e && e.__esModule)
-        return e;
-      var n = /* @__PURE__ */ Object.create(null);
-      return e && Object.keys(e).forEach(function(k) {
-        if (k !== "default") {
-          var d = Object.getOwnPropertyDescriptor(e, k);
-          Object.defineProperty(n, k, d.get ? d : {
-            enumerable: !0,
-            get: function() {
-              return e[k];
-            }
-          });
-        }
-      }), n.default = e, Object.freeze(n);
-    }
-    var React__namespace = /* @__PURE__ */ _interopNamespace(React43), isBrowser2 = typeof document < "u", syncFallback = function(create) {
-      return create();
-    }, useInsertionEffect = React__namespace["useInsertionEffect"] ? React__namespace["useInsertionEffect"] : !1, useInsertionEffectAlwaysWithSyncFallback = isBrowser2 && useInsertionEffect || syncFallback, useInsertionEffectWithLayoutFallback = useInsertionEffect || React__namespace.useLayoutEffect;
-    exports.useInsertionEffectAlwaysWithSyncFallback = useInsertionEffectAlwaysWithSyncFallback;
-    exports.useInsertionEffectWithLayoutFallback = useInsertionEffectWithLayoutFallback;
-  }
-});
-
-// node_modules/@emotion/use-insertion-effect-with-fallbacks/dist/emotion-use-insertion-effect-with-fallbacks.cjs.js
-var require_emotion_use_insertion_effect_with_fallbacks_cjs = __commonJS({
-  "node_modules/@emotion/use-insertion-effect-with-fallbacks/dist/emotion-use-insertion-effect-with-fallbacks.cjs.js"(exports, module) {
-    "use strict";
-    module.exports = require_emotion_use_insertion_effect_with_fallbacks_cjs_dev();
-  }
-});
-
-// node_modules/@emotion/react/dist/emotion-element-48d2c2e4.cjs.dev.js
-var require_emotion_element_48d2c2e4_cjs_dev = __commonJS({
-  "node_modules/@emotion/react/dist/emotion-element-48d2c2e4.cjs.dev.js"(exports) {
-    "use strict";
-    var React43 = require_react(), createCache = require_emotion_cache_cjs(), _extends7 = require_extends(), weakMemoize = require_emotion_weak_memoize_cjs(), _isolatedHnrs_dist_emotionReact_isolatedHnrs = require_emotion_react_isolated_hnrs_cjs_dev(), utils = require_emotion_utils_cjs(), serialize2 = require_emotion_serialize_cjs(), useInsertionEffectWithFallbacks = require_emotion_use_insertion_effect_with_fallbacks_cjs();
-    function _interopDefault(e) {
-      return e && e.__esModule ? e : { default: e };
-    }
-    function _interopNamespace(e) {
-      if (e && e.__esModule)
-        return e;
-      var n = /* @__PURE__ */ Object.create(null);
-      return e && Object.keys(e).forEach(function(k) {
-        if (k !== "default") {
-          var d = Object.getOwnPropertyDescriptor(e, k);
-          Object.defineProperty(n, k, d.get ? d : {
-            enumerable: !0,
-            get: function() {
-              return e[k];
-            }
-          });
-        }
-      }), n.default = e, Object.freeze(n);
-    }
-    var React__namespace = /* @__PURE__ */ _interopNamespace(React43), createCache__default = /* @__PURE__ */ _interopDefault(createCache), weakMemoize__default = /* @__PURE__ */ _interopDefault(weakMemoize), isBrowser2 = typeof document < "u", hasOwnProperty = {}.hasOwnProperty, EmotionCacheContext = /* @__PURE__ */ React__namespace.createContext(
-      // we're doing this to avoid preconstruct's dead code elimination in this one case
-      // because this module is primarily intended for the browser and node
-      // but it's also required in react native and similar environments sometimes
-      // and we could have a special build just for that
-      // but this is much easier and the native packages
-      // might use a different theme context in the future anyway
-      typeof HTMLElement < "u" ? /* @__PURE__ */ createCache__default.default({
-        key: "css"
-      }) : null
-    );
-    EmotionCacheContext.displayName = "EmotionCacheContext";
-    var CacheProvider2 = EmotionCacheContext.Provider, __unsafe_useEmotionCache2 = function() {
-      return React43.useContext(EmotionCacheContext);
-    };
-    exports.withEmotionCache = function(func) {
-      return /* @__PURE__ */ React43.forwardRef(function(props, ref) {
-        var cache = React43.useContext(EmotionCacheContext);
-        return func(props, cache, ref);
-      });
-    };
-    isBrowser2 || (exports.withEmotionCache = function(func) {
-      return function(props) {
-        var cache = React43.useContext(EmotionCacheContext);
-        return cache === null ? (cache = createCache__default.default({
-          key: "css"
-        }), /* @__PURE__ */ React__namespace.createElement(EmotionCacheContext.Provider, {
-          value: cache
-        }, func(props, cache))) : func(props, cache);
-      };
-    });
-    var ThemeContext2 = /* @__PURE__ */ React__namespace.createContext({});
-    ThemeContext2.displayName = "EmotionThemeContext";
-    var useTheme5 = function() {
-      return React__namespace.useContext(ThemeContext2);
-    }, getTheme = function(outerTheme, theme) {
-      if (typeof theme == "function") {
-        var mergedTheme = theme(outerTheme);
-        if (mergedTheme == null || typeof mergedTheme != "object" || Array.isArray(mergedTheme))
-          throw new Error("[ThemeProvider] Please return an object from your theme function, i.e. theme={() => ({})}!");
-        return mergedTheme;
-      }
-      if (theme == null || typeof theme != "object" || Array.isArray(theme))
-        throw new Error("[ThemeProvider] Please make your theme prop a plain object");
-      return _extends7({}, outerTheme, theme);
-    }, createCacheWithTheme = /* @__PURE__ */ weakMemoize__default.default(function(outerTheme) {
-      return weakMemoize__default.default(function(theme) {
-        return getTheme(outerTheme, theme);
-      });
-    }), ThemeProvider2 = function(props) {
-      var theme = React__namespace.useContext(ThemeContext2);
-      return props.theme !== theme && (theme = createCacheWithTheme(theme)(props.theme)), /* @__PURE__ */ React__namespace.createElement(ThemeContext2.Provider, {
-        value: theme
-      }, props.children);
-    };
-    function withTheme2(Component4) {
-      var componentName = Component4.displayName || Component4.name || "Component", render = function(props, ref) {
-        var theme = React__namespace.useContext(ThemeContext2);
-        return /* @__PURE__ */ React__namespace.createElement(Component4, _extends7({
-          theme,
-          ref
-        }, props));
-      }, WithTheme = /* @__PURE__ */ React__namespace.forwardRef(render);
-      return WithTheme.displayName = "WithTheme(" + componentName + ")", _isolatedHnrs_dist_emotionReact_isolatedHnrs.default(WithTheme, Component4);
-    }
-    var getLastPart = function(functionName) {
-      var parts = functionName.split(".");
-      return parts[parts.length - 1];
-    }, getFunctionNameFromStackTraceLine = function(line) {
-      var match = /^\s+at\s+([A-Za-z0-9$.]+)\s/.exec(line);
-      if (match || (match = /^([A-Za-z0-9$.]+)@/.exec(line), match))
-        return getLastPart(match[1]);
-    }, internalReactFunctionNames = /* @__PURE__ */ new Set(["renderWithHooks", "processChild", "finishClassComponent", "renderToString"]), sanitizeIdentifier = function(identifier) {
-      return identifier.replace(/\$/g, "-");
-    }, getLabelFromStackTrace = function(stackTrace) {
-      if (stackTrace)
-        for (var lines = stackTrace.split(`
-`), i = 0; i < lines.length; i++) {
-          var functionName = getFunctionNameFromStackTraceLine(lines[i]);
-          if (functionName) {
-            if (internalReactFunctionNames.has(functionName))
-              break;
-            if (/^[A-Z]/.test(functionName))
-              return sanitizeIdentifier(functionName);
-          }
-        }
-    }, typePropName = "__EMOTION_TYPE_PLEASE_DO_NOT_USE__", labelPropName = "__EMOTION_LABEL_PLEASE_DO_NOT_USE__", createEmotionProps = function(type, props) {
-      if (typeof props.css == "string" && // check if there is a css declaration
-      props.css.indexOf(":") !== -1)
-        throw new Error("Strings are not allowed as css prop values, please wrap it in a css template literal from '@emotion/react' like this: css`" + props.css + "`");
-      var newProps = {};
-      for (var key in props)
-        hasOwnProperty.call(props, key) && (newProps[key] = props[key]);
-      if (newProps[typePropName] = type, props.css && (typeof props.css != "object" || typeof props.css.name != "string" || props.css.name.indexOf("-") === -1)) {
-        var label = getLabelFromStackTrace(new Error().stack);
-        label && (newProps[labelPropName] = label);
-      }
-      return newProps;
-    }, Insertion = function(_ref) {
-      var cache = _ref.cache, serialized = _ref.serialized, isStringTag2 = _ref.isStringTag;
-      utils.registerStyles(cache, serialized, isStringTag2);
-      var rules = useInsertionEffectWithFallbacks.useInsertionEffectAlwaysWithSyncFallback(function() {
-        return utils.insertStyles(cache, serialized, isStringTag2);
-      });
-      if (!isBrowser2 && rules !== void 0) {
-        for (var _ref2, serializedNames = serialized.name, next = serialized.next; next !== void 0; )
-          serializedNames += " " + next.name, next = next.next;
-        return /* @__PURE__ */ React__namespace.createElement("style", (_ref2 = {}, _ref2["data-emotion"] = cache.key + " " + serializedNames, _ref2.dangerouslySetInnerHTML = {
-          __html: rules
-        }, _ref2.nonce = cache.sheet.nonce, _ref2));
-      }
-      return null;
-    }, Emotion = /* @__PURE__ */ exports.withEmotionCache(function(props, cache, ref) {
-      var cssProp = props.css;
-      typeof cssProp == "string" && cache.registered[cssProp] !== void 0 && (cssProp = cache.registered[cssProp]);
-      var WrappedComponent = props[typePropName], registeredStyles = [cssProp], className = "";
-      typeof props.className == "string" ? className = utils.getRegisteredStyles(cache.registered, registeredStyles, props.className) : props.className != null && (className = props.className + " ");
-      var serialized = serialize2.serializeStyles(registeredStyles, void 0, React__namespace.useContext(ThemeContext2));
-      if (serialized.name.indexOf("-") === -1) {
-        var labelFromStack = props[labelPropName];
-        labelFromStack && (serialized = serialize2.serializeStyles([serialized, "label:" + labelFromStack + ";"]));
-      }
-      className += cache.key + "-" + serialized.name;
-      var newProps = {};
-      for (var key in props)
-        hasOwnProperty.call(props, key) && key !== "css" && key !== typePropName && key !== labelPropName && (newProps[key] = props[key]);
-      return newProps.ref = ref, newProps.className = className, /* @__PURE__ */ React__namespace.createElement(React__namespace.Fragment, null, /* @__PURE__ */ React__namespace.createElement(Insertion, {
-        cache,
-        serialized,
-        isStringTag: typeof WrappedComponent == "string"
-      }), /* @__PURE__ */ React__namespace.createElement(WrappedComponent, newProps));
-    });
-    Emotion.displayName = "EmotionCssPropInternal";
-    var Emotion$1 = Emotion;
-    exports.CacheProvider = CacheProvider2;
-    exports.Emotion = Emotion$1;
-    exports.ThemeContext = ThemeContext2;
-    exports.ThemeProvider = ThemeProvider2;
-    exports.__unsafe_useEmotionCache = __unsafe_useEmotionCache2;
-    exports.createEmotionProps = createEmotionProps;
-    exports.hasOwnProperty = hasOwnProperty;
-    exports.isBrowser = isBrowser2;
-    exports.useTheme = useTheme5;
-    exports.withTheme = withTheme2;
-  }
-});
-
-// node_modules/@emotion/react/dist/emotion-react.cjs.dev.js
-var require_emotion_react_cjs_dev = __commonJS({
-  "node_modules/@emotion/react/dist/emotion-react.cjs.dev.js"(exports) {
-    "use strict";
-    Object.defineProperty(exports, "__esModule", { value: !0 });
-    var emotionElement = require_emotion_element_48d2c2e4_cjs_dev(), React43 = require_react(), utils = require_emotion_utils_cjs(), useInsertionEffectWithFallbacks = require_emotion_use_insertion_effect_with_fallbacks_cjs(), serialize2 = require_emotion_serialize_cjs();
-    require_emotion_cache_cjs();
-    require_extends();
-    require_emotion_weak_memoize_cjs();
-    require_emotion_react_isolated_hnrs_cjs_dev();
-    require_hoist_non_react_statics_cjs();
-    function _interopNamespace(e) {
-      if (e && e.__esModule)
-        return e;
-      var n = /* @__PURE__ */ Object.create(null);
-      return e && Object.keys(e).forEach(function(k) {
-        if (k !== "default") {
-          var d = Object.getOwnPropertyDescriptor(e, k);
-          Object.defineProperty(n, k, d.get ? d : {
-            enumerable: !0,
-            get: function() {
-              return e[k];
-            }
-          });
-        }
-      }), n.default = e, Object.freeze(n);
-    }
-    var React__namespace = /* @__PURE__ */ _interopNamespace(React43), pkg = {
-      name: "@emotion/react",
-      version: "11.11.3",
-      main: "dist/emotion-react.cjs.js",
-      module: "dist/emotion-react.esm.js",
-      browser: {
-        "./dist/emotion-react.esm.js": "./dist/emotion-react.browser.esm.js"
-      },
-      exports: {
-        ".": {
-          module: {
-            worker: "./dist/emotion-react.worker.esm.js",
-            browser: "./dist/emotion-react.browser.esm.js",
-            default: "./dist/emotion-react.esm.js"
-          },
-          import: "./dist/emotion-react.cjs.mjs",
-          default: "./dist/emotion-react.cjs.js"
-        },
-        "./jsx-runtime": {
-          module: {
-            worker: "./jsx-runtime/dist/emotion-react-jsx-runtime.worker.esm.js",
-            browser: "./jsx-runtime/dist/emotion-react-jsx-runtime.browser.esm.js",
-            default: "./jsx-runtime/dist/emotion-react-jsx-runtime.esm.js"
-          },
-          import: "./jsx-runtime/dist/emotion-react-jsx-runtime.cjs.mjs",
-          default: "./jsx-runtime/dist/emotion-react-jsx-runtime.cjs.js"
-        },
-        "./_isolated-hnrs": {
-          module: {
-            worker: "./_isolated-hnrs/dist/emotion-react-_isolated-hnrs.worker.esm.js",
-            browser: "./_isolated-hnrs/dist/emotion-react-_isolated-hnrs.browser.esm.js",
-            default: "./_isolated-hnrs/dist/emotion-react-_isolated-hnrs.esm.js"
-          },
-          import: "./_isolated-hnrs/dist/emotion-react-_isolated-hnrs.cjs.mjs",
-          default: "./_isolated-hnrs/dist/emotion-react-_isolated-hnrs.cjs.js"
-        },
-        "./jsx-dev-runtime": {
-          module: {
-            worker: "./jsx-dev-runtime/dist/emotion-react-jsx-dev-runtime.worker.esm.js",
-            browser: "./jsx-dev-runtime/dist/emotion-react-jsx-dev-runtime.browser.esm.js",
-            default: "./jsx-dev-runtime/dist/emotion-react-jsx-dev-runtime.esm.js"
-          },
-          import: "./jsx-dev-runtime/dist/emotion-react-jsx-dev-runtime.cjs.mjs",
-          default: "./jsx-dev-runtime/dist/emotion-react-jsx-dev-runtime.cjs.js"
-        },
-        "./package.json": "./package.json",
-        "./types/css-prop": "./types/css-prop.d.ts",
-        "./macro": {
-          types: {
-            import: "./macro.d.mts",
-            default: "./macro.d.ts"
-          },
-          default: "./macro.js"
-        }
-      },
-      types: "types/index.d.ts",
-      files: [
-        "src",
-        "dist",
-        "jsx-runtime",
-        "jsx-dev-runtime",
-        "_isolated-hnrs",
-        "types/*.d.ts",
-        "macro.*"
-      ],
-      sideEffects: !1,
-      author: "Emotion Contributors",
-      license: "MIT",
-      scripts: {
-        "test:typescript": "dtslint types"
-      },
-      dependencies: {
-        "@babel/runtime": "^7.18.3",
-        "@emotion/babel-plugin": "^11.11.0",
-        "@emotion/cache": "^11.11.0",
-        "@emotion/serialize": "^1.1.3",
-        "@emotion/use-insertion-effect-with-fallbacks": "^1.0.1",
-        "@emotion/utils": "^1.2.1",
-        "@emotion/weak-memoize": "^0.3.1",
-        "hoist-non-react-statics": "^3.3.1"
-      },
-      peerDependencies: {
-        react: ">=16.8.0"
-      },
-      peerDependenciesMeta: {
-        "@types/react": {
-          optional: !0
-        }
-      },
-      devDependencies: {
-        "@definitelytyped/dtslint": "0.0.112",
-        "@emotion/css": "11.11.2",
-        "@emotion/css-prettifier": "1.1.3",
-        "@emotion/server": "11.11.0",
-        "@emotion/styled": "11.11.0",
-        "html-tag-names": "^1.1.2",
-        react: "16.14.0",
-        "svg-tag-names": "^1.1.1",
-        typescript: "^4.5.5"
-      },
-      repository: "https://github.com/emotion-js/emotion/tree/main/packages/react",
-      publishConfig: {
-        access: "public"
-      },
-      "umd:main": "dist/emotion-react.umd.min.js",
-      preconstruct: {
-        entrypoints: [
-          "./index.js",
-          "./jsx-runtime.js",
-          "./jsx-dev-runtime.js",
-          "./_isolated-hnrs.js"
-        ],
-        umdName: "emotionReact",
-        exports: {
-          envConditions: [
-            "browser",
-            "worker"
-          ],
-          extra: {
-            "./types/css-prop": "./types/css-prop.d.ts",
-            "./macro": {
-              types: {
-                import: "./macro.d.mts",
-                default: "./macro.d.ts"
-              },
-              default: "./macro.js"
-            }
-          }
-        }
-      }
-    }, jsx17 = function(type, props) {
-      var args = arguments;
-      if (props == null || !emotionElement.hasOwnProperty.call(props, "css"))
-        return React__namespace.createElement.apply(void 0, args);
-      var argsLength = args.length, createElementArgArray = new Array(argsLength);
-      createElementArgArray[0] = emotionElement.Emotion, createElementArgArray[1] = emotionElement.createEmotionProps(type, props);
-      for (var i = 2; i < argsLength; i++)
-        createElementArgArray[i] = args[i];
-      return React__namespace.createElement.apply(null, createElementArgArray);
-    }, warnedAboutCssPropForGlobal = !1, Global2 = /* @__PURE__ */ emotionElement.withEmotionCache(function(props, cache) {
-      !warnedAboutCssPropForGlobal && // check for className as well since the user is
-      // probably using the custom createElement which
-      // means it will be turned into a className prop
-      // $FlowFixMe I don't really want to add it to the type since it shouldn't be used
-      (props.className || props.css) && (console.error("It looks like you're using the css prop on Global, did you mean to use the styles prop instead?"), warnedAboutCssPropForGlobal = !0);
-      var styles4 = props.styles, serialized = serialize2.serializeStyles([styles4], void 0, React__namespace.useContext(emotionElement.ThemeContext));
-      if (!emotionElement.isBrowser) {
-        for (var _ref, serializedNames = serialized.name, serializedStyles = serialized.styles, next = serialized.next; next !== void 0; )
-          serializedNames += " " + next.name, serializedStyles += next.styles, next = next.next;
-        var shouldCache = cache.compat === !0, rules = cache.insert("", {
-          name: serializedNames,
-          styles: serializedStyles
-        }, cache.sheet, shouldCache);
-        return shouldCache ? null : /* @__PURE__ */ React__namespace.createElement("style", (_ref = {}, _ref["data-emotion"] = cache.key + "-global " + serializedNames, _ref.dangerouslySetInnerHTML = {
-          __html: rules
-        }, _ref.nonce = cache.sheet.nonce, _ref));
-      }
-      var sheetRef = React__namespace.useRef();
-      return useInsertionEffectWithFallbacks.useInsertionEffectWithLayoutFallback(function() {
-        var key = cache.key + "-global", sheet = new cache.sheet.constructor({
-          key,
-          nonce: cache.sheet.nonce,
-          container: cache.sheet.container,
-          speedy: cache.sheet.isSpeedy
-        }), rehydrating = !1, node = document.querySelector('style[data-emotion="' + key + " " + serialized.name + '"]');
-        return cache.sheet.tags.length && (sheet.before = cache.sheet.tags[0]), node !== null && (rehydrating = !0, node.setAttribute("data-emotion", key), sheet.hydrate([node])), sheetRef.current = [sheet, rehydrating], function() {
-          sheet.flush();
-        };
-      }, [cache]), useInsertionEffectWithFallbacks.useInsertionEffectWithLayoutFallback(function() {
-        var sheetRefCurrent = sheetRef.current, sheet = sheetRefCurrent[0], rehydrating = sheetRefCurrent[1];
-        if (rehydrating) {
-          sheetRefCurrent[1] = !1;
-          return;
-        }
-        if (serialized.next !== void 0 && utils.insertStyles(cache, serialized.next, !0), sheet.tags.length) {
-          var element = sheet.tags[sheet.tags.length - 1].nextElementSibling;
-          sheet.before = element, sheet.flush();
-        }
-        cache.insert("", serialized, sheet, !1);
-      }, [cache, serialized.name]), null;
-    });
-    Global2.displayName = "EmotionGlobal";
-    function css2() {
-      for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++)
-        args[_key] = arguments[_key];
-      return serialize2.serializeStyles(args);
-    }
-    var keyframes2 = function() {
-      var insertable = css2.apply(void 0, arguments), name = "animation-" + insertable.name;
-      return {
-        name,
-        styles: "@keyframes " + name + "{" + insertable.styles + "}",
-        anim: 1,
-        toString: function() {
-          return "_EMO_" + this.name + "_" + this.styles + "_EMO_";
-        }
-      };
-    }, classnames = function classnames2(args) {
-      for (var len = args.length, i = 0, cls = ""; i < len; i++) {
-        var arg = args[i];
-        if (arg != null) {
-          var toAdd = void 0;
-          switch (typeof arg) {
-            case "boolean":
-              break;
-            case "object": {
-              if (Array.isArray(arg))
-                toAdd = classnames2(arg);
-              else {
-                arg.styles !== void 0 && arg.name !== void 0 && console.error("You have passed styles created with `css` from `@emotion/react` package to the `cx`.\n`cx` is meant to compose class names (strings) so you should convert those styles to a class name by passing them to the `css` received from <ClassNames/> component."), toAdd = "";
-                for (var k in arg)
-                  arg[k] && k && (toAdd && (toAdd += " "), toAdd += k);
-              }
-              break;
-            }
-            default:
-              toAdd = arg;
-          }
-          toAdd && (cls && (cls += " "), cls += toAdd);
-        }
-      }
-      return cls;
-    };
-    function merge2(registered, css3, className) {
-      var registeredStyles = [], rawClassName = utils.getRegisteredStyles(registered, registeredStyles, className);
-      return registeredStyles.length < 2 ? className : rawClassName + css3(registeredStyles);
-    }
-    var Insertion = function(_ref) {
-      var cache = _ref.cache, serializedArr = _ref.serializedArr, rules = useInsertionEffectWithFallbacks.useInsertionEffectAlwaysWithSyncFallback(function() {
-        for (var rules2 = "", i = 0; i < serializedArr.length; i++) {
-          var res = utils.insertStyles(cache, serializedArr[i], !1);
-          !emotionElement.isBrowser && res !== void 0 && (rules2 += res);
-        }
-        if (!emotionElement.isBrowser)
-          return rules2;
-      });
-      if (!emotionElement.isBrowser && rules.length !== 0) {
-        var _ref2;
-        return /* @__PURE__ */ React__namespace.createElement("style", (_ref2 = {}, _ref2["data-emotion"] = cache.key + " " + serializedArr.map(function(serialized) {
-          return serialized.name;
-        }).join(" "), _ref2.dangerouslySetInnerHTML = {
-          __html: rules
-        }, _ref2.nonce = cache.sheet.nonce, _ref2));
-      }
-      return null;
-    }, ClassNames2 = /* @__PURE__ */ emotionElement.withEmotionCache(function(props, cache) {
-      var hasRendered = !1, serializedArr = [], css3 = function() {
-        if (hasRendered)
-          throw new Error("css can only be used during render");
-        for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++)
-          args[_key] = arguments[_key];
-        var serialized = serialize2.serializeStyles(args, cache.registered);
-        return serializedArr.push(serialized), utils.registerStyles(cache, serialized, !1), cache.key + "-" + serialized.name;
-      }, cx = function() {
-        if (hasRendered)
-          throw new Error("cx can only be used during render");
-        for (var _len2 = arguments.length, args = new Array(_len2), _key2 = 0; _key2 < _len2; _key2++)
-          args[_key2] = arguments[_key2];
-        return merge2(cache.registered, css3, classnames(args));
-      }, content = {
-        css: css3,
-        cx,
-        theme: React__namespace.useContext(emotionElement.ThemeContext)
-      }, ele = props.children(content);
-      return hasRendered = !0, /* @__PURE__ */ React__namespace.createElement(React__namespace.Fragment, null, /* @__PURE__ */ React__namespace.createElement(Insertion, {
-        cache,
-        serializedArr
-      }), ele);
-    });
-    ClassNames2.displayName = "EmotionClassNames";
-    isBrowser2 = typeof document < "u", isTestEnv = typeof jest < "u" || typeof vi < "u", isBrowser2 && !isTestEnv && (globalContext = // $FlowIgnore
-    typeof globalThis < "u" ? globalThis : isBrowser2 ? window : global, globalKey = "__EMOTION_REACT_" + pkg.version.split(".")[0] + "__", globalContext[globalKey] && console.warn("You are loading @emotion/react when it is already loaded. Running multiple instances may cause problems. This can happen if multiple versions are used, or if multiple builds of the same version are used."), globalContext[globalKey] = !0);
-    var isBrowser2, isTestEnv, globalContext, globalKey;
-    exports.CacheProvider = emotionElement.CacheProvider;
-    exports.ThemeContext = emotionElement.ThemeContext;
-    exports.ThemeProvider = emotionElement.ThemeProvider;
-    exports.__unsafe_useEmotionCache = emotionElement.__unsafe_useEmotionCache;
-    exports.useTheme = emotionElement.useTheme;
-    Object.defineProperty(exports, "withEmotionCache", {
-      enumerable: !0,
-      get: function() {
-        return emotionElement.withEmotionCache;
-      }
-    });
-    exports.withTheme = emotionElement.withTheme;
-    exports.ClassNames = ClassNames2;
-    exports.Global = Global2;
-    exports.createElement = jsx17;
-    exports.css = css2;
-    exports.jsx = jsx17;
-    exports.keyframes = keyframes2;
-  }
-});
-
-// node_modules/@emotion/react/dist/emotion-react.cjs.js
-var require_emotion_react_cjs = __commonJS({
-  "node_modules/@emotion/react/dist/emotion-react.cjs.js"(exports, module) {
-    "use strict";
-    module.exports = require_emotion_react_cjs_dev();
-  }
-});
-
-// node_modules/@emotion/styled/base/dist/emotion-styled-base.cjs.dev.js
-var require_emotion_styled_base_cjs_dev = __commonJS({
-  "node_modules/@emotion/styled/base/dist/emotion-styled-base.cjs.dev.js"(exports) {
-    "use strict";
-    Object.defineProperty(exports, "__esModule", { value: !0 });
-    var _extends7 = require_extends(), React43 = require_react(), isPropValid = require_emotion_is_prop_valid_cjs(), react = require_emotion_react_cjs(), utils = require_emotion_utils_cjs(), serialize2 = require_emotion_serialize_cjs(), useInsertionEffectWithFallbacks = require_emotion_use_insertion_effect_with_fallbacks_cjs();
-    function _interopDefault(e) {
-      return e && e.__esModule ? e : { default: e };
-    }
-    function _interopNamespace(e) {
-      if (e && e.__esModule)
-        return e;
-      var n = /* @__PURE__ */ Object.create(null);
-      return e && Object.keys(e).forEach(function(k) {
-        if (k !== "default") {
-          var d = Object.getOwnPropertyDescriptor(e, k);
-          Object.defineProperty(n, k, d.get ? d : {
-            enumerable: !0,
-            get: function() {
-              return e[k];
-            }
-          });
-        }
-      }), n.default = e, Object.freeze(n);
-    }
-    var React__namespace = /* @__PURE__ */ _interopNamespace(React43), isPropValid__default = /* @__PURE__ */ _interopDefault(isPropValid), testOmitPropsOnStringTag = isPropValid__default.default, testOmitPropsOnComponent = function(key) {
-      return key !== "theme";
-    }, getDefaultShouldForwardProp = function(tag) {
-      return typeof tag == "string" && // 96 is one less than the char code
-      // for "a" so this is checking that
-      // it's a lowercase character
-      tag.charCodeAt(0) > 96 ? testOmitPropsOnStringTag : testOmitPropsOnComponent;
-    }, composeShouldForwardProps = function(tag, options, isReal) {
-      var shouldForwardProp2;
-      if (options) {
-        var optionsShouldForwardProp = options.shouldForwardProp;
-        shouldForwardProp2 = tag.__emotion_forwardProp && optionsShouldForwardProp ? function(propName) {
-          return tag.__emotion_forwardProp(propName) && optionsShouldForwardProp(propName);
-        } : optionsShouldForwardProp;
-      }
-      return typeof shouldForwardProp2 != "function" && isReal && (shouldForwardProp2 = tag.__emotion_forwardProp), shouldForwardProp2;
-    }, ILLEGAL_ESCAPE_SEQUENCE_ERROR = `You have illegal escape sequence in your template literal, most likely inside content's property value.
-Because you write your CSS inside a JavaScript string you actually have to do double escaping, so for example "content: '\\00d7';" should become "content: '\\\\00d7';".
-You can read more about this here:
-https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals#ES2018_revision_of_illegal_escape_sequences`, isBrowser2 = typeof document < "u", Insertion = function(_ref) {
-      var cache = _ref.cache, serialized = _ref.serialized, isStringTag2 = _ref.isStringTag;
-      utils.registerStyles(cache, serialized, isStringTag2);
-      var rules = useInsertionEffectWithFallbacks.useInsertionEffectAlwaysWithSyncFallback(function() {
-        return utils.insertStyles(cache, serialized, isStringTag2);
-      });
-      if (!isBrowser2 && rules !== void 0) {
-        for (var _ref2, serializedNames = serialized.name, next = serialized.next; next !== void 0; )
-          serializedNames += " " + next.name, next = next.next;
-        return /* @__PURE__ */ React__namespace.createElement("style", (_ref2 = {}, _ref2["data-emotion"] = cache.key + " " + serializedNames, _ref2.dangerouslySetInnerHTML = {
-          __html: rules
-        }, _ref2.nonce = cache.sheet.nonce, _ref2));
-      }
-      return null;
-    }, createStyled2 = function createStyled3(tag, options) {
-      if (tag === void 0)
-        throw new Error(`You are trying to create a styled element with an undefined component.
-You may have forgotten to import it.`);
-      var isReal = tag.__emotion_real === tag, baseTag = isReal && tag.__emotion_base || tag, identifierName, targetClassName;
-      options !== void 0 && (identifierName = options.label, targetClassName = options.target);
-      var shouldForwardProp2 = composeShouldForwardProps(tag, options, isReal), defaultShouldForwardProp = shouldForwardProp2 || getDefaultShouldForwardProp(baseTag), shouldUseAs = !defaultShouldForwardProp("as");
-      return function() {
-        var args = arguments, styles4 = isReal && tag.__emotion_styles !== void 0 ? tag.__emotion_styles.slice(0) : [];
-        if (identifierName !== void 0 && styles4.push("label:" + identifierName + ";"), args[0] == null || args[0].raw === void 0)
-          styles4.push.apply(styles4, args);
-        else {
-          args[0][0] === void 0 && console.error(ILLEGAL_ESCAPE_SEQUENCE_ERROR), styles4.push(args[0][0]);
-          for (var len = args.length, i = 1; i < len; i++)
-            args[0][i] === void 0 && console.error(ILLEGAL_ESCAPE_SEQUENCE_ERROR), styles4.push(args[i], args[0][i]);
-        }
-        var Styled = react.withEmotionCache(function(props, cache, ref) {
-          var FinalTag = shouldUseAs && props.as || baseTag, className = "", classInterpolations = [], mergedProps = props;
-          if (props.theme == null) {
-            mergedProps = {};
-            for (var key in props)
-              mergedProps[key] = props[key];
-            mergedProps.theme = React__namespace.useContext(react.ThemeContext);
-          }
-          typeof props.className == "string" ? className = utils.getRegisteredStyles(cache.registered, classInterpolations, props.className) : props.className != null && (className = props.className + " ");
-          var serialized = serialize2.serializeStyles(styles4.concat(classInterpolations), cache.registered, mergedProps);
-          className += cache.key + "-" + serialized.name, targetClassName !== void 0 && (className += " " + targetClassName);
-          var finalShouldForwardProp = shouldUseAs && shouldForwardProp2 === void 0 ? getDefaultShouldForwardProp(FinalTag) : defaultShouldForwardProp, newProps = {};
-          for (var _key in props)
-            shouldUseAs && _key === "as" || // $FlowFixMe
-            finalShouldForwardProp(_key) && (newProps[_key] = props[_key]);
-          return newProps.className = className, newProps.ref = ref, /* @__PURE__ */ React__namespace.createElement(React__namespace.Fragment, null, /* @__PURE__ */ React__namespace.createElement(Insertion, {
-            cache,
-            serialized,
-            isStringTag: typeof FinalTag == "string"
-          }), /* @__PURE__ */ React__namespace.createElement(FinalTag, newProps));
-        });
-        return Styled.displayName = identifierName !== void 0 ? identifierName : "Styled(" + (typeof baseTag == "string" ? baseTag : baseTag.displayName || baseTag.name || "Component") + ")", Styled.defaultProps = tag.defaultProps, Styled.__emotion_real = Styled, Styled.__emotion_base = baseTag, Styled.__emotion_styles = styles4, Styled.__emotion_forwardProp = shouldForwardProp2, Object.defineProperty(Styled, "toString", {
-          value: function() {
-            return targetClassName === void 0 ? "NO_COMPONENT_SELECTOR" : "." + targetClassName;
-          }
-        }), Styled.withComponent = function(nextTag, nextOptions) {
-          return createStyled3(nextTag, _extends7({}, options, nextOptions, {
-            shouldForwardProp: composeShouldForwardProps(Styled, nextOptions, !0)
-          })).apply(void 0, styles4);
-        }, Styled;
-      };
-    };
-    exports.default = createStyled2;
-  }
-});
-
-// node_modules/@emotion/styled/dist/emotion-styled.cjs.dev.js
-var require_emotion_styled_cjs_dev = __commonJS({
-  "node_modules/@emotion/styled/dist/emotion-styled.cjs.dev.js"(exports) {
-    "use strict";
-    Object.defineProperty(exports, "__esModule", { value: !0 });
-    var base_dist_emotionStyledBase = require_emotion_styled_base_cjs_dev();
-    require_extends();
-    require_react();
-    require_emotion_is_prop_valid_cjs();
-    require_emotion_react_cjs();
-    require_emotion_utils_cjs();
-    require_emotion_serialize_cjs();
-    require_emotion_use_insertion_effect_with_fallbacks_cjs();
-    var tags = [
-      "a",
-      "abbr",
-      "address",
-      "area",
-      "article",
-      "aside",
-      "audio",
-      "b",
-      "base",
-      "bdi",
-      "bdo",
-      "big",
-      "blockquote",
-      "body",
-      "br",
-      "button",
-      "canvas",
-      "caption",
-      "cite",
-      "code",
-      "col",
-      "colgroup",
-      "data",
-      "datalist",
-      "dd",
-      "del",
-      "details",
-      "dfn",
-      "dialog",
-      "div",
-      "dl",
-      "dt",
-      "em",
-      "embed",
-      "fieldset",
-      "figcaption",
-      "figure",
-      "footer",
-      "form",
-      "h1",
-      "h2",
-      "h3",
-      "h4",
-      "h5",
-      "h6",
-      "head",
-      "header",
-      "hgroup",
-      "hr",
-      "html",
-      "i",
-      "iframe",
-      "img",
-      "input",
-      "ins",
-      "kbd",
-      "keygen",
-      "label",
-      "legend",
-      "li",
-      "link",
-      "main",
-      "map",
-      "mark",
-      "marquee",
-      "menu",
-      "menuitem",
-      "meta",
-      "meter",
-      "nav",
-      "noscript",
-      "object",
-      "ol",
-      "optgroup",
-      "option",
-      "output",
-      "p",
-      "param",
-      "picture",
-      "pre",
-      "progress",
-      "q",
-      "rp",
-      "rt",
-      "ruby",
-      "s",
-      "samp",
-      "script",
-      "section",
-      "select",
-      "small",
-      "source",
-      "span",
-      "strong",
-      "style",
-      "sub",
-      "summary",
-      "sup",
-      "table",
-      "tbody",
-      "td",
-      "textarea",
-      "tfoot",
-      "th",
-      "thead",
-      "time",
-      "title",
-      "tr",
-      "track",
-      "u",
-      "ul",
-      "var",
-      "video",
-      "wbr",
-      // SVG
-      "circle",
-      "clipPath",
-      "defs",
-      "ellipse",
-      "foreignObject",
-      "g",
-      "image",
-      "line",
-      "linearGradient",
-      "mask",
-      "path",
-      "pattern",
-      "polygon",
-      "polyline",
-      "radialGradient",
-      "rect",
-      "stop",
-      "svg",
-      "text",
-      "tspan"
-    ], newStyled = base_dist_emotionStyledBase.default.bind();
-    tags.forEach(function(tagName) {
-      newStyled[tagName] = newStyled(tagName);
-    });
-    exports.default = newStyled;
-  }
-});
-
-// node_modules/@emotion/styled/dist/emotion-styled.cjs.js
-var require_emotion_styled_cjs = __commonJS({
-  "node_modules/@emotion/styled/dist/emotion-styled.cjs.js"(exports, module) {
-    "use strict";
-    module.exports = require_emotion_styled_cjs_dev();
-  }
-});
-
-// node_modules/@emotion/styled/dist/emotion-styled.cjs.default.js
-var require_emotion_styled_cjs_default = __commonJS({
-  "node_modules/@emotion/styled/dist/emotion-styled.cjs.default.js"(exports) {
-    exports._default = require_emotion_styled_cjs().default;
-  }
-});
-
-// node_modules/react-is/cjs/react-is.development.js
-var require_react_is_development3 = __commonJS({
-  "node_modules/react-is/cjs/react-is.development.js"(exports) {
-    "use strict";
-    (function() {
-      "use strict";
-      var REACT_ELEMENT_TYPE = Symbol.for("react.element"), REACT_PORTAL_TYPE = Symbol.for("react.portal"), REACT_FRAGMENT_TYPE = Symbol.for("react.fragment"), REACT_STRICT_MODE_TYPE = Symbol.for("react.strict_mode"), REACT_PROFILER_TYPE = Symbol.for("react.profiler"), REACT_PROVIDER_TYPE = Symbol.for("react.provider"), REACT_CONTEXT_TYPE = Symbol.for("react.context"), REACT_SERVER_CONTEXT_TYPE = Symbol.for("react.server_context"), REACT_FORWARD_REF_TYPE = Symbol.for("react.forward_ref"), REACT_SUSPENSE_TYPE = Symbol.for("react.suspense"), REACT_SUSPENSE_LIST_TYPE = Symbol.for("react.suspense_list"), REACT_MEMO_TYPE = Symbol.for("react.memo"), REACT_LAZY_TYPE = Symbol.for("react.lazy"), REACT_OFFSCREEN_TYPE = Symbol.for("react.offscreen"), enableScopeAPI = !1, enableCacheElement = !1, enableTransitionTracing = !1, enableLegacyHidden = !1, enableDebugTracing = !1, REACT_MODULE_REFERENCE;
-      REACT_MODULE_REFERENCE = Symbol.for("react.module.reference");
-      function isValidElementType(type) {
-        return !!(typeof type == "string" || typeof type == "function" || type === REACT_FRAGMENT_TYPE || type === REACT_PROFILER_TYPE || enableDebugTracing || type === REACT_STRICT_MODE_TYPE || type === REACT_SUSPENSE_TYPE || type === REACT_SUSPENSE_LIST_TYPE || enableLegacyHidden || type === REACT_OFFSCREEN_TYPE || enableScopeAPI || enableCacheElement || enableTransitionTracing || typeof type == "object" && type !== null && (type.$$typeof === REACT_LAZY_TYPE || type.$$typeof === REACT_MEMO_TYPE || type.$$typeof === REACT_PROVIDER_TYPE || type.$$typeof === REACT_CONTEXT_TYPE || type.$$typeof === REACT_FORWARD_REF_TYPE || // This needs to include all possible module reference object
-        // types supported by any Flight configuration anywhere since
-        // we don't know which Flight build this will end up being used
-        // with.
-        type.$$typeof === REACT_MODULE_REFERENCE || type.getModuleId !== void 0));
-      }
-      function typeOf(object) {
-        if (typeof object == "object" && object !== null) {
-          var $$typeof = object.$$typeof;
-          switch ($$typeof) {
-            case REACT_ELEMENT_TYPE:
-              var type = object.type;
-              switch (type) {
-                case REACT_FRAGMENT_TYPE:
-                case REACT_PROFILER_TYPE:
-                case REACT_STRICT_MODE_TYPE:
-                case REACT_SUSPENSE_TYPE:
-                case REACT_SUSPENSE_LIST_TYPE:
-                  return type;
-                default:
-                  var $$typeofType = type && type.$$typeof;
-                  switch ($$typeofType) {
-                    case REACT_SERVER_CONTEXT_TYPE:
-                    case REACT_CONTEXT_TYPE:
-                    case REACT_FORWARD_REF_TYPE:
-                    case REACT_LAZY_TYPE:
-                    case REACT_MEMO_TYPE:
-                    case REACT_PROVIDER_TYPE:
-                      return $$typeofType;
-                    default:
-                      return $$typeof;
-                  }
-              }
-            case REACT_PORTAL_TYPE:
-              return $$typeof;
-          }
-        }
-      }
-      var ContextConsumer = REACT_CONTEXT_TYPE, ContextProvider = REACT_PROVIDER_TYPE, Element2 = REACT_ELEMENT_TYPE, ForwardRef2 = REACT_FORWARD_REF_TYPE, Fragment16 = REACT_FRAGMENT_TYPE, Lazy = REACT_LAZY_TYPE, Memo2 = REACT_MEMO_TYPE, Portal = REACT_PORTAL_TYPE, Profiler = REACT_PROFILER_TYPE, StrictMode = REACT_STRICT_MODE_TYPE, Suspense7 = REACT_SUSPENSE_TYPE, SuspenseList = REACT_SUSPENSE_LIST_TYPE, hasWarnedAboutDeprecatedIsAsyncMode = !1, hasWarnedAboutDeprecatedIsConcurrentMode = !1;
-      function isAsyncMode(object) {
-        return hasWarnedAboutDeprecatedIsAsyncMode || (hasWarnedAboutDeprecatedIsAsyncMode = !0, console.warn("The ReactIs.isAsyncMode() alias has been deprecated, and will be removed in React 18+.")), !1;
-      }
-      function isConcurrentMode(object) {
-        return hasWarnedAboutDeprecatedIsConcurrentMode || (hasWarnedAboutDeprecatedIsConcurrentMode = !0, console.warn("The ReactIs.isConcurrentMode() alias has been deprecated, and will be removed in React 18+.")), !1;
-      }
-      function isContextConsumer(object) {
-        return typeOf(object) === REACT_CONTEXT_TYPE;
-      }
-      function isContextProvider(object) {
-        return typeOf(object) === REACT_PROVIDER_TYPE;
-      }
-      function isElement(object) {
-        return typeof object == "object" && object !== null && object.$$typeof === REACT_ELEMENT_TYPE;
-      }
-      function isForwardRef(object) {
-        return typeOf(object) === REACT_FORWARD_REF_TYPE;
-      }
-      function isFragment2(object) {
-        return typeOf(object) === REACT_FRAGMENT_TYPE;
-      }
-      function isLazy(object) {
-        return typeOf(object) === REACT_LAZY_TYPE;
-      }
-      function isMemo(object) {
-        return typeOf(object) === REACT_MEMO_TYPE;
-      }
-      function isPortal(object) {
-        return typeOf(object) === REACT_PORTAL_TYPE;
-      }
-      function isProfiler(object) {
-        return typeOf(object) === REACT_PROFILER_TYPE;
-      }
-      function isStrictMode(object) {
-        return typeOf(object) === REACT_STRICT_MODE_TYPE;
-      }
-      function isSuspense(object) {
-        return typeOf(object) === REACT_SUSPENSE_TYPE;
-      }
-      function isSuspenseList(object) {
-        return typeOf(object) === REACT_SUSPENSE_LIST_TYPE;
-      }
-      exports.ContextConsumer = ContextConsumer, exports.ContextProvider = ContextProvider, exports.Element = Element2, exports.ForwardRef = ForwardRef2, exports.Fragment = Fragment16, exports.Lazy = Lazy, exports.Memo = Memo2, exports.Portal = Portal, exports.Profiler = Profiler, exports.StrictMode = StrictMode, exports.Suspense = Suspense7, exports.SuspenseList = SuspenseList, exports.isAsyncMode = isAsyncMode, exports.isConcurrentMode = isConcurrentMode, exports.isContextConsumer = isContextConsumer, exports.isContextProvider = isContextProvider, exports.isElement = isElement, exports.isForwardRef = isForwardRef, exports.isFragment = isFragment2, exports.isLazy = isLazy, exports.isMemo = isMemo, exports.isPortal = isPortal, exports.isProfiler = isProfiler, exports.isStrictMode = isStrictMode, exports.isSuspense = isSuspense, exports.isSuspenseList = isSuspenseList, exports.isValidElementType = isValidElementType, exports.typeOf = typeOf;
-    })();
-  }
-});
-
-// node_modules/react-is/index.js
-var require_react_is3 = __commonJS({
-  "node_modules/react-is/index.js"(exports, module) {
-    "use strict";
-    module.exports = require_react_is_development3();
   }
 });
 
@@ -17725,7 +14762,7 @@ function Meta() {
     let errorIdx = routerMatches.findIndex((m) => errors[m.route.id]);
     _matches = routerMatches.slice(0, errorIdx + 1), error = errors[routerMatches[errorIdx].route.id];
   }
-  let meta20 = [], leafMeta = null, matches = [];
+  let meta19 = [], leafMeta = null, matches = [];
   for (let i = 0; i < _matches.length; i++) {
     let _match = _matches[i], routeId = _match.route.id, data = loaderData[routeId], params = _match.params, routeModule = routeModules[routeId], routeMeta = [], match = {
       id: routeId,
@@ -17746,9 +14783,9 @@ function Meta() {
       throw new Error("The route at " + _match.route.path + ` returns an invalid value. All route meta functions must return an array of meta objects.
 
 To reference the meta function API, see https://remix.run/route/meta`);
-    match.meta = routeMeta, matches[i] = match, meta20 = [...routeMeta], leafMeta = meta20;
+    match.meta = routeMeta, matches[i] = match, meta19 = [...routeMeta], leafMeta = meta19;
   }
-  return /* @__PURE__ */ React3.createElement(React3.Fragment, null, meta20.flat().map((metaProps) => {
+  return /* @__PURE__ */ React3.createElement(React3.Fragment, null, meta19.flat().map((metaProps) => {
     if (!metaProps)
       return null;
     if ("tagName" in metaProps) {
@@ -18287,20 +15324,20 @@ function RemixServer({
 }
 
 // node_modules/isbot/index.mjs
-function _iterableToArrayLimit(r2, l2) {
-  var t = r2 == null ? null : typeof Symbol < "u" && r2[Symbol.iterator] || r2["@@iterator"];
+function _iterableToArrayLimit(r, l2) {
+  var t = r == null ? null : typeof Symbol < "u" && r[Symbol.iterator] || r["@@iterator"];
   if (t != null) {
     var e, n, i, u3, a = [], f = !0, o = !1;
     try {
-      if (i = (t = t.call(r2)).next, l2 === 0) {
+      if (i = (t = t.call(r)).next, l2 === 0) {
         if (Object(t) !== t)
           return;
         f = !1;
       } else
         for (; !(f = (e = i.call(t)).done) && (a.push(e.value), a.length !== l2); f = !0)
           ;
-    } catch (r3) {
-      o = !0, n = r3;
+    } catch (r2) {
+      o = !0, n = r2;
     } finally {
       try {
         if (!f && t.return != null && (u3 = t.return(), Object(u3) !== u3))
@@ -18313,17 +15350,17 @@ function _iterableToArrayLimit(r2, l2) {
     return a;
   }
 }
-function _toPrimitive(t, r2) {
+function _toPrimitive(t, r) {
   if (typeof t != "object" || !t)
     return t;
   var e = t[Symbol.toPrimitive];
   if (e !== void 0) {
-    var i = e.call(t, r2 || "default");
+    var i = e.call(t, r || "default");
     if (typeof i != "object")
       return i;
     throw new TypeError("@@toPrimitive must return a primitive value.");
   }
-  return (r2 === "string" ? String : Number)(t);
+  return (r === "string" ? String : Number)(t);
 }
 function _toPropertyKey(t) {
   var i = _toPrimitive(t, "string");
@@ -18899,7 +15936,7 @@ var g = /* @__PURE__ */ new Set([
   "httponly"
 ]);
 function u(a) {
-  let r2 = {}, e, t, n = 0, m = a.split(/;\s*/g), s, i;
+  let r = {}, e, t, n = 0, m = a.split(/;\s*/g), s, i;
   for (; n < m.length; n++)
     if (t = m[n], e = t.indexOf("="), ~e) {
       if (s = t.substring(0, e++).trim(), i = t.substring(e).trim(), i[0] === '"' && (i = i.substring(1, i.length - 1)), ~i.indexOf("%"))
@@ -18907,10 +15944,10 @@ function u(a) {
           i = decodeURIComponent(i);
         } catch {
         }
-      g.has(t = s.toLowerCase()) ? t === "expires" ? r2.expires = new Date(i) : t === "max-age" ? r2.maxage = +i : r2[t] = i : r2[s] = i;
+      g.has(t = s.toLowerCase()) ? t === "expires" ? r.expires = new Date(i) : t === "max-age" ? r.maxage = +i : r[t] = i : r[s] = i;
     } else
-      (s = t.trim().toLowerCase()) && (s === "httponly" || s === "secure") && (r2[s] = !0);
-  return r2;
+      (s = t.trim().toLowerCase()) && (s === "httponly" || s === "secure") && (r[s] = !0);
+  return r;
 }
 
 // node_modules/@shopify/hydrogen/node_modules/@shopify/hydrogen-react/dist/browser-dev/cookies-utils.mjs
@@ -19066,8 +16103,8 @@ var Image = React8.forwardRef(
     crop = "center",
     data,
     decoding = "async",
-    height: height3 = "auto",
-    loader: loader31 = shopifyLoader,
+    height: height2 = "auto",
+    loader: loader30 = shopifyLoader,
     loading = "lazy",
     sizes,
     src,
@@ -19077,7 +16114,7 @@ var Image = React8.forwardRef(
       incrementSize: 200,
       placeholderWidth: 100
     },
-    width: width3 = "100%",
+    width: width2 = "100%",
     ...passthroughProps
   }, ref) => {
     let normalizedData = React8.useMemo(() => {
@@ -19088,7 +16125,7 @@ var Image = React8.forwardRef(
         unitsMatch: Boolean(unitsMatch(dataWidth, dataHeight))
       };
     }, [data]), normalizedProps = React8.useMemo(() => {
-      let widthParts = getUnitValueParts((width3 || "100%").toString()), nWidth = `${widthParts.number}${widthParts.unit}`, autoHeight = height3 == null, heightParts = autoHeight ? null : getUnitValueParts(height3.toString()), fixedHeight = heightParts ? `${heightParts.number}${heightParts.unit}` : "", nHeight = autoHeight ? "auto" : fixedHeight, nSrc = src || data?.url;
+      let widthParts = getUnitValueParts((width2 || "100%").toString()), nWidth = `${widthParts.number}${widthParts.unit}`, autoHeight = height2 == null, heightParts = autoHeight ? null : getUnitValueParts(height2.toString()), fixedHeight = heightParts ? `${heightParts.number}${heightParts.unit}` : "", nHeight = autoHeight ? "auto" : fixedHeight, nSrc = src || data?.url;
       nSrc || console.warn(
         "No src or data.url provided to Image component.",
         passthroughProps?.key || ""
@@ -19105,8 +16142,8 @@ var Image = React8.forwardRef(
         aspectRatio: nAspectRatio
       };
     }, [
-      width3,
-      height3,
+      width2,
+      height2,
       src,
       data,
       alt,
@@ -19114,11 +16151,11 @@ var Image = React8.forwardRef(
       normalizedData,
       passthroughProps?.key
     ]), { intervals, startingWidth, incrementSize, placeholderWidth } = srcSetOptions, imageWidths = React8.useMemo(() => generateImageWidths(
-      width3,
+      width2,
       intervals,
       startingWidth,
       incrementSize
-    ), [width3, intervals, startingWidth, incrementSize]), fixedWidth = isFixedWidth(normalizedProps.width);
+    ), [width2, intervals, startingWidth, incrementSize]), fixedWidth = isFixedWidth(normalizedProps.width);
     return !sizes && !fixedWidth && console.warn(
       [
         "No sizes prop provided to Image component,",
@@ -19131,14 +16168,14 @@ var Image = React8.forwardRef(
         aspectRatio,
         crop,
         decoding,
-        height: height3,
+        height: height2,
         imageWidths,
-        loader: loader31,
+        loader: loader30,
         loading,
         normalizedProps,
         passthroughProps,
         ref,
-        width: width3
+        width: width2
       }
     ) : /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(
       FluidImage,
@@ -19147,7 +16184,7 @@ var Image = React8.forwardRef(
         crop,
         decoding,
         imageWidths,
-        loader: loader31,
+        loader: loader30,
         loading,
         normalizedProps,
         passthroughProps,
@@ -19162,16 +16199,16 @@ var Image = React8.forwardRef(
     aspectRatio,
     crop,
     decoding,
-    height: height3,
+    height: height2,
     imageWidths,
-    loader: loader31 = shopifyLoader,
+    loader: loader30 = shopifyLoader,
     loading,
     normalizedProps,
     passthroughProps,
-    width: width3
+    width: width2
   }, ref) => {
     let fixed = React8.useMemo(() => {
-      let intWidth = getNormalizedFixedUnit(width3), intHeight = getNormalizedFixedUnit(height3), fixedAspectRatio = aspectRatio || (unitsMatch(normalizedProps.width, normalizedProps.height) ? [intWidth, intHeight].join("/") : normalizedProps.aspectRatio ? normalizedProps.aspectRatio : void 0), sizesArray = imageWidths === void 0 ? void 0 : generateSizes(imageWidths, fixedAspectRatio, crop), fixedHeight = intHeight || (fixedAspectRatio && intWidth ? intWidth * (parseAspectRatio(fixedAspectRatio) ?? 1) : void 0), srcSet = generateSrcSet(normalizedProps.src, sizesArray, loader31), src = loader31({
+      let intWidth = getNormalizedFixedUnit(width2), intHeight = getNormalizedFixedUnit(height2), fixedAspectRatio = aspectRatio || (unitsMatch(normalizedProps.width, normalizedProps.height) ? [intWidth, intHeight].join("/") : normalizedProps.aspectRatio ? normalizedProps.aspectRatio : void 0), sizesArray = imageWidths === void 0 ? void 0 : generateSizes(imageWidths, fixedAspectRatio, crop), fixedHeight = intHeight || (fixedAspectRatio && intWidth ? intWidth * (parseAspectRatio(fixedAspectRatio) ?? 1) : void 0), srcSet = generateSrcSet(normalizedProps.src, sizesArray, loader30), src = loader30({
         src: normalizedProps.src,
         width: intWidth,
         height: fixedHeight,
@@ -19187,11 +16224,11 @@ var Image = React8.forwardRef(
     }, [
       aspectRatio,
       crop,
-      height3,
+      height2,
       imageWidths,
-      loader31,
+      loader30,
       normalizedProps,
-      width3
+      width2
     ]);
     return /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(
       "img",
@@ -19217,7 +16254,7 @@ var Image = React8.forwardRef(
     crop,
     decoding,
     imageWidths,
-    loader: loader31 = shopifyLoader,
+    loader: loader30 = shopifyLoader,
     loading,
     normalizedProps,
     passthroughProps,
@@ -19225,7 +16262,7 @@ var Image = React8.forwardRef(
     sizes
   }, ref) => {
     let fluid = React8.useMemo(() => {
-      let sizesArray = imageWidths === void 0 ? void 0 : generateSizes(imageWidths, normalizedProps.aspectRatio, crop), placeholderHeight = normalizedProps.aspectRatio && placeholderWidth ? placeholderWidth * (parseAspectRatio(normalizedProps.aspectRatio) ?? 1) : void 0, srcSet = generateSrcSet(normalizedProps.src, sizesArray, loader31), src = loader31({
+      let sizesArray = imageWidths === void 0 ? void 0 : generateSizes(imageWidths, normalizedProps.aspectRatio, crop), placeholderHeight = normalizedProps.aspectRatio && placeholderWidth ? placeholderWidth * (parseAspectRatio(normalizedProps.aspectRatio) ?? 1) : void 0, srcSet = generateSrcSet(normalizedProps.src, sizesArray, loader30), src = loader30({
         src: normalizedProps.src,
         width: placeholderWidth,
         height: placeholderHeight,
@@ -19236,7 +16273,7 @@ var Image = React8.forwardRef(
         srcSet,
         src
       };
-    }, [crop, imageWidths, loader31, normalizedProps, placeholderWidth]);
+    }, [crop, imageWidths, loader30, normalizedProps, placeholderWidth]);
     return /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(
       "img",
       {
@@ -19259,14 +16296,14 @@ var Image = React8.forwardRef(
     );
   }
 );
-function shopifyLoader({ src, width: width3, height: height3, crop }) {
+function shopifyLoader({ src, width: width2, height: height2, crop }) {
   if (!src)
     return "";
   let url = new URL(src);
-  return width3 && url.searchParams.append("width", Math.round(width3).toString()), height3 && url.searchParams.append("height", Math.round(height3).toString()), crop && url.searchParams.append("crop", crop), url.href;
+  return width2 && url.searchParams.append("width", Math.round(width2).toString()), height2 && url.searchParams.append("height", Math.round(height2).toString()), crop && url.searchParams.append("crop", crop), url.href;
 }
-function unitsMatch(width3 = "100%", height3 = "auto") {
-  return getUnitValueParts(width3.toString()).unit === getUnitValueParts(height3.toString()).unit;
+function unitsMatch(width2 = "100%", height2 = "auto") {
+  return getUnitValueParts(width2.toString()).unit === getUnitValueParts(height2.toString()).unit;
 }
 function getUnitValueParts(value) {
   let unit = value.replace(/[0-9.]/g, ""), number = parseFloat(value.replace(unit, ""));
@@ -19292,12 +16329,12 @@ function getNormalizedFixedUnit(value) {
       return;
   }
 }
-function isFixedWidth(width3) {
-  return typeof width3 == "number" || typeof width3 == "string" && /\d(px|em|rem)$/.test(width3);
+function isFixedWidth(width2) {
+  return typeof width2 == "number" || typeof width2 == "string" && /\d(px|em|rem)$/.test(width2);
 }
-function generateSrcSet(src, sizesArray, loader31 = shopifyLoader) {
+function generateSrcSet(src, sizesArray, loader30 = shopifyLoader) {
   return src ? sizesArray?.length === 0 || !sizesArray ? src : sizesArray.map(
-    (size2, i) => `${loader31({
+    (size2, i) => `${loader30({
       src,
       width: size2.width,
       height: size2.height,
@@ -19305,26 +16342,26 @@ function generateSrcSet(src, sizesArray, loader31 = shopifyLoader) {
     })} ${sizesArray.length === 3 ? `${i + 1}x` : `${size2.width ?? 0}w`}`
   ).join(", ") : "";
 }
-function generateImageWidths(width3 = "100%", intervals, startingWidth, incrementSize) {
+function generateImageWidths(width2 = "100%", intervals, startingWidth, incrementSize) {
   let responsive = Array.from(
     { length: intervals },
-    (_2, i) => i * incrementSize + startingWidth
+    (_, i) => i * incrementSize + startingWidth
   ), fixed = Array.from(
     { length: 3 },
-    (_2, i) => (i + 1) * (getNormalizedFixedUnit(width3) ?? 0)
+    (_, i) => (i + 1) * (getNormalizedFixedUnit(width2) ?? 0)
   );
-  return isFixedWidth(width3) ? fixed : responsive;
+  return isFixedWidth(width2) ? fixed : responsive;
 }
 function parseAspectRatio(aspectRatio) {
   if (!aspectRatio)
     return;
-  let [width3, height3] = aspectRatio.split("/");
-  return 1 / (Number(width3) / Number(height3));
+  let [width2, height2] = aspectRatio.split("/");
+  return 1 / (Number(width2) / Number(height2));
 }
 function generateSizes(imageWidths, aspectRatio, crop = "center") {
-  return imageWidths ? imageWidths.map((width3) => ({
-    width: width3,
-    height: aspectRatio ? width3 * (parseAspectRatio(aspectRatio) ?? 1) : void 0,
+  return imageWidths ? imageWidths.map((width2) => ({
+    width: width2,
+    height: aspectRatio ? width2 * (parseAspectRatio(aspectRatio) ?? 1) : void 0,
     crop
   })) : void 0;
 }
@@ -19549,14 +16586,14 @@ function matchRoutes2(routes2, locationArg, basename) {
 function flattenRoutes2(routes2, branches, parentsMeta, parentPath) {
   branches === void 0 && (branches = []), parentsMeta === void 0 && (parentsMeta = []), parentPath === void 0 && (parentPath = "");
   let flattenRoute = (route, index, relativePath) => {
-    let meta20 = {
+    let meta19 = {
       relativePath: relativePath === void 0 ? route.path || "" : relativePath,
       caseSensitive: route.caseSensitive === !0,
       childrenIndex: index,
       route
     };
-    meta20.relativePath.startsWith("/") && (invariant3(meta20.relativePath.startsWith(parentPath), 'Absolute route path "' + meta20.relativePath + '" nested under path ' + ('"' + parentPath + '" is not valid. An absolute child route path ') + "must start with the combined path of all its parent routes."), meta20.relativePath = meta20.relativePath.slice(parentPath.length));
-    let path = joinPaths2([parentPath, meta20.relativePath]), routesMeta = parentsMeta.concat(meta20);
+    meta19.relativePath.startsWith("/") && (invariant3(meta19.relativePath.startsWith(parentPath), 'Absolute route path "' + meta19.relativePath + '" nested under path ' + ('"' + parentPath + '" is not valid. An absolute child route path ') + "must start with the combined path of all its parent routes."), meta19.relativePath = meta19.relativePath.slice(parentPath.length));
+    let path = joinPaths2([parentPath, meta19.relativePath]), routesMeta = parentsMeta.concat(meta19);
     route.children && route.children.length > 0 && (invariant3(
       // Our types know better, but runtime JS may not!
       // @ts-expect-error
@@ -19588,7 +16625,7 @@ function explodeOptionalSegments2(path) {
   return result.push(...restExploded.map((subpath) => subpath === "" ? required : [required, subpath].join("/"))), isOptional && result.push(...restExploded), result.map((exploded) => path.startsWith("/") && exploded === "" ? "/" : exploded);
 }
 function rankRouteBranches2(branches) {
-  branches.sort((a, b) => a.score !== b.score ? b.score - a.score : compareIndexes2(a.routesMeta.map((meta20) => meta20.childrenIndex), b.routesMeta.map((meta20) => meta20.childrenIndex)));
+  branches.sort((a, b) => a.score !== b.score ? b.score - a.score : compareIndexes2(a.routesMeta.map((meta19) => meta19.childrenIndex), b.routesMeta.map((meta19) => meta19.childrenIndex)));
 }
 var paramRe2 = /^:[\w-]+$/, dynamicSegmentValue2 = 3, indexRouteValue2 = 2, emptySegmentValue2 = 1, staticSegmentValue2 = 10, splatPenalty2 = -2, isSplat2 = (s) => s === "*";
 function computeScore2(path, index) {
@@ -19613,15 +16650,15 @@ function matchRouteBranch2(branch, pathname) {
     routesMeta
   } = branch, matchedParams = {}, matchedPathname = "/", matches = [];
   for (let i = 0; i < routesMeta.length; ++i) {
-    let meta20 = routesMeta[i], end = i === routesMeta.length - 1, remainingPathname = matchedPathname === "/" ? pathname : pathname.slice(matchedPathname.length) || "/", match = matchPath2({
-      path: meta20.relativePath,
-      caseSensitive: meta20.caseSensitive,
+    let meta19 = routesMeta[i], end = i === routesMeta.length - 1, remainingPathname = matchedPathname === "/" ? pathname : pathname.slice(matchedPathname.length) || "/", match = matchPath2({
+      path: meta19.relativePath,
+      caseSensitive: meta19.caseSensitive,
       end
     }, remainingPathname);
     if (!match)
       return null;
     Object.assign(matchedParams, match.params);
-    let route = meta20.route;
+    let route = meta19.route;
     matches.push({
       // TODO: Can this as be avoided?
       params: matchedParams,
@@ -19643,7 +16680,7 @@ function matchPath2(pattern, pathname) {
     return null;
   let matchedPathname = match[0], pathnameBase = matchedPathname.replace(/(.)\/+$/, "$1"), captureGroups = match.slice(1);
   return {
-    params: compiledParams.reduce((memo2, _ref, index) => {
+    params: compiledParams.reduce((memo, _ref, index) => {
       let {
         paramName,
         isOptional
@@ -19653,7 +16690,7 @@ function matchPath2(pattern, pathname) {
         pathnameBase = matchedPathname.slice(0, matchedPathname.length - splatValue.length).replace(/(.)\/+$/, "$1");
       }
       let value = captureGroups[index];
-      return isOptional && !value ? memo2[paramName] = void 0 : memo2[paramName] = safelyDecodeURIComponent2(value || "", paramName), memo2;
+      return isOptional && !value ? memo[paramName] = void 0 : memo[paramName] = safelyDecodeURIComponent2(value || "", paramName), memo;
     }, {}),
     pathname: matchedPathname,
     pathnameBase,
@@ -19662,7 +16699,7 @@ function matchPath2(pattern, pathname) {
 }
 function compilePath2(path, caseSensitive, end) {
   caseSensitive === void 0 && (caseSensitive = !1), end === void 0 && (end = !0), warning2(path === "*" || !path.endsWith("*") || path.endsWith("/*"), 'Route path "' + path + '" will be treated as if it were ' + ('"' + path.replace(/\*$/, "/*") + '" because the `*` character must ') + "always follow a `/` in the pattern. To get rid of this warning, " + ('please change the route path to "' + path.replace(/\*$/, "/*") + '".'));
-  let params = [], regexpSource = "^" + path.replace(/\/*\*?$/, "").replace(/^\/*/, "/").replace(/[\\.*+^${}|()[\]]/g, "\\$&").replace(/\/:([\w-]+)(\?)?/g, (_2, paramName, isOptional) => (params.push({
+  let params = [], regexpSource = "^" + path.replace(/\/*\*?$/, "").replace(/^\/*/, "/").replace(/[\\.*+^${}|()[\]]/g, "\\$&").replace(/\/:([\w-]+)(\?)?/g, (_, paramName, isOptional) => (params.push({
     paramName,
     isOptional: isOptional != null
   }), isOptional ? "/?([^\\/]+)?" : "/([^\\/]+)"));
@@ -19754,7 +16791,7 @@ var joinPaths2 = (paths) => paths.join("/").replace(/\/\/+/g, "/"), normalizePat
   constructor(data, responseInit) {
     this.pendingKeysSet = /* @__PURE__ */ new Set(), this.subscribers = /* @__PURE__ */ new Set(), this.deferredKeys = [], invariant3(data && typeof data == "object" && !Array.isArray(data), "defer() only accepts plain objects");
     let reject;
-    this.abortPromise = new Promise((_2, r2) => reject = r2), this.controller = new AbortController();
+    this.abortPromise = new Promise((_, r) => reject = r), this.controller = new AbortController();
     let onAbort = () => reject(new AbortedDeferredError2("Deferred data aborted"));
     this.unlistenAbortSignal = () => this.controller.signal.removeEventListener("abort", onAbort), this.controller.signal.addEventListener("abort", onAbort), this.data = Object.entries(data).reduce((acc, _ref2) => {
       let [key, value] = _ref2;
@@ -20176,7 +17213,7 @@ async function loadLazyRouteModule2(route, mapRouteProperties2, manifest) {
 async function callLoaderOrAction2(type, request, match, matches, manifest, mapRouteProperties2, basename, v7_relativeSplatPath, opts) {
   opts === void 0 && (opts = {});
   let resultType, result, onReject, runHandler = (handler) => {
-    let reject, abortPromise = new Promise((_2, r2) => reject = r2);
+    let reject, abortPromise = new Promise((_, r) => reject = r);
     return onReject = () => reject(), request.signal.addEventListener("abort", onReject), Promise.race([handler({
       request,
       params: match.params,
@@ -20187,7 +17224,7 @@ async function callLoaderOrAction2(type, request, match, matches, manifest, mapR
     let handler = match.route[type];
     if (match.route.lazy)
       if (handler) {
-        let handlerError, values3 = await Promise.all([
+        let handlerError, values = await Promise.all([
           // If the handler throws, don't let it immediately bubble out,
           // since we need to let the lazy() execution finish so we know if this
           // route has a boundary that can handle the error
@@ -20198,7 +17235,7 @@ async function callLoaderOrAction2(type, request, match, matches, manifest, mapR
         ]);
         if (handlerError)
           throw handlerError;
-        result = values3[0];
+        result = values[0];
       } else if (await loadLazyRouteModule2(match.route, mapRouteProperties2, manifest), handler = match.route[type], handler)
         result = await runHandler(handler);
       else if (type === "action") {
@@ -20312,7 +17349,7 @@ function findNearestBoundary2(matches, routeId) {
   return (routeId ? matches.slice(0, matches.findIndex((m) => m.route.id === routeId) + 1) : [...matches]).reverse().find((m) => m.route.hasErrorBoundary === !0) || matches[0];
 }
 function getShortCircuitMatches2(routes2) {
-  let route = routes2.length === 1 ? routes2[0] : routes2.find((r2) => r2.index || !r2.path || r2.path === "/") || {
+  let route = routes2.length === 1 ? routes2[0] : routes2.find((r) => r.index || !r.path || r.path === "/") || {
     id: "__shim-error-route__"
   };
   return {
@@ -20486,7 +17523,7 @@ function enqueueTrackedPromise(controller, encoder2, settledKey, promise, server
 
 // node_modules/@remix-run/server-runtime/dist/esm/entry.js
 function createEntryRouteModules(manifest) {
-  return Object.keys(manifest).reduce((memo2, routeId) => (memo2[routeId] = manifest[routeId].module, memo2), {});
+  return Object.keys(manifest).reduce((memo, routeId) => (memo[routeId] = manifest[routeId].module, memo), {});
 }
 
 // node_modules/@remix-run/server-runtime/dist/esm/headers.js
@@ -20564,12 +17601,12 @@ async function callRouteActionRR({
 }
 async function callRouteLoaderRR({
   loadContext,
-  loader: loader31,
+  loader: loader30,
   params,
   request,
   routeId
 }) {
-  let result = await loader31({
+  let result = await loader30({
     request: stripDataParam(stripIndexParam(request)),
     context: loadContext,
     params
@@ -21188,7 +18225,7 @@ function toSerializableResponse(body, response) {
 function fromSerializableResponse([body, init]) {
   return [body, new Response(body, init)];
 }
-var checkGraphQLErrors = (body) => !body?.errors, swrLock = /* @__PURE__ */ new Set();
+var checkGraphQLErrors = (body, response) => !body?.errors && response.status < 400, swrLock = /* @__PURE__ */ new Set();
 async function runWithCache(cacheKey, actionFn, {
   strategy = CacheShort(),
   cacheInstance,
@@ -21286,7 +18323,7 @@ function generateUUID() {
 }
 var warnings2 = /* @__PURE__ */ new Set(), warnOnce3 = (string) => {
   warnings2.has(string) || (console.warn(string), warnings2.add(string));
-}, LIB_VERSION = "2023.10.4";
+}, LIB_VERSION = "2023.10.6";
 function minifyQuery(string) {
   return string.replace(/\s*#.*$/gm, "").replace(/\s+/gm, " ").trim();
 }
@@ -21851,8 +18888,8 @@ CartForm.ACTIONS = {
 function getFormInput(formData) {
   let data = {};
   for (let pair of formData.entries()) {
-    let key = pair[0], values3 = formData.getAll(key);
-    data[key] = values3.length > 1 ? values3 : pair[1];
+    let key = pair[0], values = formData.getAll(key);
+    data[key] = values.length > 1 ? values : pair[1];
   }
   let { cartFormInput, ...otherData } = data, { action: action11, inputs } = cartFormInput ? JSON.parse(String(cartFormInput)) : {};
   return {
@@ -22368,7 +19405,7 @@ var CART_METAFIELD_DELETE_MUTATION = () => `#graphql
   ]
 );
 function u2(a) {
-  let r2 = {}, e, t, n = 0, m = a.split(/;\s*/g), s, i;
+  let r = {}, e, t, n = 0, m = a.split(/;\s*/g), s, i;
   for (; n < m.length; n++)
     if (t = m[n], e = t.indexOf("="), ~e) {
       if (s = t.substring(0, e++).trim(), i = t.substring(e).trim(), i[0] === '"' && (i = i.substring(1, i.length - 1)), ~i.indexOf("%"))
@@ -22376,13 +19413,13 @@ function u2(a) {
           i = decodeURIComponent(i);
         } catch {
         }
-      g2.has(t = s.toLowerCase()) ? t === "expires" ? r2.expires = new Date(i) : t === "max-age" ? r2.maxage = +i : r2[t] = i : r2[s] = i;
+      g2.has(t = s.toLowerCase()) ? t === "expires" ? r.expires = new Date(i) : t === "max-age" ? r.maxage = +i : r[t] = i : r[s] = i;
     } else
-      (s = t.trim().toLowerCase()) && (s === "httponly" || s === "secure") && (r2[s] = !0);
-  return r2;
+      (s = t.trim().toLowerCase()) && (s === "httponly" || s === "secure") && (r[s] = !0);
+  return r;
 }
-function l(a, r2, e = {}) {
-  let t = a + "=" + encodeURIComponent(r2);
+function l(a, r, e = {}) {
+  let t = a + "=" + encodeURIComponent(r);
   return e.expires && (t += "; Expires=" + new Date(e.expires).toUTCString()), e.maxage != null && e.maxage >= 0 && (t += "; Max-Age=" + (e.maxage | 0)), e.domain && (t += "; Domain=" + e.domain), e.path && (t += "; Path=" + e.path), e.samesite && (t += "; SameSite=" + e.samesite), (e.secure || e.samesite === "None") && (t += "; Secure"), e.httponly && (t += "; HttpOnly"), t;
 }
 var cartGetIdDefault = (requestHeaders) => {
@@ -22696,13 +19733,13 @@ function getStorefrontHeaders(request) {
 }
 
 // public/favicon.svg
-var favicon_default = "/build/_assets/favicon-5FIZBM2K.svg";
+var favicon_default = "/build/_assets/favicon-5XMENB4X.svg";
 
 // app/styles/reset.css
-var reset_default = "/build/_assets/reset-TW5WX2GH.css";
+var reset_default = "/build/_assets/reset-K2KLNDCD.css";
 
 // app/styles/app.css
-var app_default = "/build/_assets/app-HO7TIWHA.css";
+var app_default = "/build/_assets/app-GX6ZAIPF.css";
 
 // node_modules/@shopify/polaris-tokens/dist/esm/src/themes/base/breakpoints.mjs
 var breakpoints = {
@@ -26465,237 +23502,8 @@ function Icon({
   }, accessibilityLabel), contentMarkup[sourceType]);
 }
 
-// node_modules/@babel/runtime/helpers/esm/extends.js
-function _extends6() {
-  return _extends6 = Object.assign ? Object.assign.bind() : function(target) {
-    for (var i = 1; i < arguments.length; i++) {
-      var source = arguments[i];
-      for (var key in source)
-        Object.prototype.hasOwnProperty.call(source, key) && (target[key] = source[key]);
-    }
-    return target;
-  }, _extends6.apply(this, arguments);
-}
-
-// node_modules/@babel/runtime/helpers/esm/objectWithoutPropertiesLoose.js
-function _objectWithoutPropertiesLoose2(source, excluded) {
-  if (source == null)
-    return {};
-  var target = {}, sourceKeys = Object.keys(source), key, i;
-  for (i = 0; i < sourceKeys.length; i++)
-    key = sourceKeys[i], !(excluded.indexOf(key) >= 0) && (target[key] = source[key]);
-  return target;
-}
-
-// node_modules/@babel/runtime/helpers/esm/setPrototypeOf.js
-function _setPrototypeOf(o, p) {
-  return _setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function(o2, p2) {
-    return o2.__proto__ = p2, o2;
-  }, _setPrototypeOf(o, p);
-}
-
-// node_modules/@babel/runtime/helpers/esm/inheritsLoose.js
-function _inheritsLoose(subClass, superClass) {
-  subClass.prototype = Object.create(superClass.prototype), subClass.prototype.constructor = subClass, _setPrototypeOf(subClass, superClass);
-}
-
-// node_modules/react-transition-group/esm/TransitionGroupContext.js
-var import_react12 = __toESM(require_react()), TransitionGroupContext_default = import_react12.default.createContext(null);
-
-// node_modules/@babel/runtime/helpers/esm/assertThisInitialized.js
-function _assertThisInitialized(self2) {
-  if (self2 === void 0)
-    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
-  return self2;
-}
-
-// node_modules/react-transition-group/esm/TransitionGroup.js
-var import_prop_types = __toESM(require_prop_types()), import_react14 = __toESM(require_react());
-
-// node_modules/react-transition-group/esm/utils/ChildMapping.js
-var import_react13 = __toESM(require_react());
-function getChildMapping(children, mapFn) {
-  var mapper = function(child) {
-    return mapFn && (0, import_react13.isValidElement)(child) ? mapFn(child) : child;
-  }, result = /* @__PURE__ */ Object.create(null);
-  return children && import_react13.Children.map(children, function(c) {
-    return c;
-  }).forEach(function(child) {
-    result[child.key] = mapper(child);
-  }), result;
-}
-function mergeChildMappings(prev, next) {
-  prev = prev || {}, next = next || {};
-  function getValueForKey(key) {
-    return key in next ? next[key] : prev[key];
-  }
-  var nextKeysPending = /* @__PURE__ */ Object.create(null), pendingKeys = [];
-  for (var prevKey in prev)
-    prevKey in next ? pendingKeys.length && (nextKeysPending[prevKey] = pendingKeys, pendingKeys = []) : pendingKeys.push(prevKey);
-  var i, childMapping = {};
-  for (var nextKey in next) {
-    if (nextKeysPending[nextKey])
-      for (i = 0; i < nextKeysPending[nextKey].length; i++) {
-        var pendingNextKey = nextKeysPending[nextKey][i];
-        childMapping[nextKeysPending[nextKey][i]] = getValueForKey(pendingNextKey);
-      }
-    childMapping[nextKey] = getValueForKey(nextKey);
-  }
-  for (i = 0; i < pendingKeys.length; i++)
-    childMapping[pendingKeys[i]] = getValueForKey(pendingKeys[i]);
-  return childMapping;
-}
-function getProp(child, prop, props) {
-  return props[prop] != null ? props[prop] : child.props[prop];
-}
-function getInitialChildMapping(props, onExited) {
-  return getChildMapping(props.children, function(child) {
-    return (0, import_react13.cloneElement)(child, {
-      onExited: onExited.bind(null, child),
-      in: !0,
-      appear: getProp(child, "appear", props),
-      enter: getProp(child, "enter", props),
-      exit: getProp(child, "exit", props)
-    });
-  });
-}
-function getNextChildMapping(nextProps, prevChildMapping, onExited) {
-  var nextChildMapping = getChildMapping(nextProps.children), children = mergeChildMappings(prevChildMapping, nextChildMapping);
-  return Object.keys(children).forEach(function(key) {
-    var child = children[key];
-    if ((0, import_react13.isValidElement)(child)) {
-      var hasPrev = key in prevChildMapping, hasNext = key in nextChildMapping, prevChild = prevChildMapping[key], isLeaving = (0, import_react13.isValidElement)(prevChild) && !prevChild.props.in;
-      hasNext && (!hasPrev || isLeaving) ? children[key] = (0, import_react13.cloneElement)(child, {
-        onExited: onExited.bind(null, child),
-        in: !0,
-        exit: getProp(child, "exit", nextProps),
-        enter: getProp(child, "enter", nextProps)
-      }) : !hasNext && hasPrev && !isLeaving ? children[key] = (0, import_react13.cloneElement)(child, {
-        in: !1
-      }) : hasNext && hasPrev && (0, import_react13.isValidElement)(prevChild) && (children[key] = (0, import_react13.cloneElement)(child, {
-        onExited: onExited.bind(null, child),
-        in: prevChild.props.in,
-        exit: getProp(child, "exit", nextProps),
-        enter: getProp(child, "enter", nextProps)
-      }));
-    }
-  }), children;
-}
-
-// node_modules/react-transition-group/esm/TransitionGroup.js
-var values = Object.values || function(obj) {
-  return Object.keys(obj).map(function(k) {
-    return obj[k];
-  });
-}, defaultProps = {
-  component: "div",
-  childFactory: function(child) {
-    return child;
-  }
-}, TransitionGroup = /* @__PURE__ */ function(_React$Component) {
-  _inheritsLoose(TransitionGroup2, _React$Component);
-  function TransitionGroup2(props, context) {
-    var _this;
-    _this = _React$Component.call(this, props, context) || this;
-    var handleExited = _this.handleExited.bind(_assertThisInitialized(_this));
-    return _this.state = {
-      contextValue: {
-        isMounting: !0
-      },
-      handleExited,
-      firstRender: !0
-    }, _this;
-  }
-  var _proto = TransitionGroup2.prototype;
-  return _proto.componentDidMount = function() {
-    this.mounted = !0, this.setState({
-      contextValue: {
-        isMounting: !1
-      }
-    });
-  }, _proto.componentWillUnmount = function() {
-    this.mounted = !1;
-  }, TransitionGroup2.getDerivedStateFromProps = function(nextProps, _ref) {
-    var prevChildMapping = _ref.children, handleExited = _ref.handleExited, firstRender = _ref.firstRender;
-    return {
-      children: firstRender ? getInitialChildMapping(nextProps, handleExited) : getNextChildMapping(nextProps, prevChildMapping, handleExited),
-      firstRender: !1
-    };
-  }, _proto.handleExited = function(child, node) {
-    var currentChildMapping = getChildMapping(this.props.children);
-    child.key in currentChildMapping || (child.props.onExited && child.props.onExited(node), this.mounted && this.setState(function(state) {
-      var children = _extends6({}, state.children);
-      return delete children[child.key], {
-        children
-      };
-    }));
-  }, _proto.render = function() {
-    var _this$props = this.props, Component4 = _this$props.component, childFactory2 = _this$props.childFactory, props = _objectWithoutPropertiesLoose2(_this$props, ["component", "childFactory"]), contextValue = this.state.contextValue, children = values(this.state.children).map(childFactory2);
-    return delete props.appear, delete props.enter, delete props.exit, Component4 === null ? /* @__PURE__ */ import_react14.default.createElement(TransitionGroupContext_default.Provider, {
-      value: contextValue
-    }, children) : /* @__PURE__ */ import_react14.default.createElement(TransitionGroupContext_default.Provider, {
-      value: contextValue
-    }, /* @__PURE__ */ import_react14.default.createElement(Component4, props, children));
-  }, TransitionGroup2;
-}(import_react14.default.Component);
-TransitionGroup.propTypes = {
-  /**
-   * `<TransitionGroup>` renders a `<div>` by default. You can change this
-   * behavior by providing a `component` prop.
-   * If you use React v16+ and would like to avoid a wrapping `<div>` element
-   * you can pass in `component={null}`. This is useful if the wrapping div
-   * borks your css styles.
-   */
-  component: import_prop_types.default.any,
-  /**
-   * A set of `<Transition>` components, that are toggled `in` and out as they
-   * leave. the `<TransitionGroup>` will inject specific transition props, so
-   * remember to spread them through if you are wrapping the `<Transition>` as
-   * with our `<Fade>` example.
-   *
-   * While this component is meant for multiple `Transition` or `CSSTransition`
-   * children, sometimes you may want to have a single transition child with
-   * content that you want to be transitioned out and in when you change it
-   * (e.g. routes, images etc.) In that case you can change the `key` prop of
-   * the transition child as you change its content, this will cause
-   * `TransitionGroup` to transition the child out and back in.
-   */
-  children: import_prop_types.default.node,
-  /**
-   * A convenience prop that enables or disables appear animations
-   * for all children. Note that specifying this will override any defaults set
-   * on individual children Transitions.
-   */
-  appear: import_prop_types.default.bool,
-  /**
-   * A convenience prop that enables or disables enter animations
-   * for all children. Note that specifying this will override any defaults set
-   * on individual children Transitions.
-   */
-  enter: import_prop_types.default.bool,
-  /**
-   * A convenience prop that enables or disables exit animations
-   * for all children. Note that specifying this will override any defaults set
-   * on individual children Transitions.
-   */
-  exit: import_prop_types.default.bool,
-  /**
-   * You may need to apply reactive updates to a child as it is exiting.
-   * This is generally done by using `cloneElement` however in the case of an exiting
-   * child the element has already been removed and not accessible to the consumer.
-   *
-   * If you do need to update a child as it leaves you can provide a `childFactory`
-   * to wrap every child, even the ones that are leaving.
-   *
-   * @type Function(child: ReactElement) -> ReactElement
-   */
-  childFactory: import_prop_types.default.func
-};
-TransitionGroup.defaultProps = defaultProps;
-var TransitionGroup_default = TransitionGroup;
-
 // app/components/Layout.jsx
-var import_react23 = __toESM(require_react());
+var import_react20 = __toESM(require_react());
 
 // app/components/Aside.jsx
 var import_jsx_dev_runtime2 = __toESM(require_jsx_dev_runtime());
@@ -26763,10 +23571,10 @@ function CloseAside() {
 }
 
 // app/components/Header.jsx
-var import_react16 = __toESM(require_react());
+var import_react13 = __toESM(require_react());
 var import_jsx_dev_runtime3 = __toESM(require_jsx_dev_runtime());
 function Header({ header, cart }) {
-  let { shop, _: _2 } = header;
+  let { shop, _ } = header;
   return /* @__PURE__ */ (0, import_jsx_dev_runtime3.jsxDEV)("header", { className: "header", children: [
     /* @__PURE__ */ (0, import_jsx_dev_runtime3.jsxDEV)(HeaderMenuMobileToggle, {}, void 0, !1, {
       fileName: "app/components/Header.jsx",
@@ -26920,7 +23728,7 @@ function CartBadge({ count }) {
   }, this);
 }
 function CartToggle({ cart }) {
-  return /* @__PURE__ */ (0, import_jsx_dev_runtime3.jsxDEV)(import_react16.Suspense, { fallback: /* @__PURE__ */ (0, import_jsx_dev_runtime3.jsxDEV)(CartBadge, { count: 0 }, void 0, !1, {
+  return /* @__PURE__ */ (0, import_jsx_dev_runtime3.jsxDEV)(import_react13.Suspense, { fallback: /* @__PURE__ */ (0, import_jsx_dev_runtime3.jsxDEV)(CartBadge, { count: 0 }, void 0, !1, {
     fileName: "app/components/Header.jsx",
     lineNumber: 128,
     columnNumber: 25
@@ -26991,10 +23799,10 @@ function activeLinkStyle({ isActive, isPending }) {
 }
 
 // app/utils.js
-var import_react18 = __toESM(require_react());
+var import_react15 = __toESM(require_react());
 function useVariantUrl(handle, selectedOptions) {
   let { pathname } = useLocation();
-  return (0, import_react18.useMemo)(() => getVariantUrl({
+  return (0, import_react15.useMemo)(() => getVariantUrl({
     handle,
     pathname,
     searchParams: new URLSearchParams(),
@@ -27489,7 +24297,7 @@ function CartLineUpdateButton({ children, lines }) {
 }
 
 // app/components/Search.jsx
-var import_react21 = __toESM(require_react()), import_jsx_dev_runtime5 = __toESM(require_jsx_dev_runtime()), NO_PREDICTIVE_SEARCH_RESULTS = [
+var import_react18 = __toESM(require_react()), import_jsx_dev_runtime5 = __toESM(require_jsx_dev_runtime()), NO_PREDICTIVE_SEARCH_RESULTS = [
   { type: "queries", items: [] },
   { type: "products", items: [] },
   { type: "collections", items: [] },
@@ -27497,13 +24305,13 @@ var import_react21 = __toESM(require_react()), import_jsx_dev_runtime5 = __toESM
   { type: "articles", items: [] }
 ];
 function SearchForm({ searchTerm }) {
-  let inputRef = (0, import_react21.useRef)(null);
-  return (0, import_react21.useEffect)(() => {
-    function handleKeyDown2(event) {
+  let inputRef = (0, import_react18.useRef)(null);
+  return (0, import_react18.useEffect)(() => {
+    function handleKeyDown(event) {
       event.key === "k" && event.metaKey && (event.preventDefault(), inputRef.current?.focus()), event.key === "Escape" && inputRef.current?.blur();
     }
-    return document.addEventListener("keydown", handleKeyDown2), () => {
-      document.removeEventListener("keydown", handleKeyDown2);
+    return document.addEventListener("keydown", handleKeyDown), () => {
+      document.removeEventListener("keydown", handleKeyDown);
     };
   }, []), /* @__PURE__ */ (0, import_jsx_dev_runtime5.jsxDEV)(Form, { method: "get", children: [
     /* @__PURE__ */ (0, import_jsx_dev_runtime5.jsxDEV)(
@@ -27748,7 +24556,7 @@ function PredictiveSearchForm({
   method = "POST",
   ...props
 }) {
-  let params = useParams(), fetcher = useFetcher2(), inputRef = (0, import_react21.useRef)(null);
+  let params = useParams(), fetcher = useFetcher2(), inputRef = (0, import_react18.useRef)(null);
   function fetchResults(event) {
     let searchAction = action11 ?? "/api/predictive-search", localizedAction = params.locale ? `/${params.locale}${searchAction}` : searchAction, newSearchTerm = event.target.value || "";
     fetcher.submit(
@@ -27756,7 +24564,7 @@ function PredictiveSearchForm({
       { method, action: localizedAction }
     );
   }
-  return (0, import_react21.useEffect)(() => {
+  return (0, import_react18.useEffect)(() => {
     inputRef?.current?.setAttribute("type", "search");
   }, []), /* @__PURE__ */ (0, import_jsx_dev_runtime5.jsxDEV)(
     fetcher.Form,
@@ -27948,13 +24756,13 @@ function SearchResultItem({ goToSearchResult, item }) {
   }, this);
 }
 function usePredictiveSearch() {
-  let fetchers = useFetchers(), searchTerm = (0, import_react21.useRef)(""), searchInputRef = (0, import_react21.useRef)(null), searchFetcher = fetchers.find((fetcher) => fetcher.data?.searchResults);
+  let fetchers = useFetchers(), searchTerm = (0, import_react18.useRef)(""), searchInputRef = (0, import_react18.useRef)(null), searchFetcher = fetchers.find((fetcher) => fetcher.data?.searchResults);
   searchFetcher?.state === "loading" && (searchTerm.current = searchFetcher.formData?.get("q") || "");
   let search = searchFetcher?.data?.searchResults || {
     results: NO_PREDICTIVE_SEARCH_RESULTS,
     totalResults: 0
   };
-  return (0, import_react21.useEffect)(() => {
+  return (0, import_react18.useEffect)(() => {
     searchInputRef.current || (searchInputRef.current = document.querySelector('input[type="search"]'));
   }, []), { ...search, searchInputRef, searchTerm };
 }
@@ -28011,7 +24819,7 @@ function Layout({ cart, children = null, header, isLoggedIn }) {
   }, this);
 }
 function CartAside({ cart }) {
-  return /* @__PURE__ */ (0, import_jsx_dev_runtime6.jsxDEV)(Aside, { id: "cart-aside", heading: "CART", children: /* @__PURE__ */ (0, import_jsx_dev_runtime6.jsxDEV)(import_react23.Suspense, { fallback: /* @__PURE__ */ (0, import_jsx_dev_runtime6.jsxDEV)("p", { children: "Loading cart ..." }, void 0, !1, {
+  return /* @__PURE__ */ (0, import_jsx_dev_runtime6.jsxDEV)(Aside, { id: "cart-aside", heading: "CART", children: /* @__PURE__ */ (0, import_jsx_dev_runtime6.jsxDEV)(import_react20.Suspense, { fallback: /* @__PURE__ */ (0, import_jsx_dev_runtime6.jsxDEV)("p", { children: "Loading cart ..." }, void 0, !1, {
     fileName: "app/components/Layout.jsx",
     lineNumber: 36,
     columnNumber: 27
@@ -28840,4900 +25648,13 @@ var CUSTOMER_RESET_MUTATION = `#graphql
 // app/routes/($locale).collectioncarousel.$handle.jsx
 var locale_collectioncarousel_handle_exports = {};
 __export(locale_collectioncarousel_handle_exports, {
-  ProductFilter: () => ProductFilter,
-  ProductInfo: () => ProductInfo,
+  Product: () => Product,
   Swatch: () => Swatch,
-  SwatchSet: () => SwatchSet,
   default: () => Collection,
   loader: () => loader4,
   meta: () => meta4
 });
-var React42 = __toESM(require_react());
-
-// node_modules/@mui/material/colors/common.js
-var common = {
-  black: "#000",
-  white: "#fff"
-}, common_default = common;
-
-// node_modules/@mui/material/colors/red.js
-var red2 = {
-  50: "#ffebee",
-  100: "#ffcdd2",
-  200: "#ef9a9a",
-  300: "#e57373",
-  400: "#ef5350",
-  500: "#f44336",
-  600: "#e53935",
-  700: "#d32f2f",
-  800: "#c62828",
-  900: "#b71c1c",
-  A100: "#ff8a80",
-  A200: "#ff5252",
-  A400: "#ff1744",
-  A700: "#d50000"
-}, red_default = red2;
-
-// node_modules/@mui/material/colors/purple.js
-var purple2 = {
-  50: "#f3e5f5",
-  100: "#e1bee7",
-  200: "#ce93d8",
-  300: "#ba68c8",
-  400: "#ab47bc",
-  500: "#9c27b0",
-  600: "#8e24aa",
-  700: "#7b1fa2",
-  800: "#6a1b9a",
-  900: "#4a148c",
-  A100: "#ea80fc",
-  A200: "#e040fb",
-  A400: "#d500f9",
-  A700: "#aa00ff"
-}, purple_default = purple2;
-
-// node_modules/@mui/material/colors/blue.js
-var blue2 = {
-  50: "#e3f2fd",
-  100: "#bbdefb",
-  200: "#90caf9",
-  300: "#64b5f6",
-  400: "#42a5f5",
-  500: "#2196f3",
-  600: "#1e88e5",
-  700: "#1976d2",
-  800: "#1565c0",
-  900: "#0d47a1",
-  A100: "#82b1ff",
-  A200: "#448aff",
-  A400: "#2979ff",
-  A700: "#2962ff"
-}, blue_default = blue2;
-
-// node_modules/@mui/material/colors/lightBlue.js
-var lightBlue = {
-  50: "#e1f5fe",
-  100: "#b3e5fc",
-  200: "#81d4fa",
-  300: "#4fc3f7",
-  400: "#29b6f6",
-  500: "#03a9f4",
-  600: "#039be5",
-  700: "#0288d1",
-  800: "#0277bd",
-  900: "#01579b",
-  A100: "#80d8ff",
-  A200: "#40c4ff",
-  A400: "#00b0ff",
-  A700: "#0091ea"
-}, lightBlue_default = lightBlue;
-
-// node_modules/@mui/material/colors/green.js
-var green2 = {
-  50: "#e8f5e9",
-  100: "#c8e6c9",
-  200: "#a5d6a7",
-  300: "#81c784",
-  400: "#66bb6a",
-  500: "#4caf50",
-  600: "#43a047",
-  700: "#388e3c",
-  800: "#2e7d32",
-  900: "#1b5e20",
-  A100: "#b9f6ca",
-  A200: "#69f0ae",
-  A400: "#00e676",
-  A700: "#00c853"
-}, green_default = green2;
-
-// node_modules/@mui/material/colors/orange.js
-var orange2 = {
-  50: "#fff3e0",
-  100: "#ffe0b2",
-  200: "#ffcc80",
-  300: "#ffb74d",
-  400: "#ffa726",
-  500: "#ff9800",
-  600: "#fb8c00",
-  700: "#f57c00",
-  800: "#ef6c00",
-  900: "#e65100",
-  A100: "#ffd180",
-  A200: "#ffab40",
-  A400: "#ff9100",
-  A700: "#ff6d00"
-}, orange_default = orange2;
-
-// node_modules/@mui/material/colors/grey.js
-var grey = {
-  50: "#fafafa",
-  100: "#f5f5f5",
-  200: "#eeeeee",
-  300: "#e0e0e0",
-  400: "#bdbdbd",
-  500: "#9e9e9e",
-  600: "#757575",
-  700: "#616161",
-  800: "#424242",
-  900: "#212121",
-  A100: "#f5f5f5",
-  A200: "#eeeeee",
-  A400: "#bdbdbd",
-  A700: "#616161"
-}, grey_default = grey;
-
-// node_modules/@mui/material/styles/identifier.js
-var identifier_default = "$$material";
-
-// node_modules/@emotion/styled/dist/emotion-styled.cjs.mjs
-var import_emotion_styled_cjs = __toESM(require_emotion_styled_cjs(), 1), import_emotion_styled_cjs_default = __toESM(require_emotion_styled_cjs_default(), 1);
-
-// node_modules/@emotion/react/dist/emotion-react.cjs.mjs
-var import_emotion_react_cjs = __toESM(require_emotion_react_cjs(), 1);
-
-// node_modules/@mui/styled-engine/index.js
-function styled(tag, options) {
-  let stylesFactory = (0, import_emotion_styled_cjs_default._default)(tag, options);
-  return (...styles4) => {
-    let component = typeof tag == "string" ? `"${tag}"` : "component";
-    return styles4.length === 0 ? console.error([`MUI: Seems like you called \`styled(${component})()\` without a \`style\` argument.`, 'You must provide a `styles` argument: `styled("div")(styleYouForgotToPass)`.'].join(`
-`)) : styles4.some((style3) => style3 === void 0) && console.error(`MUI: the styled(${component})(...args) API requires all its args to be defined.`), stylesFactory(...styles4);
-  };
-}
-var internal_processStyles = (tag, processor) => {
-  Array.isArray(tag.__emotion_styles) && (tag.__emotion_styles = processor(tag.__emotion_styles));
-};
-
-// node_modules/@mui/utils/chainPropTypes/chainPropTypes.js
-function chainPropTypes(propType1, propType2) {
-  return function(...args) {
-    return propType1(...args) || propType2(...args);
-  };
-}
-
-// node_modules/@mui/utils/deepmerge/deepmerge.js
-function isPlainObject(item) {
-  if (typeof item != "object" || item === null)
-    return !1;
-  let prototype = Object.getPrototypeOf(item);
-  return (prototype === null || prototype === Object.prototype || Object.getPrototypeOf(prototype) === null) && !(Symbol.toStringTag in item) && !(Symbol.iterator in item);
-}
-function deepClone(source) {
-  if (!isPlainObject(source))
-    return source;
-  let output = {};
-  return Object.keys(source).forEach((key) => {
-    output[key] = deepClone(source[key]);
-  }), output;
-}
-function deepmerge2(target, source, options = {
-  clone: !0
-}) {
-  let output = options.clone ? _extends6({}, target) : target;
-  return isPlainObject(target) && isPlainObject(source) && Object.keys(source).forEach((key) => {
-    key !== "__proto__" && (isPlainObject(source[key]) && key in target && isPlainObject(target[key]) ? output[key] = deepmerge2(target[key], source[key], options) : options.clone ? output[key] = isPlainObject(source[key]) ? deepClone(source[key]) : source[key] : output[key] = source[key]);
-  }), output;
-}
-
-// node_modules/@mui/utils/elementTypeAcceptingRef/elementTypeAcceptingRef.js
-var import_prop_types2 = __toESM(require_prop_types());
-function isClassComponent(elementType) {
-  let {
-    prototype = {}
-  } = elementType;
-  return Boolean(prototype.isReactComponent);
-}
-function elementTypeAcceptingRef(props, propName, componentName, location2, propFullName) {
-  let propValue = props[propName], safePropName = propFullName || propName;
-  if (propValue == null || // When server-side rendering React doesn't warn either.
-  // This is not an accurate check for SSR.
-  // This is only in place for emotion compat.
-  // TODO: Revisit once https://github.com/facebook/react/issues/20047 is resolved.
-  typeof window > "u")
-    return null;
-  let warningHint;
-  return typeof propValue == "function" && !isClassComponent(propValue) && (warningHint = "Did you accidentally provide a plain function component instead?"), warningHint !== void 0 ? new Error(`Invalid ${location2} \`${safePropName}\` supplied to \`${componentName}\`. Expected an element type that can hold a ref. ${warningHint} For more information see https://mui.com/r/caveat-with-refs-guide`) : null;
-}
-var elementTypeAcceptingRef_default = chainPropTypes(import_prop_types2.default.elementType, elementTypeAcceptingRef);
-
-// node_modules/@mui/utils/getDisplayName/getDisplayName.js
-var import_react_is = __toESM(require_react_is3()), fnNameMatchRegex = /^\s*function(?:\s|\s*\/\*.*\*\/\s*)+([^(\s/]*)\s*/;
-function getFunctionName(fn) {
-  let match = `${fn}`.match(fnNameMatchRegex);
-  return match && match[1] || "";
-}
-function getFunctionComponentName(Component4, fallback = "") {
-  return Component4.displayName || Component4.name || getFunctionName(Component4) || fallback;
-}
-function getWrappedName(outerType, innerType, wrapperName) {
-  let functionName = getFunctionComponentName(innerType);
-  return outerType.displayName || (functionName !== "" ? `${wrapperName}(${functionName})` : wrapperName);
-}
-function getDisplayName(Component4) {
-  if (Component4 != null) {
-    if (typeof Component4 == "string")
-      return Component4;
-    if (typeof Component4 == "function")
-      return getFunctionComponentName(Component4, "Component");
-    if (typeof Component4 == "object")
-      switch (Component4.$$typeof) {
-        case import_react_is.ForwardRef:
-          return getWrappedName(Component4, Component4.render, "ForwardRef");
-        case import_react_is.Memo:
-          return getWrappedName(Component4, Component4.type, "memo");
-        default:
-          return;
-      }
-  }
-}
-
-// node_modules/@mui/utils/refType/refType.js
-var import_prop_types3 = __toESM(require_prop_types()), refType = import_prop_types3.default.oneOfType([import_prop_types3.default.func, import_prop_types3.default.object]), refType_default = refType;
-
-// node_modules/@mui/utils/capitalize/capitalize.js
-function capitalize(string) {
-  if (typeof string != "string")
-    throw new Error("MUI: `capitalize(string)` expects a string argument.");
-  return string.charAt(0).toUpperCase() + string.slice(1);
-}
-
-// node_modules/@mui/utils/debounce/debounce.js
-function debounce(func, wait = 166) {
-  let timeout;
-  function debounced(...args) {
-    let later = () => {
-      func.apply(this, args);
-    };
-    clearTimeout(timeout), timeout = setTimeout(later, wait);
-  }
-  return debounced.clear = () => {
-    clearTimeout(timeout);
-  }, debounced;
-}
-
-// node_modules/@mui/utils/ownerDocument/ownerDocument.js
-function ownerDocument(node) {
-  return node && node.ownerDocument || document;
-}
-
-// node_modules/@mui/utils/ownerWindow/ownerWindow.js
-function ownerWindow(node) {
-  return ownerDocument(node).defaultView || window;
-}
-
-// node_modules/@mui/utils/requirePropFactory/requirePropFactory.js
-function requirePropFactory(componentNameInError, Component4) {
-  let prevPropTypes = Component4 ? _extends6({}, Component4.propTypes) : null;
-  return (requiredProp) => (props, propName, componentName, location2, propFullName, ...args) => {
-    let propFullNameSafe = propFullName || propName, defaultTypeChecker = prevPropTypes?.[propFullNameSafe];
-    if (defaultTypeChecker) {
-      let typeCheckerResult = defaultTypeChecker(props, propName, componentName, location2, propFullName, ...args);
-      if (typeCheckerResult)
-        return typeCheckerResult;
-    }
-    return typeof props[propName] < "u" && !props[requiredProp] ? new Error(`The prop \`${propFullNameSafe}\` of \`${componentNameInError}\` can only be used together with the \`${requiredProp}\` prop.`) : null;
-  };
-}
-
-// node_modules/@mui/utils/setRef/setRef.js
-function setRef(ref, value) {
-  typeof ref == "function" ? ref(value) : ref && (ref.current = value);
-}
-
-// node_modules/@mui/utils/useEnhancedEffect/useEnhancedEffect.js
-var React17 = __toESM(require_react()), useEnhancedEffect = typeof window < "u" ? React17.useLayoutEffect : React17.useEffect, useEnhancedEffect_default = useEnhancedEffect;
-
-// node_modules/@mui/utils/unsupportedProp/unsupportedProp.js
-function unsupportedProp(props, propName, componentName, location2, propFullName) {
-  let propFullNameSafe = propFullName || propName;
-  return typeof props[propName] < "u" ? new Error(`The prop \`${propFullNameSafe}\` is not supported. Please remove it.`) : null;
-}
-
-// node_modules/@mui/utils/useEventCallback/useEventCallback.js
-var React18 = __toESM(require_react());
-function useEventCallback(fn) {
-  let ref = React18.useRef(fn);
-  return useEnhancedEffect_default(() => {
-    ref.current = fn;
-  }), React18.useRef((...args) => (
-    // @ts-expect-error hide `this`
-    (0, ref.current)(...args)
-  )).current;
-}
-var useEventCallback_default = useEventCallback;
-
-// node_modules/@mui/utils/useForkRef/useForkRef.js
-var React19 = __toESM(require_react());
-function useForkRef(...refs) {
-  return React19.useMemo(() => refs.every((ref) => ref == null) ? null : (instance) => {
-    refs.forEach((ref) => {
-      setRef(ref, instance);
-    });
-  }, refs);
-}
-
-// node_modules/@mui/utils/useLazyRef/useLazyRef.js
-var React20 = __toESM(require_react()), UNINITIALIZED = {};
-function useLazyRef(init, initArg) {
-  let ref = React20.useRef(UNINITIALIZED);
-  return ref.current === UNINITIALIZED && (ref.current = init(initArg)), ref;
-}
-
-// node_modules/@mui/utils/useOnMount/useOnMount.js
-var React21 = __toESM(require_react()), EMPTY = [];
-function useOnMount(fn) {
-  React21.useEffect(fn, EMPTY);
-}
-
-// node_modules/@mui/utils/useTimeout/useTimeout.js
-var Timeout = class {
-  constructor() {
-    this.currentId = 0, this.clear = () => {
-      this.currentId !== 0 && (clearTimeout(this.currentId), this.currentId = 0);
-    }, this.disposeEffect = () => this.clear;
-  }
-  static create() {
-    return new Timeout();
-  }
-  /**
-   * Executes `fn` after `delay`, clearing any previously scheduled call.
-   */
-  start(delay, fn) {
-    this.clear(), this.currentId = setTimeout(() => {
-      this.currentId = 0, fn();
-    }, delay);
-  }
-};
-function useTimeout() {
-  let timeout = useLazyRef(Timeout.create).current;
-  return useOnMount(timeout.disposeEffect), timeout;
-}
-
-// node_modules/@mui/utils/useIsFocusVisible/useIsFocusVisible.js
-var React22 = __toESM(require_react());
-var hadKeyboardEvent = !0, hadFocusVisibleRecently = !1, hadFocusVisibleRecentlyTimeout = new Timeout(), inputTypesWhitelist = {
-  text: !0,
-  search: !0,
-  url: !0,
-  tel: !0,
-  email: !0,
-  password: !0,
-  number: !0,
-  date: !0,
-  month: !0,
-  week: !0,
-  time: !0,
-  datetime: !0,
-  "datetime-local": !0
-};
-function focusTriggersKeyboardModality(node) {
-  let {
-    type,
-    tagName
-  } = node;
-  return !!(tagName === "INPUT" && inputTypesWhitelist[type] && !node.readOnly || tagName === "TEXTAREA" && !node.readOnly || node.isContentEditable);
-}
-function handleKeyDown(event) {
-  event.metaKey || event.altKey || event.ctrlKey || (hadKeyboardEvent = !0);
-}
-function handlePointerDown() {
-  hadKeyboardEvent = !1;
-}
-function handleVisibilityChange() {
-  this.visibilityState === "hidden" && hadFocusVisibleRecently && (hadKeyboardEvent = !0);
-}
-function prepare(doc) {
-  doc.addEventListener("keydown", handleKeyDown, !0), doc.addEventListener("mousedown", handlePointerDown, !0), doc.addEventListener("pointerdown", handlePointerDown, !0), doc.addEventListener("touchstart", handlePointerDown, !0), doc.addEventListener("visibilitychange", handleVisibilityChange, !0);
-}
-function isFocusVisible(event) {
-  let {
-    target
-  } = event;
-  try {
-    return target.matches(":focus-visible");
-  } catch {
-  }
-  return hadKeyboardEvent || focusTriggersKeyboardModality(target);
-}
-function useIsFocusVisible() {
-  let ref = React22.useCallback((node) => {
-    node != null && prepare(node.ownerDocument);
-  }, []), isFocusVisibleRef = React22.useRef(!1);
-  function handleBlurVisible() {
-    return isFocusVisibleRef.current ? (hadFocusVisibleRecently = !0, hadFocusVisibleRecentlyTimeout.start(100, () => {
-      hadFocusVisibleRecently = !1;
-    }), isFocusVisibleRef.current = !1, !0) : !1;
-  }
-  function handleFocusVisible(event) {
-    return isFocusVisible(event) ? (isFocusVisibleRef.current = !0, !0) : !1;
-  }
-  return {
-    isFocusVisibleRef,
-    onFocus: handleFocusVisible,
-    onBlur: handleBlurVisible,
-    ref
-  };
-}
-
-// node_modules/@mui/utils/scrollLeft/scrollLeft.js
-var cachedType;
-function detectScrollType() {
-  if (cachedType)
-    return cachedType;
-  let dummy = document.createElement("div"), container = document.createElement("div");
-  return container.style.width = "10px", container.style.height = "1px", dummy.appendChild(container), dummy.dir = "rtl", dummy.style.fontSize = "14px", dummy.style.width = "4px", dummy.style.height = "1px", dummy.style.position = "absolute", dummy.style.top = "-1000px", dummy.style.overflow = "scroll", document.body.appendChild(dummy), cachedType = "reverse", dummy.scrollLeft > 0 ? cachedType = "default" : (dummy.scrollLeft = 1, dummy.scrollLeft === 0 && (cachedType = "negative")), document.body.removeChild(dummy), cachedType;
-}
-function getNormalizedScrollLeft(element, direction) {
-  let scrollLeft = element.scrollLeft;
-  if (direction !== "rtl")
-    return scrollLeft;
-  switch (detectScrollType()) {
-    case "negative":
-      return element.scrollWidth - element.clientWidth + scrollLeft;
-    case "reverse":
-      return element.scrollWidth - element.clientWidth - scrollLeft;
-    default:
-      return scrollLeft;
-  }
-}
-
-// node_modules/@mui/utils/resolveProps/resolveProps.js
-function resolveProps(defaultProps2, props) {
-  let output = _extends6({}, props);
-  return Object.keys(defaultProps2).forEach((propName) => {
-    if (propName.toString().match(/^(components|slots)$/))
-      output[propName] = _extends6({}, defaultProps2[propName], output[propName]);
-    else if (propName.toString().match(/^(componentsProps|slotProps)$/)) {
-      let defaultSlotProps = defaultProps2[propName] || {}, slotProps = props[propName];
-      output[propName] = {}, !slotProps || !Object.keys(slotProps) ? output[propName] = defaultSlotProps : !defaultSlotProps || !Object.keys(defaultSlotProps) ? output[propName] = slotProps : (output[propName] = _extends6({}, slotProps), Object.keys(defaultSlotProps).forEach((slotPropName) => {
-        output[propName][slotPropName] = resolveProps(defaultSlotProps[slotPropName], slotProps[slotPropName]);
-      }));
-    } else
-      output[propName] === void 0 && (output[propName] = defaultProps2[propName]);
-  }), output;
-}
-
-// node_modules/@mui/utils/composeClasses/composeClasses.js
-function composeClasses(slots, getUtilityClass, classes = void 0) {
-  let output = {};
-  return Object.keys(slots).forEach(
-    // `Object.keys(slots)` can't be wider than `T` because we infer `T` from `slots`.
-    // @ts-expect-error https://github.com/microsoft/TypeScript/pull/12253#issuecomment-263132208
-    (slot) => {
-      output[slot] = slots[slot].reduce((acc, key) => {
-        if (key) {
-          let utilityClass = getUtilityClass(key);
-          utilityClass !== "" && acc.push(utilityClass), classes && classes[key] && acc.push(classes[key]);
-        }
-        return acc;
-      }, []).join(" ");
-    }
-  ), output;
-}
-
-// node_modules/@mui/utils/ClassNameGenerator/ClassNameGenerator.js
-var defaultGenerator = (componentName) => componentName, createClassNameGenerator = () => {
-  let generate = defaultGenerator;
-  return {
-    configure(generator) {
-      generate = generator;
-    },
-    generate(componentName) {
-      return generate(componentName);
-    },
-    reset() {
-      generate = defaultGenerator;
-    }
-  };
-}, ClassNameGenerator = createClassNameGenerator(), ClassNameGenerator_default = ClassNameGenerator;
-
-// node_modules/@mui/utils/generateUtilityClass/generateUtilityClass.js
-var globalStateClasses = {
-  active: "active",
-  checked: "checked",
-  completed: "completed",
-  disabled: "disabled",
-  error: "error",
-  expanded: "expanded",
-  focused: "focused",
-  focusVisible: "focusVisible",
-  open: "open",
-  readOnly: "readOnly",
-  required: "required",
-  selected: "selected"
-};
-function generateUtilityClass(componentName, slot, globalStatePrefix = "Mui") {
-  let globalStateClass = globalStateClasses[slot];
-  return globalStateClass ? `${globalStatePrefix}-${globalStateClass}` : `${ClassNameGenerator_default.generate(componentName)}-${slot}`;
-}
-
-// node_modules/@mui/utils/generateUtilityClasses/generateUtilityClasses.js
-function generateUtilityClasses(componentName, slots, globalStatePrefix = "Mui") {
-  let result = {};
-  return slots.forEach((slot) => {
-    result[slot] = generateUtilityClass(componentName, slot, globalStatePrefix);
-  }), result;
-}
-
-// node_modules/@mui/utils/clamp/clamp.js
-function clamp(val, min = Number.MIN_SAFE_INTEGER, max = Number.MAX_SAFE_INTEGER) {
-  return Math.max(min, Math.min(val, max));
-}
-var clamp_default = clamp;
-
-// node_modules/@mui/system/esm/createTheme/createBreakpoints.js
-var _excluded4 = ["values", "unit", "step"];
-var sortBreakpointsValues = (values3) => {
-  let breakpointsAsArray = Object.keys(values3).map((key) => ({
-    key,
-    val: values3[key]
-  })) || [];
-  return breakpointsAsArray.sort((breakpoint1, breakpoint2) => breakpoint1.val - breakpoint2.val), breakpointsAsArray.reduce((acc, obj) => _extends6({}, acc, {
-    [obj.key]: obj.val
-  }), {});
-};
-function createBreakpoints(breakpoints2) {
-  let {
-    // The breakpoint **start** at this value.
-    // For instance with the first breakpoint xs: [xs, sm).
-    values: values3 = {
-      xs: 0,
-      // phone
-      sm: 600,
-      // tablet
-      md: 900,
-      // small laptop
-      lg: 1200,
-      // desktop
-      xl: 1536
-      // large screen
-    },
-    unit = "px",
-    step = 5
-  } = breakpoints2, other = _objectWithoutPropertiesLoose2(breakpoints2, _excluded4), sortedValues = sortBreakpointsValues(values3), keys = Object.keys(sortedValues);
-  function up(key) {
-    return `@media (min-width:${typeof values3[key] == "number" ? values3[key] : key}${unit})`;
-  }
-  function down(key) {
-    return `@media (max-width:${(typeof values3[key] == "number" ? values3[key] : key) - step / 100}${unit})`;
-  }
-  function between(start, end) {
-    let endIndex = keys.indexOf(end);
-    return `@media (min-width:${typeof values3[start] == "number" ? values3[start] : start}${unit}) and (max-width:${(endIndex !== -1 && typeof values3[keys[endIndex]] == "number" ? values3[keys[endIndex]] : end) - step / 100}${unit})`;
-  }
-  function only(key) {
-    return keys.indexOf(key) + 1 < keys.length ? between(key, keys[keys.indexOf(key) + 1]) : up(key);
-  }
-  function not(key) {
-    let keyIndex = keys.indexOf(key);
-    return keyIndex === 0 ? up(keys[1]) : keyIndex === keys.length - 1 ? down(keys[keyIndex]) : between(key, keys[keys.indexOf(key) + 1]).replace("@media", "@media not all and");
-  }
-  return _extends6({
-    keys,
-    values: sortedValues,
-    up,
-    down,
-    between,
-    only,
-    not,
-    unit
-  }, other);
-}
-
-// node_modules/@mui/system/esm/createTheme/shape.js
-var shape = {
-  borderRadius: 4
-}, shape_default = shape;
-
-// node_modules/@mui/system/esm/responsivePropType.js
-var import_prop_types4 = __toESM(require_prop_types()), responsivePropType = import_prop_types4.default.oneOfType([import_prop_types4.default.number, import_prop_types4.default.string, import_prop_types4.default.object, import_prop_types4.default.array]), responsivePropType_default = responsivePropType;
-
-// node_modules/@mui/system/esm/merge.js
-function merge(acc, item) {
-  return item ? deepmerge2(acc, item, {
-    clone: !1
-    // No need to clone deep, it's way faster.
-  }) : acc;
-}
-var merge_default = merge;
-
-// node_modules/@mui/system/esm/breakpoints.js
-var values2 = {
-  xs: 0,
-  // phone
-  sm: 600,
-  // tablet
-  md: 900,
-  // small laptop
-  lg: 1200,
-  // desktop
-  xl: 1536
-  // large screen
-}, defaultBreakpoints = {
-  // Sorted ASC by size. That's important.
-  // It can't be configured as it's used statically for propTypes.
-  keys: ["xs", "sm", "md", "lg", "xl"],
-  up: (key) => `@media (min-width:${values2[key]}px)`
-};
-function handleBreakpoints(props, propValue, styleFromPropValue) {
-  let theme = props.theme || {};
-  if (Array.isArray(propValue)) {
-    let themeBreakpoints = theme.breakpoints || defaultBreakpoints;
-    return propValue.reduce((acc, item, index) => (acc[themeBreakpoints.up(themeBreakpoints.keys[index])] = styleFromPropValue(propValue[index]), acc), {});
-  }
-  if (typeof propValue == "object") {
-    let themeBreakpoints = theme.breakpoints || defaultBreakpoints;
-    return Object.keys(propValue).reduce((acc, breakpoint) => {
-      if (Object.keys(themeBreakpoints.values || values2).indexOf(breakpoint) !== -1) {
-        let mediaKey = themeBreakpoints.up(breakpoint);
-        acc[mediaKey] = styleFromPropValue(propValue[breakpoint], breakpoint);
-      } else {
-        let cssKey = breakpoint;
-        acc[cssKey] = propValue[cssKey];
-      }
-      return acc;
-    }, {});
-  }
-  return styleFromPropValue(propValue);
-}
-function createEmptyBreakpointObject(breakpointsInput = {}) {
-  var _breakpointsInput$key;
-  return ((_breakpointsInput$key = breakpointsInput.keys) == null ? void 0 : _breakpointsInput$key.reduce((acc, key) => {
-    let breakpointStyleKey = breakpointsInput.up(key);
-    return acc[breakpointStyleKey] = {}, acc;
-  }, {})) || {};
-}
-function removeUnusedBreakpoints(breakpointKeys, style3) {
-  return breakpointKeys.reduce((acc, key) => {
-    let breakpointOutput = acc[key];
-    return (!breakpointOutput || Object.keys(breakpointOutput).length === 0) && delete acc[key], acc;
-  }, style3);
-}
-function computeBreakpointsBase(breakpointValues, themeBreakpoints) {
-  if (typeof breakpointValues != "object")
-    return {};
-  let base = {}, breakpointsKeys = Object.keys(themeBreakpoints);
-  return Array.isArray(breakpointValues) ? breakpointsKeys.forEach((breakpoint, i) => {
-    i < breakpointValues.length && (base[breakpoint] = !0);
-  }) : breakpointsKeys.forEach((breakpoint) => {
-    breakpointValues[breakpoint] != null && (base[breakpoint] = !0);
-  }), base;
-}
-function resolveBreakpointValues({
-  values: breakpointValues,
-  breakpoints: themeBreakpoints,
-  base: customBase
-}) {
-  let base = customBase || computeBreakpointsBase(breakpointValues, themeBreakpoints), keys = Object.keys(base);
-  if (keys.length === 0)
-    return breakpointValues;
-  let previous;
-  return keys.reduce((acc, breakpoint, i) => (Array.isArray(breakpointValues) ? (acc[breakpoint] = breakpointValues[i] != null ? breakpointValues[i] : breakpointValues[previous], previous = i) : typeof breakpointValues == "object" ? (acc[breakpoint] = breakpointValues[breakpoint] != null ? breakpointValues[breakpoint] : breakpointValues[previous], previous = breakpoint) : acc[breakpoint] = breakpointValues, acc), {});
-}
-
-// node_modules/@mui/system/esm/style.js
-function getPath(obj, path, checkVars = !0) {
-  if (!path || typeof path != "string")
-    return null;
-  if (obj && obj.vars && checkVars) {
-    let val = `vars.${path}`.split(".").reduce((acc, item) => acc && acc[item] ? acc[item] : null, obj);
-    if (val != null)
-      return val;
-  }
-  return path.split(".").reduce((acc, item) => acc && acc[item] != null ? acc[item] : null, obj);
-}
-function getStyleValue(themeMapping, transform, propValueFinal, userValue = propValueFinal) {
-  let value;
-  return typeof themeMapping == "function" ? value = themeMapping(propValueFinal) : Array.isArray(themeMapping) ? value = themeMapping[propValueFinal] || userValue : value = getPath(themeMapping, propValueFinal) || userValue, transform && (value = transform(value, userValue, themeMapping)), value;
-}
-function style(options) {
-  let {
-    prop,
-    cssProperty = options.prop,
-    themeKey,
-    transform
-  } = options, fn = (props) => {
-    if (props[prop] == null)
-      return null;
-    let propValue = props[prop], theme = props.theme, themeMapping = getPath(theme, themeKey) || {};
-    return handleBreakpoints(props, propValue, (propValueFinal) => {
-      let value = getStyleValue(themeMapping, transform, propValueFinal);
-      return propValueFinal === value && typeof propValueFinal == "string" && (value = getStyleValue(themeMapping, transform, `${prop}${propValueFinal === "default" ? "" : capitalize(propValueFinal)}`, propValueFinal)), cssProperty === !1 ? value : {
-        [cssProperty]: value
-      };
-    });
-  };
-  return fn.propTypes = {
-    [prop]: responsivePropType_default
-  }, fn.filterProps = [prop], fn;
-}
-var style_default = style;
-
-// node_modules/@mui/system/esm/memoize.js
-function memoize(fn) {
-  let cache = {};
-  return (arg) => (cache[arg] === void 0 && (cache[arg] = fn(arg)), cache[arg]);
-}
-
-// node_modules/@mui/system/esm/spacing.js
-var properties = {
-  m: "margin",
-  p: "padding"
-}, directions = {
-  t: "Top",
-  r: "Right",
-  b: "Bottom",
-  l: "Left",
-  x: ["Left", "Right"],
-  y: ["Top", "Bottom"]
-}, aliases = {
-  marginX: "mx",
-  marginY: "my",
-  paddingX: "px",
-  paddingY: "py"
-}, getCssProperties = memoize((prop) => {
-  if (prop.length > 2)
-    if (aliases[prop])
-      prop = aliases[prop];
-    else
-      return [prop];
-  let [a, b] = prop.split(""), property = properties[a], direction = directions[b] || "";
-  return Array.isArray(direction) ? direction.map((dir) => property + dir) : [property + direction];
-}), marginKeys = ["m", "mt", "mr", "mb", "ml", "mx", "my", "margin", "marginTop", "marginRight", "marginBottom", "marginLeft", "marginX", "marginY", "marginInline", "marginInlineStart", "marginInlineEnd", "marginBlock", "marginBlockStart", "marginBlockEnd"], paddingKeys = ["p", "pt", "pr", "pb", "pl", "px", "py", "padding", "paddingTop", "paddingRight", "paddingBottom", "paddingLeft", "paddingX", "paddingY", "paddingInline", "paddingInlineStart", "paddingInlineEnd", "paddingBlock", "paddingBlockStart", "paddingBlockEnd"], spacingKeys = [...marginKeys, ...paddingKeys];
-function createUnaryUnit(theme, themeKey, defaultValue, propName) {
-  var _getPath;
-  let themeSpacing = (_getPath = getPath(theme, themeKey, !1)) != null ? _getPath : defaultValue;
-  return typeof themeSpacing == "number" ? (abs) => typeof abs == "string" ? abs : (typeof abs != "number" && console.error(`MUI: Expected ${propName} argument to be a number or a string, got ${abs}.`), themeSpacing * abs) : Array.isArray(themeSpacing) ? (abs) => typeof abs == "string" ? abs : (Number.isInteger(abs) ? abs > themeSpacing.length - 1 && console.error([`MUI: The value provided (${abs}) overflows.`, `The supported values are: ${JSON.stringify(themeSpacing)}.`, `${abs} > ${themeSpacing.length - 1}, you need to add the missing values.`].join(`
-`)) : console.error([`MUI: The \`theme.${themeKey}\` array type cannot be combined with non integer values.You should either use an integer value that can be used as index, or define the \`theme.${themeKey}\` as a number.`].join(`
-`)), themeSpacing[abs]) : typeof themeSpacing == "function" ? themeSpacing : (console.error([`MUI: The \`theme.${themeKey}\` value (${themeSpacing}) is invalid.`, "It should be a number, an array or a function."].join(`
-`)), () => {
-  });
-}
-function createUnarySpacing(theme) {
-  return createUnaryUnit(theme, "spacing", 8, "spacing");
-}
-function getValue(transformer, propValue) {
-  if (typeof propValue == "string" || propValue == null)
-    return propValue;
-  let abs = Math.abs(propValue), transformed = transformer(abs);
-  return propValue >= 0 ? transformed : typeof transformed == "number" ? -transformed : `-${transformed}`;
-}
-function getStyleFromPropValue(cssProperties, transformer) {
-  return (propValue) => cssProperties.reduce((acc, cssProperty) => (acc[cssProperty] = getValue(transformer, propValue), acc), {});
-}
-function resolveCssProperty(props, keys, prop, transformer) {
-  if (keys.indexOf(prop) === -1)
-    return null;
-  let cssProperties = getCssProperties(prop), styleFromPropValue = getStyleFromPropValue(cssProperties, transformer), propValue = props[prop];
-  return handleBreakpoints(props, propValue, styleFromPropValue);
-}
-function style2(props, keys) {
-  let transformer = createUnarySpacing(props.theme);
-  return Object.keys(props).map((prop) => resolveCssProperty(props, keys, prop, transformer)).reduce(merge_default, {});
-}
-function margin(props) {
-  return style2(props, marginKeys);
-}
-margin.propTypes = marginKeys.reduce((obj, key) => (obj[key] = responsivePropType_default, obj), {});
-margin.filterProps = marginKeys;
-function padding(props) {
-  return style2(props, paddingKeys);
-}
-padding.propTypes = paddingKeys.reduce((obj, key) => (obj[key] = responsivePropType_default, obj), {});
-padding.filterProps = paddingKeys;
-function spacing(props) {
-  return style2(props, spacingKeys);
-}
-spacing.propTypes = spacingKeys.reduce((obj, key) => (obj[key] = responsivePropType_default, obj), {});
-spacing.filterProps = spacingKeys;
-
-// node_modules/@mui/system/esm/createTheme/createSpacing.js
-function createSpacing(spacingInput = 8) {
-  if (spacingInput.mui)
-    return spacingInput;
-  let transform = createUnarySpacing({
-    spacing: spacingInput
-  }), spacing2 = (...argsInput) => (argsInput.length <= 4 || console.error(`MUI: Too many arguments provided, expected between 0 and 4, got ${argsInput.length}`), (argsInput.length === 0 ? [1] : argsInput).map((argument) => {
-    let output = transform(argument);
-    return typeof output == "number" ? `${output}px` : output;
-  }).join(" "));
-  return spacing2.mui = !0, spacing2;
-}
-
-// node_modules/@mui/system/esm/compose.js
-function compose(...styles4) {
-  let handlers = styles4.reduce((acc, style3) => (style3.filterProps.forEach((prop) => {
-    acc[prop] = style3;
-  }), acc), {}), fn = (props) => Object.keys(props).reduce((acc, prop) => handlers[prop] ? merge_default(acc, handlers[prop](props)) : acc, {});
-  return fn.propTypes = styles4.reduce((acc, style3) => Object.assign(acc, style3.propTypes), {}), fn.filterProps = styles4.reduce((acc, style3) => acc.concat(style3.filterProps), []), fn;
-}
-var compose_default = compose;
-
-// node_modules/@mui/system/esm/borders.js
-function borderTransform(value) {
-  return typeof value != "number" ? value : `${value}px solid`;
-}
-function createBorderStyle(prop, transform) {
-  return style_default({
-    prop,
-    themeKey: "borders",
-    transform
-  });
-}
-var border2 = createBorderStyle("border", borderTransform), borderTop = createBorderStyle("borderTop", borderTransform), borderRight = createBorderStyle("borderRight", borderTransform), borderBottom = createBorderStyle("borderBottom", borderTransform), borderLeft = createBorderStyle("borderLeft", borderTransform), borderColor = createBorderStyle("borderColor"), borderTopColor = createBorderStyle("borderTopColor"), borderRightColor = createBorderStyle("borderRightColor"), borderBottomColor = createBorderStyle("borderBottomColor"), borderLeftColor = createBorderStyle("borderLeftColor"), outline = createBorderStyle("outline", borderTransform), outlineColor = createBorderStyle("outlineColor"), borderRadius = (props) => {
-  if (props.borderRadius !== void 0 && props.borderRadius !== null) {
-    let transformer = createUnaryUnit(props.theme, "shape.borderRadius", 4, "borderRadius"), styleFromPropValue = (propValue) => ({
-      borderRadius: getValue(transformer, propValue)
-    });
-    return handleBreakpoints(props, props.borderRadius, styleFromPropValue);
-  }
-  return null;
-};
-borderRadius.propTypes = {
-  borderRadius: responsivePropType_default
-};
-borderRadius.filterProps = ["borderRadius"];
-var borders = compose_default(border2, borderTop, borderRight, borderBottom, borderLeft, borderColor, borderTopColor, borderRightColor, borderBottomColor, borderLeftColor, borderRadius, outline, outlineColor);
-
-// node_modules/@mui/system/esm/cssGrid.js
-var gap = (props) => {
-  if (props.gap !== void 0 && props.gap !== null) {
-    let transformer = createUnaryUnit(props.theme, "spacing", 8, "gap"), styleFromPropValue = (propValue) => ({
-      gap: getValue(transformer, propValue)
-    });
-    return handleBreakpoints(props, props.gap, styleFromPropValue);
-  }
-  return null;
-};
-gap.propTypes = {
-  gap: responsivePropType_default
-};
-gap.filterProps = ["gap"];
-var columnGap = (props) => {
-  if (props.columnGap !== void 0 && props.columnGap !== null) {
-    let transformer = createUnaryUnit(props.theme, "spacing", 8, "columnGap"), styleFromPropValue = (propValue) => ({
-      columnGap: getValue(transformer, propValue)
-    });
-    return handleBreakpoints(props, props.columnGap, styleFromPropValue);
-  }
-  return null;
-};
-columnGap.propTypes = {
-  columnGap: responsivePropType_default
-};
-columnGap.filterProps = ["columnGap"];
-var rowGap = (props) => {
-  if (props.rowGap !== void 0 && props.rowGap !== null) {
-    let transformer = createUnaryUnit(props.theme, "spacing", 8, "rowGap"), styleFromPropValue = (propValue) => ({
-      rowGap: getValue(transformer, propValue)
-    });
-    return handleBreakpoints(props, props.rowGap, styleFromPropValue);
-  }
-  return null;
-};
-rowGap.propTypes = {
-  rowGap: responsivePropType_default
-};
-rowGap.filterProps = ["rowGap"];
-var gridColumn = style_default({
-  prop: "gridColumn"
-}), gridRow = style_default({
-  prop: "gridRow"
-}), gridAutoFlow = style_default({
-  prop: "gridAutoFlow"
-}), gridAutoColumns = style_default({
-  prop: "gridAutoColumns"
-}), gridAutoRows = style_default({
-  prop: "gridAutoRows"
-}), gridTemplateColumns = style_default({
-  prop: "gridTemplateColumns"
-}), gridTemplateRows = style_default({
-  prop: "gridTemplateRows"
-}), gridTemplateAreas = style_default({
-  prop: "gridTemplateAreas"
-}), gridArea = style_default({
-  prop: "gridArea"
-}), grid = compose_default(gap, columnGap, rowGap, gridColumn, gridRow, gridAutoFlow, gridAutoColumns, gridAutoRows, gridTemplateColumns, gridTemplateRows, gridTemplateAreas, gridArea);
-
-// node_modules/@mui/system/esm/palette.js
-function paletteTransform(value, userValue) {
-  return userValue === "grey" ? userValue : value;
-}
-var color2 = style_default({
-  prop: "color",
-  themeKey: "palette",
-  transform: paletteTransform
-}), bgcolor = style_default({
-  prop: "bgcolor",
-  cssProperty: "backgroundColor",
-  themeKey: "palette",
-  transform: paletteTransform
-}), backgroundColor = style_default({
-  prop: "backgroundColor",
-  themeKey: "palette",
-  transform: paletteTransform
-}), palette = compose_default(color2, bgcolor, backgroundColor);
-
-// node_modules/@mui/system/esm/sizing.js
-function sizingTransform(value) {
-  return value <= 1 && value !== 0 ? `${value * 100}%` : value;
-}
-var width2 = style_default({
-  prop: "width",
-  transform: sizingTransform
-}), maxWidth = (props) => {
-  if (props.maxWidth !== void 0 && props.maxWidth !== null) {
-    let styleFromPropValue = (propValue) => {
-      var _props$theme, _props$theme2;
-      let breakpoint = ((_props$theme = props.theme) == null || (_props$theme = _props$theme.breakpoints) == null || (_props$theme = _props$theme.values) == null ? void 0 : _props$theme[propValue]) || values2[propValue];
-      return breakpoint ? ((_props$theme2 = props.theme) == null || (_props$theme2 = _props$theme2.breakpoints) == null ? void 0 : _props$theme2.unit) !== "px" ? {
-        maxWidth: `${breakpoint}${props.theme.breakpoints.unit}`
-      } : {
-        maxWidth: breakpoint
-      } : {
-        maxWidth: sizingTransform(propValue)
-      };
-    };
-    return handleBreakpoints(props, props.maxWidth, styleFromPropValue);
-  }
-  return null;
-};
-maxWidth.filterProps = ["maxWidth"];
-var minWidth = style_default({
-  prop: "minWidth",
-  transform: sizingTransform
-}), height2 = style_default({
-  prop: "height",
-  transform: sizingTransform
-}), maxHeight = style_default({
-  prop: "maxHeight",
-  transform: sizingTransform
-}), minHeight = style_default({
-  prop: "minHeight",
-  transform: sizingTransform
-}), sizeWidth = style_default({
-  prop: "size",
-  cssProperty: "width",
-  transform: sizingTransform
-}), sizeHeight = style_default({
-  prop: "size",
-  cssProperty: "height",
-  transform: sizingTransform
-}), boxSizing = style_default({
-  prop: "boxSizing"
-}), sizing = compose_default(width2, maxWidth, minWidth, height2, maxHeight, minHeight, boxSizing);
-
-// node_modules/@mui/system/esm/styleFunctionSx/defaultSxConfig.js
-var defaultSxConfig = {
-  // borders
-  border: {
-    themeKey: "borders",
-    transform: borderTransform
-  },
-  borderTop: {
-    themeKey: "borders",
-    transform: borderTransform
-  },
-  borderRight: {
-    themeKey: "borders",
-    transform: borderTransform
-  },
-  borderBottom: {
-    themeKey: "borders",
-    transform: borderTransform
-  },
-  borderLeft: {
-    themeKey: "borders",
-    transform: borderTransform
-  },
-  borderColor: {
-    themeKey: "palette"
-  },
-  borderTopColor: {
-    themeKey: "palette"
-  },
-  borderRightColor: {
-    themeKey: "palette"
-  },
-  borderBottomColor: {
-    themeKey: "palette"
-  },
-  borderLeftColor: {
-    themeKey: "palette"
-  },
-  outline: {
-    themeKey: "borders",
-    transform: borderTransform
-  },
-  outlineColor: {
-    themeKey: "palette"
-  },
-  borderRadius: {
-    themeKey: "shape.borderRadius",
-    style: borderRadius
-  },
-  // palette
-  color: {
-    themeKey: "palette",
-    transform: paletteTransform
-  },
-  bgcolor: {
-    themeKey: "palette",
-    cssProperty: "backgroundColor",
-    transform: paletteTransform
-  },
-  backgroundColor: {
-    themeKey: "palette",
-    transform: paletteTransform
-  },
-  // spacing
-  p: {
-    style: padding
-  },
-  pt: {
-    style: padding
-  },
-  pr: {
-    style: padding
-  },
-  pb: {
-    style: padding
-  },
-  pl: {
-    style: padding
-  },
-  px: {
-    style: padding
-  },
-  py: {
-    style: padding
-  },
-  padding: {
-    style: padding
-  },
-  paddingTop: {
-    style: padding
-  },
-  paddingRight: {
-    style: padding
-  },
-  paddingBottom: {
-    style: padding
-  },
-  paddingLeft: {
-    style: padding
-  },
-  paddingX: {
-    style: padding
-  },
-  paddingY: {
-    style: padding
-  },
-  paddingInline: {
-    style: padding
-  },
-  paddingInlineStart: {
-    style: padding
-  },
-  paddingInlineEnd: {
-    style: padding
-  },
-  paddingBlock: {
-    style: padding
-  },
-  paddingBlockStart: {
-    style: padding
-  },
-  paddingBlockEnd: {
-    style: padding
-  },
-  m: {
-    style: margin
-  },
-  mt: {
-    style: margin
-  },
-  mr: {
-    style: margin
-  },
-  mb: {
-    style: margin
-  },
-  ml: {
-    style: margin
-  },
-  mx: {
-    style: margin
-  },
-  my: {
-    style: margin
-  },
-  margin: {
-    style: margin
-  },
-  marginTop: {
-    style: margin
-  },
-  marginRight: {
-    style: margin
-  },
-  marginBottom: {
-    style: margin
-  },
-  marginLeft: {
-    style: margin
-  },
-  marginX: {
-    style: margin
-  },
-  marginY: {
-    style: margin
-  },
-  marginInline: {
-    style: margin
-  },
-  marginInlineStart: {
-    style: margin
-  },
-  marginInlineEnd: {
-    style: margin
-  },
-  marginBlock: {
-    style: margin
-  },
-  marginBlockStart: {
-    style: margin
-  },
-  marginBlockEnd: {
-    style: margin
-  },
-  // display
-  displayPrint: {
-    cssProperty: !1,
-    transform: (value) => ({
-      "@media print": {
-        display: value
-      }
-    })
-  },
-  display: {},
-  overflow: {},
-  textOverflow: {},
-  visibility: {},
-  whiteSpace: {},
-  // flexbox
-  flexBasis: {},
-  flexDirection: {},
-  flexWrap: {},
-  justifyContent: {},
-  alignItems: {},
-  alignContent: {},
-  order: {},
-  flex: {},
-  flexGrow: {},
-  flexShrink: {},
-  alignSelf: {},
-  justifyItems: {},
-  justifySelf: {},
-  // grid
-  gap: {
-    style: gap
-  },
-  rowGap: {
-    style: rowGap
-  },
-  columnGap: {
-    style: columnGap
-  },
-  gridColumn: {},
-  gridRow: {},
-  gridAutoFlow: {},
-  gridAutoColumns: {},
-  gridAutoRows: {},
-  gridTemplateColumns: {},
-  gridTemplateRows: {},
-  gridTemplateAreas: {},
-  gridArea: {},
-  // positions
-  position: {},
-  zIndex: {
-    themeKey: "zIndex"
-  },
-  top: {},
-  right: {},
-  bottom: {},
-  left: {},
-  // shadows
-  boxShadow: {
-    themeKey: "shadows"
-  },
-  // sizing
-  width: {
-    transform: sizingTransform
-  },
-  maxWidth: {
-    style: maxWidth
-  },
-  minWidth: {
-    transform: sizingTransform
-  },
-  height: {
-    transform: sizingTransform
-  },
-  maxHeight: {
-    transform: sizingTransform
-  },
-  minHeight: {
-    transform: sizingTransform
-  },
-  boxSizing: {},
-  // typography
-  fontFamily: {
-    themeKey: "typography"
-  },
-  fontSize: {
-    themeKey: "typography"
-  },
-  fontStyle: {
-    themeKey: "typography"
-  },
-  fontWeight: {
-    themeKey: "typography"
-  },
-  letterSpacing: {},
-  textTransform: {},
-  lineHeight: {},
-  textAlign: {},
-  typography: {
-    cssProperty: !1,
-    themeKey: "typography"
-  }
-}, defaultSxConfig_default = defaultSxConfig;
-
-// node_modules/@mui/system/esm/styleFunctionSx/styleFunctionSx.js
-function objectsHaveSameKeys(...objects) {
-  let allKeys = objects.reduce((keys, object) => keys.concat(Object.keys(object)), []), union = new Set(allKeys);
-  return objects.every((object) => union.size === Object.keys(object).length);
-}
-function callIfFn(maybeFn, arg) {
-  return typeof maybeFn == "function" ? maybeFn(arg) : maybeFn;
-}
-function unstable_createStyleFunctionSx() {
-  function getThemeValue(prop, val, theme, config) {
-    let props = {
-      [prop]: val,
-      theme
-    }, options = config[prop];
-    if (!options)
-      return {
-        [prop]: val
-      };
-    let {
-      cssProperty = prop,
-      themeKey,
-      transform,
-      style: style3
-    } = options;
-    if (val == null)
-      return null;
-    if (themeKey === "typography" && val === "inherit")
-      return {
-        [prop]: val
-      };
-    let themeMapping = getPath(theme, themeKey) || {};
-    return style3 ? style3(props) : handleBreakpoints(props, val, (propValueFinal) => {
-      let value = getStyleValue(themeMapping, transform, propValueFinal);
-      return propValueFinal === value && typeof propValueFinal == "string" && (value = getStyleValue(themeMapping, transform, `${prop}${propValueFinal === "default" ? "" : capitalize(propValueFinal)}`, propValueFinal)), cssProperty === !1 ? value : {
-        [cssProperty]: value
-      };
-    });
-  }
-  function styleFunctionSx2(props) {
-    var _theme$unstable_sxCon;
-    let {
-      sx,
-      theme = {}
-    } = props || {};
-    if (!sx)
-      return null;
-    let config = (_theme$unstable_sxCon = theme.unstable_sxConfig) != null ? _theme$unstable_sxCon : defaultSxConfig_default;
-    function traverse(sxInput) {
-      let sxObject = sxInput;
-      if (typeof sxInput == "function")
-        sxObject = sxInput(theme);
-      else if (typeof sxInput != "object")
-        return sxInput;
-      if (!sxObject)
-        return null;
-      let emptyBreakpoints = createEmptyBreakpointObject(theme.breakpoints), breakpointsKeys = Object.keys(emptyBreakpoints), css2 = emptyBreakpoints;
-      return Object.keys(sxObject).forEach((styleKey) => {
-        let value = callIfFn(sxObject[styleKey], theme);
-        if (value != null)
-          if (typeof value == "object")
-            if (config[styleKey])
-              css2 = merge_default(css2, getThemeValue(styleKey, value, theme, config));
-            else {
-              let breakpointsValues = handleBreakpoints({
-                theme
-              }, value, (x) => ({
-                [styleKey]: x
-              }));
-              objectsHaveSameKeys(breakpointsValues, value) ? css2[styleKey] = styleFunctionSx2({
-                sx: value,
-                theme
-              }) : css2 = merge_default(css2, breakpointsValues);
-            }
-          else
-            css2 = merge_default(css2, getThemeValue(styleKey, value, theme, config));
-      }), removeUnusedBreakpoints(breakpointsKeys, css2);
-    }
-    return Array.isArray(sx) ? sx.map(traverse) : traverse(sx);
-  }
-  return styleFunctionSx2;
-}
-var styleFunctionSx = unstable_createStyleFunctionSx();
-styleFunctionSx.filterProps = ["sx"];
-var styleFunctionSx_default = styleFunctionSx;
-
-// node_modules/@mui/system/esm/createTheme/applyStyles.js
-function applyStyles(key, styles4) {
-  let theme = this;
-  return theme.vars && typeof theme.getColorSchemeSelector == "function" ? {
-    [theme.getColorSchemeSelector(key).replace(/(\[[^\]]+\])/, "*:where($1)")]: styles4
-  } : theme.palette.mode === key ? styles4 : {};
-}
-
-// node_modules/@mui/system/esm/createTheme/createTheme.js
-var _excluded5 = ["breakpoints", "palette", "spacing", "shape"];
-function createTheme(options = {}, ...args) {
-  let {
-    breakpoints: breakpointsInput = {},
-    palette: paletteInput = {},
-    spacing: spacingInput,
-    shape: shapeInput = {}
-  } = options, other = _objectWithoutPropertiesLoose2(options, _excluded5), breakpoints2 = createBreakpoints(breakpointsInput), spacing2 = createSpacing(spacingInput), muiTheme = deepmerge2({
-    breakpoints: breakpoints2,
-    direction: "ltr",
-    components: {},
-    // Inject component definitions.
-    palette: _extends6({
-      mode: "light"
-    }, paletteInput),
-    spacing: spacing2,
-    shape: _extends6({}, shape_default, shapeInput)
-  }, other);
-  return muiTheme.applyStyles = applyStyles, muiTheme = args.reduce((acc, argument) => deepmerge2(acc, argument), muiTheme), muiTheme.unstable_sxConfig = _extends6({}, defaultSxConfig_default, other?.unstable_sxConfig), muiTheme.unstable_sx = function(props) {
-    return styleFunctionSx_default({
-      sx: props,
-      theme: this
-    });
-  }, muiTheme;
-}
-var createTheme_default = createTheme;
-
-// node_modules/@mui/system/esm/useThemeWithoutDefault.js
-var React23 = __toESM(require_react());
-function isObjectEmpty(obj) {
-  return Object.keys(obj).length === 0;
-}
-function useTheme2(defaultTheme3 = null) {
-  let contextTheme = React23.useContext(import_emotion_react_cjs.ThemeContext);
-  return !contextTheme || isObjectEmpty(contextTheme) ? defaultTheme3 : contextTheme;
-}
-var useThemeWithoutDefault_default = useTheme2;
-
-// node_modules/@mui/system/esm/useTheme.js
-var systemDefaultTheme = createTheme_default();
-function useTheme3(defaultTheme3 = systemDefaultTheme) {
-  return useThemeWithoutDefault_default(defaultTheme3);
-}
-var useTheme_default = useTheme3;
-
-// node_modules/@mui/system/esm/styleFunctionSx/extendSxProp.js
-var _excluded6 = ["sx"], splitProps = (props) => {
-  var _props$theme$unstable, _props$theme;
-  let result = {
-    systemProps: {},
-    otherProps: {}
-  }, config = (_props$theme$unstable = props == null || (_props$theme = props.theme) == null ? void 0 : _props$theme.unstable_sxConfig) != null ? _props$theme$unstable : defaultSxConfig_default;
-  return Object.keys(props).forEach((prop) => {
-    config[prop] ? result.systemProps[prop] = props[prop] : result.otherProps[prop] = props[prop];
-  }), result;
-};
-function extendSxProp(props) {
-  let {
-    sx: inSx
-  } = props, other = _objectWithoutPropertiesLoose2(props, _excluded6), {
-    systemProps,
-    otherProps
-  } = splitProps(other), finalSx;
-  return Array.isArray(inSx) ? finalSx = [systemProps, ...inSx] : typeof inSx == "function" ? finalSx = (...args) => {
-    let result = inSx(...args);
-    return isPlainObject(result) ? _extends6({}, systemProps, result) : systemProps;
-  } : finalSx = _extends6({}, systemProps, inSx), _extends6({}, otherProps, {
-    sx: finalSx
-  });
-}
-
-// node_modules/@mui/system/esm/createBox.js
-var React24 = __toESM(require_react());
-
-// node_modules/clsx/dist/clsx.mjs
-function r(e) {
-  var t, f, n = "";
-  if (typeof e == "string" || typeof e == "number")
-    n += e;
-  else if (typeof e == "object")
-    if (Array.isArray(e)) {
-      var o = e.length;
-      for (t = 0; t < o; t++)
-        e[t] && (f = r(e[t])) && (n && (n += " "), n += f);
-    } else
-      for (f in e)
-        e[f] && (n && (n += " "), n += f);
-  return n;
-}
-function clsx() {
-  for (var e, t, f = 0, n = "", o = arguments.length; f < o; f++)
-    (e = arguments[f]) && (t = r(e)) && (n && (n += " "), n += t);
-  return n;
-}
-var clsx_default = clsx;
-
-// node_modules/@mui/system/esm/createBox.js
-var import_jsx_runtime5 = __toESM(require_jsx_runtime()), _excluded7 = ["className", "component"];
-function createBox(options = {}) {
-  let {
-    themeId,
-    defaultTheme: defaultTheme3,
-    defaultClassName = "MuiBox-root",
-    generateClassName
-  } = options, BoxRoot = styled("div", {
-    shouldForwardProp: (prop) => prop !== "theme" && prop !== "sx" && prop !== "as"
-  })(styleFunctionSx_default);
-  return /* @__PURE__ */ React24.forwardRef(function(inProps, ref) {
-    let theme = useTheme_default(defaultTheme3), _extendSxProp = extendSxProp(inProps), {
-      className,
-      component = "div"
-    } = _extendSxProp, other = _objectWithoutPropertiesLoose2(_extendSxProp, _excluded7);
-    return /* @__PURE__ */ (0, import_jsx_runtime5.jsx)(BoxRoot, _extends6({
-      as: component,
-      ref,
-      className: clsx_default(className, generateClassName ? generateClassName(defaultClassName) : defaultClassName),
-      theme: themeId && theme[themeId] || theme
-    }, other));
-  });
-}
-
-// node_modules/@mui/system/esm/createStyled.js
-var _excluded8 = ["ownerState"], _excluded22 = ["variants"], _excluded32 = ["name", "slot", "skipVariantsResolver", "skipSx", "overridesResolver"];
-function isEmpty(obj) {
-  return Object.keys(obj).length === 0;
-}
-function isStringTag(tag) {
-  return typeof tag == "string" && // 96 is one less than the char code
-  // for "a" so this is checking that
-  // it's a lowercase character
-  tag.charCodeAt(0) > 96;
-}
-function shouldForwardProp(prop) {
-  return prop !== "ownerState" && prop !== "theme" && prop !== "sx" && prop !== "as";
-}
-var systemDefaultTheme2 = createTheme_default(), lowercaseFirstLetter = (string) => string && string.charAt(0).toLowerCase() + string.slice(1);
-function resolveTheme({
-  defaultTheme: defaultTheme3,
-  theme,
-  themeId
-}) {
-  return isEmpty(theme) ? defaultTheme3 : theme[themeId] || theme;
-}
-function defaultOverridesResolver(slot) {
-  return slot ? (props, styles4) => styles4[slot] : null;
-}
-function processStyleArg(callableStyle, _ref) {
-  let {
-    ownerState
-  } = _ref, props = _objectWithoutPropertiesLoose2(_ref, _excluded8), resolvedStylesArg = typeof callableStyle == "function" ? callableStyle(_extends6({
-    ownerState
-  }, props)) : callableStyle;
-  if (Array.isArray(resolvedStylesArg))
-    return resolvedStylesArg.flatMap((resolvedStyle) => processStyleArg(resolvedStyle, _extends6({
-      ownerState
-    }, props)));
-  if (resolvedStylesArg && typeof resolvedStylesArg == "object" && Array.isArray(resolvedStylesArg.variants)) {
-    let {
-      variants = []
-    } = resolvedStylesArg, result = _objectWithoutPropertiesLoose2(resolvedStylesArg, _excluded22);
-    return variants.forEach((variant) => {
-      let isMatch = !0;
-      typeof variant.props == "function" ? isMatch = variant.props(_extends6({
-        ownerState
-      }, props)) : Object.keys(variant.props).forEach((key) => {
-        ownerState?.[key] !== variant.props[key] && props[key] !== variant.props[key] && (isMatch = !1);
-      }), isMatch && (Array.isArray(result) || (result = [result]), result.push(typeof variant.style == "function" ? variant.style(_extends6({
-        ownerState
-      }, props)) : variant.style));
-    }), result;
-  }
-  return resolvedStylesArg;
-}
-function createStyled(input = {}) {
-  let {
-    themeId,
-    defaultTheme: defaultTheme3 = systemDefaultTheme2,
-    rootShouldForwardProp: rootShouldForwardProp2 = shouldForwardProp,
-    slotShouldForwardProp = shouldForwardProp
-  } = input, systemSx = (props) => styleFunctionSx_default(_extends6({}, props, {
-    theme: resolveTheme(_extends6({}, props, {
-      defaultTheme: defaultTheme3,
-      themeId
-    }))
-  }));
-  return systemSx.__mui_systemSx = !0, (tag, inputOptions = {}) => {
-    internal_processStyles(tag, (styles4) => styles4.filter((style3) => !(style3 != null && style3.__mui_systemSx)));
-    let {
-      name: componentName,
-      slot: componentSlot,
-      skipVariantsResolver: inputSkipVariantsResolver,
-      skipSx: inputSkipSx,
-      // TODO v6: remove `lowercaseFirstLetter()` in the next major release
-      // For more details: https://github.com/mui/material-ui/pull/37908
-      overridesResolver = defaultOverridesResolver(lowercaseFirstLetter(componentSlot))
-    } = inputOptions, options = _objectWithoutPropertiesLoose2(inputOptions, _excluded32), skipVariantsResolver = inputSkipVariantsResolver !== void 0 ? inputSkipVariantsResolver : (
-      // TODO v6: remove `Root` in the next major release
-      // For more details: https://github.com/mui/material-ui/pull/37908
-      componentSlot && componentSlot !== "Root" && componentSlot !== "root" || !1
-    ), skipSx = inputSkipSx || !1, label;
-    componentName && (label = `${componentName}-${lowercaseFirstLetter(componentSlot || "Root")}`);
-    let shouldForwardPropOption = shouldForwardProp;
-    componentSlot === "Root" || componentSlot === "root" ? shouldForwardPropOption = rootShouldForwardProp2 : componentSlot ? shouldForwardPropOption = slotShouldForwardProp : isStringTag(tag) && (shouldForwardPropOption = void 0);
-    let defaultStyledResolver = styled(tag, _extends6({
-      shouldForwardProp: shouldForwardPropOption,
-      label
-    }, options)), transformStyleArg = (stylesArg) => typeof stylesArg == "function" && stylesArg.__emotion_real !== stylesArg || isPlainObject(stylesArg) ? (props) => processStyleArg(stylesArg, _extends6({}, props, {
-      theme: resolveTheme({
-        theme: props.theme,
-        defaultTheme: defaultTheme3,
-        themeId
-      })
-    })) : stylesArg, muiStyledResolver = (styleArg, ...expressions) => {
-      let transformedStyleArg = transformStyleArg(styleArg), expressionsWithDefaultTheme = expressions ? expressions.map(transformStyleArg) : [];
-      componentName && overridesResolver && expressionsWithDefaultTheme.push((props) => {
-        let theme = resolveTheme(_extends6({}, props, {
-          defaultTheme: defaultTheme3,
-          themeId
-        }));
-        if (!theme.components || !theme.components[componentName] || !theme.components[componentName].styleOverrides)
-          return null;
-        let styleOverrides = theme.components[componentName].styleOverrides, resolvedStyleOverrides = {};
-        return Object.entries(styleOverrides).forEach(([slotKey, slotStyle]) => {
-          resolvedStyleOverrides[slotKey] = processStyleArg(slotStyle, _extends6({}, props, {
-            theme
-          }));
-        }), overridesResolver(props, resolvedStyleOverrides);
-      }), componentName && !skipVariantsResolver && expressionsWithDefaultTheme.push((props) => {
-        var _theme$components;
-        let theme = resolveTheme(_extends6({}, props, {
-          defaultTheme: defaultTheme3,
-          themeId
-        })), themeVariants = theme == null || (_theme$components = theme.components) == null || (_theme$components = _theme$components[componentName]) == null ? void 0 : _theme$components.variants;
-        return processStyleArg({
-          variants: themeVariants
-        }, _extends6({}, props, {
-          theme
-        }));
-      }), skipSx || expressionsWithDefaultTheme.push(systemSx);
-      let numOfCustomFnsApplied = expressionsWithDefaultTheme.length - expressions.length;
-      if (Array.isArray(styleArg) && numOfCustomFnsApplied > 0) {
-        let placeholders = new Array(numOfCustomFnsApplied).fill("");
-        transformedStyleArg = [...styleArg, ...placeholders], transformedStyleArg.raw = [...styleArg.raw, ...placeholders];
-      }
-      let Component4 = defaultStyledResolver(transformedStyleArg, ...expressionsWithDefaultTheme);
-      {
-        let displayName;
-        componentName && (displayName = `${componentName}${capitalize(componentSlot || "")}`), displayName === void 0 && (displayName = `Styled(${getDisplayName(tag)})`), Component4.displayName = displayName;
-      }
-      return tag.muiName && (Component4.muiName = tag.muiName), Component4;
-    };
-    return defaultStyledResolver.withConfig && (muiStyledResolver.withConfig = defaultStyledResolver.withConfig), muiStyledResolver;
-  };
-}
-
-// node_modules/@mui/system/esm/useThemeProps/getThemeProps.js
-function getThemeProps(params) {
-  let {
-    theme,
-    name,
-    props
-  } = params;
-  return !theme || !theme.components || !theme.components[name] || !theme.components[name].defaultProps ? props : resolveProps(theme.components[name].defaultProps, props);
-}
-
-// node_modules/@mui/system/esm/useThemeProps/useThemeProps.js
-function useThemeProps({
-  props,
-  name,
-  defaultTheme: defaultTheme3,
-  themeId
-}) {
-  let theme = useTheme_default(defaultTheme3);
-  return themeId && (theme = theme[themeId] || theme), getThemeProps({
-    theme,
-    name,
-    props
-  });
-}
-
-// node_modules/@mui/system/esm/colorManipulator.js
-function clampWrapper(value, min = 0, max = 1) {
-  return (value < min || value > max) && console.error(`MUI: The value provided ${value} is out of range [${min}, ${max}].`), clamp_default(value, min, max);
-}
-function hexToRgb(color3) {
-  color3 = color3.slice(1);
-  let re = new RegExp(`.{1,${color3.length >= 6 ? 2 : 1}}`, "g"), colors = color3.match(re);
-  return colors && colors[0].length === 1 && (colors = colors.map((n) => n + n)), colors ? `rgb${colors.length === 4 ? "a" : ""}(${colors.map((n, index) => index < 3 ? parseInt(n, 16) : Math.round(parseInt(n, 16) / 255 * 1e3) / 1e3).join(", ")})` : "";
-}
-function decomposeColor(color3) {
-  if (color3.type)
-    return color3;
-  if (color3.charAt(0) === "#")
-    return decomposeColor(hexToRgb(color3));
-  let marker = color3.indexOf("("), type = color3.substring(0, marker);
-  if (["rgb", "rgba", "hsl", "hsla", "color"].indexOf(type) === -1)
-    throw new Error(`MUI: Unsupported \`${color3}\` color.
-The following formats are supported: #nnn, #nnnnnn, rgb(), rgba(), hsl(), hsla(), color().`);
-  let values3 = color3.substring(marker + 1, color3.length - 1), colorSpace;
-  if (type === "color") {
-    if (values3 = values3.split(" "), colorSpace = values3.shift(), values3.length === 4 && values3[3].charAt(0) === "/" && (values3[3] = values3[3].slice(1)), ["srgb", "display-p3", "a98-rgb", "prophoto-rgb", "rec-2020"].indexOf(colorSpace) === -1)
-      throw new Error(`MUI: unsupported \`${colorSpace}\` color space.
-The following color spaces are supported: srgb, display-p3, a98-rgb, prophoto-rgb, rec-2020.`);
-  } else
-    values3 = values3.split(",");
-  return values3 = values3.map((value) => parseFloat(value)), {
-    type,
-    values: values3,
-    colorSpace
-  };
-}
-function recomposeColor(color3) {
-  let {
-    type,
-    colorSpace
-  } = color3, {
-    values: values3
-  } = color3;
-  return type.indexOf("rgb") !== -1 ? values3 = values3.map((n, i) => i < 3 ? parseInt(n, 10) : n) : type.indexOf("hsl") !== -1 && (values3[1] = `${values3[1]}%`, values3[2] = `${values3[2]}%`), type.indexOf("color") !== -1 ? values3 = `${colorSpace} ${values3.join(" ")}` : values3 = `${values3.join(", ")}`, `${type}(${values3})`;
-}
-function hslToRgb(color3) {
-  color3 = decomposeColor(color3);
-  let {
-    values: values3
-  } = color3, h = values3[0], s = values3[1] / 100, l2 = values3[2] / 100, a = s * Math.min(l2, 1 - l2), f = (n, k = (n + h / 30) % 12) => l2 - a * Math.max(Math.min(k - 3, 9 - k, 1), -1), type = "rgb", rgb = [Math.round(f(0) * 255), Math.round(f(8) * 255), Math.round(f(4) * 255)];
-  return color3.type === "hsla" && (type += "a", rgb.push(values3[3])), recomposeColor({
-    type,
-    values: rgb
-  });
-}
-function getLuminance(color3) {
-  color3 = decomposeColor(color3);
-  let rgb = color3.type === "hsl" || color3.type === "hsla" ? decomposeColor(hslToRgb(color3)).values : color3.values;
-  return rgb = rgb.map((val) => (color3.type !== "color" && (val /= 255), val <= 0.03928 ? val / 12.92 : ((val + 0.055) / 1.055) ** 2.4)), Number((0.2126 * rgb[0] + 0.7152 * rgb[1] + 0.0722 * rgb[2]).toFixed(3));
-}
-function getContrastRatio(foreground, background) {
-  let lumA = getLuminance(foreground), lumB = getLuminance(background);
-  return (Math.max(lumA, lumB) + 0.05) / (Math.min(lumA, lumB) + 0.05);
-}
-function darken(color3, coefficient) {
-  if (color3 = decomposeColor(color3), coefficient = clampWrapper(coefficient), color3.type.indexOf("hsl") !== -1)
-    color3.values[2] *= 1 - coefficient;
-  else if (color3.type.indexOf("rgb") !== -1 || color3.type.indexOf("color") !== -1)
-    for (let i = 0; i < 3; i += 1)
-      color3.values[i] *= 1 - coefficient;
-  return recomposeColor(color3);
-}
-function lighten(color3, coefficient) {
-  if (color3 = decomposeColor(color3), coefficient = clampWrapper(coefficient), color3.type.indexOf("hsl") !== -1)
-    color3.values[2] += (100 - color3.values[2]) * coefficient;
-  else if (color3.type.indexOf("rgb") !== -1)
-    for (let i = 0; i < 3; i += 1)
-      color3.values[i] += (255 - color3.values[i]) * coefficient;
-  else if (color3.type.indexOf("color") !== -1)
-    for (let i = 0; i < 3; i += 1)
-      color3.values[i] += (1 - color3.values[i]) * coefficient;
-  return recomposeColor(color3);
-}
-
-// node_modules/@mui/material/styles/createMixins.js
-function createMixins(breakpoints2, mixins) {
-  return _extends6({
-    toolbar: {
-      minHeight: 56,
-      [breakpoints2.up("xs")]: {
-        "@media (orientation: landscape)": {
-          minHeight: 48
-        }
-      },
-      [breakpoints2.up("sm")]: {
-        minHeight: 64
-      }
-    }
-  }, mixins);
-}
-
-// node_modules/@mui/material/styles/createPalette.js
-var _excluded9 = ["mode", "contrastThreshold", "tonalOffset"], light = {
-  // The colors used to style the text.
-  text: {
-    // The most important text.
-    primary: "rgba(0, 0, 0, 0.87)",
-    // Secondary text.
-    secondary: "rgba(0, 0, 0, 0.6)",
-    // Disabled text have even lower visual prominence.
-    disabled: "rgba(0, 0, 0, 0.38)"
-  },
-  // The color used to divide different elements.
-  divider: "rgba(0, 0, 0, 0.12)",
-  // The background colors used to style the surfaces.
-  // Consistency between these values is important.
-  background: {
-    paper: common_default.white,
-    default: common_default.white
-  },
-  // The colors used to style the action elements.
-  action: {
-    // The color of an active action like an icon button.
-    active: "rgba(0, 0, 0, 0.54)",
-    // The color of an hovered action.
-    hover: "rgba(0, 0, 0, 0.04)",
-    hoverOpacity: 0.04,
-    // The color of a selected action.
-    selected: "rgba(0, 0, 0, 0.08)",
-    selectedOpacity: 0.08,
-    // The color of a disabled action.
-    disabled: "rgba(0, 0, 0, 0.26)",
-    // The background color of a disabled action.
-    disabledBackground: "rgba(0, 0, 0, 0.12)",
-    disabledOpacity: 0.38,
-    focus: "rgba(0, 0, 0, 0.12)",
-    focusOpacity: 0.12,
-    activatedOpacity: 0.12
-  }
-}, dark = {
-  text: {
-    primary: common_default.white,
-    secondary: "rgba(255, 255, 255, 0.7)",
-    disabled: "rgba(255, 255, 255, 0.5)",
-    icon: "rgba(255, 255, 255, 0.5)"
-  },
-  divider: "rgba(255, 255, 255, 0.12)",
-  background: {
-    paper: "#121212",
-    default: "#121212"
-  },
-  action: {
-    active: common_default.white,
-    hover: "rgba(255, 255, 255, 0.08)",
-    hoverOpacity: 0.08,
-    selected: "rgba(255, 255, 255, 0.16)",
-    selectedOpacity: 0.16,
-    disabled: "rgba(255, 255, 255, 0.3)",
-    disabledBackground: "rgba(255, 255, 255, 0.12)",
-    disabledOpacity: 0.38,
-    focus: "rgba(255, 255, 255, 0.12)",
-    focusOpacity: 0.12,
-    activatedOpacity: 0.24
-  }
-};
-function addLightOrDark(intent, direction, shade, tonalOffset) {
-  let tonalOffsetLight = tonalOffset.light || tonalOffset, tonalOffsetDark = tonalOffset.dark || tonalOffset * 1.5;
-  intent[direction] || (intent.hasOwnProperty(shade) ? intent[direction] = intent[shade] : direction === "light" ? intent.light = lighten(intent.main, tonalOffsetLight) : direction === "dark" && (intent.dark = darken(intent.main, tonalOffsetDark)));
-}
-function getDefaultPrimary(mode2 = "light") {
-  return mode2 === "dark" ? {
-    main: blue_default[200],
-    light: blue_default[50],
-    dark: blue_default[400]
-  } : {
-    main: blue_default[700],
-    light: blue_default[400],
-    dark: blue_default[800]
-  };
-}
-function getDefaultSecondary(mode2 = "light") {
-  return mode2 === "dark" ? {
-    main: purple_default[200],
-    light: purple_default[50],
-    dark: purple_default[400]
-  } : {
-    main: purple_default[500],
-    light: purple_default[300],
-    dark: purple_default[700]
-  };
-}
-function getDefaultError(mode2 = "light") {
-  return mode2 === "dark" ? {
-    main: red_default[500],
-    light: red_default[300],
-    dark: red_default[700]
-  } : {
-    main: red_default[700],
-    light: red_default[400],
-    dark: red_default[800]
-  };
-}
-function getDefaultInfo(mode2 = "light") {
-  return mode2 === "dark" ? {
-    main: lightBlue_default[400],
-    light: lightBlue_default[300],
-    dark: lightBlue_default[700]
-  } : {
-    main: lightBlue_default[700],
-    light: lightBlue_default[500],
-    dark: lightBlue_default[900]
-  };
-}
-function getDefaultSuccess(mode2 = "light") {
-  return mode2 === "dark" ? {
-    main: green_default[400],
-    light: green_default[300],
-    dark: green_default[700]
-  } : {
-    main: green_default[800],
-    light: green_default[500],
-    dark: green_default[900]
-  };
-}
-function getDefaultWarning(mode2 = "light") {
-  return mode2 === "dark" ? {
-    main: orange_default[400],
-    light: orange_default[300],
-    dark: orange_default[700]
-  } : {
-    main: "#ed6c02",
-    // closest to orange[800] that pass 3:1.
-    light: orange_default[500],
-    dark: orange_default[900]
-  };
-}
-function createPalette(palette2) {
-  let {
-    mode: mode2 = "light",
-    contrastThreshold = 3,
-    tonalOffset = 0.2
-  } = palette2, other = _objectWithoutPropertiesLoose2(palette2, _excluded9), primary = palette2.primary || getDefaultPrimary(mode2), secondary = palette2.secondary || getDefaultSecondary(mode2), error = palette2.error || getDefaultError(mode2), info = palette2.info || getDefaultInfo(mode2), success = palette2.success || getDefaultSuccess(mode2), warning3 = palette2.warning || getDefaultWarning(mode2);
-  function getContrastText(background) {
-    let contrastText = getContrastRatio(background, dark.text.primary) >= contrastThreshold ? dark.text.primary : light.text.primary;
-    {
-      let contrast = getContrastRatio(background, contrastText);
-      contrast < 3 && console.error([`MUI: The contrast ratio of ${contrast}:1 for ${contrastText} on ${background}`, "falls below the WCAG recommended absolute minimum contrast ratio of 3:1.", "https://www.w3.org/TR/2008/REC-WCAG20-20081211/#visual-audio-contrast-contrast"].join(`
-`));
-    }
-    return contrastText;
-  }
-  let augmentColor = ({
-    color: color3,
-    name,
-    mainShade = 500,
-    lightShade = 300,
-    darkShade = 700
-  }) => {
-    if (color3 = _extends6({}, color3), !color3.main && color3[mainShade] && (color3.main = color3[mainShade]), !color3.hasOwnProperty("main"))
-      throw new Error(`MUI: The color${name ? ` (${name})` : ""} provided to augmentColor(color) is invalid.
-The color object needs to have a \`main\` property or a \`${mainShade}\` property.`);
-    if (typeof color3.main != "string")
-      throw new Error(`MUI: The color${name ? ` (${name})` : ""} provided to augmentColor(color) is invalid.
-\`color.main\` should be a string, but \`${JSON.stringify(color3.main)}\` was provided instead.
-
-Did you intend to use one of the following approaches?
-
-import { green } from "@mui/material/colors";
-
-const theme1 = createTheme({ palette: {
-  primary: green,
-} });
-
-const theme2 = createTheme({ palette: {
-  primary: { main: green[500] },
-} });`);
-    return addLightOrDark(color3, "light", lightShade, tonalOffset), addLightOrDark(color3, "dark", darkShade, tonalOffset), color3.contrastText || (color3.contrastText = getContrastText(color3.main)), color3;
-  }, modes = {
-    dark,
-    light
-  };
-  return modes[mode2] || console.error(`MUI: The palette mode \`${mode2}\` is not supported.`), deepmerge2(_extends6({
-    // A collection of common colors.
-    common: _extends6({}, common_default),
-    // prevent mutable object.
-    // The palette mode, can be light or dark.
-    mode: mode2,
-    // The colors used to represent primary interface elements for a user.
-    primary: augmentColor({
-      color: primary,
-      name: "primary"
-    }),
-    // The colors used to represent secondary interface elements for a user.
-    secondary: augmentColor({
-      color: secondary,
-      name: "secondary",
-      mainShade: "A400",
-      lightShade: "A200",
-      darkShade: "A700"
-    }),
-    // The colors used to represent interface elements that the user should be made aware of.
-    error: augmentColor({
-      color: error,
-      name: "error"
-    }),
-    // The colors used to represent potentially dangerous actions or important messages.
-    warning: augmentColor({
-      color: warning3,
-      name: "warning"
-    }),
-    // The colors used to present information to the user that is neutral and not necessarily important.
-    info: augmentColor({
-      color: info,
-      name: "info"
-    }),
-    // The colors used to indicate the successful completion of an action that user triggered.
-    success: augmentColor({
-      color: success,
-      name: "success"
-    }),
-    // The grey colors.
-    grey: grey_default,
-    // Used by `getContrastText()` to maximize the contrast between
-    // the background and the text.
-    contrastThreshold,
-    // Takes a background color and returns the text color that maximizes the contrast.
-    getContrastText,
-    // Generate a rich color object.
-    augmentColor,
-    // Used by the functions below to shift a color's luminance by approximately
-    // two indexes within its tonal palette.
-    // E.g., shift from Red 500 to Red 300 or Red 700.
-    tonalOffset
-  }, modes[mode2]), other);
-}
-
-// node_modules/@mui/material/styles/createTypography.js
-var _excluded10 = ["fontFamily", "fontSize", "fontWeightLight", "fontWeightRegular", "fontWeightMedium", "fontWeightBold", "htmlFontSize", "allVariants", "pxToRem"];
-function round(value) {
-  return Math.round(value * 1e5) / 1e5;
-}
-var caseAllCaps = {
-  textTransform: "uppercase"
-}, defaultFontFamily = '"Roboto", "Helvetica", "Arial", sans-serif';
-function createTypography(palette2, typography) {
-  let _ref = typeof typography == "function" ? typography(palette2) : typography, {
-    fontFamily = defaultFontFamily,
-    // The default font size of the Material Specification.
-    fontSize = 14,
-    // px
-    fontWeightLight = 300,
-    fontWeightRegular = 400,
-    fontWeightMedium = 500,
-    fontWeightBold = 700,
-    // Tell MUI what's the font-size on the html element.
-    // 16px is the default font-size used by browsers.
-    htmlFontSize = 16,
-    // Apply the CSS properties to all the variants.
-    allVariants,
-    pxToRem: pxToRem2
-  } = _ref, other = _objectWithoutPropertiesLoose2(_ref, _excluded10);
-  typeof fontSize != "number" && console.error("MUI: `fontSize` is required to be a number."), typeof htmlFontSize != "number" && console.error("MUI: `htmlFontSize` is required to be a number.");
-  let coef = fontSize / 14, pxToRem = pxToRem2 || ((size2) => `${size2 / htmlFontSize * coef}rem`), buildVariant = (fontWeight, size2, lineHeight, letterSpacing, casing) => _extends6({
-    fontFamily,
-    fontWeight,
-    fontSize: pxToRem(size2),
-    // Unitless following https://meyerweb.com/eric/thoughts/2006/02/08/unitless-line-heights/
-    lineHeight
-  }, fontFamily === defaultFontFamily ? {
-    letterSpacing: `${round(letterSpacing / size2)}em`
-  } : {}, casing, allVariants), variants = {
-    h1: buildVariant(fontWeightLight, 96, 1.167, -1.5),
-    h2: buildVariant(fontWeightLight, 60, 1.2, -0.5),
-    h3: buildVariant(fontWeightRegular, 48, 1.167, 0),
-    h4: buildVariant(fontWeightRegular, 34, 1.235, 0.25),
-    h5: buildVariant(fontWeightRegular, 24, 1.334, 0),
-    h6: buildVariant(fontWeightMedium, 20, 1.6, 0.15),
-    subtitle1: buildVariant(fontWeightRegular, 16, 1.75, 0.15),
-    subtitle2: buildVariant(fontWeightMedium, 14, 1.57, 0.1),
-    body1: buildVariant(fontWeightRegular, 16, 1.5, 0.15),
-    body2: buildVariant(fontWeightRegular, 14, 1.43, 0.15),
-    button: buildVariant(fontWeightMedium, 14, 1.75, 0.4, caseAllCaps),
-    caption: buildVariant(fontWeightRegular, 12, 1.66, 0.4),
-    overline: buildVariant(fontWeightRegular, 12, 2.66, 1, caseAllCaps),
-    // TODO v6: Remove handling of 'inherit' variant from the theme as it is already handled in Material UI's Typography component. Also, remember to remove the associated types.
-    inherit: {
-      fontFamily: "inherit",
-      fontWeight: "inherit",
-      fontSize: "inherit",
-      lineHeight: "inherit",
-      letterSpacing: "inherit"
-    }
-  };
-  return deepmerge2(_extends6({
-    htmlFontSize,
-    pxToRem,
-    fontFamily,
-    fontSize,
-    fontWeightLight,
-    fontWeightRegular,
-    fontWeightMedium,
-    fontWeightBold
-  }, variants), other, {
-    clone: !1
-    // No need to clone deep
-  });
-}
-
-// node_modules/@mui/material/styles/shadows.js
-function createShadow(...px) {
-  return [`${px[0]}px ${px[1]}px ${px[2]}px ${px[3]}px rgba(0,0,0,${0.2})`, `${px[4]}px ${px[5]}px ${px[6]}px ${px[7]}px rgba(0,0,0,${0.14})`, `${px[8]}px ${px[9]}px ${px[10]}px ${px[11]}px rgba(0,0,0,${0.12})`].join(",");
-}
-var shadows = ["none", createShadow(0, 2, 1, -1, 0, 1, 1, 0, 0, 1, 3, 0), createShadow(0, 3, 1, -2, 0, 2, 2, 0, 0, 1, 5, 0), createShadow(0, 3, 3, -2, 0, 3, 4, 0, 0, 1, 8, 0), createShadow(0, 2, 4, -1, 0, 4, 5, 0, 0, 1, 10, 0), createShadow(0, 3, 5, -1, 0, 5, 8, 0, 0, 1, 14, 0), createShadow(0, 3, 5, -1, 0, 6, 10, 0, 0, 1, 18, 0), createShadow(0, 4, 5, -2, 0, 7, 10, 1, 0, 2, 16, 1), createShadow(0, 5, 5, -3, 0, 8, 10, 1, 0, 3, 14, 2), createShadow(0, 5, 6, -3, 0, 9, 12, 1, 0, 3, 16, 2), createShadow(0, 6, 6, -3, 0, 10, 14, 1, 0, 4, 18, 3), createShadow(0, 6, 7, -4, 0, 11, 15, 1, 0, 4, 20, 3), createShadow(0, 7, 8, -4, 0, 12, 17, 2, 0, 5, 22, 4), createShadow(0, 7, 8, -4, 0, 13, 19, 2, 0, 5, 24, 4), createShadow(0, 7, 9, -4, 0, 14, 21, 2, 0, 5, 26, 4), createShadow(0, 8, 9, -5, 0, 15, 22, 2, 0, 6, 28, 5), createShadow(0, 8, 10, -5, 0, 16, 24, 2, 0, 6, 30, 5), createShadow(0, 8, 11, -5, 0, 17, 26, 2, 0, 6, 32, 5), createShadow(0, 9, 11, -5, 0, 18, 28, 2, 0, 7, 34, 6), createShadow(0, 9, 12, -6, 0, 19, 29, 2, 0, 7, 36, 6), createShadow(0, 10, 13, -6, 0, 20, 31, 3, 0, 8, 38, 7), createShadow(0, 10, 13, -6, 0, 21, 33, 3, 0, 8, 40, 7), createShadow(0, 10, 14, -6, 0, 22, 35, 3, 0, 8, 42, 7), createShadow(0, 11, 14, -7, 0, 23, 36, 3, 0, 9, 44, 8), createShadow(0, 11, 15, -7, 0, 24, 38, 3, 0, 9, 46, 8)], shadows_default = shadows;
-
-// node_modules/@mui/material/styles/createTransitions.js
-var _excluded11 = ["duration", "easing", "delay"], easing = {
-  // This is the most common easing curve.
-  easeInOut: "cubic-bezier(0.4, 0, 0.2, 1)",
-  // Objects enter the screen at full velocity from off-screen and
-  // slowly decelerate to a resting point.
-  easeOut: "cubic-bezier(0.0, 0, 0.2, 1)",
-  // Objects leave the screen at full velocity. They do not decelerate when off-screen.
-  easeIn: "cubic-bezier(0.4, 0, 1, 1)",
-  // The sharp curve is used by objects that may return to the screen at any time.
-  sharp: "cubic-bezier(0.4, 0, 0.6, 1)"
-}, duration = {
-  shortest: 150,
-  shorter: 200,
-  short: 250,
-  // most basic recommended timing
-  standard: 300,
-  // this is to be used in complex animations
-  complex: 375,
-  // recommended when something is entering screen
-  enteringScreen: 225,
-  // recommended when something is leaving screen
-  leavingScreen: 195
-};
-function formatMs(milliseconds) {
-  return `${Math.round(milliseconds)}ms`;
-}
-function getAutoHeightDuration(height3) {
-  if (!height3)
-    return 0;
-  let constant = height3 / 36;
-  return Math.round((4 + 15 * constant ** 0.25 + constant / 5) * 10);
-}
-function createTransitions(inputTransitions) {
-  let mergedEasing = _extends6({}, easing, inputTransitions.easing), mergedDuration = _extends6({}, duration, inputTransitions.duration);
-  return _extends6({
-    getAutoHeightDuration,
-    create: (props = ["all"], options = {}) => {
-      let {
-        duration: durationOption = mergedDuration.standard,
-        easing: easingOption = mergedEasing.easeInOut,
-        delay = 0
-      } = options, other = _objectWithoutPropertiesLoose2(options, _excluded11);
-      {
-        let isString = (value) => typeof value == "string", isNumber = (value) => !isNaN(parseFloat(value));
-        !isString(props) && !Array.isArray(props) && console.error('MUI: Argument "props" must be a string or Array.'), !isNumber(durationOption) && !isString(durationOption) && console.error(`MUI: Argument "duration" must be a number or a string but found ${durationOption}.`), isString(easingOption) || console.error('MUI: Argument "easing" must be a string.'), !isNumber(delay) && !isString(delay) && console.error('MUI: Argument "delay" must be a number or a string.'), typeof options != "object" && console.error(["MUI: Secong argument of transition.create must be an object.", "Arguments should be either `create('prop1', options)` or `create(['prop1', 'prop2'], options)`"].join(`
-`)), Object.keys(other).length !== 0 && console.error(`MUI: Unrecognized argument(s) [${Object.keys(other).join(",")}].`);
-      }
-      return (Array.isArray(props) ? props : [props]).map((animatedProp) => `${animatedProp} ${typeof durationOption == "string" ? durationOption : formatMs(durationOption)} ${easingOption} ${typeof delay == "string" ? delay : formatMs(delay)}`).join(",");
-    }
-  }, inputTransitions, {
-    easing: mergedEasing,
-    duration: mergedDuration
-  });
-}
-
-// node_modules/@mui/material/styles/zIndex.js
-var zIndex2 = {
-  mobileStepper: 1e3,
-  fab: 1050,
-  speedDial: 1050,
-  appBar: 1100,
-  drawer: 1200,
-  modal: 1300,
-  snackbar: 1400,
-  tooltip: 1500
-}, zIndex_default = zIndex2;
-
-// node_modules/@mui/material/styles/createTheme.js
-var _excluded12 = ["breakpoints", "mixins", "spacing", "palette", "transitions", "typography", "shape"];
-function createTheme2(options = {}, ...args) {
-  let {
-    mixins: mixinsInput = {},
-    palette: paletteInput = {},
-    transitions: transitionsInput = {},
-    typography: typographyInput = {}
-  } = options, other = _objectWithoutPropertiesLoose2(options, _excluded12);
-  if (options.vars)
-    throw new Error("MUI: `vars` is a private field used for CSS variables support.\nPlease use another name.");
-  let palette2 = createPalette(paletteInput), systemTheme = createTheme_default(options), muiTheme = deepmerge2(systemTheme, {
-    mixins: createMixins(systemTheme.breakpoints, mixinsInput),
-    palette: palette2,
-    // Don't use [...shadows] until you've verified its transpiled code is not invoking the iterator protocol.
-    shadows: shadows_default.slice(),
-    typography: createTypography(palette2, typographyInput),
-    transitions: createTransitions(transitionsInput),
-    zIndex: _extends6({}, zIndex_default)
-  });
-  muiTheme = deepmerge2(muiTheme, other), muiTheme = args.reduce((acc, argument) => deepmerge2(acc, argument), muiTheme);
-  {
-    let stateClasses = ["active", "checked", "completed", "disabled", "error", "expanded", "focused", "focusVisible", "required", "selected"], traverse = (node, component) => {
-      let key;
-      for (key in node) {
-        let child = node[key];
-        if (stateClasses.indexOf(key) !== -1 && Object.keys(child).length > 0) {
-          {
-            let stateClass = generateUtilityClass("", key);
-            console.error([`MUI: The \`${component}\` component increases the CSS specificity of the \`${key}\` internal state.`, "You can not override it like this: ", JSON.stringify(node, null, 2), "", `Instead, you need to use the '&.${stateClass}' syntax:`, JSON.stringify({
-              root: {
-                [`&.${stateClass}`]: child
-              }
-            }, null, 2), "", "https://mui.com/r/state-classes-guide"].join(`
-`));
-          }
-          node[key] = {};
-        }
-      }
-    };
-    Object.keys(muiTheme.components).forEach((component) => {
-      let styleOverrides = muiTheme.components[component].styleOverrides;
-      styleOverrides && component.indexOf("Mui") === 0 && traverse(styleOverrides, component);
-    });
-  }
-  return muiTheme.unstable_sxConfig = _extends6({}, defaultSxConfig_default, other?.unstable_sxConfig), muiTheme.unstable_sx = function(props) {
-    return styleFunctionSx_default({
-      sx: props,
-      theme: this
-    });
-  }, muiTheme;
-}
-var createTheme_default2 = createTheme2;
-
-// node_modules/@mui/material/styles/useTheme.js
-var React25 = __toESM(require_react());
-
-// node_modules/@mui/material/styles/defaultTheme.js
-var defaultTheme = createTheme_default2(), defaultTheme_default = defaultTheme;
-
-// node_modules/@mui/material/styles/useTheme.js
-function useTheme4() {
-  let theme = useTheme_default(defaultTheme_default);
-  return React25.useDebugValue(theme), theme[identifier_default] || theme;
-}
-
-// node_modules/@mui/material/styles/useThemeProps.js
-function useThemeProps2({
-  props,
-  name
-}) {
-  return useThemeProps({
-    props,
-    name,
-    defaultTheme: defaultTheme_default,
-    themeId: identifier_default
-  });
-}
-
-// node_modules/@mui/material/styles/styled.js
-var rootShouldForwardProp = (prop) => shouldForwardProp(prop) && prop !== "classes";
-var styled2 = createStyled({
-  themeId: identifier_default,
-  defaultTheme: defaultTheme_default,
-  rootShouldForwardProp
-}), styled_default = styled2;
-
-// node_modules/@mui/material/utils/capitalize.js
-var capitalize_default = capitalize;
-
-// node_modules/@mui/material/utils/createSvgIcon.js
-var React27 = __toESM(require_react());
-
-// node_modules/@mui/material/SvgIcon/SvgIcon.js
-var React26 = __toESM(require_react()), import_prop_types5 = __toESM(require_prop_types());
-
-// node_modules/@mui/material/SvgIcon/svgIconClasses.js
-function getSvgIconUtilityClass(slot) {
-  return generateUtilityClass("MuiSvgIcon", slot);
-}
-var svgIconClasses = generateUtilityClasses("MuiSvgIcon", ["root", "colorPrimary", "colorSecondary", "colorAction", "colorError", "colorDisabled", "fontSizeInherit", "fontSizeSmall", "fontSizeMedium", "fontSizeLarge"]);
-
-// node_modules/@mui/material/SvgIcon/SvgIcon.js
-var import_jsx_runtime6 = __toESM(require_jsx_runtime()), import_jsx_runtime7 = __toESM(require_jsx_runtime()), _excluded13 = ["children", "className", "color", "component", "fontSize", "htmlColor", "inheritViewBox", "titleAccess", "viewBox"], useUtilityClasses = (ownerState) => {
-  let {
-    color: color3,
-    fontSize,
-    classes
-  } = ownerState, slots = {
-    root: ["root", color3 !== "inherit" && `color${capitalize_default(color3)}`, `fontSize${capitalize_default(fontSize)}`]
-  };
-  return composeClasses(slots, getSvgIconUtilityClass, classes);
-}, SvgIconRoot = styled_default("svg", {
-  name: "MuiSvgIcon",
-  slot: "Root",
-  overridesResolver: (props, styles4) => {
-    let {
-      ownerState
-    } = props;
-    return [styles4.root, ownerState.color !== "inherit" && styles4[`color${capitalize_default(ownerState.color)}`], styles4[`fontSize${capitalize_default(ownerState.fontSize)}`]];
-  }
-})(({
-  theme,
-  ownerState
-}) => {
-  var _theme$transitions, _theme$transitions$cr, _theme$transitions2, _theme$typography, _theme$typography$pxT, _theme$typography2, _theme$typography2$px, _theme$typography3, _theme$typography3$px, _palette$ownerState$c, _palette, _palette2, _palette3;
-  return {
-    userSelect: "none",
-    width: "1em",
-    height: "1em",
-    display: "inline-block",
-    // the <svg> will define the property that has `currentColor`
-    // e.g. heroicons uses fill="none" and stroke="currentColor"
-    fill: ownerState.hasSvgAsChild ? void 0 : "currentColor",
-    flexShrink: 0,
-    transition: (_theme$transitions = theme.transitions) == null || (_theme$transitions$cr = _theme$transitions.create) == null ? void 0 : _theme$transitions$cr.call(_theme$transitions, "fill", {
-      duration: (_theme$transitions2 = theme.transitions) == null || (_theme$transitions2 = _theme$transitions2.duration) == null ? void 0 : _theme$transitions2.shorter
-    }),
-    fontSize: {
-      inherit: "inherit",
-      small: ((_theme$typography = theme.typography) == null || (_theme$typography$pxT = _theme$typography.pxToRem) == null ? void 0 : _theme$typography$pxT.call(_theme$typography, 20)) || "1.25rem",
-      medium: ((_theme$typography2 = theme.typography) == null || (_theme$typography2$px = _theme$typography2.pxToRem) == null ? void 0 : _theme$typography2$px.call(_theme$typography2, 24)) || "1.5rem",
-      large: ((_theme$typography3 = theme.typography) == null || (_theme$typography3$px = _theme$typography3.pxToRem) == null ? void 0 : _theme$typography3$px.call(_theme$typography3, 35)) || "2.1875rem"
-    }[ownerState.fontSize],
-    // TODO v5 deprecate, v6 remove for sx
-    color: (_palette$ownerState$c = (_palette = (theme.vars || theme).palette) == null || (_palette = _palette[ownerState.color]) == null ? void 0 : _palette.main) != null ? _palette$ownerState$c : {
-      action: (_palette2 = (theme.vars || theme).palette) == null || (_palette2 = _palette2.action) == null ? void 0 : _palette2.active,
-      disabled: (_palette3 = (theme.vars || theme).palette) == null || (_palette3 = _palette3.action) == null ? void 0 : _palette3.disabled,
-      inherit: void 0
-    }[ownerState.color]
-  };
-}), SvgIcon = /* @__PURE__ */ React26.forwardRef(function(inProps, ref) {
-  let props = useThemeProps2({
-    props: inProps,
-    name: "MuiSvgIcon"
-  }), {
-    children,
-    className,
-    color: color3 = "inherit",
-    component = "svg",
-    fontSize = "medium",
-    htmlColor,
-    inheritViewBox = !1,
-    titleAccess,
-    viewBox = "0 0 24 24"
-  } = props, other = _objectWithoutPropertiesLoose2(props, _excluded13), hasSvgAsChild = /* @__PURE__ */ React26.isValidElement(children) && children.type === "svg", ownerState = _extends6({}, props, {
-    color: color3,
-    component,
-    fontSize,
-    instanceFontSize: inProps.fontSize,
-    inheritViewBox,
-    viewBox,
-    hasSvgAsChild
-  }), more = {};
-  inheritViewBox || (more.viewBox = viewBox);
-  let classes = useUtilityClasses(ownerState);
-  return /* @__PURE__ */ (0, import_jsx_runtime7.jsxs)(SvgIconRoot, _extends6({
-    as: component,
-    className: clsx_default(classes.root, className),
-    focusable: "false",
-    color: htmlColor,
-    "aria-hidden": titleAccess ? void 0 : !0,
-    role: titleAccess ? "img" : void 0,
-    ref
-  }, more, other, hasSvgAsChild && children.props, {
-    ownerState,
-    children: [hasSvgAsChild ? children.props.children : children, titleAccess ? /* @__PURE__ */ (0, import_jsx_runtime6.jsx)("title", {
-      children: titleAccess
-    }) : null]
-  }));
-});
-SvgIcon.propTypes = {
-  // ┌────────────────────────────── Warning ──────────────────────────────┐
-  // │ These PropTypes are generated from the TypeScript type definitions. │
-  // │    To update them, edit the d.ts file and run `pnpm proptypes`.     │
-  // └─────────────────────────────────────────────────────────────────────┘
-  /**
-   * Node passed into the SVG element.
-   */
-  children: import_prop_types5.default.node,
-  /**
-   * Override or extend the styles applied to the component.
-   */
-  classes: import_prop_types5.default.object,
-  /**
-   * @ignore
-   */
-  className: import_prop_types5.default.string,
-  /**
-   * The color of the component.
-   * It supports both default and custom theme colors, which can be added as shown in the
-   * [palette customization guide](https://mui.com/material-ui/customization/palette/#custom-colors).
-   * You can use the `htmlColor` prop to apply a color attribute to the SVG element.
-   * @default 'inherit'
-   */
-  color: import_prop_types5.default.oneOfType([import_prop_types5.default.oneOf(["inherit", "action", "disabled", "primary", "secondary", "error", "info", "success", "warning"]), import_prop_types5.default.string]),
-  /**
-   * The component used for the root node.
-   * Either a string to use a HTML element or a component.
-   */
-  component: import_prop_types5.default.elementType,
-  /**
-   * The fontSize applied to the icon. Defaults to 24px, but can be configure to inherit font size.
-   * @default 'medium'
-   */
-  fontSize: import_prop_types5.default.oneOfType([import_prop_types5.default.oneOf(["inherit", "large", "medium", "small"]), import_prop_types5.default.string]),
-  /**
-   * Applies a color attribute to the SVG element.
-   */
-  htmlColor: import_prop_types5.default.string,
-  /**
-   * If `true`, the root node will inherit the custom `component`'s viewBox and the `viewBox`
-   * prop will be ignored.
-   * Useful when you want to reference a custom `component` and have `SvgIcon` pass that
-   * `component`'s viewBox to the root node.
-   * @default false
-   */
-  inheritViewBox: import_prop_types5.default.bool,
-  /**
-   * The shape-rendering attribute. The behavior of the different options is described on the
-   * [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/shape-rendering).
-   * If you are having issues with blurry icons you should investigate this prop.
-   */
-  shapeRendering: import_prop_types5.default.string,
-  /**
-   * The system prop that allows defining system overrides as well as additional CSS styles.
-   */
-  sx: import_prop_types5.default.oneOfType([import_prop_types5.default.arrayOf(import_prop_types5.default.oneOfType([import_prop_types5.default.func, import_prop_types5.default.object, import_prop_types5.default.bool])), import_prop_types5.default.func, import_prop_types5.default.object]),
-  /**
-   * Provides a human-readable title for the element that contains it.
-   * https://www.w3.org/TR/SVG-access/#Equivalent
-   */
-  titleAccess: import_prop_types5.default.string,
-  /**
-   * Allows you to redefine what the coordinates without units mean inside an SVG element.
-   * For example, if the SVG element is 500 (width) by 200 (height),
-   * and you pass viewBox="0 0 50 20",
-   * this means that the coordinates inside the SVG will go from the top left corner (0,0)
-   * to bottom right (50,20) and each unit will be worth 10px.
-   * @default '0 0 24 24'
-   */
-  viewBox: import_prop_types5.default.string
-};
-SvgIcon.muiName = "SvgIcon";
-var SvgIcon_default = SvgIcon;
-
-// node_modules/@mui/material/utils/createSvgIcon.js
-var import_jsx_runtime8 = __toESM(require_jsx_runtime());
-function createSvgIcon(path, displayName) {
-  function Component4(props, ref) {
-    return /* @__PURE__ */ (0, import_jsx_runtime8.jsx)(SvgIcon_default, _extends6({
-      "data-testid": `${displayName}Icon`,
-      ref
-    }, props, {
-      children: path
-    }));
-  }
-  return Component4.displayName = `${displayName}Icon`, Component4.muiName = SvgIcon_default.muiName, /* @__PURE__ */ React27.memo(/* @__PURE__ */ React27.forwardRef(Component4));
-}
-
-// node_modules/@mui/material/utils/debounce.js
-var debounce_default = debounce;
-
-// node_modules/@mui/material/utils/ownerDocument.js
-var ownerDocument_default = ownerDocument;
-
-// node_modules/@mui/material/utils/ownerWindow.js
-var ownerWindow_default = ownerWindow;
-
-// node_modules/@mui/material/utils/requirePropFactory.js
-var requirePropFactory_default = requirePropFactory;
-
-// node_modules/@mui/material/utils/useEnhancedEffect.js
-var useEnhancedEffect_default2 = useEnhancedEffect_default;
-
-// node_modules/@mui/material/utils/unsupportedProp.js
-var unsupportedProp_default = unsupportedProp;
-
-// node_modules/@mui/material/utils/useEventCallback.js
-var useEventCallback_default2 = useEventCallback_default;
-
-// node_modules/@mui/material/utils/useForkRef.js
-var useForkRef_default = useForkRef;
-
-// node_modules/@mui/material/utils/useIsFocusVisible.js
-var useIsFocusVisible_default = useIsFocusVisible;
-
-// node_modules/@mui/base/utils/isHostComponent.js
-function isHostComponent(element) {
-  return typeof element == "string";
-}
-
-// node_modules/@mui/base/utils/appendOwnerState.js
-function appendOwnerState(elementType, otherProps, ownerState) {
-  return elementType === void 0 || isHostComponent(elementType) ? otherProps : _extends6({}, otherProps, {
-    ownerState: _extends6({}, otherProps.ownerState, ownerState)
-  });
-}
-
-// node_modules/@mui/base/utils/extractEventHandlers.js
-function extractEventHandlers(object, excludeKeys = []) {
-  if (object === void 0)
-    return {};
-  let result = {};
-  return Object.keys(object).filter((prop) => prop.match(/^on[A-Z]/) && typeof object[prop] == "function" && !excludeKeys.includes(prop)).forEach((prop) => {
-    result[prop] = object[prop];
-  }), result;
-}
-
-// node_modules/@mui/base/utils/resolveComponentProps.js
-function resolveComponentProps(componentProps, ownerState, slotState) {
-  return typeof componentProps == "function" ? componentProps(ownerState, slotState) : componentProps;
-}
-
-// node_modules/@mui/base/utils/omitEventHandlers.js
-function omitEventHandlers(object) {
-  if (object === void 0)
-    return {};
-  let result = {};
-  return Object.keys(object).filter((prop) => !(prop.match(/^on[A-Z]/) && typeof object[prop] == "function")).forEach((prop) => {
-    result[prop] = object[prop];
-  }), result;
-}
-
-// node_modules/@mui/base/utils/mergeSlotProps.js
-function mergeSlotProps(parameters) {
-  let {
-    getSlotProps,
-    additionalProps,
-    externalSlotProps,
-    externalForwardedProps,
-    className
-  } = parameters;
-  if (!getSlotProps) {
-    let joinedClasses2 = clsx_default(additionalProps?.className, className, externalForwardedProps?.className, externalSlotProps?.className), mergedStyle2 = _extends6({}, additionalProps?.style, externalForwardedProps?.style, externalSlotProps?.style), props2 = _extends6({}, additionalProps, externalForwardedProps, externalSlotProps);
-    return joinedClasses2.length > 0 && (props2.className = joinedClasses2), Object.keys(mergedStyle2).length > 0 && (props2.style = mergedStyle2), {
-      props: props2,
-      internalRef: void 0
-    };
-  }
-  let eventHandlers = extractEventHandlers(_extends6({}, externalForwardedProps, externalSlotProps)), componentsPropsWithoutEventHandlers = omitEventHandlers(externalSlotProps), otherPropsWithoutEventHandlers = omitEventHandlers(externalForwardedProps), internalSlotProps = getSlotProps(eventHandlers), joinedClasses = clsx_default(internalSlotProps?.className, additionalProps?.className, className, externalForwardedProps?.className, externalSlotProps?.className), mergedStyle = _extends6({}, internalSlotProps?.style, additionalProps?.style, externalForwardedProps?.style, externalSlotProps?.style), props = _extends6({}, internalSlotProps, additionalProps, otherPropsWithoutEventHandlers, componentsPropsWithoutEventHandlers);
-  return joinedClasses.length > 0 && (props.className = joinedClasses), Object.keys(mergedStyle).length > 0 && (props.style = mergedStyle), {
-    props,
-    internalRef: internalSlotProps.ref
-  };
-}
-
-// node_modules/@mui/base/utils/useSlotProps.js
-var _excluded14 = ["elementType", "externalSlotProps", "ownerState", "skipResolvingSlotProps"];
-function useSlotProps(parameters) {
-  var _parameters$additiona;
-  let {
-    elementType,
-    externalSlotProps,
-    ownerState,
-    skipResolvingSlotProps = !1
-  } = parameters, rest = _objectWithoutPropertiesLoose2(parameters, _excluded14), resolvedComponentsProps = skipResolvingSlotProps ? {} : resolveComponentProps(externalSlotProps, ownerState), {
-    props: mergedProps,
-    internalRef
-  } = mergeSlotProps(_extends6({}, rest, {
-    externalSlotProps: resolvedComponentsProps
-  })), ref = useForkRef(internalRef, resolvedComponentsProps?.ref, (_parameters$additiona = parameters.additionalProps) == null ? void 0 : _parameters$additiona.ref);
-  return appendOwnerState(elementType, _extends6({}, mergedProps, {
-    ref
-  }), ownerState);
-}
-
-// node_modules/@mui/material/ButtonBase/ButtonBase.js
-var React30 = __toESM(require_react()), import_prop_types8 = __toESM(require_prop_types());
-
-// node_modules/@mui/material/ButtonBase/TouchRipple.js
-var React29 = __toESM(require_react()), import_prop_types7 = __toESM(require_prop_types());
-
-// node_modules/@mui/material/ButtonBase/Ripple.js
-var React28 = __toESM(require_react()), import_prop_types6 = __toESM(require_prop_types());
-var import_jsx_runtime9 = __toESM(require_jsx_runtime());
-function Ripple(props) {
-  let {
-    className,
-    classes,
-    pulsate = !1,
-    rippleX,
-    rippleY,
-    rippleSize,
-    in: inProp,
-    onExited,
-    timeout
-  } = props, [leaving, setLeaving] = React28.useState(!1), rippleClassName = clsx_default(className, classes.ripple, classes.rippleVisible, pulsate && classes.ripplePulsate), rippleStyles = {
-    width: rippleSize,
-    height: rippleSize,
-    top: -(rippleSize / 2) + rippleY,
-    left: -(rippleSize / 2) + rippleX
-  }, childClassName = clsx_default(classes.child, leaving && classes.childLeaving, pulsate && classes.childPulsate);
-  return !inProp && !leaving && setLeaving(!0), React28.useEffect(() => {
-    if (!inProp && onExited != null) {
-      let timeoutId = setTimeout(onExited, timeout);
-      return () => {
-        clearTimeout(timeoutId);
-      };
-    }
-  }, [onExited, inProp, timeout]), /* @__PURE__ */ (0, import_jsx_runtime9.jsx)("span", {
-    className: rippleClassName,
-    style: rippleStyles,
-    children: /* @__PURE__ */ (0, import_jsx_runtime9.jsx)("span", {
-      className: childClassName
-    })
-  });
-}
-Ripple.propTypes = {
-  /**
-   * Override or extend the styles applied to the component.
-   * See [CSS API](#css) below for more details.
-   */
-  classes: import_prop_types6.default.object.isRequired,
-  className: import_prop_types6.default.string,
-  /**
-   * @ignore - injected from TransitionGroup
-   */
-  in: import_prop_types6.default.bool,
-  /**
-   * @ignore - injected from TransitionGroup
-   */
-  onExited: import_prop_types6.default.func,
-  /**
-   * If `true`, the ripple pulsates, typically indicating the keyboard focus state of an element.
-   */
-  pulsate: import_prop_types6.default.bool,
-  /**
-   * Diameter of the ripple.
-   */
-  rippleSize: import_prop_types6.default.number,
-  /**
-   * Horizontal position of the ripple center.
-   */
-  rippleX: import_prop_types6.default.number,
-  /**
-   * Vertical position of the ripple center.
-   */
-  rippleY: import_prop_types6.default.number,
-  /**
-   * exit delay
-   */
-  timeout: import_prop_types6.default.number.isRequired
-};
-var Ripple_default = Ripple;
-
-// node_modules/@mui/material/ButtonBase/touchRippleClasses.js
-var touchRippleClasses = generateUtilityClasses("MuiTouchRipple", ["root", "ripple", "rippleVisible", "ripplePulsate", "child", "childLeaving", "childPulsate"]), touchRippleClasses_default = touchRippleClasses;
-
-// node_modules/@mui/material/ButtonBase/TouchRipple.js
-var import_jsx_runtime10 = __toESM(require_jsx_runtime()), _excluded15 = ["center", "classes", "className"], _ = (t) => t, _t, _t2, _t3, _t4, DURATION = 550, DELAY_RIPPLE = 80, enterKeyframe = (0, import_emotion_react_cjs.keyframes)(_t || (_t = _`
-  0% {
-    transform: scale(0);
-    opacity: 0.1;
-  }
-
-  100% {
-    transform: scale(1);
-    opacity: 0.3;
-  }
-`)), exitKeyframe = (0, import_emotion_react_cjs.keyframes)(_t2 || (_t2 = _`
-  0% {
-    opacity: 1;
-  }
-
-  100% {
-    opacity: 0;
-  }
-`)), pulsateKeyframe = (0, import_emotion_react_cjs.keyframes)(_t3 || (_t3 = _`
-  0% {
-    transform: scale(1);
-  }
-
-  50% {
-    transform: scale(0.92);
-  }
-
-  100% {
-    transform: scale(1);
-  }
-`)), TouchRippleRoot = styled_default("span", {
-  name: "MuiTouchRipple",
-  slot: "Root"
-})({
-  overflow: "hidden",
-  pointerEvents: "none",
-  position: "absolute",
-  zIndex: 0,
-  top: 0,
-  right: 0,
-  bottom: 0,
-  left: 0,
-  borderRadius: "inherit"
-}), TouchRippleRipple = styled_default(Ripple_default, {
-  name: "MuiTouchRipple",
-  slot: "Ripple"
-})(_t4 || (_t4 = _`
-  opacity: 0;
-  position: absolute;
-
-  &.${0} {
-    opacity: 0.3;
-    transform: scale(1);
-    animation-name: ${0};
-    animation-duration: ${0}ms;
-    animation-timing-function: ${0};
-  }
-
-  &.${0} {
-    animation-duration: ${0}ms;
-  }
-
-  & .${0} {
-    opacity: 1;
-    display: block;
-    width: 100%;
-    height: 100%;
-    border-radius: 50%;
-    background-color: currentColor;
-  }
-
-  & .${0} {
-    opacity: 0;
-    animation-name: ${0};
-    animation-duration: ${0}ms;
-    animation-timing-function: ${0};
-  }
-
-  & .${0} {
-    position: absolute;
-    /* @noflip */
-    left: 0px;
-    top: 0;
-    animation-name: ${0};
-    animation-duration: 2500ms;
-    animation-timing-function: ${0};
-    animation-iteration-count: infinite;
-    animation-delay: 200ms;
-  }
-`), touchRippleClasses_default.rippleVisible, enterKeyframe, DURATION, ({
-  theme
-}) => theme.transitions.easing.easeInOut, touchRippleClasses_default.ripplePulsate, ({
-  theme
-}) => theme.transitions.duration.shorter, touchRippleClasses_default.child, touchRippleClasses_default.childLeaving, exitKeyframe, DURATION, ({
-  theme
-}) => theme.transitions.easing.easeInOut, touchRippleClasses_default.childPulsate, pulsateKeyframe, ({
-  theme
-}) => theme.transitions.easing.easeInOut), TouchRipple = /* @__PURE__ */ React29.forwardRef(function(inProps, ref) {
-  let props = useThemeProps2({
-    props: inProps,
-    name: "MuiTouchRipple"
-  }), {
-    center: centerProp = !1,
-    classes = {},
-    className
-  } = props, other = _objectWithoutPropertiesLoose2(props, _excluded15), [ripples, setRipples] = React29.useState([]), nextKey = React29.useRef(0), rippleCallback = React29.useRef(null);
-  React29.useEffect(() => {
-    rippleCallback.current && (rippleCallback.current(), rippleCallback.current = null);
-  }, [ripples]);
-  let ignoringMouseDown = React29.useRef(!1), startTimer = useTimeout(), startTimerCommit = React29.useRef(null), container = React29.useRef(null), startCommit = React29.useCallback((params) => {
-    let {
-      pulsate: pulsate2,
-      rippleX,
-      rippleY,
-      rippleSize,
-      cb
-    } = params;
-    setRipples((oldRipples) => [...oldRipples, /* @__PURE__ */ (0, import_jsx_runtime10.jsx)(TouchRippleRipple, {
-      classes: {
-        ripple: clsx_default(classes.ripple, touchRippleClasses_default.ripple),
-        rippleVisible: clsx_default(classes.rippleVisible, touchRippleClasses_default.rippleVisible),
-        ripplePulsate: clsx_default(classes.ripplePulsate, touchRippleClasses_default.ripplePulsate),
-        child: clsx_default(classes.child, touchRippleClasses_default.child),
-        childLeaving: clsx_default(classes.childLeaving, touchRippleClasses_default.childLeaving),
-        childPulsate: clsx_default(classes.childPulsate, touchRippleClasses_default.childPulsate)
-      },
-      timeout: DURATION,
-      pulsate: pulsate2,
-      rippleX,
-      rippleY,
-      rippleSize
-    }, nextKey.current)]), nextKey.current += 1, rippleCallback.current = cb;
-  }, [classes]), start = React29.useCallback((event = {}, options = {}, cb = () => {
-  }) => {
-    let {
-      pulsate: pulsate2 = !1,
-      center = centerProp || options.pulsate,
-      fakeElement = !1
-      // For test purposes
-    } = options;
-    if (event?.type === "mousedown" && ignoringMouseDown.current) {
-      ignoringMouseDown.current = !1;
-      return;
-    }
-    event?.type === "touchstart" && (ignoringMouseDown.current = !0);
-    let element = fakeElement ? null : container.current, rect = element ? element.getBoundingClientRect() : {
-      width: 0,
-      height: 0,
-      left: 0,
-      top: 0
-    }, rippleX, rippleY, rippleSize;
-    if (center || event === void 0 || event.clientX === 0 && event.clientY === 0 || !event.clientX && !event.touches)
-      rippleX = Math.round(rect.width / 2), rippleY = Math.round(rect.height / 2);
-    else {
-      let {
-        clientX,
-        clientY
-      } = event.touches && event.touches.length > 0 ? event.touches[0] : event;
-      rippleX = Math.round(clientX - rect.left), rippleY = Math.round(clientY - rect.top);
-    }
-    if (center)
-      rippleSize = Math.sqrt((2 * rect.width ** 2 + rect.height ** 2) / 3), rippleSize % 2 === 0 && (rippleSize += 1);
-    else {
-      let sizeX = Math.max(Math.abs((element ? element.clientWidth : 0) - rippleX), rippleX) * 2 + 2, sizeY = Math.max(Math.abs((element ? element.clientHeight : 0) - rippleY), rippleY) * 2 + 2;
-      rippleSize = Math.sqrt(sizeX ** 2 + sizeY ** 2);
-    }
-    event != null && event.touches ? startTimerCommit.current === null && (startTimerCommit.current = () => {
-      startCommit({
-        pulsate: pulsate2,
-        rippleX,
-        rippleY,
-        rippleSize,
-        cb
-      });
-    }, startTimer.start(DELAY_RIPPLE, () => {
-      startTimerCommit.current && (startTimerCommit.current(), startTimerCommit.current = null);
-    })) : startCommit({
-      pulsate: pulsate2,
-      rippleX,
-      rippleY,
-      rippleSize,
-      cb
-    });
-  }, [centerProp, startCommit, startTimer]), pulsate = React29.useCallback(() => {
-    start({}, {
-      pulsate: !0
-    });
-  }, [start]), stop = React29.useCallback((event, cb) => {
-    if (startTimer.clear(), event?.type === "touchend" && startTimerCommit.current) {
-      startTimerCommit.current(), startTimerCommit.current = null, startTimer.start(0, () => {
-        stop(event, cb);
-      });
-      return;
-    }
-    startTimerCommit.current = null, setRipples((oldRipples) => oldRipples.length > 0 ? oldRipples.slice(1) : oldRipples), rippleCallback.current = cb;
-  }, [startTimer]);
-  return React29.useImperativeHandle(ref, () => ({
-    pulsate,
-    start,
-    stop
-  }), [pulsate, start, stop]), /* @__PURE__ */ (0, import_jsx_runtime10.jsx)(TouchRippleRoot, _extends6({
-    className: clsx_default(touchRippleClasses_default.root, classes.root, className),
-    ref: container
-  }, other, {
-    children: /* @__PURE__ */ (0, import_jsx_runtime10.jsx)(TransitionGroup_default, {
-      component: null,
-      exit: !0,
-      children: ripples
-    })
-  }));
-});
-TouchRipple.propTypes = {
-  /**
-   * If `true`, the ripple starts at the center of the component
-   * rather than at the point of interaction.
-   */
-  center: import_prop_types7.default.bool,
-  /**
-   * Override or extend the styles applied to the component.
-   * See [CSS API](#css) below for more details.
-   */
-  classes: import_prop_types7.default.object,
-  /**
-   * @ignore
-   */
-  className: import_prop_types7.default.string
-};
-var TouchRipple_default = TouchRipple;
-
-// node_modules/@mui/material/ButtonBase/buttonBaseClasses.js
-function getButtonBaseUtilityClass(slot) {
-  return generateUtilityClass("MuiButtonBase", slot);
-}
-var buttonBaseClasses = generateUtilityClasses("MuiButtonBase", ["root", "disabled", "focusVisible"]), buttonBaseClasses_default = buttonBaseClasses;
-
-// node_modules/@mui/material/ButtonBase/ButtonBase.js
-var import_jsx_runtime11 = __toESM(require_jsx_runtime()), import_jsx_runtime12 = __toESM(require_jsx_runtime()), _excluded16 = ["action", "centerRipple", "children", "className", "component", "disabled", "disableRipple", "disableTouchRipple", "focusRipple", "focusVisibleClassName", "LinkComponent", "onBlur", "onClick", "onContextMenu", "onDragLeave", "onFocus", "onFocusVisible", "onKeyDown", "onKeyUp", "onMouseDown", "onMouseLeave", "onMouseUp", "onTouchEnd", "onTouchMove", "onTouchStart", "tabIndex", "TouchRippleProps", "touchRippleRef", "type"], useUtilityClasses2 = (ownerState) => {
-  let {
-    disabled,
-    focusVisible,
-    focusVisibleClassName,
-    classes
-  } = ownerState, composedClasses = composeClasses({
-    root: ["root", disabled && "disabled", focusVisible && "focusVisible"]
-  }, getButtonBaseUtilityClass, classes);
-  return focusVisible && focusVisibleClassName && (composedClasses.root += ` ${focusVisibleClassName}`), composedClasses;
-}, ButtonBaseRoot = styled_default("button", {
-  name: "MuiButtonBase",
-  slot: "Root",
-  overridesResolver: (props, styles4) => styles4.root
-})({
-  display: "inline-flex",
-  alignItems: "center",
-  justifyContent: "center",
-  position: "relative",
-  boxSizing: "border-box",
-  WebkitTapHighlightColor: "transparent",
-  backgroundColor: "transparent",
-  // Reset default value
-  // We disable the focus ring for mouse, touch and keyboard users.
-  outline: 0,
-  border: 0,
-  margin: 0,
-  // Remove the margin in Safari
-  borderRadius: 0,
-  padding: 0,
-  // Remove the padding in Firefox
-  cursor: "pointer",
-  userSelect: "none",
-  verticalAlign: "middle",
-  MozAppearance: "none",
-  // Reset
-  WebkitAppearance: "none",
-  // Reset
-  textDecoration: "none",
-  // So we take precedent over the style of a native <a /> element.
-  color: "inherit",
-  "&::-moz-focus-inner": {
-    borderStyle: "none"
-    // Remove Firefox dotted outline.
-  },
-  [`&.${buttonBaseClasses_default.disabled}`]: {
-    pointerEvents: "none",
-    // Disable link interactions
-    cursor: "default"
-  },
-  "@media print": {
-    colorAdjust: "exact"
-  }
-}), ButtonBase = /* @__PURE__ */ React30.forwardRef(function(inProps, ref) {
-  let props = useThemeProps2({
-    props: inProps,
-    name: "MuiButtonBase"
-  }), {
-    action: action11,
-    centerRipple = !1,
-    children,
-    className,
-    component = "button",
-    disabled = !1,
-    disableRipple = !1,
-    disableTouchRipple = !1,
-    focusRipple = !1,
-    LinkComponent = "a",
-    onBlur,
-    onClick,
-    onContextMenu,
-    onDragLeave,
-    onFocus,
-    onFocusVisible,
-    onKeyDown,
-    onKeyUp,
-    onMouseDown,
-    onMouseLeave,
-    onMouseUp,
-    onTouchEnd,
-    onTouchMove,
-    onTouchStart,
-    tabIndex = 0,
-    TouchRippleProps,
-    touchRippleRef,
-    type
-  } = props, other = _objectWithoutPropertiesLoose2(props, _excluded16), buttonRef = React30.useRef(null), rippleRef = React30.useRef(null), handleRippleRef = useForkRef_default(rippleRef, touchRippleRef), {
-    isFocusVisibleRef,
-    onFocus: handleFocusVisible,
-    onBlur: handleBlurVisible,
-    ref: focusVisibleRef
-  } = useIsFocusVisible_default(), [focusVisible, setFocusVisible] = React30.useState(!1);
-  disabled && focusVisible && setFocusVisible(!1), React30.useImperativeHandle(action11, () => ({
-    focusVisible: () => {
-      setFocusVisible(!0), buttonRef.current.focus();
-    }
-  }), []);
-  let [mountedState, setMountedState] = React30.useState(!1);
-  React30.useEffect(() => {
-    setMountedState(!0);
-  }, []);
-  let enableTouchRipple = mountedState && !disableRipple && !disabled;
-  React30.useEffect(() => {
-    focusVisible && focusRipple && !disableRipple && mountedState && rippleRef.current.pulsate();
-  }, [disableRipple, focusRipple, focusVisible, mountedState]);
-  function useRippleHandler(rippleAction, eventCallback, skipRippleAction = disableTouchRipple) {
-    return useEventCallback_default2((event) => (eventCallback && eventCallback(event), !skipRippleAction && rippleRef.current && rippleRef.current[rippleAction](event), !0));
-  }
-  let handleMouseDown = useRippleHandler("start", onMouseDown), handleContextMenu = useRippleHandler("stop", onContextMenu), handleDragLeave = useRippleHandler("stop", onDragLeave), handleMouseUp = useRippleHandler("stop", onMouseUp), handleMouseLeave = useRippleHandler("stop", (event) => {
-    focusVisible && event.preventDefault(), onMouseLeave && onMouseLeave(event);
-  }), handleTouchStart = useRippleHandler("start", onTouchStart), handleTouchEnd = useRippleHandler("stop", onTouchEnd), handleTouchMove = useRippleHandler("stop", onTouchMove), handleBlur = useRippleHandler("stop", (event) => {
-    handleBlurVisible(event), isFocusVisibleRef.current === !1 && setFocusVisible(!1), onBlur && onBlur(event);
-  }, !1), handleFocus = useEventCallback_default2((event) => {
-    buttonRef.current || (buttonRef.current = event.currentTarget), handleFocusVisible(event), isFocusVisibleRef.current === !0 && (setFocusVisible(!0), onFocusVisible && onFocusVisible(event)), onFocus && onFocus(event);
-  }), isNonNativeButton = () => {
-    let button = buttonRef.current;
-    return component && component !== "button" && !(button.tagName === "A" && button.href);
-  }, keydownRef = React30.useRef(!1), handleKeyDown2 = useEventCallback_default2((event) => {
-    focusRipple && !keydownRef.current && focusVisible && rippleRef.current && event.key === " " && (keydownRef.current = !0, rippleRef.current.stop(event, () => {
-      rippleRef.current.start(event);
-    })), event.target === event.currentTarget && isNonNativeButton() && event.key === " " && event.preventDefault(), onKeyDown && onKeyDown(event), event.target === event.currentTarget && isNonNativeButton() && event.key === "Enter" && !disabled && (event.preventDefault(), onClick && onClick(event));
-  }), handleKeyUp = useEventCallback_default2((event) => {
-    focusRipple && event.key === " " && rippleRef.current && focusVisible && !event.defaultPrevented && (keydownRef.current = !1, rippleRef.current.stop(event, () => {
-      rippleRef.current.pulsate(event);
-    })), onKeyUp && onKeyUp(event), onClick && event.target === event.currentTarget && isNonNativeButton() && event.key === " " && !event.defaultPrevented && onClick(event);
-  }), ComponentProp = component;
-  ComponentProp === "button" && (other.href || other.to) && (ComponentProp = LinkComponent);
-  let buttonProps = {};
-  ComponentProp === "button" ? (buttonProps.type = type === void 0 ? "button" : type, buttonProps.disabled = disabled) : (!other.href && !other.to && (buttonProps.role = "button"), disabled && (buttonProps["aria-disabled"] = disabled));
-  let handleRef = useForkRef_default(ref, focusVisibleRef, buttonRef);
-  React30.useEffect(() => {
-    enableTouchRipple && !rippleRef.current && console.error(["MUI: The `component` prop provided to ButtonBase is invalid.", "Please make sure the children prop is rendered in this custom component."].join(`
-`));
-  }, [enableTouchRipple]);
-  let ownerState = _extends6({}, props, {
-    centerRipple,
-    component,
-    disabled,
-    disableRipple,
-    disableTouchRipple,
-    focusRipple,
-    tabIndex,
-    focusVisible
-  }), classes = useUtilityClasses2(ownerState);
-  return /* @__PURE__ */ (0, import_jsx_runtime12.jsxs)(ButtonBaseRoot, _extends6({
-    as: ComponentProp,
-    className: clsx_default(classes.root, className),
-    ownerState,
-    onBlur: handleBlur,
-    onClick,
-    onContextMenu: handleContextMenu,
-    onFocus: handleFocus,
-    onKeyDown: handleKeyDown2,
-    onKeyUp: handleKeyUp,
-    onMouseDown: handleMouseDown,
-    onMouseLeave: handleMouseLeave,
-    onMouseUp: handleMouseUp,
-    onDragLeave: handleDragLeave,
-    onTouchEnd: handleTouchEnd,
-    onTouchMove: handleTouchMove,
-    onTouchStart: handleTouchStart,
-    ref: handleRef,
-    tabIndex: disabled ? -1 : tabIndex,
-    type
-  }, buttonProps, other, {
-    children: [children, enableTouchRipple ? (
-      /* TouchRipple is only needed client-side, x2 boost on the server. */
-      /* @__PURE__ */ (0, import_jsx_runtime11.jsx)(TouchRipple_default, _extends6({
-        ref: handleRippleRef,
-        center: centerRipple
-      }, TouchRippleProps))
-    ) : null]
-  }));
-});
-ButtonBase.propTypes = {
-  // ┌────────────────────────────── Warning ──────────────────────────────┐
-  // │ These PropTypes are generated from the TypeScript type definitions. │
-  // │    To update them, edit the d.ts file and run `pnpm proptypes`.     │
-  // └─────────────────────────────────────────────────────────────────────┘
-  /**
-   * A ref for imperative actions.
-   * It currently only supports `focusVisible()` action.
-   */
-  action: refType_default,
-  /**
-   * If `true`, the ripples are centered.
-   * They won't start at the cursor interaction position.
-   * @default false
-   */
-  centerRipple: import_prop_types8.default.bool,
-  /**
-   * The content of the component.
-   */
-  children: import_prop_types8.default.node,
-  /**
-   * Override or extend the styles applied to the component.
-   */
-  classes: import_prop_types8.default.object,
-  /**
-   * @ignore
-   */
-  className: import_prop_types8.default.string,
-  /**
-   * The component used for the root node.
-   * Either a string to use a HTML element or a component.
-   */
-  component: elementTypeAcceptingRef_default,
-  /**
-   * If `true`, the component is disabled.
-   * @default false
-   */
-  disabled: import_prop_types8.default.bool,
-  /**
-   * If `true`, the ripple effect is disabled.
-   *
-   * ⚠️ Without a ripple there is no styling for :focus-visible by default. Be sure
-   * to highlight the element by applying separate styles with the `.Mui-focusVisible` class.
-   * @default false
-   */
-  disableRipple: import_prop_types8.default.bool,
-  /**
-   * If `true`, the touch ripple effect is disabled.
-   * @default false
-   */
-  disableTouchRipple: import_prop_types8.default.bool,
-  /**
-   * If `true`, the base button will have a keyboard focus ripple.
-   * @default false
-   */
-  focusRipple: import_prop_types8.default.bool,
-  /**
-   * This prop can help identify which element has keyboard focus.
-   * The class name will be applied when the element gains the focus through keyboard interaction.
-   * It's a polyfill for the [CSS :focus-visible selector](https://drafts.csswg.org/selectors-4/#the-focus-visible-pseudo).
-   * The rationale for using this feature [is explained here](https://github.com/WICG/focus-visible/blob/HEAD/explainer.md).
-   * A [polyfill can be used](https://github.com/WICG/focus-visible) to apply a `focus-visible` class to other components
-   * if needed.
-   */
-  focusVisibleClassName: import_prop_types8.default.string,
-  /**
-   * @ignore
-   */
-  href: import_prop_types8.default.any,
-  /**
-   * The component used to render a link when the `href` prop is provided.
-   * @default 'a'
-   */
-  LinkComponent: import_prop_types8.default.elementType,
-  /**
-   * @ignore
-   */
-  onBlur: import_prop_types8.default.func,
-  /**
-   * @ignore
-   */
-  onClick: import_prop_types8.default.func,
-  /**
-   * @ignore
-   */
-  onContextMenu: import_prop_types8.default.func,
-  /**
-   * @ignore
-   */
-  onDragLeave: import_prop_types8.default.func,
-  /**
-   * @ignore
-   */
-  onFocus: import_prop_types8.default.func,
-  /**
-   * Callback fired when the component is focused with a keyboard.
-   * We trigger a `onFocus` callback too.
-   */
-  onFocusVisible: import_prop_types8.default.func,
-  /**
-   * @ignore
-   */
-  onKeyDown: import_prop_types8.default.func,
-  /**
-   * @ignore
-   */
-  onKeyUp: import_prop_types8.default.func,
-  /**
-   * @ignore
-   */
-  onMouseDown: import_prop_types8.default.func,
-  /**
-   * @ignore
-   */
-  onMouseLeave: import_prop_types8.default.func,
-  /**
-   * @ignore
-   */
-  onMouseUp: import_prop_types8.default.func,
-  /**
-   * @ignore
-   */
-  onTouchEnd: import_prop_types8.default.func,
-  /**
-   * @ignore
-   */
-  onTouchMove: import_prop_types8.default.func,
-  /**
-   * @ignore
-   */
-  onTouchStart: import_prop_types8.default.func,
-  /**
-   * The system prop that allows defining system overrides as well as additional CSS styles.
-   */
-  sx: import_prop_types8.default.oneOfType([import_prop_types8.default.arrayOf(import_prop_types8.default.oneOfType([import_prop_types8.default.func, import_prop_types8.default.object, import_prop_types8.default.bool])), import_prop_types8.default.func, import_prop_types8.default.object]),
-  /**
-   * @default 0
-   */
-  tabIndex: import_prop_types8.default.number,
-  /**
-   * Props applied to the `TouchRipple` element.
-   */
-  TouchRippleProps: import_prop_types8.default.object,
-  /**
-   * A ref that points to the `TouchRipple` element.
-   */
-  touchRippleRef: import_prop_types8.default.oneOfType([import_prop_types8.default.func, import_prop_types8.default.shape({
-    current: import_prop_types8.default.shape({
-      pulsate: import_prop_types8.default.func.isRequired,
-      start: import_prop_types8.default.func.isRequired,
-      stop: import_prop_types8.default.func.isRequired
-    })
-  })]),
-  /**
-   * @ignore
-   */
-  type: import_prop_types8.default.oneOfType([import_prop_types8.default.oneOf(["button", "reset", "submit"]), import_prop_types8.default.string])
-};
-var ButtonBase_default = ButtonBase;
-
-// node_modules/@mui/material/Box/Box.js
-var import_prop_types9 = __toESM(require_prop_types());
-
-// node_modules/@mui/material/Box/boxClasses.js
-var boxClasses = generateUtilityClasses("MuiBox", ["root"]), boxClasses_default = boxClasses;
-
-// node_modules/@mui/material/Box/Box.js
-var defaultTheme2 = createTheme_default2(), Box = createBox({
-  themeId: identifier_default,
-  defaultTheme: defaultTheme2,
-  defaultClassName: boxClasses_default.root,
-  generateClassName: ClassNameGenerator_default.generate
-});
-Box.propTypes = {
-  // ┌────────────────────────────── Warning ──────────────────────────────┐
-  // │ These PropTypes are generated from the TypeScript type definitions. │
-  // │    To update them, edit the d.ts file and run `pnpm proptypes`.     │
-  // └─────────────────────────────────────────────────────────────────────┘
-  /**
-   * @ignore
-   */
-  children: import_prop_types9.default.node,
-  /**
-   * The component used for the root node.
-   * Either a string to use a HTML element or a component.
-   */
-  component: import_prop_types9.default.elementType,
-  /**
-   * The system prop that allows defining system overrides as well as additional CSS styles.
-   */
-  sx: import_prop_types9.default.oneOfType([import_prop_types9.default.arrayOf(import_prop_types9.default.oneOfType([import_prop_types9.default.func, import_prop_types9.default.object, import_prop_types9.default.bool])), import_prop_types9.default.func, import_prop_types9.default.object])
-};
-var Box_default = Box;
-
-// node_modules/@mui/material/Grid/Grid.js
-var React32 = __toESM(require_react()), import_prop_types10 = __toESM(require_prop_types());
-
-// node_modules/@mui/material/Grid/GridContext.js
-var React31 = __toESM(require_react()), GridContext = /* @__PURE__ */ React31.createContext();
-GridContext.displayName = "GridContext";
-var GridContext_default = GridContext;
-
-// node_modules/@mui/material/Grid/gridClasses.js
-function getGridUtilityClass(slot) {
-  return generateUtilityClass("MuiGrid", slot);
-}
-var SPACINGS = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10], DIRECTIONS = ["column-reverse", "column", "row-reverse", "row"], WRAPS = ["nowrap", "wrap-reverse", "wrap"], GRID_SIZES = ["auto", !0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12], gridClasses = generateUtilityClasses("MuiGrid", [
-  "root",
-  "container",
-  "item",
-  "zeroMinWidth",
-  // spacings
-  ...SPACINGS.map((spacing2) => `spacing-xs-${spacing2}`),
-  // direction values
-  ...DIRECTIONS.map((direction) => `direction-xs-${direction}`),
-  // wrap values
-  ...WRAPS.map((wrap) => `wrap-xs-${wrap}`),
-  // grid sizes for all breakpoints
-  ...GRID_SIZES.map((size2) => `grid-xs-${size2}`),
-  ...GRID_SIZES.map((size2) => `grid-sm-${size2}`),
-  ...GRID_SIZES.map((size2) => `grid-md-${size2}`),
-  ...GRID_SIZES.map((size2) => `grid-lg-${size2}`),
-  ...GRID_SIZES.map((size2) => `grid-xl-${size2}`)
-]), gridClasses_default = gridClasses;
-
-// node_modules/@mui/material/Grid/Grid.js
-var import_jsx_runtime13 = __toESM(require_jsx_runtime()), _excluded17 = ["className", "columns", "columnSpacing", "component", "container", "direction", "item", "rowSpacing", "spacing", "wrap", "zeroMinWidth"];
-function getOffset(val) {
-  let parse2 = parseFloat(val);
-  return `${parse2}${String(val).replace(String(parse2), "") || "px"}`;
-}
-function generateGrid({
-  theme,
-  ownerState
-}) {
-  let size2;
-  return theme.breakpoints.keys.reduce((globalStyles, breakpoint) => {
-    let styles4 = {};
-    if (ownerState[breakpoint] && (size2 = ownerState[breakpoint]), !size2)
-      return globalStyles;
-    if (size2 === !0)
-      styles4 = {
-        flexBasis: 0,
-        flexGrow: 1,
-        maxWidth: "100%"
-      };
-    else if (size2 === "auto")
-      styles4 = {
-        flexBasis: "auto",
-        flexGrow: 0,
-        flexShrink: 0,
-        maxWidth: "none",
-        width: "auto"
-      };
-    else {
-      let columnsBreakpointValues = resolveBreakpointValues({
-        values: ownerState.columns,
-        breakpoints: theme.breakpoints.values
-      }), columnValue = typeof columnsBreakpointValues == "object" ? columnsBreakpointValues[breakpoint] : columnsBreakpointValues;
-      if (columnValue == null)
-        return globalStyles;
-      let width3 = `${Math.round(size2 / columnValue * 1e8) / 1e6}%`, more = {};
-      if (ownerState.container && ownerState.item && ownerState.columnSpacing !== 0) {
-        let themeSpacing = theme.spacing(ownerState.columnSpacing);
-        if (themeSpacing !== "0px") {
-          let fullWidth = `calc(${width3} + ${getOffset(themeSpacing)})`;
-          more = {
-            flexBasis: fullWidth,
-            maxWidth: fullWidth
-          };
-        }
-      }
-      styles4 = _extends6({
-        flexBasis: width3,
-        flexGrow: 0,
-        maxWidth: width3
-      }, more);
-    }
-    return theme.breakpoints.values[breakpoint] === 0 ? Object.assign(globalStyles, styles4) : globalStyles[theme.breakpoints.up(breakpoint)] = styles4, globalStyles;
-  }, {});
-}
-function generateDirection({
-  theme,
-  ownerState
-}) {
-  let directionValues = resolveBreakpointValues({
-    values: ownerState.direction,
-    breakpoints: theme.breakpoints.values
-  });
-  return handleBreakpoints({
-    theme
-  }, directionValues, (propValue) => {
-    let output = {
-      flexDirection: propValue
-    };
-    return propValue.indexOf("column") === 0 && (output[`& > .${gridClasses_default.item}`] = {
-      maxWidth: "none"
-    }), output;
-  });
-}
-function extractZeroValueBreakpointKeys({
-  breakpoints: breakpoints2,
-  values: values3
-}) {
-  let nonZeroKey = "";
-  Object.keys(values3).forEach((key) => {
-    nonZeroKey === "" && values3[key] !== 0 && (nonZeroKey = key);
-  });
-  let sortedBreakpointKeysByValue = Object.keys(breakpoints2).sort((a, b) => breakpoints2[a] - breakpoints2[b]);
-  return sortedBreakpointKeysByValue.slice(0, sortedBreakpointKeysByValue.indexOf(nonZeroKey));
-}
-function generateRowGap({
-  theme,
-  ownerState
-}) {
-  let {
-    container,
-    rowSpacing
-  } = ownerState, styles4 = {};
-  if (container && rowSpacing !== 0) {
-    let rowSpacingValues = resolveBreakpointValues({
-      values: rowSpacing,
-      breakpoints: theme.breakpoints.values
-    }), zeroValueBreakpointKeys;
-    typeof rowSpacingValues == "object" && (zeroValueBreakpointKeys = extractZeroValueBreakpointKeys({
-      breakpoints: theme.breakpoints.values,
-      values: rowSpacingValues
-    })), styles4 = handleBreakpoints({
-      theme
-    }, rowSpacingValues, (propValue, breakpoint) => {
-      var _zeroValueBreakpointK;
-      let themeSpacing = theme.spacing(propValue);
-      return themeSpacing !== "0px" ? {
-        marginTop: `-${getOffset(themeSpacing)}`,
-        [`& > .${gridClasses_default.item}`]: {
-          paddingTop: getOffset(themeSpacing)
-        }
-      } : (_zeroValueBreakpointK = zeroValueBreakpointKeys) != null && _zeroValueBreakpointK.includes(breakpoint) ? {} : {
-        marginTop: 0,
-        [`& > .${gridClasses_default.item}`]: {
-          paddingTop: 0
-        }
-      };
-    });
-  }
-  return styles4;
-}
-function generateColumnGap({
-  theme,
-  ownerState
-}) {
-  let {
-    container,
-    columnSpacing
-  } = ownerState, styles4 = {};
-  if (container && columnSpacing !== 0) {
-    let columnSpacingValues = resolveBreakpointValues({
-      values: columnSpacing,
-      breakpoints: theme.breakpoints.values
-    }), zeroValueBreakpointKeys;
-    typeof columnSpacingValues == "object" && (zeroValueBreakpointKeys = extractZeroValueBreakpointKeys({
-      breakpoints: theme.breakpoints.values,
-      values: columnSpacingValues
-    })), styles4 = handleBreakpoints({
-      theme
-    }, columnSpacingValues, (propValue, breakpoint) => {
-      var _zeroValueBreakpointK2;
-      let themeSpacing = theme.spacing(propValue);
-      return themeSpacing !== "0px" ? {
-        width: `calc(100% + ${getOffset(themeSpacing)})`,
-        marginLeft: `-${getOffset(themeSpacing)}`,
-        [`& > .${gridClasses_default.item}`]: {
-          paddingLeft: getOffset(themeSpacing)
-        }
-      } : (_zeroValueBreakpointK2 = zeroValueBreakpointKeys) != null && _zeroValueBreakpointK2.includes(breakpoint) ? {} : {
-        width: "100%",
-        marginLeft: 0,
-        [`& > .${gridClasses_default.item}`]: {
-          paddingLeft: 0
-        }
-      };
-    });
-  }
-  return styles4;
-}
-function resolveSpacingStyles(spacing2, breakpoints2, styles4 = {}) {
-  if (!spacing2 || spacing2 <= 0)
-    return [];
-  if (typeof spacing2 == "string" && !Number.isNaN(Number(spacing2)) || typeof spacing2 == "number")
-    return [styles4[`spacing-xs-${String(spacing2)}`]];
-  let spacingStyles = [];
-  return breakpoints2.forEach((breakpoint) => {
-    let value = spacing2[breakpoint];
-    Number(value) > 0 && spacingStyles.push(styles4[`spacing-${breakpoint}-${String(value)}`]);
-  }), spacingStyles;
-}
-var GridRoot = styled_default("div", {
-  name: "MuiGrid",
-  slot: "Root",
-  overridesResolver: (props, styles4) => {
-    let {
-      ownerState
-    } = props, {
-      container,
-      direction,
-      item,
-      spacing: spacing2,
-      wrap,
-      zeroMinWidth,
-      breakpoints: breakpoints2
-    } = ownerState, spacingStyles = [];
-    container && (spacingStyles = resolveSpacingStyles(spacing2, breakpoints2, styles4));
-    let breakpointsStyles = [];
-    return breakpoints2.forEach((breakpoint) => {
-      let value = ownerState[breakpoint];
-      value && breakpointsStyles.push(styles4[`grid-${breakpoint}-${String(value)}`]);
-    }), [styles4.root, container && styles4.container, item && styles4.item, zeroMinWidth && styles4.zeroMinWidth, ...spacingStyles, direction !== "row" && styles4[`direction-xs-${String(direction)}`], wrap !== "wrap" && styles4[`wrap-xs-${String(wrap)}`], ...breakpointsStyles];
-  }
-})(({
-  ownerState
-}) => _extends6({
-  boxSizing: "border-box"
-}, ownerState.container && {
-  display: "flex",
-  flexWrap: "wrap",
-  width: "100%"
-}, ownerState.item && {
-  margin: 0
-  // For instance, it's useful when used with a `figure` element.
-}, ownerState.zeroMinWidth && {
-  minWidth: 0
-}, ownerState.wrap !== "wrap" && {
-  flexWrap: ownerState.wrap
-}), generateDirection, generateRowGap, generateColumnGap, generateGrid);
-function resolveSpacingClasses(spacing2, breakpoints2) {
-  if (!spacing2 || spacing2 <= 0)
-    return [];
-  if (typeof spacing2 == "string" && !Number.isNaN(Number(spacing2)) || typeof spacing2 == "number")
-    return [`spacing-xs-${String(spacing2)}`];
-  let classes = [];
-  return breakpoints2.forEach((breakpoint) => {
-    let value = spacing2[breakpoint];
-    if (Number(value) > 0) {
-      let className = `spacing-${breakpoint}-${String(value)}`;
-      classes.push(className);
-    }
-  }), classes;
-}
-var useUtilityClasses3 = (ownerState) => {
-  let {
-    classes,
-    container,
-    direction,
-    item,
-    spacing: spacing2,
-    wrap,
-    zeroMinWidth,
-    breakpoints: breakpoints2
-  } = ownerState, spacingClasses = [];
-  container && (spacingClasses = resolveSpacingClasses(spacing2, breakpoints2));
-  let breakpointsClasses = [];
-  breakpoints2.forEach((breakpoint) => {
-    let value = ownerState[breakpoint];
-    value && breakpointsClasses.push(`grid-${breakpoint}-${String(value)}`);
-  });
-  let slots = {
-    root: ["root", container && "container", item && "item", zeroMinWidth && "zeroMinWidth", ...spacingClasses, direction !== "row" && `direction-xs-${String(direction)}`, wrap !== "wrap" && `wrap-xs-${String(wrap)}`, ...breakpointsClasses]
-  };
-  return composeClasses(slots, getGridUtilityClass, classes);
-}, Grid = /* @__PURE__ */ React32.forwardRef(function(inProps, ref) {
-  let themeProps = useThemeProps2({
-    props: inProps,
-    name: "MuiGrid"
-  }), {
-    breakpoints: breakpoints2
-  } = useTheme4(), props = extendSxProp(themeProps), {
-    className,
-    columns: columnsProp,
-    columnSpacing: columnSpacingProp,
-    component = "div",
-    container = !1,
-    direction = "row",
-    item = !1,
-    rowSpacing: rowSpacingProp,
-    spacing: spacing2 = 0,
-    wrap = "wrap",
-    zeroMinWidth = !1
-  } = props, other = _objectWithoutPropertiesLoose2(props, _excluded17), rowSpacing = rowSpacingProp || spacing2, columnSpacing = columnSpacingProp || spacing2, columnsContext = React32.useContext(GridContext_default), columns = container ? columnsProp || 12 : columnsContext, breakpointsValues = {}, otherFiltered = _extends6({}, other);
-  breakpoints2.keys.forEach((breakpoint) => {
-    other[breakpoint] != null && (breakpointsValues[breakpoint] = other[breakpoint], delete otherFiltered[breakpoint]);
-  });
-  let ownerState = _extends6({}, props, {
-    columns,
-    container,
-    direction,
-    item,
-    rowSpacing,
-    columnSpacing,
-    wrap,
-    zeroMinWidth,
-    spacing: spacing2
-  }, breakpointsValues, {
-    breakpoints: breakpoints2.keys
-  }), classes = useUtilityClasses3(ownerState);
-  return /* @__PURE__ */ (0, import_jsx_runtime13.jsx)(GridContext_default.Provider, {
-    value: columns,
-    children: /* @__PURE__ */ (0, import_jsx_runtime13.jsx)(GridRoot, _extends6({
-      ownerState,
-      className: clsx_default(classes.root, className),
-      as: component,
-      ref
-    }, otherFiltered))
-  });
-});
-Grid.propTypes = {
-  // ┌────────────────────────────── Warning ──────────────────────────────┐
-  // │ These PropTypes are generated from the TypeScript type definitions. │
-  // │    To update them, edit the d.ts file and run `pnpm proptypes`.     │
-  // └─────────────────────────────────────────────────────────────────────┘
-  /**
-   * The content of the component.
-   */
-  children: import_prop_types10.default.node,
-  /**
-   * Override or extend the styles applied to the component.
-   */
-  classes: import_prop_types10.default.object,
-  /**
-   * @ignore
-   */
-  className: import_prop_types10.default.string,
-  /**
-   * The number of columns.
-   * @default 12
-   */
-  columns: import_prop_types10.default.oneOfType([import_prop_types10.default.arrayOf(import_prop_types10.default.number), import_prop_types10.default.number, import_prop_types10.default.object]),
-  /**
-   * Defines the horizontal space between the type `item` components.
-   * It overrides the value of the `spacing` prop.
-   */
-  columnSpacing: import_prop_types10.default.oneOfType([import_prop_types10.default.arrayOf(import_prop_types10.default.oneOfType([import_prop_types10.default.number, import_prop_types10.default.string])), import_prop_types10.default.number, import_prop_types10.default.object, import_prop_types10.default.string]),
-  /**
-   * The component used for the root node.
-   * Either a string to use a HTML element or a component.
-   */
-  component: import_prop_types10.default.elementType,
-  /**
-   * If `true`, the component will have the flex *container* behavior.
-   * You should be wrapping *items* with a *container*.
-   * @default false
-   */
-  container: import_prop_types10.default.bool,
-  /**
-   * Defines the `flex-direction` style property.
-   * It is applied for all screen sizes.
-   * @default 'row'
-   */
-  direction: import_prop_types10.default.oneOfType([import_prop_types10.default.oneOf(["column-reverse", "column", "row-reverse", "row"]), import_prop_types10.default.arrayOf(import_prop_types10.default.oneOf(["column-reverse", "column", "row-reverse", "row"])), import_prop_types10.default.object]),
-  /**
-   * If `true`, the component will have the flex *item* behavior.
-   * You should be wrapping *items* with a *container*.
-   * @default false
-   */
-  item: import_prop_types10.default.bool,
-  /**
-   * If a number, it sets the number of columns the grid item uses.
-   * It can't be greater than the total number of columns of the container (12 by default).
-   * If 'auto', the grid item's width matches its content.
-   * If false, the prop is ignored.
-   * If true, the grid item's width grows to use the space available in the grid container.
-   * The value is applied for the `lg` breakpoint and wider screens if not overridden.
-   * @default false
-   */
-  lg: import_prop_types10.default.oneOfType([import_prop_types10.default.oneOf(["auto"]), import_prop_types10.default.number, import_prop_types10.default.bool]),
-  /**
-   * If a number, it sets the number of columns the grid item uses.
-   * It can't be greater than the total number of columns of the container (12 by default).
-   * If 'auto', the grid item's width matches its content.
-   * If false, the prop is ignored.
-   * If true, the grid item's width grows to use the space available in the grid container.
-   * The value is applied for the `md` breakpoint and wider screens if not overridden.
-   * @default false
-   */
-  md: import_prop_types10.default.oneOfType([import_prop_types10.default.oneOf(["auto"]), import_prop_types10.default.number, import_prop_types10.default.bool]),
-  /**
-   * Defines the vertical space between the type `item` components.
-   * It overrides the value of the `spacing` prop.
-   */
-  rowSpacing: import_prop_types10.default.oneOfType([import_prop_types10.default.arrayOf(import_prop_types10.default.oneOfType([import_prop_types10.default.number, import_prop_types10.default.string])), import_prop_types10.default.number, import_prop_types10.default.object, import_prop_types10.default.string]),
-  /**
-   * If a number, it sets the number of columns the grid item uses.
-   * It can't be greater than the total number of columns of the container (12 by default).
-   * If 'auto', the grid item's width matches its content.
-   * If false, the prop is ignored.
-   * If true, the grid item's width grows to use the space available in the grid container.
-   * The value is applied for the `sm` breakpoint and wider screens if not overridden.
-   * @default false
-   */
-  sm: import_prop_types10.default.oneOfType([import_prop_types10.default.oneOf(["auto"]), import_prop_types10.default.number, import_prop_types10.default.bool]),
-  /**
-   * Defines the space between the type `item` components.
-   * It can only be used on a type `container` component.
-   * @default 0
-   */
-  spacing: import_prop_types10.default.oneOfType([import_prop_types10.default.arrayOf(import_prop_types10.default.oneOfType([import_prop_types10.default.number, import_prop_types10.default.string])), import_prop_types10.default.number, import_prop_types10.default.object, import_prop_types10.default.string]),
-  /**
-   * The system prop that allows defining system overrides as well as additional CSS styles.
-   */
-  sx: import_prop_types10.default.oneOfType([import_prop_types10.default.arrayOf(import_prop_types10.default.oneOfType([import_prop_types10.default.func, import_prop_types10.default.object, import_prop_types10.default.bool])), import_prop_types10.default.func, import_prop_types10.default.object]),
-  /**
-   * Defines the `flex-wrap` style property.
-   * It's applied for all screen sizes.
-   * @default 'wrap'
-   */
-  wrap: import_prop_types10.default.oneOf(["nowrap", "wrap-reverse", "wrap"]),
-  /**
-   * If a number, it sets the number of columns the grid item uses.
-   * It can't be greater than the total number of columns of the container (12 by default).
-   * If 'auto', the grid item's width matches its content.
-   * If false, the prop is ignored.
-   * If true, the grid item's width grows to use the space available in the grid container.
-   * The value is applied for the `xl` breakpoint and wider screens if not overridden.
-   * @default false
-   */
-  xl: import_prop_types10.default.oneOfType([import_prop_types10.default.oneOf(["auto"]), import_prop_types10.default.number, import_prop_types10.default.bool]),
-  /**
-   * If a number, it sets the number of columns the grid item uses.
-   * It can't be greater than the total number of columns of the container (12 by default).
-   * If 'auto', the grid item's width matches its content.
-   * If false, the prop is ignored.
-   * If true, the grid item's width grows to use the space available in the grid container.
-   * The value is applied for all the screen sizes with the lowest priority.
-   * @default false
-   */
-  xs: import_prop_types10.default.oneOfType([import_prop_types10.default.oneOf(["auto"]), import_prop_types10.default.number, import_prop_types10.default.bool]),
-  /**
-   * If `true`, it sets `min-width: 0` on the item.
-   * Refer to the limitations section of the documentation to better understand the use case.
-   * @default false
-   */
-  zeroMinWidth: import_prop_types10.default.bool
-};
-{
-  let requireProp = requirePropFactory_default("Grid", Grid);
-  Grid["propTypes"] = _extends6({}, Grid.propTypes, {
-    direction: requireProp("container"),
-    lg: requireProp("item"),
-    md: requireProp("item"),
-    sm: requireProp("item"),
-    spacing: requireProp("container"),
-    wrap: requireProp("container"),
-    xs: requireProp("item"),
-    zeroMinWidth: requireProp("item")
-  });
-}
-var Grid_default = Grid;
-
-// node_modules/@mui/material/Tab/Tab.js
-var React33 = __toESM(require_react()), import_prop_types11 = __toESM(require_prop_types());
-
-// node_modules/@mui/material/Tab/tabClasses.js
-function getTabUtilityClass(slot) {
-  return generateUtilityClass("MuiTab", slot);
-}
-var tabClasses = generateUtilityClasses("MuiTab", ["root", "labelIcon", "textColorInherit", "textColorPrimary", "textColorSecondary", "selected", "disabled", "fullWidth", "wrapped", "iconWrapper"]), tabClasses_default = tabClasses;
-
-// node_modules/@mui/material/Tab/Tab.js
-var import_jsx_runtime14 = __toESM(require_jsx_runtime()), _excluded18 = ["className", "disabled", "disableFocusRipple", "fullWidth", "icon", "iconPosition", "indicator", "label", "onChange", "onClick", "onFocus", "selected", "selectionFollowsFocus", "textColor", "value", "wrapped"], useUtilityClasses4 = (ownerState) => {
-  let {
-    classes,
-    textColor,
-    fullWidth,
-    wrapped,
-    icon,
-    label,
-    selected,
-    disabled
-  } = ownerState, slots = {
-    root: ["root", icon && label && "labelIcon", `textColor${capitalize_default(textColor)}`, fullWidth && "fullWidth", wrapped && "wrapped", selected && "selected", disabled && "disabled"],
-    iconWrapper: ["iconWrapper"]
-  };
-  return composeClasses(slots, getTabUtilityClass, classes);
-}, TabRoot = styled_default(ButtonBase_default, {
-  name: "MuiTab",
-  slot: "Root",
-  overridesResolver: (props, styles4) => {
-    let {
-      ownerState
-    } = props;
-    return [styles4.root, ownerState.label && ownerState.icon && styles4.labelIcon, styles4[`textColor${capitalize_default(ownerState.textColor)}`], ownerState.fullWidth && styles4.fullWidth, ownerState.wrapped && styles4.wrapped];
-  }
-})(({
-  theme,
-  ownerState
-}) => _extends6({}, theme.typography.button, {
-  maxWidth: 360,
-  minWidth: 90,
-  position: "relative",
-  minHeight: 48,
-  flexShrink: 0,
-  padding: "12px 16px",
-  overflow: "hidden",
-  whiteSpace: "normal",
-  textAlign: "center"
-}, ownerState.label && {
-  flexDirection: ownerState.iconPosition === "top" || ownerState.iconPosition === "bottom" ? "column" : "row"
-}, {
-  lineHeight: 1.25
-}, ownerState.icon && ownerState.label && {
-  minHeight: 72,
-  paddingTop: 9,
-  paddingBottom: 9,
-  [`& > .${tabClasses_default.iconWrapper}`]: _extends6({}, ownerState.iconPosition === "top" && {
-    marginBottom: 6
-  }, ownerState.iconPosition === "bottom" && {
-    marginTop: 6
-  }, ownerState.iconPosition === "start" && {
-    marginRight: theme.spacing(1)
-  }, ownerState.iconPosition === "end" && {
-    marginLeft: theme.spacing(1)
-  })
-}, ownerState.textColor === "inherit" && {
-  color: "inherit",
-  opacity: 0.6,
-  // same opacity as theme.palette.text.secondary
-  [`&.${tabClasses_default.selected}`]: {
-    opacity: 1
-  },
-  [`&.${tabClasses_default.disabled}`]: {
-    opacity: (theme.vars || theme).palette.action.disabledOpacity
-  }
-}, ownerState.textColor === "primary" && {
-  color: (theme.vars || theme).palette.text.secondary,
-  [`&.${tabClasses_default.selected}`]: {
-    color: (theme.vars || theme).palette.primary.main
-  },
-  [`&.${tabClasses_default.disabled}`]: {
-    color: (theme.vars || theme).palette.text.disabled
-  }
-}, ownerState.textColor === "secondary" && {
-  color: (theme.vars || theme).palette.text.secondary,
-  [`&.${tabClasses_default.selected}`]: {
-    color: (theme.vars || theme).palette.secondary.main
-  },
-  [`&.${tabClasses_default.disabled}`]: {
-    color: (theme.vars || theme).palette.text.disabled
-  }
-}, ownerState.fullWidth && {
-  flexShrink: 1,
-  flexGrow: 1,
-  flexBasis: 0,
-  maxWidth: "none"
-}, ownerState.wrapped && {
-  fontSize: theme.typography.pxToRem(12)
-})), Tab = /* @__PURE__ */ React33.forwardRef(function(inProps, ref) {
-  let props = useThemeProps2({
-    props: inProps,
-    name: "MuiTab"
-  }), {
-    className,
-    disabled = !1,
-    disableFocusRipple = !1,
-    // eslint-disable-next-line react/prop-types
-    fullWidth,
-    icon: iconProp,
-    iconPosition = "top",
-    // eslint-disable-next-line react/prop-types
-    indicator,
-    label,
-    onChange,
-    onClick,
-    onFocus,
-    // eslint-disable-next-line react/prop-types
-    selected,
-    // eslint-disable-next-line react/prop-types
-    selectionFollowsFocus,
-    // eslint-disable-next-line react/prop-types
-    textColor = "inherit",
-    value,
-    wrapped = !1
-  } = props, other = _objectWithoutPropertiesLoose2(props, _excluded18), ownerState = _extends6({}, props, {
-    disabled,
-    disableFocusRipple,
-    selected,
-    icon: !!iconProp,
-    iconPosition,
-    label: !!label,
-    fullWidth,
-    textColor,
-    wrapped
-  }), classes = useUtilityClasses4(ownerState), icon = iconProp && label && /* @__PURE__ */ React33.isValidElement(iconProp) ? /* @__PURE__ */ React33.cloneElement(iconProp, {
-    className: clsx_default(classes.iconWrapper, iconProp.props.className)
-  }) : iconProp, handleClick = (event) => {
-    !selected && onChange && onChange(event, value), onClick && onClick(event);
-  }, handleFocus = (event) => {
-    selectionFollowsFocus && !selected && onChange && onChange(event, value), onFocus && onFocus(event);
-  };
-  return /* @__PURE__ */ (0, import_jsx_runtime14.jsxs)(TabRoot, _extends6({
-    focusRipple: !disableFocusRipple,
-    className: clsx_default(classes.root, className),
-    ref,
-    role: "tab",
-    "aria-selected": selected,
-    disabled,
-    onClick: handleClick,
-    onFocus: handleFocus,
-    ownerState,
-    tabIndex: selected ? 0 : -1
-  }, other, {
-    children: [iconPosition === "top" || iconPosition === "start" ? /* @__PURE__ */ (0, import_jsx_runtime14.jsxs)(React33.Fragment, {
-      children: [icon, label]
-    }) : /* @__PURE__ */ (0, import_jsx_runtime14.jsxs)(React33.Fragment, {
-      children: [label, icon]
-    }), indicator]
-  }));
-});
-Tab.propTypes = {
-  // ┌────────────────────────────── Warning ──────────────────────────────┐
-  // │ These PropTypes are generated from the TypeScript type definitions. │
-  // │    To update them, edit the d.ts file and run `pnpm proptypes`.     │
-  // └─────────────────────────────────────────────────────────────────────┘
-  /**
-   * This prop isn't supported.
-   * Use the `component` prop if you need to change the children structure.
-   */
-  children: unsupportedProp_default,
-  /**
-   * Override or extend the styles applied to the component.
-   */
-  classes: import_prop_types11.default.object,
-  /**
-   * @ignore
-   */
-  className: import_prop_types11.default.string,
-  /**
-   * If `true`, the component is disabled.
-   * @default false
-   */
-  disabled: import_prop_types11.default.bool,
-  /**
-   * If `true`, the  keyboard focus ripple is disabled.
-   * @default false
-   */
-  disableFocusRipple: import_prop_types11.default.bool,
-  /**
-   * If `true`, the ripple effect is disabled.
-   *
-   * ⚠️ Without a ripple there is no styling for :focus-visible by default. Be sure
-   * to highlight the element by applying separate styles with the `.Mui-focusVisible` class.
-   * @default false
-   */
-  disableRipple: import_prop_types11.default.bool,
-  /**
-   * The icon to display.
-   */
-  icon: import_prop_types11.default.oneOfType([import_prop_types11.default.element, import_prop_types11.default.string]),
-  /**
-   * The position of the icon relative to the label.
-   * @default 'top'
-   */
-  iconPosition: import_prop_types11.default.oneOf(["bottom", "end", "start", "top"]),
-  /**
-   * The label element.
-   */
-  label: import_prop_types11.default.node,
-  /**
-   * @ignore
-   */
-  onChange: import_prop_types11.default.func,
-  /**
-   * @ignore
-   */
-  onClick: import_prop_types11.default.func,
-  /**
-   * @ignore
-   */
-  onFocus: import_prop_types11.default.func,
-  /**
-   * The system prop that allows defining system overrides as well as additional CSS styles.
-   */
-  sx: import_prop_types11.default.oneOfType([import_prop_types11.default.arrayOf(import_prop_types11.default.oneOfType([import_prop_types11.default.func, import_prop_types11.default.object, import_prop_types11.default.bool])), import_prop_types11.default.func, import_prop_types11.default.object]),
-  /**
-   * You can provide your own value. Otherwise, we fallback to the child position index.
-   */
-  value: import_prop_types11.default.any,
-  /**
-   * Tab labels appear in a single row.
-   * They can use a second line if needed.
-   * @default false
-   */
-  wrapped: import_prop_types11.default.bool
-};
-var Tab_default = Tab;
-
-// node_modules/@mui/material/internal/svg-icons/KeyboardArrowLeft.js
-var React34 = __toESM(require_react());
-var import_jsx_runtime15 = __toESM(require_jsx_runtime()), KeyboardArrowLeft_default = createSvgIcon(/* @__PURE__ */ (0, import_jsx_runtime15.jsx)("path", {
-  d: "M15.41 16.09l-4.58-4.59 4.58-4.59L14 5.5l-6 6 6 6z"
-}), "KeyboardArrowLeft");
-
-// node_modules/@mui/material/internal/svg-icons/KeyboardArrowRight.js
-var React35 = __toESM(require_react());
-var import_jsx_runtime16 = __toESM(require_jsx_runtime()), KeyboardArrowRight_default = createSvgIcon(/* @__PURE__ */ (0, import_jsx_runtime16.jsx)("path", {
-  d: "M8.59 16.34l4.58-4.59-4.58-4.59L10 5.75l6 6-6 6z"
-}), "KeyboardArrowRight");
-
-// node_modules/@mui/material/Tabs/Tabs.js
-var React38 = __toESM(require_react()), import_react_is2 = __toESM(require_react_is3()), import_prop_types14 = __toESM(require_prop_types());
-
-// node_modules/@mui/material/internal/animate.js
-function easeInOutSin(time) {
-  return (1 + Math.sin(Math.PI * time - Math.PI / 2)) / 2;
-}
-function animate(property, element, to, options = {}, cb = () => {
-}) {
-  let {
-    ease = easeInOutSin,
-    duration: duration2 = 300
-    // standard
-  } = options, start = null, from = element[property], cancelled = !1, cancel = () => {
-    cancelled = !0;
-  }, step = (timestamp) => {
-    if (cancelled) {
-      cb(new Error("Animation cancelled"));
-      return;
-    }
-    start === null && (start = timestamp);
-    let time = Math.min(1, (timestamp - start) / duration2);
-    if (element[property] = ease(time) * (to - from) + from, time >= 1) {
-      requestAnimationFrame(() => {
-        cb(null);
-      });
-      return;
-    }
-    requestAnimationFrame(step);
-  };
-  return from === to ? (cb(new Error("Element already at target position")), cancel) : (requestAnimationFrame(step), cancel);
-}
-
-// node_modules/@mui/material/Tabs/ScrollbarSize.js
-var React36 = __toESM(require_react()), import_prop_types12 = __toESM(require_prop_types());
-var import_jsx_runtime17 = __toESM(require_jsx_runtime()), _excluded19 = ["onChange"], styles3 = {
-  width: 99,
-  height: 99,
-  position: "absolute",
-  top: -9999,
-  overflow: "scroll"
-};
-function ScrollbarSize(props) {
-  let {
-    onChange
-  } = props, other = _objectWithoutPropertiesLoose2(props, _excluded19), scrollbarHeight = React36.useRef(), nodeRef = React36.useRef(null), setMeasurements = () => {
-    scrollbarHeight.current = nodeRef.current.offsetHeight - nodeRef.current.clientHeight;
-  };
-  return useEnhancedEffect_default2(() => {
-    let handleResize = debounce_default(() => {
-      let prevHeight = scrollbarHeight.current;
-      setMeasurements(), prevHeight !== scrollbarHeight.current && onChange(scrollbarHeight.current);
-    }), containerWindow = ownerWindow_default(nodeRef.current);
-    return containerWindow.addEventListener("resize", handleResize), () => {
-      handleResize.clear(), containerWindow.removeEventListener("resize", handleResize);
-    };
-  }, [onChange]), React36.useEffect(() => {
-    setMeasurements(), onChange(scrollbarHeight.current);
-  }, [onChange]), /* @__PURE__ */ (0, import_jsx_runtime17.jsx)("div", _extends6({
-    style: styles3,
-    ref: nodeRef
-  }, other));
-}
-ScrollbarSize.propTypes = {
-  onChange: import_prop_types12.default.func.isRequired
-};
-
-// node_modules/@mui/material/TabScrollButton/TabScrollButton.js
-var React37 = __toESM(require_react()), import_prop_types13 = __toESM(require_prop_types());
-
-// node_modules/@mui/material/TabScrollButton/tabScrollButtonClasses.js
-function getTabScrollButtonUtilityClass(slot) {
-  return generateUtilityClass("MuiTabScrollButton", slot);
-}
-var tabScrollButtonClasses = generateUtilityClasses("MuiTabScrollButton", ["root", "vertical", "horizontal", "disabled"]), tabScrollButtonClasses_default = tabScrollButtonClasses;
-
-// node_modules/@mui/material/TabScrollButton/TabScrollButton.js
-var import_jsx_runtime18 = __toESM(require_jsx_runtime()), _excluded20 = ["className", "slots", "slotProps", "direction", "orientation", "disabled"], useUtilityClasses5 = (ownerState) => {
-  let {
-    classes,
-    orientation,
-    disabled
-  } = ownerState;
-  return composeClasses({
-    root: ["root", orientation, disabled && "disabled"]
-  }, getTabScrollButtonUtilityClass, classes);
-}, TabScrollButtonRoot = styled_default(ButtonBase_default, {
-  name: "MuiTabScrollButton",
-  slot: "Root",
-  overridesResolver: (props, styles4) => {
-    let {
-      ownerState
-    } = props;
-    return [styles4.root, ownerState.orientation && styles4[ownerState.orientation]];
-  }
-})(({
-  ownerState
-}) => _extends6({
-  width: 40,
-  flexShrink: 0,
-  opacity: 0.8,
-  [`&.${tabScrollButtonClasses_default.disabled}`]: {
-    opacity: 0
-  }
-}, ownerState.orientation === "vertical" && {
-  width: "100%",
-  height: 40,
-  "& svg": {
-    transform: `rotate(${ownerState.isRtl ? -90 : 90}deg)`
-  }
-})), TabScrollButton = /* @__PURE__ */ React37.forwardRef(function(inProps, ref) {
-  var _slots$StartScrollBut, _slots$EndScrollButto;
-  let props = useThemeProps2({
-    props: inProps,
-    name: "MuiTabScrollButton"
-  }), {
-    className,
-    slots = {},
-    slotProps = {},
-    direction
-  } = props, other = _objectWithoutPropertiesLoose2(props, _excluded20), isRtl = useTheme4().direction === "rtl", ownerState = _extends6({
-    isRtl
-  }, props), classes = useUtilityClasses5(ownerState), StartButtonIcon = (_slots$StartScrollBut = slots.StartScrollButtonIcon) != null ? _slots$StartScrollBut : KeyboardArrowLeft_default, EndButtonIcon = (_slots$EndScrollButto = slots.EndScrollButtonIcon) != null ? _slots$EndScrollButto : KeyboardArrowRight_default, startButtonIconProps = useSlotProps({
-    elementType: StartButtonIcon,
-    externalSlotProps: slotProps.startScrollButtonIcon,
-    additionalProps: {
-      fontSize: "small"
-    },
-    ownerState
-  }), endButtonIconProps = useSlotProps({
-    elementType: EndButtonIcon,
-    externalSlotProps: slotProps.endScrollButtonIcon,
-    additionalProps: {
-      fontSize: "small"
-    },
-    ownerState
-  });
-  return /* @__PURE__ */ (0, import_jsx_runtime18.jsx)(TabScrollButtonRoot, _extends6({
-    component: "div",
-    className: clsx_default(classes.root, className),
-    ref,
-    role: null,
-    ownerState,
-    tabIndex: null
-  }, other, {
-    children: direction === "left" ? /* @__PURE__ */ (0, import_jsx_runtime18.jsx)(StartButtonIcon, _extends6({}, startButtonIconProps)) : /* @__PURE__ */ (0, import_jsx_runtime18.jsx)(EndButtonIcon, _extends6({}, endButtonIconProps))
-  }));
-});
-TabScrollButton.propTypes = {
-  // ┌────────────────────────────── Warning ──────────────────────────────┐
-  // │ These PropTypes are generated from the TypeScript type definitions. │
-  // │    To update them, edit the d.ts file and run `pnpm proptypes`.     │
-  // └─────────────────────────────────────────────────────────────────────┘
-  /**
-   * The content of the component.
-   */
-  children: import_prop_types13.default.node,
-  /**
-   * Override or extend the styles applied to the component.
-   */
-  classes: import_prop_types13.default.object,
-  /**
-   * @ignore
-   */
-  className: import_prop_types13.default.string,
-  /**
-   * The direction the button should indicate.
-   */
-  direction: import_prop_types13.default.oneOf(["left", "right"]).isRequired,
-  /**
-   * If `true`, the component is disabled.
-   * @default false
-   */
-  disabled: import_prop_types13.default.bool,
-  /**
-   * The component orientation (layout flow direction).
-   */
-  orientation: import_prop_types13.default.oneOf(["horizontal", "vertical"]).isRequired,
-  /**
-   * The extra props for the slot components.
-   * You can override the existing props or add new ones.
-   * @default {}
-   */
-  slotProps: import_prop_types13.default.shape({
-    endScrollButtonIcon: import_prop_types13.default.oneOfType([import_prop_types13.default.func, import_prop_types13.default.object]),
-    startScrollButtonIcon: import_prop_types13.default.oneOfType([import_prop_types13.default.func, import_prop_types13.default.object])
-  }),
-  /**
-   * The components used for each slot inside.
-   * @default {}
-   */
-  slots: import_prop_types13.default.shape({
-    EndScrollButtonIcon: import_prop_types13.default.elementType,
-    StartScrollButtonIcon: import_prop_types13.default.elementType
-  }),
-  /**
-   * The system prop that allows defining system overrides as well as additional CSS styles.
-   */
-  sx: import_prop_types13.default.oneOfType([import_prop_types13.default.arrayOf(import_prop_types13.default.oneOfType([import_prop_types13.default.func, import_prop_types13.default.object, import_prop_types13.default.bool])), import_prop_types13.default.func, import_prop_types13.default.object])
-};
-var TabScrollButton_default = TabScrollButton;
-
-// node_modules/@mui/material/Tabs/tabsClasses.js
-function getTabsUtilityClass(slot) {
-  return generateUtilityClass("MuiTabs", slot);
-}
-var tabsClasses = generateUtilityClasses("MuiTabs", ["root", "vertical", "flexContainer", "flexContainerVertical", "centered", "scroller", "fixed", "scrollableX", "scrollableY", "hideScrollbar", "scrollButtons", "scrollButtonsHideMobile", "indicator"]), tabsClasses_default = tabsClasses;
-
-// node_modules/@mui/material/Tabs/Tabs.js
-var import_jsx_runtime19 = __toESM(require_jsx_runtime()), import_jsx_runtime20 = __toESM(require_jsx_runtime()), _excluded21 = ["aria-label", "aria-labelledby", "action", "centered", "children", "className", "component", "allowScrollButtonsMobile", "indicatorColor", "onChange", "orientation", "ScrollButtonComponent", "scrollButtons", "selectionFollowsFocus", "slots", "slotProps", "TabIndicatorProps", "TabScrollButtonProps", "textColor", "value", "variant", "visibleScrollbar"], nextItem = (list2, item) => list2 === item ? list2.firstChild : item && item.nextElementSibling ? item.nextElementSibling : list2.firstChild, previousItem = (list2, item) => list2 === item ? list2.lastChild : item && item.previousElementSibling ? item.previousElementSibling : list2.lastChild, moveFocus = (list2, currentFocus, traversalFunction) => {
-  let wrappedOnce = !1, nextFocus = traversalFunction(list2, currentFocus);
-  for (; nextFocus; ) {
-    if (nextFocus === list2.firstChild) {
-      if (wrappedOnce)
-        return;
-      wrappedOnce = !0;
-    }
-    let nextFocusDisabled = nextFocus.disabled || nextFocus.getAttribute("aria-disabled") === "true";
-    if (!nextFocus.hasAttribute("tabindex") || nextFocusDisabled)
-      nextFocus = traversalFunction(list2, nextFocus);
-    else {
-      nextFocus.focus();
-      return;
-    }
-  }
-}, useUtilityClasses6 = (ownerState) => {
-  let {
-    vertical,
-    fixed,
-    hideScrollbar,
-    scrollableX,
-    scrollableY,
-    centered,
-    scrollButtonsHideMobile,
-    classes
-  } = ownerState;
-  return composeClasses({
-    root: ["root", vertical && "vertical"],
-    scroller: ["scroller", fixed && "fixed", hideScrollbar && "hideScrollbar", scrollableX && "scrollableX", scrollableY && "scrollableY"],
-    flexContainer: ["flexContainer", vertical && "flexContainerVertical", centered && "centered"],
-    indicator: ["indicator"],
-    scrollButtons: ["scrollButtons", scrollButtonsHideMobile && "scrollButtonsHideMobile"],
-    scrollableX: [scrollableX && "scrollableX"],
-    hideScrollbar: [hideScrollbar && "hideScrollbar"]
-  }, getTabsUtilityClass, classes);
-}, TabsRoot = styled_default("div", {
-  name: "MuiTabs",
-  slot: "Root",
-  overridesResolver: (props, styles4) => {
-    let {
-      ownerState
-    } = props;
-    return [{
-      [`& .${tabsClasses_default.scrollButtons}`]: styles4.scrollButtons
-    }, {
-      [`& .${tabsClasses_default.scrollButtons}`]: ownerState.scrollButtonsHideMobile && styles4.scrollButtonsHideMobile
-    }, styles4.root, ownerState.vertical && styles4.vertical];
-  }
-})(({
-  ownerState,
-  theme
-}) => _extends6({
-  overflow: "hidden",
-  minHeight: 48,
-  // Add iOS momentum scrolling for iOS < 13.0
-  WebkitOverflowScrolling: "touch",
-  display: "flex"
-}, ownerState.vertical && {
-  flexDirection: "column"
-}, ownerState.scrollButtonsHideMobile && {
-  [`& .${tabsClasses_default.scrollButtons}`]: {
-    [theme.breakpoints.down("sm")]: {
-      display: "none"
-    }
-  }
-})), TabsScroller = styled_default("div", {
-  name: "MuiTabs",
-  slot: "Scroller",
-  overridesResolver: (props, styles4) => {
-    let {
-      ownerState
-    } = props;
-    return [styles4.scroller, ownerState.fixed && styles4.fixed, ownerState.hideScrollbar && styles4.hideScrollbar, ownerState.scrollableX && styles4.scrollableX, ownerState.scrollableY && styles4.scrollableY];
-  }
-})(({
-  ownerState
-}) => _extends6({
-  position: "relative",
-  display: "inline-block",
-  flex: "1 1 auto",
-  whiteSpace: "nowrap"
-}, ownerState.fixed && {
-  overflowX: "hidden",
-  width: "100%"
-}, ownerState.hideScrollbar && {
-  // Hide dimensionless scrollbar on macOS
-  scrollbarWidth: "none",
-  // Firefox
-  "&::-webkit-scrollbar": {
-    display: "none"
-    // Safari + Chrome
-  }
-}, ownerState.scrollableX && {
-  overflowX: "auto",
-  overflowY: "hidden"
-}, ownerState.scrollableY && {
-  overflowY: "auto",
-  overflowX: "hidden"
-})), FlexContainer = styled_default("div", {
-  name: "MuiTabs",
-  slot: "FlexContainer",
-  overridesResolver: (props, styles4) => {
-    let {
-      ownerState
-    } = props;
-    return [styles4.flexContainer, ownerState.vertical && styles4.flexContainerVertical, ownerState.centered && styles4.centered];
-  }
-})(({
-  ownerState
-}) => _extends6({
-  display: "flex"
-}, ownerState.vertical && {
-  flexDirection: "column"
-}, ownerState.centered && {
-  justifyContent: "center"
-})), TabsIndicator = styled_default("span", {
-  name: "MuiTabs",
-  slot: "Indicator",
-  overridesResolver: (props, styles4) => styles4.indicator
-})(({
-  ownerState,
-  theme
-}) => _extends6({
-  position: "absolute",
-  height: 2,
-  bottom: 0,
-  width: "100%",
-  transition: theme.transitions.create()
-}, ownerState.indicatorColor === "primary" && {
-  backgroundColor: (theme.vars || theme).palette.primary.main
-}, ownerState.indicatorColor === "secondary" && {
-  backgroundColor: (theme.vars || theme).palette.secondary.main
-}, ownerState.vertical && {
-  height: "100%",
-  width: 2,
-  right: 0
-})), TabsScrollbarSize = styled_default(ScrollbarSize)({
-  overflowX: "auto",
-  overflowY: "hidden",
-  // Hide dimensionless scrollbar on macOS
-  scrollbarWidth: "none",
-  // Firefox
-  "&::-webkit-scrollbar": {
-    display: "none"
-    // Safari + Chrome
-  }
-}), defaultIndicatorStyle = {}, warnedOnceTabPresent = !1, Tabs = /* @__PURE__ */ React38.forwardRef(function(inProps, ref) {
-  let props = useThemeProps2({
-    props: inProps,
-    name: "MuiTabs"
-  }), theme = useTheme4(), isRtl = theme.direction === "rtl", {
-    "aria-label": ariaLabel,
-    "aria-labelledby": ariaLabelledBy,
-    action: action11,
-    centered = !1,
-    children: childrenProp,
-    className,
-    component = "div",
-    allowScrollButtonsMobile = !1,
-    indicatorColor = "primary",
-    onChange,
-    orientation = "horizontal",
-    ScrollButtonComponent = TabScrollButton_default,
-    scrollButtons = "auto",
-    selectionFollowsFocus,
-    slots = {},
-    slotProps = {},
-    TabIndicatorProps = {},
-    TabScrollButtonProps = {},
-    textColor = "primary",
-    value,
-    variant = "standard",
-    visibleScrollbar = !1
-  } = props, other = _objectWithoutPropertiesLoose2(props, _excluded21), scrollable = variant === "scrollable", vertical = orientation === "vertical", scrollStart = vertical ? "scrollTop" : "scrollLeft", start = vertical ? "top" : "left", end = vertical ? "bottom" : "right", clientSize = vertical ? "clientHeight" : "clientWidth", size2 = vertical ? "height" : "width", ownerState = _extends6({}, props, {
-    component,
-    allowScrollButtonsMobile,
-    indicatorColor,
-    orientation,
-    vertical,
-    scrollButtons,
-    textColor,
-    variant,
-    visibleScrollbar,
-    fixed: !scrollable,
-    hideScrollbar: scrollable && !visibleScrollbar,
-    scrollableX: scrollable && !vertical,
-    scrollableY: scrollable && vertical,
-    centered: centered && !scrollable,
-    scrollButtonsHideMobile: !allowScrollButtonsMobile
-  }), classes = useUtilityClasses6(ownerState), startScrollButtonIconProps = useSlotProps({
-    elementType: slots.StartScrollButtonIcon,
-    externalSlotProps: slotProps.startScrollButtonIcon,
-    ownerState
-  }), endScrollButtonIconProps = useSlotProps({
-    elementType: slots.EndScrollButtonIcon,
-    externalSlotProps: slotProps.endScrollButtonIcon,
-    ownerState
-  });
-  centered && scrollable && console.error('MUI: You can not use the `centered={true}` and `variant="scrollable"` properties at the same time on a `Tabs` component.');
-  let [mounted, setMounted] = React38.useState(!1), [indicatorStyle, setIndicatorStyle] = React38.useState(defaultIndicatorStyle), [displayStartScroll, setDisplayStartScroll] = React38.useState(!1), [displayEndScroll, setDisplayEndScroll] = React38.useState(!1), [updateScrollObserver, setUpdateScrollObserver] = React38.useState(!1), [scrollerStyle, setScrollerStyle] = React38.useState({
-    overflow: "hidden",
-    scrollbarWidth: 0
-  }), valueToIndex = /* @__PURE__ */ new Map(), tabsRef = React38.useRef(null), tabListRef = React38.useRef(null), getTabsMeta = () => {
-    let tabsNode = tabsRef.current, tabsMeta;
-    if (tabsNode) {
-      let rect = tabsNode.getBoundingClientRect();
-      tabsMeta = {
-        clientWidth: tabsNode.clientWidth,
-        scrollLeft: tabsNode.scrollLeft,
-        scrollTop: tabsNode.scrollTop,
-        scrollLeftNormalized: getNormalizedScrollLeft(tabsNode, theme.direction),
-        scrollWidth: tabsNode.scrollWidth,
-        top: rect.top,
-        bottom: rect.bottom,
-        left: rect.left,
-        right: rect.right
-      };
-    }
-    let tabMeta;
-    if (tabsNode && value !== !1) {
-      let children2 = tabListRef.current.children;
-      if (children2.length > 0) {
-        let tab = children2[valueToIndex.get(value)];
-        tab || console.error(["MUI: The `value` provided to the Tabs component is invalid.", `None of the Tabs' children match with "${value}".`, valueToIndex.keys ? `You can provide one of the following values: ${Array.from(valueToIndex.keys()).join(", ")}.` : null].join(`
-`)), tabMeta = tab ? tab.getBoundingClientRect() : null, !warnedOnceTabPresent && tabMeta && tabMeta.width === 0 && tabMeta.height === 0 && // if the whole Tabs component is hidden, don't warn
-        tabsMeta.clientWidth !== 0 && (tabsMeta = null, console.error(["MUI: The `value` provided to the Tabs component is invalid.", `The Tab with this \`value\` ("${value}") is not part of the document layout.`, "Make sure the tab item is present in the document or that it's not `display: none`."].join(`
-`)), warnedOnceTabPresent = !0);
-      }
-    }
-    return {
-      tabsMeta,
-      tabMeta
-    };
-  }, updateIndicatorState = useEventCallback_default2(() => {
-    let {
-      tabsMeta,
-      tabMeta
-    } = getTabsMeta(), startValue = 0, startIndicator;
-    if (vertical)
-      startIndicator = "top", tabMeta && tabsMeta && (startValue = tabMeta.top - tabsMeta.top + tabsMeta.scrollTop);
-    else if (startIndicator = isRtl ? "right" : "left", tabMeta && tabsMeta) {
-      let correction = isRtl ? tabsMeta.scrollLeftNormalized + tabsMeta.clientWidth - tabsMeta.scrollWidth : tabsMeta.scrollLeft;
-      startValue = (isRtl ? -1 : 1) * (tabMeta[startIndicator] - tabsMeta[startIndicator] + correction);
-    }
-    let newIndicatorStyle = {
-      [startIndicator]: startValue,
-      // May be wrong until the font is loaded.
-      [size2]: tabMeta ? tabMeta[size2] : 0
-    };
-    if (isNaN(indicatorStyle[startIndicator]) || isNaN(indicatorStyle[size2]))
-      setIndicatorStyle(newIndicatorStyle);
-    else {
-      let dStart = Math.abs(indicatorStyle[startIndicator] - newIndicatorStyle[startIndicator]), dSize = Math.abs(indicatorStyle[size2] - newIndicatorStyle[size2]);
-      (dStart >= 1 || dSize >= 1) && setIndicatorStyle(newIndicatorStyle);
-    }
-  }), scroll = (scrollValue, {
-    animation = !0
-  } = {}) => {
-    animation ? animate(scrollStart, tabsRef.current, scrollValue, {
-      duration: theme.transitions.duration.standard
-    }) : tabsRef.current[scrollStart] = scrollValue;
-  }, moveTabsScroll = (delta) => {
-    let scrollValue = tabsRef.current[scrollStart];
-    vertical ? scrollValue += delta : (scrollValue += delta * (isRtl ? -1 : 1), scrollValue *= isRtl && detectScrollType() === "reverse" ? -1 : 1), scroll(scrollValue);
-  }, getScrollSize = () => {
-    let containerSize = tabsRef.current[clientSize], totalSize = 0, children2 = Array.from(tabListRef.current.children);
-    for (let i = 0; i < children2.length; i += 1) {
-      let tab = children2[i];
-      if (totalSize + tab[clientSize] > containerSize) {
-        i === 0 && (totalSize = containerSize);
-        break;
-      }
-      totalSize += tab[clientSize];
-    }
-    return totalSize;
-  }, handleStartScrollClick = () => {
-    moveTabsScroll(-1 * getScrollSize());
-  }, handleEndScrollClick = () => {
-    moveTabsScroll(getScrollSize());
-  }, handleScrollbarSizeChange = React38.useCallback((scrollbarWidth) => {
-    setScrollerStyle({
-      overflow: null,
-      scrollbarWidth
-    });
-  }, []), getConditionalElements = () => {
-    let conditionalElements2 = {};
-    conditionalElements2.scrollbarSizeListener = scrollable ? /* @__PURE__ */ (0, import_jsx_runtime19.jsx)(TabsScrollbarSize, {
-      onChange: handleScrollbarSizeChange,
-      className: clsx_default(classes.scrollableX, classes.hideScrollbar)
-    }) : null;
-    let showScrollButtons = scrollable && (scrollButtons === "auto" && (displayStartScroll || displayEndScroll) || scrollButtons === !0);
-    return conditionalElements2.scrollButtonStart = showScrollButtons ? /* @__PURE__ */ (0, import_jsx_runtime19.jsx)(ScrollButtonComponent, _extends6({
-      slots: {
-        StartScrollButtonIcon: slots.StartScrollButtonIcon
-      },
-      slotProps: {
-        startScrollButtonIcon: startScrollButtonIconProps
-      },
-      orientation,
-      direction: isRtl ? "right" : "left",
-      onClick: handleStartScrollClick,
-      disabled: !displayStartScroll
-    }, TabScrollButtonProps, {
-      className: clsx_default(classes.scrollButtons, TabScrollButtonProps.className)
-    })) : null, conditionalElements2.scrollButtonEnd = showScrollButtons ? /* @__PURE__ */ (0, import_jsx_runtime19.jsx)(ScrollButtonComponent, _extends6({
-      slots: {
-        EndScrollButtonIcon: slots.EndScrollButtonIcon
-      },
-      slotProps: {
-        endScrollButtonIcon: endScrollButtonIconProps
-      },
-      orientation,
-      direction: isRtl ? "left" : "right",
-      onClick: handleEndScrollClick,
-      disabled: !displayEndScroll
-    }, TabScrollButtonProps, {
-      className: clsx_default(classes.scrollButtons, TabScrollButtonProps.className)
-    })) : null, conditionalElements2;
-  }, scrollSelectedIntoView = useEventCallback_default2((animation) => {
-    let {
-      tabsMeta,
-      tabMeta
-    } = getTabsMeta();
-    if (!(!tabMeta || !tabsMeta)) {
-      if (tabMeta[start] < tabsMeta[start]) {
-        let nextScrollStart = tabsMeta[scrollStart] + (tabMeta[start] - tabsMeta[start]);
-        scroll(nextScrollStart, {
-          animation
-        });
-      } else if (tabMeta[end] > tabsMeta[end]) {
-        let nextScrollStart = tabsMeta[scrollStart] + (tabMeta[end] - tabsMeta[end]);
-        scroll(nextScrollStart, {
-          animation
-        });
-      }
-    }
-  }), updateScrollButtonState = useEventCallback_default2(() => {
-    scrollable && scrollButtons !== !1 && setUpdateScrollObserver(!updateScrollObserver);
-  });
-  React38.useEffect(() => {
-    let handleResize = debounce_default(() => {
-      tabsRef.current && updateIndicatorState();
-    }), resizeObserver, handleMutation = (records) => {
-      records.forEach((record) => {
-        record.removedNodes.forEach((item) => {
-          var _resizeObserver;
-          (_resizeObserver = resizeObserver) == null || _resizeObserver.unobserve(item);
-        }), record.addedNodes.forEach((item) => {
-          var _resizeObserver2;
-          (_resizeObserver2 = resizeObserver) == null || _resizeObserver2.observe(item);
-        });
-      }), handleResize(), updateScrollButtonState();
-    }, win = ownerWindow_default(tabsRef.current);
-    win.addEventListener("resize", handleResize);
-    let mutationObserver;
-    return typeof ResizeObserver < "u" && (resizeObserver = new ResizeObserver(handleResize), Array.from(tabListRef.current.children).forEach((child) => {
-      resizeObserver.observe(child);
-    })), typeof MutationObserver < "u" && (mutationObserver = new MutationObserver(handleMutation), mutationObserver.observe(tabListRef.current, {
-      childList: !0
-    })), () => {
-      var _mutationObserver, _resizeObserver3;
-      handleResize.clear(), win.removeEventListener("resize", handleResize), (_mutationObserver = mutationObserver) == null || _mutationObserver.disconnect(), (_resizeObserver3 = resizeObserver) == null || _resizeObserver3.disconnect();
-    };
-  }, [updateIndicatorState, updateScrollButtonState]), React38.useEffect(() => {
-    let tabListChildren = Array.from(tabListRef.current.children), length = tabListChildren.length;
-    if (typeof IntersectionObserver < "u" && length > 0 && scrollable && scrollButtons !== !1) {
-      let firstTab = tabListChildren[0], lastTab = tabListChildren[length - 1], observerOptions = {
-        root: tabsRef.current,
-        threshold: 0.99
-      }, handleScrollButtonStart = (entries) => {
-        setDisplayStartScroll(!entries[0].isIntersecting);
-      }, firstObserver = new IntersectionObserver(handleScrollButtonStart, observerOptions);
-      firstObserver.observe(firstTab);
-      let handleScrollButtonEnd = (entries) => {
-        setDisplayEndScroll(!entries[0].isIntersecting);
-      }, lastObserver = new IntersectionObserver(handleScrollButtonEnd, observerOptions);
-      return lastObserver.observe(lastTab), () => {
-        firstObserver.disconnect(), lastObserver.disconnect();
-      };
-    }
-  }, [scrollable, scrollButtons, updateScrollObserver, childrenProp?.length]), React38.useEffect(() => {
-    setMounted(!0);
-  }, []), React38.useEffect(() => {
-    updateIndicatorState();
-  }), React38.useEffect(() => {
-    scrollSelectedIntoView(defaultIndicatorStyle !== indicatorStyle);
-  }, [scrollSelectedIntoView, indicatorStyle]), React38.useImperativeHandle(action11, () => ({
-    updateIndicator: updateIndicatorState,
-    updateScrollButtons: updateScrollButtonState
-  }), [updateIndicatorState, updateScrollButtonState]);
-  let indicator = /* @__PURE__ */ (0, import_jsx_runtime19.jsx)(TabsIndicator, _extends6({}, TabIndicatorProps, {
-    className: clsx_default(classes.indicator, TabIndicatorProps.className),
-    ownerState,
-    style: _extends6({}, indicatorStyle, TabIndicatorProps.style)
-  })), childIndex = 0, children = React38.Children.map(childrenProp, (child) => {
-    if (!/* @__PURE__ */ React38.isValidElement(child))
-      return null;
-    (0, import_react_is2.isFragment)(child) && console.error(["MUI: The Tabs component doesn't accept a Fragment as a child.", "Consider providing an array instead."].join(`
-`));
-    let childValue = child.props.value === void 0 ? childIndex : child.props.value;
-    valueToIndex.set(childValue, childIndex);
-    let selected = childValue === value;
-    return childIndex += 1, /* @__PURE__ */ React38.cloneElement(child, _extends6({
-      fullWidth: variant === "fullWidth",
-      indicator: selected && !mounted && indicator,
-      selected,
-      selectionFollowsFocus,
-      onChange,
-      textColor,
-      value: childValue
-    }, childIndex === 1 && value === !1 && !child.props.tabIndex ? {
-      tabIndex: 0
-    } : {}));
-  }), handleKeyDown2 = (event) => {
-    let list2 = tabListRef.current, currentFocus = ownerDocument_default(list2).activeElement;
-    if (currentFocus.getAttribute("role") !== "tab")
-      return;
-    let previousItemKey = orientation === "horizontal" ? "ArrowLeft" : "ArrowUp", nextItemKey = orientation === "horizontal" ? "ArrowRight" : "ArrowDown";
-    switch (orientation === "horizontal" && isRtl && (previousItemKey = "ArrowRight", nextItemKey = "ArrowLeft"), event.key) {
-      case previousItemKey:
-        event.preventDefault(), moveFocus(list2, currentFocus, previousItem);
-        break;
-      case nextItemKey:
-        event.preventDefault(), moveFocus(list2, currentFocus, nextItem);
-        break;
-      case "Home":
-        event.preventDefault(), moveFocus(list2, null, nextItem);
-        break;
-      case "End":
-        event.preventDefault(), moveFocus(list2, null, previousItem);
-        break;
-      default:
-        break;
-    }
-  }, conditionalElements = getConditionalElements();
-  return /* @__PURE__ */ (0, import_jsx_runtime20.jsxs)(TabsRoot, _extends6({
-    className: clsx_default(classes.root, className),
-    ownerState,
-    ref,
-    as: component
-  }, other, {
-    children: [conditionalElements.scrollButtonStart, conditionalElements.scrollbarSizeListener, /* @__PURE__ */ (0, import_jsx_runtime20.jsxs)(TabsScroller, {
-      className: classes.scroller,
-      ownerState,
-      style: {
-        overflow: scrollerStyle.overflow,
-        [vertical ? `margin${isRtl ? "Left" : "Right"}` : "marginBottom"]: visibleScrollbar ? void 0 : -scrollerStyle.scrollbarWidth
-      },
-      ref: tabsRef,
-      children: [/* @__PURE__ */ (0, import_jsx_runtime19.jsx)(FlexContainer, {
-        "aria-label": ariaLabel,
-        "aria-labelledby": ariaLabelledBy,
-        "aria-orientation": orientation === "vertical" ? "vertical" : null,
-        className: classes.flexContainer,
-        ownerState,
-        onKeyDown: handleKeyDown2,
-        ref: tabListRef,
-        role: "tablist",
-        children
-      }), mounted && indicator]
-    }), conditionalElements.scrollButtonEnd]
-  }));
-});
-Tabs.propTypes = {
-  // ┌────────────────────────────── Warning ──────────────────────────────┐
-  // │ These PropTypes are generated from the TypeScript type definitions. │
-  // │    To update them, edit the d.ts file and run `pnpm proptypes`.     │
-  // └─────────────────────────────────────────────────────────────────────┘
-  /**
-   * Callback fired when the component mounts.
-   * This is useful when you want to trigger an action programmatically.
-   * It supports two actions: `updateIndicator()` and `updateScrollButtons()`
-   *
-   * @param {object} actions This object contains all possible actions
-   * that can be triggered programmatically.
-   */
-  action: refType_default,
-  /**
-   * If `true`, the scroll buttons aren't forced hidden on mobile.
-   * By default the scroll buttons are hidden on mobile and takes precedence over `scrollButtons`.
-   * @default false
-   */
-  allowScrollButtonsMobile: import_prop_types14.default.bool,
-  /**
-   * The label for the Tabs as a string.
-   */
-  "aria-label": import_prop_types14.default.string,
-  /**
-   * An id or list of ids separated by a space that label the Tabs.
-   */
-  "aria-labelledby": import_prop_types14.default.string,
-  /**
-   * If `true`, the tabs are centered.
-   * This prop is intended for large views.
-   * @default false
-   */
-  centered: import_prop_types14.default.bool,
-  /**
-   * The content of the component.
-   */
-  children: import_prop_types14.default.node,
-  /**
-   * Override or extend the styles applied to the component.
-   */
-  classes: import_prop_types14.default.object,
-  /**
-   * @ignore
-   */
-  className: import_prop_types14.default.string,
-  /**
-   * The component used for the root node.
-   * Either a string to use a HTML element or a component.
-   */
-  component: import_prop_types14.default.elementType,
-  /**
-   * Determines the color of the indicator.
-   * @default 'primary'
-   */
-  indicatorColor: import_prop_types14.default.oneOfType([import_prop_types14.default.oneOf(["primary", "secondary"]), import_prop_types14.default.string]),
-  /**
-   * Callback fired when the value changes.
-   *
-   * @param {React.SyntheticEvent} event The event source of the callback. **Warning**: This is a generic event not a change event.
-   * @param {any} value We default to the index of the child (number)
-   */
-  onChange: import_prop_types14.default.func,
-  /**
-   * The component orientation (layout flow direction).
-   * @default 'horizontal'
-   */
-  orientation: import_prop_types14.default.oneOf(["horizontal", "vertical"]),
-  /**
-   * The component used to render the scroll buttons.
-   * @default TabScrollButton
-   */
-  ScrollButtonComponent: import_prop_types14.default.elementType,
-  /**
-   * Determine behavior of scroll buttons when tabs are set to scroll:
-   *
-   * - `auto` will only present them when not all the items are visible.
-   * - `true` will always present them.
-   * - `false` will never present them.
-   *
-   * By default the scroll buttons are hidden on mobile.
-   * This behavior can be disabled with `allowScrollButtonsMobile`.
-   * @default 'auto'
-   */
-  scrollButtons: import_prop_types14.default.oneOf(["auto", !1, !0]),
-  /**
-   * If `true` the selected tab changes on focus. Otherwise it only
-   * changes on activation.
-   */
-  selectionFollowsFocus: import_prop_types14.default.bool,
-  /**
-   * The extra props for the slot components.
-   * You can override the existing props or add new ones.
-   * @default {}
-   */
-  slotProps: import_prop_types14.default.shape({
-    endScrollButtonIcon: import_prop_types14.default.oneOfType([import_prop_types14.default.func, import_prop_types14.default.object]),
-    startScrollButtonIcon: import_prop_types14.default.oneOfType([import_prop_types14.default.func, import_prop_types14.default.object])
-  }),
-  /**
-   * The components used for each slot inside.
-   * @default {}
-   */
-  slots: import_prop_types14.default.shape({
-    EndScrollButtonIcon: import_prop_types14.default.elementType,
-    StartScrollButtonIcon: import_prop_types14.default.elementType
-  }),
-  /**
-   * The system prop that allows defining system overrides as well as additional CSS styles.
-   */
-  sx: import_prop_types14.default.oneOfType([import_prop_types14.default.arrayOf(import_prop_types14.default.oneOfType([import_prop_types14.default.func, import_prop_types14.default.object, import_prop_types14.default.bool])), import_prop_types14.default.func, import_prop_types14.default.object]),
-  /**
-   * Props applied to the tab indicator element.
-   * @default  {}
-   */
-  TabIndicatorProps: import_prop_types14.default.object,
-  /**
-   * Props applied to the [`TabScrollButton`](/material-ui/api/tab-scroll-button/) element.
-   * @default {}
-   */
-  TabScrollButtonProps: import_prop_types14.default.object,
-  /**
-   * Determines the color of the `Tab`.
-   * @default 'primary'
-   */
-  textColor: import_prop_types14.default.oneOf(["inherit", "primary", "secondary"]),
-  /**
-   * The value of the currently selected `Tab`.
-   * If you don't want any selected `Tab`, you can set this prop to `false`.
-   */
-  value: import_prop_types14.default.any,
-  /**
-   * Determines additional display behavior of the tabs:
-   *
-   *  - `scrollable` will invoke scrolling properties and allow for horizontally
-   *  scrolling (or swiping) of the tab bar.
-   *  - `fullWidth` will make the tabs grow to use all the available space,
-   *  which should be used for small views, like on mobile.
-   *  - `standard` will render the default state.
-   * @default 'standard'
-   */
-  variant: import_prop_types14.default.oneOf(["fullWidth", "scrollable", "standard"]),
-  /**
-   * If `true`, the scrollbar is visible. It can be useful when displaying
-   * a long vertical list of tabs.
-   * @default false
-   */
-  visibleScrollbar: import_prop_types14.default.bool
-};
-var Tabs_default = Tabs;
-
-// node_modules/@mui/lab/TabContext/TabContext.js
-var React39 = __toESM(require_react()), import_prop_types15 = __toESM(require_prop_types()), import_jsx_runtime21 = __toESM(require_jsx_runtime()), Context = /* @__PURE__ */ React39.createContext(null);
-Context.displayName = "TabContext";
-function useUniquePrefix() {
-  let [id, setId] = React39.useState(null);
-  return React39.useEffect(() => {
-    setId(`mui-p-${Math.round(Math.random() * 1e5)}`);
-  }, []), id;
-}
-function TabContext(props) {
-  let {
-    children,
-    value
-  } = props, idPrefix = useUniquePrefix(), context = React39.useMemo(() => ({
-    idPrefix,
-    value
-  }), [idPrefix, value]);
-  return /* @__PURE__ */ (0, import_jsx_runtime21.jsx)(Context.Provider, {
-    value: context,
-    children
-  });
-}
-TabContext.propTypes = {
-  // ┌────────────────────────────── Warning ──────────────────────────────┐
-  // │ These PropTypes are generated from the TypeScript type definitions. │
-  // │    To update them, edit the d.ts file and run `pnpm proptypes`.     │
-  // └─────────────────────────────────────────────────────────────────────┘
-  /**
-   * The content of the component.
-   */
-  children: import_prop_types15.default.node,
-  /**
-   * The value of the currently selected `Tab`.
-   */
-  value: import_prop_types15.default.oneOfType([import_prop_types15.default.number, import_prop_types15.default.string]).isRequired
-};
-function useTabContext() {
-  return React39.useContext(Context);
-}
-function getPanelId(context, value) {
-  let {
-    idPrefix
-  } = context;
-  return idPrefix === null ? null : `${context.idPrefix}-P-${value}`;
-}
-function getTabId(context, value) {
-  let {
-    idPrefix
-  } = context;
-  return idPrefix === null ? null : `${context.idPrefix}-T-${value}`;
-}
-
-// node_modules/@mui/lab/TabList/TabList.js
-var React40 = __toESM(require_react()), import_prop_types16 = __toESM(require_prop_types());
-var import_jsx_runtime22 = __toESM(require_jsx_runtime()), _excluded23 = ["children"], TabList = /* @__PURE__ */ React40.forwardRef(function(props, ref) {
-  let {
-    children: childrenProp
-  } = props, other = _objectWithoutPropertiesLoose2(props, _excluded23), context = useTabContext();
-  if (context === null)
-    throw new TypeError("No TabContext provided");
-  let children = React40.Children.map(childrenProp, (child) => /* @__PURE__ */ React40.isValidElement(child) ? /* @__PURE__ */ React40.cloneElement(child, {
-    // SOMEDAY: `Tabs` will set those themselves
-    "aria-controls": getPanelId(context, child.props.value),
-    id: getTabId(context, child.props.value)
-  }) : null);
-  return /* @__PURE__ */ (0, import_jsx_runtime22.jsx)(Tabs_default, _extends6({}, other, {
-    ref,
-    value: context.value,
-    children
-  }));
-});
-TabList.propTypes = {
-  // ┌────────────────────────────── Warning ──────────────────────────────┐
-  // │ These PropTypes are generated from the TypeScript type definitions. │
-  // │    To update them, edit the d.ts file and run `pnpm proptypes`.     │
-  // └─────────────────────────────────────────────────────────────────────┘
-  /**
-   * A list of `<Tab />` elements.
-   */
-  children: import_prop_types16.default.node
-};
-var TabList_default = TabList;
-
-// node_modules/@mui/lab/TabPanel/TabPanel.js
-var React41 = __toESM(require_react()), import_prop_types17 = __toESM(require_prop_types());
-
-// node_modules/@mui/lab/TabPanel/tabPanelClasses.js
-function getTabPanelUtilityClass(slot) {
-  return generateUtilityClass("MuiTabPanel", slot);
-}
-var tabPanelClasses = generateUtilityClasses("MuiTabPanel", ["root"]);
-
-// node_modules/@mui/lab/TabPanel/TabPanel.js
-var import_jsx_runtime23 = __toESM(require_jsx_runtime()), _excluded24 = ["children", "className", "value"], useUtilityClasses7 = (ownerState) => {
-  let {
-    classes
-  } = ownerState;
-  return composeClasses({
-    root: ["root"]
-  }, getTabPanelUtilityClass, classes);
-}, TabPanelRoot = styled_default("div", {
-  name: "MuiTabPanel",
-  slot: "Root",
-  overridesResolver: (props, styles4) => styles4.root
-})(({
-  theme
-}) => ({
-  padding: theme.spacing(3)
-})), TabPanel = /* @__PURE__ */ React41.forwardRef(function(inProps, ref) {
-  let props = useThemeProps2({
-    props: inProps,
-    name: "MuiTabPanel"
-  }), {
-    children,
-    className,
-    value
-  } = props, other = _objectWithoutPropertiesLoose2(props, _excluded24), ownerState = _extends6({}, props), classes = useUtilityClasses7(ownerState), context = useTabContext();
-  if (context === null)
-    throw new TypeError("No TabContext provided");
-  let id = getPanelId(context, value), tabId = getTabId(context, value);
-  return /* @__PURE__ */ (0, import_jsx_runtime23.jsx)(TabPanelRoot, _extends6({
-    "aria-labelledby": tabId,
-    className: clsx_default(classes.root, className),
-    hidden: value !== context.value,
-    id,
-    ref,
-    role: "tabpanel",
-    ownerState
-  }, other, {
-    children: value === context.value && children
-  }));
-});
-TabPanel.propTypes = {
-  // ┌────────────────────────────── Warning ──────────────────────────────┐
-  // │ These PropTypes are generated from the TypeScript type definitions. │
-  // │    To update them, edit the d.ts file and run `pnpm proptypes`.     │
-  // └─────────────────────────────────────────────────────────────────────┘
-  /**
-   * The content of the component.
-   */
-  children: import_prop_types17.default.node,
-  /**
-   * Override or extend the styles applied to the component.
-   */
-  classes: import_prop_types17.default.object,
-  /**
-   * @ignore
-   */
-  className: import_prop_types17.default.string,
-  /**
-   * The system prop that allows defining system overrides as well as additional CSS styles.
-   */
-  sx: import_prop_types17.default.oneOfType([import_prop_types17.default.arrayOf(import_prop_types17.default.oneOfType([import_prop_types17.default.func, import_prop_types17.default.object, import_prop_types17.default.bool])), import_prop_types17.default.func, import_prop_types17.default.object]),
-  /**
-   * The `value` of the corresponding `Tab`. Must use the index of the `Tab` when
-   * no `value` was passed to `Tab`.
-   */
-  value: import_prop_types17.default.string.isRequired
-};
-var TabPanel_default = TabPanel;
-
-// app/routes/($locale).collectioncarousel.$handle.jsx
-var import_jsx_dev_runtime11 = __toESM(require_jsx_dev_runtime()), meta4 = ({ data }) => [{ title: `KT | ${data?.collection.title ?? ""}` }];
+var React15 = __toESM(require_react()), import_jsx_dev_runtime11 = __toESM(require_jsx_dev_runtime()), meta4 = ({ data }) => [{ title: `KT | ${data?.collection.title ?? ""}` }];
 async function loader4({ request, params, context }) {
   let { handle } = params, { storefront } = context, paginationVariables = getPaginationVariables(request, {
     pageBy: 8
@@ -33749,396 +25670,207 @@ async function loader4({ request, params, context }) {
     });
   return json5({ collection });
 }
-function ProductInfo({ collection }) {
-  let productImages = collection.products.nodes.map((product) => /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)(ProductItem, { product }, void 0, !1, {
-    fileName: "app/routes/($locale).collectioncarousel.$handle.jsx",
-    lineNumber: 51,
-    columnNumber: 13
-  }, this));
-  return /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)("div", { className: "productInfo", children: [
-    /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)("div", { children: /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)(Link2, { prefetch: "intent", to: `/collectiongrid/${collection.handle}`, children: "Grid View" }, void 0, !1, {
-      fileName: "app/routes/($locale).collectioncarousel.$handle.jsx",
-      lineNumber: 57,
-      columnNumber: 9
-    }, this) }, void 0, !1, {
-      fileName: "app/routes/($locale).collectioncarousel.$handle.jsx",
-      lineNumber: 56,
-      columnNumber: 7
-    }, this),
-    /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)(
-      "div",
+function Swatch({ product, variant }) {
+  let variantUrl = useVariantUrl(product.handle, variant.selectedOptions);
+  return /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)("div", { className: "swatchContainer", children: /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)(Link2, { prefetch: "intent", to: variantUrl, children: [
+    product.featuredImage && /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)(
+      Image,
       {
-        style: {
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center"
-        },
-        children: /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)("h2", { children: collection.title }, void 0, !1, {
-          fileName: "app/routes/($locale).collectioncarousel.$handle.jsx",
-          lineNumber: 66,
-          columnNumber: 9
-        }, this)
+        alt: product.featuredImage.altText || product.title,
+        aspectRatio: "1/1",
+        data: product.featuredImage,
+        style: { display: "block", width: "100%", height: "100%" }
       },
       void 0,
       !1,
       {
         fileName: "app/routes/($locale).collectioncarousel.$handle.jsx",
-        lineNumber: 59,
-        columnNumber: 7
+        lineNumber: 51,
+        columnNumber: 11
       },
       this
     ),
-    /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)(
-      "div",
-      {
-        style: {
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center"
-        },
-        children: /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)(
-          "div",
-          {
-            className: "collection-description",
-            style: { paddingTop: "16px" },
-            children: collection.description
-          },
-          void 0,
-          !1,
-          {
-            fileName: "app/routes/($locale).collectioncarousel.$handle.jsx",
-            lineNumber: 75,
-            columnNumber: 9
-          },
-          this
-        )
-      },
-      void 0,
-      !1,
-      {
+    /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)("div", { style: { display: "flex", justifyContent: "center", alignItems: "center", paddingBottom: "1em" }, children: /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)("div", { style: { display: "block" }, children: [
+      /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)("div", { className: "productTitle", children: product.title }, void 0, !1, {
         fileName: "app/routes/($locale).collectioncarousel.$handle.jsx",
-        lineNumber: 68,
-        columnNumber: 7
-      },
-      this
-    ),
-    /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)(
-      "div",
-      {
-        style: {
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center"
-        },
-        children: /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)("div", { style: { display: "block" }, children: productImages[1] }, void 0, !1, {
-          fileName: "app/routes/($locale).collectioncarousel.$handle.jsx",
-          lineNumber: 89,
-          columnNumber: 9
-        }, this)
-      },
-      void 0,
-      !1,
-      {
-        fileName: "app/routes/($locale).collectioncarousel.$handle.jsx",
-        lineNumber: 82,
-        columnNumber: 7
-      },
-      this
-    ),
-    /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)(
-      "div",
-      {
-        style: {
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center"
-        },
-        children: /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)("div", { style: { display: "block" }, children: [
-          /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)("h4", { children: collection.products.nodes[1].title }, void 0, !1, {
-            fileName: "app/routes/($locale).collectioncarousel.$handle.jsx",
-            lineNumber: 102,
-            columnNumber: 11
-          }, this),
-          /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)("hr", {}, void 0, !1, {
-            fileName: "app/routes/($locale).collectioncarousel.$handle.jsx",
-            lineNumber: 105,
-            columnNumber: 11
-          }, this),
-          /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)(
-            "div",
-            {
-              style: {
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center"
-              },
-              children: /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)(Money, { data: collection.products.nodes[1].priceRange.minVariantPrice }, void 0, !1, {
-                fileName: "app/routes/($locale).collectioncarousel.$handle.jsx",
-                lineNumber: 113,
-                columnNumber: 13
-              }, this)
-            },
-            void 0,
-            !1,
-            {
-              fileName: "app/routes/($locale).collectioncarousel.$handle.jsx",
-              lineNumber: 106,
-              columnNumber: 11
-            },
-            this
-          )
-        ] }, void 0, !0, {
-          fileName: "app/routes/($locale).collectioncarousel.$handle.jsx",
-          lineNumber: 101,
-          columnNumber: 9
-        }, this)
-      },
-      void 0,
-      !1,
-      {
-        fileName: "app/routes/($locale).collectioncarousel.$handle.jsx",
-        lineNumber: 94,
-        columnNumber: 7
-      },
-      this
-    )
-  ] }, void 0, !0, {
-    fileName: "app/routes/($locale).collectioncarousel.$handle.jsx",
-    lineNumber: 55,
-    columnNumber: 5
-  }, this);
-}
-function Swatch(product) {
-  return /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)("div", {}, void 0, !1, {
-    fileName: "app/routes/($locale).collectioncarousel.$handle.jsx",
-    lineNumber: 124,
-    columnNumber: 5
-  }, this);
-}
-function SwatchSet({ collection, tag }) {
-  return console.log(collection), collection.products.nodes.map((product) => /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)(Swatch, {}, product.id, !1, {
-    fileName: "app/routes/($locale).collectioncarousel.$handle.jsx",
-    lineNumber: 133,
-    columnNumber: 9
-  }, this));
-}
-function ProductFilter({ collection }) {
-  let products = collection.products.nodes.map((product) => /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)("div", { style: { display: "flex", justifyContent: "center", alignItems: "center" }, children: /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)(
-    Image,
-    {
-      alt: product.featuredImage.altText || product.title,
-      aspectRatio: "1/1",
-      data: product.featuredImage,
-      width: 256,
-      style: { display: "block" }
-    },
-    void 0,
-    !1,
-    {
-      fileName: "app/routes/($locale).collectioncarousel.$handle.jsx",
-      lineNumber: 143,
-      columnNumber: 9
-    },
-    this
-  ) }, void 0, !1, {
-    fileName: "app/routes/($locale).collectioncarousel.$handle.jsx",
-    lineNumber: 142,
-    columnNumber: 7
-  }, this)), [value, setValue] = React42.useState("M"), handleChange = (_2, newValue) => {
-    setValue(newValue);
-  }, [tabWidth, setTabWidth] = React42.useState({ minWidth: "8em" }), handleResize = () => {
-    window.innerWidth < 720 ? setTabWidth({ minWidth: "3em" }) : setTabWidth({ minWidth: "8em" });
-  };
-  return React42.useEffect(() => {
-    window.addEventListener("resize", handleResize);
-  }), /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)("div", { className: "productFilter", children: /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)("div", { className: "productTabs", children: /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)(TabContext, { value, children: [
-    /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)(Box_default, { sx: { borderBottom: 1, borderColor: "divider" }, children: /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)(TabList_default, { onChange: handleChange, "aria-label": "collection items", children: [
-      /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)(Tab_default, { label: "XS", value: "XS", sx: tabWidth }, void 0, !1, {
-        fileName: "app/routes/($locale).collectioncarousel.$handle.jsx",
-        lineNumber: 182,
-        columnNumber: 15
+        lineNumber: 60,
+        columnNumber: 13
       }, this),
-      /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)(Tab_default, { label: "S", value: "S", sx: tabWidth }, void 0, !1, {
+      /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)("div", { style: { display: "flex", justifyContent: "center", alignItems: "center", fontSize: "16pt" }, children: /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)(Money, { data: product.priceRange.minVariantPrice }, void 0, !1, {
         fileName: "app/routes/($locale).collectioncarousel.$handle.jsx",
-        lineNumber: 183,
+        lineNumber: 62,
         columnNumber: 15
-      }, this),
-      /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)(Tab_default, { label: "M", value: "M", sx: tabWidth }, void 0, !1, {
+      }, this) }, void 0, !1, {
         fileName: "app/routes/($locale).collectioncarousel.$handle.jsx",
-        lineNumber: 184,
-        columnNumber: 15
-      }, this),
-      /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)(Tab_default, { label: "L", value: "L", sx: tabWidth }, void 0, !1, {
-        fileName: "app/routes/($locale).collectioncarousel.$handle.jsx",
-        lineNumber: 185,
-        columnNumber: 15
-      }, this),
-      /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)(Tab_default, { label: "XL", value: "XL", sx: tabWidth }, void 0, !1, {
-        fileName: "app/routes/($locale).collectioncarousel.$handle.jsx",
-        lineNumber: 186,
-        columnNumber: 15
-      }, this),
-      /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)(Tab_default, { label: "XXL", value: "XXL", sx: tabWidth }, void 0, !1, {
-        fileName: "app/routes/($locale).collectioncarousel.$handle.jsx",
-        lineNumber: 187,
-        columnNumber: 15
-      }, this),
-      /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)(Tab_default, { label: "XXXL", value: "XXXL", sx: tabWidth }, void 0, !1, {
-        fileName: "app/routes/($locale).collectioncarousel.$handle.jsx",
-        lineNumber: 188,
-        columnNumber: 15
+        lineNumber: 61,
+        columnNumber: 13
       }, this)
     ] }, void 0, !0, {
       fileName: "app/routes/($locale).collectioncarousel.$handle.jsx",
-      lineNumber: 181,
-      columnNumber: 13
+      lineNumber: 59,
+      columnNumber: 11
     }, this) }, void 0, !1, {
       fileName: "app/routes/($locale).collectioncarousel.$handle.jsx",
-      lineNumber: 180,
-      columnNumber: 11
-    }, this),
-    /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)(TabPanel_default, { value: "XS", children: /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)(SwatchSet, { collection, tag: "XS" }, void 0, !1, {
-      fileName: "app/routes/($locale).collectioncarousel.$handle.jsx",
-      lineNumber: 191,
-      columnNumber: 32
-    }, this) }, void 0, !1, {
-      fileName: "app/routes/($locale).collectioncarousel.$handle.jsx",
-      lineNumber: 191,
-      columnNumber: 11
-    }, this),
-    /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)(TabPanel_default, { value: "S", children: /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)(SwatchSet, { collection, tag: "S" }, void 0, !1, {
-      fileName: "app/routes/($locale).collectioncarousel.$handle.jsx",
-      lineNumber: 192,
-      columnNumber: 31
-    }, this) }, void 0, !1, {
-      fileName: "app/routes/($locale).collectioncarousel.$handle.jsx",
-      lineNumber: 192,
-      columnNumber: 11
-    }, this),
-    /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)(TabPanel_default, { value: "M", children: /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)(SwatchSet, { collection, tag: "M" }, void 0, !1, {
-      fileName: "app/routes/($locale).collectioncarousel.$handle.jsx",
-      lineNumber: 193,
-      columnNumber: 31
-    }, this) }, void 0, !1, {
-      fileName: "app/routes/($locale).collectioncarousel.$handle.jsx",
-      lineNumber: 193,
-      columnNumber: 11
-    }, this),
-    /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)(TabPanel_default, { value: "L", children: /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)(SwatchSet, { collection, tag: "L" }, void 0, !1, {
-      fileName: "app/routes/($locale).collectioncarousel.$handle.jsx",
-      lineNumber: 194,
-      columnNumber: 31
-    }, this) }, void 0, !1, {
-      fileName: "app/routes/($locale).collectioncarousel.$handle.jsx",
-      lineNumber: 194,
-      columnNumber: 11
-    }, this),
-    /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)(TabPanel_default, { value: "XL", children: /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)(SwatchSet, { collection, tag: "XL" }, void 0, !1, {
-      fileName: "app/routes/($locale).collectioncarousel.$handle.jsx",
-      lineNumber: 195,
-      columnNumber: 32
-    }, this) }, void 0, !1, {
-      fileName: "app/routes/($locale).collectioncarousel.$handle.jsx",
-      lineNumber: 195,
-      columnNumber: 11
-    }, this),
-    /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)(TabPanel_default, { value: "XXL", children: /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)(SwatchSet, { collection, tag: "XXL" }, void 0, !1, {
-      fileName: "app/routes/($locale).collectioncarousel.$handle.jsx",
-      lineNumber: 196,
-      columnNumber: 33
-    }, this) }, void 0, !1, {
-      fileName: "app/routes/($locale).collectioncarousel.$handle.jsx",
-      lineNumber: 196,
-      columnNumber: 11
-    }, this),
-    /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)(TabPanel_default, { value: "XXXL", children: /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)(SwatchSet, { collection, tag: "XXXL" }, void 0, !1, {
-      fileName: "app/routes/($locale).collectioncarousel.$handle.jsx",
-      lineNumber: 197,
-      columnNumber: 34
-    }, this) }, void 0, !1, {
-      fileName: "app/routes/($locale).collectioncarousel.$handle.jsx",
-      lineNumber: 197,
-      columnNumber: 11
+      lineNumber: 58,
+      columnNumber: 9
     }, this)
-  ] }, void 0, !0, {
+  ] }, product.id, !0, {
     fileName: "app/routes/($locale).collectioncarousel.$handle.jsx",
-    lineNumber: 179,
-    columnNumber: 9
-  }, this) }, void 0, !1, {
-    fileName: "app/routes/($locale).collectioncarousel.$handle.jsx",
-    lineNumber: 178,
+    lineNumber: 49,
     columnNumber: 7
   }, this) }, void 0, !1, {
     fileName: "app/routes/($locale).collectioncarousel.$handle.jsx",
-    lineNumber: 177,
+    lineNumber: 48,
+    columnNumber: 5
+  }, this);
+}
+function getProducts({ collection, size: size2 }) {
+  let products = [];
+  return collection.products.nodes.forEach((product) => {
+    product.variants.nodes.forEach((variant) => {
+      variant.selectedOptions[0].value == size2 && products.push(/* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)(Swatch, { product, variant }, void 0, !1, {
+        fileName: "app/routes/($locale).collectioncarousel.$handle.jsx",
+        lineNumber: 76,
+        columnNumber: 23
+      }, this));
+    });
+  }), products;
+}
+function Product({ collection }) {
+  let swatchSet = /* @__PURE__ */ new Map(
+    [
+      ["XS", /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)(import_jsx_dev_runtime11.Fragment, { children: getProducts({ collection, size: "XS" }) }, void 0, !1, {
+        fileName: "app/routes/($locale).collectioncarousel.$handle.jsx",
+        lineNumber: 88,
+        columnNumber: 16
+      }, this)],
+      ["S", /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)(import_jsx_dev_runtime11.Fragment, { children: getProducts({ collection, size: "S" }) }, void 0, !1, {
+        fileName: "app/routes/($locale).collectioncarousel.$handle.jsx",
+        lineNumber: 89,
+        columnNumber: 16
+      }, this)],
+      ["M", /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)(import_jsx_dev_runtime11.Fragment, { children: getProducts({ collection, size: "M" }) }, void 0, !1, {
+        fileName: "app/routes/($locale).collectioncarousel.$handle.jsx",
+        lineNumber: 90,
+        columnNumber: 16
+      }, this)],
+      ["L", /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)(import_jsx_dev_runtime11.Fragment, { children: getProducts({ collection, size: "L" }) }, void 0, !1, {
+        fileName: "app/routes/($locale).collectioncarousel.$handle.jsx",
+        lineNumber: 91,
+        columnNumber: 16
+      }, this)],
+      ["XL", /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)(import_jsx_dev_runtime11.Fragment, { children: getProducts({ collection, size: "XL" }) }, void 0, !1, {
+        fileName: "app/routes/($locale).collectioncarousel.$handle.jsx",
+        lineNumber: 92,
+        columnNumber: 16
+      }, this)],
+      ["XXL", /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)(import_jsx_dev_runtime11.Fragment, { children: getProducts({ collection, size: "XXL" }) }, void 0, !1, {
+        fileName: "app/routes/($locale).collectioncarousel.$handle.jsx",
+        lineNumber: 93,
+        columnNumber: 16
+      }, this)],
+      ["XXXL", /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)(import_jsx_dev_runtime11.Fragment, { children: getProducts({ collection, size: "XXXL" }) }, void 0, !1, {
+        fileName: "app/routes/($locale).collectioncarousel.$handle.jsx",
+        lineNumber: 94,
+        columnNumber: 16
+      }, this)]
+    ]
+  ), [sizes, setSizes] = React15.useState(["M"]), [currentSwatchSet, setCurrentSwatchSet] = React15.useState([swatchSet.get("M"), swatchSet.get("S")]), modifySizes = (size2) => {
+    console.log("Checking if " + sizes + " includes " + size2), sizes.includes(size2) ? (console.log("Removing " + size2 + " from " + sizes), setSizes(sizes.filter((s) => s != size2))) : (console.log("Adding " + size2 + " to " + sizes), setSizes([size2].concat(sizes)), console.log("newSizes should be " + [size2].concat(sizes))), console.log("New sizes: " + sizes), setCurrentSwatchSet(sizes.map((size3) => {
+      swatchSet.get(size3);
+    }));
+  };
+  return /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)("div", { className: "collectionPanel", children: /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)("div", { className: "productFilter", children: [
+    /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)("div", { style: { display: "flex", justifyContent: "center", alignItems: "center" }, children: /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)("h2", { children: collection.title }, void 0, !1, {
+      fileName: "app/routes/($locale).collectioncarousel.$handle.jsx",
+      lineNumber: 120,
+      columnNumber: 11
+    }, this) }, void 0, !1, {
+      fileName: "app/routes/($locale).collectioncarousel.$handle.jsx",
+      lineNumber: 119,
+      columnNumber: 9
+    }, this),
+    /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)("div", { style: { display: "flex", justifyContent: "center", alignItems: "center" }, children: /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)("div", { className: "collection-description", style: { paddingTop: "16px" }, children: [
+      " ",
+      collection.description,
+      " "
+    ] }, void 0, !0, {
+      fileName: "app/routes/($locale).collectioncarousel.$handle.jsx",
+      lineNumber: 123,
+      columnNumber: 11
+    }, this) }, void 0, !1, {
+      fileName: "app/routes/($locale).collectioncarousel.$handle.jsx",
+      lineNumber: 122,
+      columnNumber: 9
+    }, this),
+    /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)("div", { className: "productTabs", children: [
+      /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)("div", { className: "tabList", children: [
+        /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)("button", { className: "tab", onClick: () => modifySizes("XS"), children: "XS" }, void 0, !1, {
+          fileName: "app/routes/($locale).collectioncarousel.$handle.jsx",
+          lineNumber: 128,
+          columnNumber: 13
+        }, this),
+        /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)("button", { className: "tab", onClick: () => modifySizes("S"), children: "S" }, void 0, !1, {
+          fileName: "app/routes/($locale).collectioncarousel.$handle.jsx",
+          lineNumber: 129,
+          columnNumber: 13
+        }, this),
+        /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)("button", { className: "tab", onClick: () => modifySizes("M"), children: "M" }, void 0, !1, {
+          fileName: "app/routes/($locale).collectioncarousel.$handle.jsx",
+          lineNumber: 130,
+          columnNumber: 13
+        }, this),
+        /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)("button", { className: "tab", onClick: () => modifySizes("L"), children: "L" }, void 0, !1, {
+          fileName: "app/routes/($locale).collectioncarousel.$handle.jsx",
+          lineNumber: 131,
+          columnNumber: 13
+        }, this),
+        /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)("button", { className: "tab", onClick: () => modifySizes("XL"), children: "XL" }, void 0, !1, {
+          fileName: "app/routes/($locale).collectioncarousel.$handle.jsx",
+          lineNumber: 132,
+          columnNumber: 13
+        }, this),
+        /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)("button", { className: "tab", onClick: () => modifySizes("XXL"), children: "XXL" }, void 0, !1, {
+          fileName: "app/routes/($locale).collectioncarousel.$handle.jsx",
+          lineNumber: 133,
+          columnNumber: 13
+        }, this),
+        /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)("button", { className: "tab", onClick: () => modifySizes("XXXL"), children: "XXXL" }, void 0, !1, {
+          fileName: "app/routes/($locale).collectioncarousel.$handle.jsx",
+          lineNumber: 134,
+          columnNumber: 13
+        }, this)
+      ] }, void 0, !0, {
+        fileName: "app/routes/($locale).collectioncarousel.$handle.jsx",
+        lineNumber: 127,
+        columnNumber: 11
+      }, this),
+      /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)("div", { className: "tabPanel", children: currentSwatchSet }, void 0, !1, {
+        fileName: "app/routes/($locale).collectioncarousel.$handle.jsx",
+        lineNumber: 136,
+        columnNumber: 11
+      }, this)
+    ] }, void 0, !0, {
+      fileName: "app/routes/($locale).collectioncarousel.$handle.jsx",
+      lineNumber: 126,
+      columnNumber: 9
+    }, this)
+  ] }, void 0, !0, {
+    fileName: "app/routes/($locale).collectioncarousel.$handle.jsx",
+    lineNumber: 118,
+    columnNumber: 7
+  }, this) }, void 0, !1, {
+    fileName: "app/routes/($locale).collectioncarousel.$handle.jsx",
+    lineNumber: 117,
     columnNumber: 5
   }, this);
 }
 function Collection() {
   let { collection } = useLoaderData2();
-  return /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)("div", { className: "collectionPanel", children: [
-    /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)(ProductInfo, { collection }, void 0, !1, {
-      fileName: "app/routes/($locale).collectioncarousel.$handle.jsx",
-      lineNumber: 210,
-      columnNumber: 7
-    }, this),
-    /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)(ProductFilter, { collection }, void 0, !1, {
-      fileName: "app/routes/($locale).collectioncarousel.$handle.jsx",
-      lineNumber: 211,
-      columnNumber: 7
-    }, this)
-  ] }, void 0, !0, {
+  return /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)(Product, { collection }, void 0, !1, {
     fileName: "app/routes/($locale).collectioncarousel.$handle.jsx",
-    lineNumber: 209,
-    columnNumber: 5
-  }, this);
-}
-function ProductItem({ product }) {
-  let variant = product.variants.nodes[0], variantUrl = useVariantUrl(product.handle, variant.selectedOptions);
-  return /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)("div", { style: { display: "flex", justifyContent: "center", alignItems: "center" }, children: /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)("div", { style: { display: "block" }, children: /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)(
-    Link2,
-    {
-      prefetch: "intent",
-      to: variantUrl,
-      children: product.featuredImage && /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)("div", { style: { display: "flex", justifyContent: "center", alignItems: "center" }, children: /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)(
-        Image,
-        {
-          alt: product.featuredImage.altText || product.title,
-          aspectRatio: "1/1",
-          data: product.featuredImage,
-          width: 512,
-          style: { display: "block" }
-        },
-        void 0,
-        !1,
-        {
-          fileName: "app/routes/($locale).collectioncarousel.$handle.jsx",
-          lineNumber: 235,
-          columnNumber: 15
-        },
-        this
-      ) }, void 0, !1, {
-        fileName: "app/routes/($locale).collectioncarousel.$handle.jsx",
-        lineNumber: 234,
-        columnNumber: 13
-      }, this)
-    },
-    product.id,
-    !1,
-    {
-      fileName: "app/routes/($locale).collectioncarousel.$handle.jsx",
-      lineNumber: 228,
-      columnNumber: 9
-    },
-    this
-  ) }, void 0, !1, {
-    fileName: "app/routes/($locale).collectioncarousel.$handle.jsx",
-    lineNumber: 227,
+    lineNumber: 150,
     columnNumber: 7
-  }, this) }, void 0, !1, {
-    fileName: "app/routes/($locale).collectioncarousel.$handle.jsx",
-    lineNumber: 226,
-    columnNumber: 5
   }, this);
 }
 var PRODUCT_ITEM_FRAGMENT = `#graphql
@@ -34400,341 +26132,16 @@ var BLOGS_QUERY = `#graphql
   }
 `;
 
-// app/routes/($locale).collectiongrid.$handle.jsx
-var locale_collectiongrid_handle_exports = {};
-__export(locale_collectiongrid_handle_exports, {
-  default: () => Collection2,
-  loader: () => loader6,
-  meta: () => meta6
-});
-var import_jsx_dev_runtime13 = __toESM(require_jsx_dev_runtime()), meta6 = ({ data }) => [{ title: `KT | ${data?.collection.title ?? ""}` }];
-async function loader6({ request, params, context }) {
-  let { handle } = params, { storefront } = context, paginationVariables = getPaginationVariables(request, {
-    pageBy: 8
-  });
-  if (!handle)
-    return redirect5("/collections");
-  let { collection } = await storefront.query(COLLECTION_QUERY2, {
-    variables: { handle, ...paginationVariables }
-  });
-  if (!collection)
-    throw new Response(`Collection ${handle} not found`, {
-      status: 404
-    });
-  return json5({ collection });
-}
-function Collection2() {
-  let { collection } = useLoaderData2(), products = collection.products.nodes.map((product) => /* @__PURE__ */ (0, import_jsx_dev_runtime13.jsxDEV)(Grid_default, { item: !0, xs: !0, children: /* @__PURE__ */ (0, import_jsx_dev_runtime13.jsxDEV)(ProductTile, { product }, void 0, !1, {
-    fileName: "app/routes/($locale).collectiongrid.$handle.jsx",
-    lineNumber: 52,
-    columnNumber: 7
-  }, this) }, void 0, !1, {
-    fileName: "app/routes/($locale).collectiongrid.$handle.jsx",
-    lineNumber: 51,
-    columnNumber: 5
-  }, this));
-  return /* @__PURE__ */ (0, import_jsx_dev_runtime13.jsxDEV)(
-    "div",
-    {
-      style: {
-        display: "block"
-      },
-      children: [
-        /* @__PURE__ */ (0, import_jsx_dev_runtime13.jsxDEV)("div", { children: /* @__PURE__ */ (0, import_jsx_dev_runtime13.jsxDEV)(Link2, { prefetch: "intent", to: `/collectioncarousel/${collection.handle}`, children: "Carousel View" }, void 0, !1, {
-          fileName: "app/routes/($locale).collectiongrid.$handle.jsx",
-          lineNumber: 64,
-          columnNumber: 9
-        }, this) }, void 0, !1, {
-          fileName: "app/routes/($locale).collectiongrid.$handle.jsx",
-          lineNumber: 63,
-          columnNumber: 7
-        }, this),
-        /* @__PURE__ */ (0, import_jsx_dev_runtime13.jsxDEV)(
-          "div",
-          {
-            style: {
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center"
-            },
-            children: /* @__PURE__ */ (0, import_jsx_dev_runtime13.jsxDEV)("h2", { children: collection.title }, void 0, !1, {
-              fileName: "app/routes/($locale).collectiongrid.$handle.jsx",
-              lineNumber: 73,
-              columnNumber: 9
-            }, this)
-          },
-          void 0,
-          !1,
-          {
-            fileName: "app/routes/($locale).collectiongrid.$handle.jsx",
-            lineNumber: 66,
-            columnNumber: 7
-          },
-          this
-        ),
-        /* @__PURE__ */ (0, import_jsx_dev_runtime13.jsxDEV)(
-          "div",
-          {
-            style: {
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center"
-            },
-            children: /* @__PURE__ */ (0, import_jsx_dev_runtime13.jsxDEV)(
-              "div",
-              {
-                className: "collection-description",
-                style: { paddingTop: "16px" },
-                children: collection.description
-              },
-              void 0,
-              !1,
-              {
-                fileName: "app/routes/($locale).collectiongrid.$handle.jsx",
-                lineNumber: 82,
-                columnNumber: 9
-              },
-              this
-            )
-          },
-          void 0,
-          !1,
-          {
-            fileName: "app/routes/($locale).collectiongrid.$handle.jsx",
-            lineNumber: 75,
-            columnNumber: 7
-          },
-          this
-        ),
-        /* @__PURE__ */ (0, import_jsx_dev_runtime13.jsxDEV)(
-          "div",
-          {
-            style: {
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center"
-            },
-            children: /* @__PURE__ */ (0, import_jsx_dev_runtime13.jsxDEV)("div", { style: { display: "block", width: "75%" }, children: /* @__PURE__ */ (0, import_jsx_dev_runtime13.jsxDEV)(Grid_default, { container: !0, spacing: 2, children: products }, void 0, !1, {
-              fileName: "app/routes/($locale).collectiongrid.$handle.jsx",
-              lineNumber: 97,
-              columnNumber: 11
-            }, this) }, void 0, !1, {
-              fileName: "app/routes/($locale).collectiongrid.$handle.jsx",
-              lineNumber: 96,
-              columnNumber: 9
-            }, this)
-          },
-          void 0,
-          !1,
-          {
-            fileName: "app/routes/($locale).collectiongrid.$handle.jsx",
-            lineNumber: 89,
-            columnNumber: 7
-          },
-          this
-        )
-      ]
-    },
-    void 0,
-    !0,
-    {
-      fileName: "app/routes/($locale).collectiongrid.$handle.jsx",
-      lineNumber: 58,
-      columnNumber: 5
-    },
-    this
-  );
-}
-function ProductTile({ product }) {
-  let variant = product.variants.nodes[0], variantUrl = useVariantUrl(product.handle, variant.selectedOptions);
-  return /* @__PURE__ */ (0, import_jsx_dev_runtime13.jsxDEV)("div", { style: { display: "flex", justifyContent: "center", alignItems: "center", padding: "28px" }, children: /* @__PURE__ */ (0, import_jsx_dev_runtime13.jsxDEV)("div", { style: { display: "block" }, children: [
-    /* @__PURE__ */ (0, import_jsx_dev_runtime13.jsxDEV)("div", { style: { display: "block" }, children: /* @__PURE__ */ (0, import_jsx_dev_runtime13.jsxDEV)(
-      Link2,
-      {
-        prefetch: "intent",
-        to: variantUrl,
-        children: product.featuredImage && /* @__PURE__ */ (0, import_jsx_dev_runtime13.jsxDEV)("div", { style: { display: "flex", justifyContent: "center", alignItems: "center" }, children: /* @__PURE__ */ (0, import_jsx_dev_runtime13.jsxDEV)(
-          Image,
-          {
-            alt: product.featuredImage.altText || product.title,
-            aspectRatio: "1/1",
-            data: product.featuredImage,
-            width: 256,
-            style: { display: "block" }
-          },
-          void 0,
-          !1,
-          {
-            fileName: "app/routes/($locale).collectiongrid.$handle.jsx",
-            lineNumber: 126,
-            columnNumber: 17
-          },
-          this
-        ) }, void 0, !1, {
-          fileName: "app/routes/($locale).collectiongrid.$handle.jsx",
-          lineNumber: 125,
-          columnNumber: 15
-        }, this)
-      },
-      product.id,
-      !1,
-      {
-        fileName: "app/routes/($locale).collectiongrid.$handle.jsx",
-        lineNumber: 119,
-        columnNumber: 11
-      },
-      this
-    ) }, void 0, !1, {
-      fileName: "app/routes/($locale).collectiongrid.$handle.jsx",
-      lineNumber: 118,
-      columnNumber: 9
-    }, this),
-    /* @__PURE__ */ (0, import_jsx_dev_runtime13.jsxDEV)("div", { style: { diplay: "block" }, children: [
-      /* @__PURE__ */ (0, import_jsx_dev_runtime13.jsxDEV)("h4", { children: /* @__PURE__ */ (0, import_jsx_dev_runtime13.jsxDEV)(
-        "div",
-        {
-          style: {
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center"
-          },
-          children: product.title
-        },
-        void 0,
-        !1,
-        {
-          fileName: "app/routes/($locale).collectiongrid.$handle.jsx",
-          lineNumber: 139,
-          columnNumber: 13
-        },
-        this
-      ) }, void 0, !1, {
-        fileName: "app/routes/($locale).collectiongrid.$handle.jsx",
-        lineNumber: 138,
-        columnNumber: 11
-      }, this),
-      /* @__PURE__ */ (0, import_jsx_dev_runtime13.jsxDEV)("hr", {}, void 0, !1, {
-        fileName: "app/routes/($locale).collectiongrid.$handle.jsx",
-        lineNumber: 149,
-        columnNumber: 11
-      }, this),
-      /* @__PURE__ */ (0, import_jsx_dev_runtime13.jsxDEV)(
-        "div",
-        {
-          style: {
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center"
-          },
-          children: /* @__PURE__ */ (0, import_jsx_dev_runtime13.jsxDEV)(Money, { data: product.priceRange.minVariantPrice }, void 0, !1, {
-            fileName: "app/routes/($locale).collectiongrid.$handle.jsx",
-            lineNumber: 157,
-            columnNumber: 13
-          }, this)
-        },
-        void 0,
-        !1,
-        {
-          fileName: "app/routes/($locale).collectiongrid.$handle.jsx",
-          lineNumber: 150,
-          columnNumber: 11
-        },
-        this
-      )
-    ] }, void 0, !0, {
-      fileName: "app/routes/($locale).collectiongrid.$handle.jsx",
-      lineNumber: 137,
-      columnNumber: 9
-    }, this)
-  ] }, void 0, !0, {
-    fileName: "app/routes/($locale).collectiongrid.$handle.jsx",
-    lineNumber: 117,
-    columnNumber: 7
-  }, this) }, void 0, !1, {
-    fileName: "app/routes/($locale).collectiongrid.$handle.jsx",
-    lineNumber: 116,
-    columnNumber: 5
-  }, this);
-}
-var PRODUCT_ITEM_FRAGMENT2 = `#graphql
-  fragment MoneyProductItem on MoneyV2 {
-    amount
-    currencyCode
-  }
-  fragment ProductItem on Product {
-    id
-    handle
-    title
-    featuredImage {
-      id
-      altText
-      url
-      width
-      height
-    }
-    priceRange {
-      minVariantPrice {
-        ...MoneyProductItem
-      }
-      maxVariantPrice {
-        ...MoneyProductItem
-      }
-    }
-    variants(first: 1) {
-      nodes {
-        selectedOptions {
-          name
-          value
-        }
-      }
-    }
-  }
-`, COLLECTION_QUERY2 = `#graphql
-  ${PRODUCT_ITEM_FRAGMENT2}
-  query Collection(
-    $handle: String!
-    $country: CountryCode
-    $language: LanguageCode
-    $first: Int
-    $last: Int
-    $startCursor: String
-    $endCursor: String
-  ) @inContext(country: $country, language: $language) {
-    collection(handle: $handle) {
-      id
-      handle
-      title
-      description
-      products(
-        first: $first,
-        last: $last,
-        before: $startCursor,
-        after: $endCursor
-      ) {
-        nodes {
-          ...ProductItem
-        }
-        pageInfo {
-          hasPreviousPage
-          hasNextPage
-          endCursor
-          startCursor
-        }
-      }
-    }
-  }
-`;
-
 // app/routes/($locale).account.orders._index.jsx
 var locale_account_orders_index_exports = {};
 __export(locale_account_orders_index_exports, {
   CUSTOMER_FRAGMENT: () => CUSTOMER_FRAGMENT,
   default: () => Orders,
-  loader: () => loader7,
-  meta: () => meta7
+  loader: () => loader6,
+  meta: () => meta6
 });
-var import_jsx_dev_runtime14 = __toESM(require_jsx_dev_runtime()), meta7 = () => [{ title: "Orders" }];
-async function loader7({ request, context }) {
+var import_jsx_dev_runtime13 = __toESM(require_jsx_dev_runtime()), meta6 = () => [{ title: "Orders" }];
+async function loader6({ request, context }) {
   let { session, storefront } = context, customerAccessToken = await session.get("customerAccessToken");
   if (!customerAccessToken?.accessToken)
     return redirect5("/account/login");
@@ -34759,10 +26166,10 @@ async function loader7({ request, context }) {
 }
 function Orders() {
   let { customer } = useLoaderData2(), { orders, numberOfOrders } = customer;
-  return /* @__PURE__ */ (0, import_jsx_dev_runtime14.jsxDEV)("div", { className: "orders", children: [
-    /* @__PURE__ */ (0, import_jsx_dev_runtime14.jsxDEV)("h2", { children: [
+  return /* @__PURE__ */ (0, import_jsx_dev_runtime13.jsxDEV)("div", { className: "orders", children: [
+    /* @__PURE__ */ (0, import_jsx_dev_runtime13.jsxDEV)("h2", { children: [
       "Orders ",
-      /* @__PURE__ */ (0, import_jsx_dev_runtime14.jsxDEV)("small", { children: [
+      /* @__PURE__ */ (0, import_jsx_dev_runtime13.jsxDEV)("small", { children: [
         "(",
         numberOfOrders,
         ")"
@@ -34776,16 +26183,16 @@ function Orders() {
       lineNumber: 57,
       columnNumber: 7
     }, this),
-    /* @__PURE__ */ (0, import_jsx_dev_runtime14.jsxDEV)("br", {}, void 0, !1, {
+    /* @__PURE__ */ (0, import_jsx_dev_runtime13.jsxDEV)("br", {}, void 0, !1, {
       fileName: "app/routes/($locale).account.orders._index.jsx",
       lineNumber: 60,
       columnNumber: 7
     }, this),
-    orders.nodes.length ? /* @__PURE__ */ (0, import_jsx_dev_runtime14.jsxDEV)(OrdersTable, { orders }, void 0, !1, {
+    orders.nodes.length ? /* @__PURE__ */ (0, import_jsx_dev_runtime13.jsxDEV)(OrdersTable, { orders }, void 0, !1, {
       fileName: "app/routes/($locale).account.orders._index.jsx",
       lineNumber: 61,
       columnNumber: 30
-    }, this) : /* @__PURE__ */ (0, import_jsx_dev_runtime14.jsxDEV)(EmptyOrders, {}, void 0, !1, {
+    }, this) : /* @__PURE__ */ (0, import_jsx_dev_runtime13.jsxDEV)(EmptyOrders, {}, void 0, !1, {
       fileName: "app/routes/($locale).account.orders._index.jsx",
       lineNumber: 61,
       columnNumber: 64
@@ -34797,8 +26204,8 @@ function Orders() {
   }, this);
 }
 function OrdersTable({ orders }) {
-  return /* @__PURE__ */ (0, import_jsx_dev_runtime14.jsxDEV)("div", { className: "acccount-orders", children: orders?.nodes.length ? /* @__PURE__ */ (0, import_jsx_dev_runtime14.jsxDEV)(Pagination, { connection: orders, children: ({ nodes, isLoading, PreviousLink, NextLink }) => /* @__PURE__ */ (0, import_jsx_dev_runtime14.jsxDEV)(import_jsx_dev_runtime14.Fragment, { children: [
-    /* @__PURE__ */ (0, import_jsx_dev_runtime14.jsxDEV)(PreviousLink, { children: isLoading ? "Loading..." : /* @__PURE__ */ (0, import_jsx_dev_runtime14.jsxDEV)("span", { children: "\u2191 Load previous" }, void 0, !1, {
+  return /* @__PURE__ */ (0, import_jsx_dev_runtime13.jsxDEV)("div", { className: "acccount-orders", children: orders?.nodes.length ? /* @__PURE__ */ (0, import_jsx_dev_runtime13.jsxDEV)(Pagination, { connection: orders, children: ({ nodes, isLoading, PreviousLink, NextLink }) => /* @__PURE__ */ (0, import_jsx_dev_runtime13.jsxDEV)(import_jsx_dev_runtime13.Fragment, { children: [
+    /* @__PURE__ */ (0, import_jsx_dev_runtime13.jsxDEV)(PreviousLink, { children: isLoading ? "Loading..." : /* @__PURE__ */ (0, import_jsx_dev_runtime13.jsxDEV)("span", { children: "\u2191 Load previous" }, void 0, !1, {
       fileName: "app/routes/($locale).account.orders._index.jsx",
       lineNumber: 78,
       columnNumber: 47
@@ -34807,12 +26214,12 @@ function OrdersTable({ orders }) {
       lineNumber: 77,
       columnNumber: 17
     }, this),
-    nodes.map((order) => /* @__PURE__ */ (0, import_jsx_dev_runtime14.jsxDEV)(OrderItem, { order }, order.id, !1, {
+    nodes.map((order) => /* @__PURE__ */ (0, import_jsx_dev_runtime13.jsxDEV)(OrderItem, { order }, order.id, !1, {
       fileName: "app/routes/($locale).account.orders._index.jsx",
       lineNumber: 81,
       columnNumber: 26
     }, this)),
-    /* @__PURE__ */ (0, import_jsx_dev_runtime14.jsxDEV)(NextLink, { children: isLoading ? "Loading..." : /* @__PURE__ */ (0, import_jsx_dev_runtime14.jsxDEV)("span", { children: "Load more \u2193" }, void 0, !1, {
+    /* @__PURE__ */ (0, import_jsx_dev_runtime13.jsxDEV)(NextLink, { children: isLoading ? "Loading..." : /* @__PURE__ */ (0, import_jsx_dev_runtime13.jsxDEV)("span", { children: "Load more \u2193" }, void 0, !1, {
       fileName: "app/routes/($locale).account.orders._index.jsx",
       lineNumber: 84,
       columnNumber: 47
@@ -34829,7 +26236,7 @@ function OrdersTable({ orders }) {
     fileName: "app/routes/($locale).account.orders._index.jsx",
     lineNumber: 73,
     columnNumber: 9
-  }, this) : /* @__PURE__ */ (0, import_jsx_dev_runtime14.jsxDEV)(EmptyOrders, {}, void 0, !1, {
+  }, this) : /* @__PURE__ */ (0, import_jsx_dev_runtime13.jsxDEV)(EmptyOrders, {}, void 0, !1, {
     fileName: "app/routes/($locale).account.orders._index.jsx",
     lineNumber: 91,
     columnNumber: 9
@@ -34840,18 +26247,18 @@ function OrdersTable({ orders }) {
   }, this);
 }
 function EmptyOrders() {
-  return /* @__PURE__ */ (0, import_jsx_dev_runtime14.jsxDEV)("div", { children: [
-    /* @__PURE__ */ (0, import_jsx_dev_runtime14.jsxDEV)("p", { children: "You haven't placed any orders yet." }, void 0, !1, {
+  return /* @__PURE__ */ (0, import_jsx_dev_runtime13.jsxDEV)("div", { children: [
+    /* @__PURE__ */ (0, import_jsx_dev_runtime13.jsxDEV)("p", { children: "You haven't placed any orders yet." }, void 0, !1, {
       fileName: "app/routes/($locale).account.orders._index.jsx",
       lineNumber: 100,
       columnNumber: 7
     }, this),
-    /* @__PURE__ */ (0, import_jsx_dev_runtime14.jsxDEV)("br", {}, void 0, !1, {
+    /* @__PURE__ */ (0, import_jsx_dev_runtime13.jsxDEV)("br", {}, void 0, !1, {
       fileName: "app/routes/($locale).account.orders._index.jsx",
       lineNumber: 101,
       columnNumber: 7
     }, this),
-    /* @__PURE__ */ (0, import_jsx_dev_runtime14.jsxDEV)("p", { children: /* @__PURE__ */ (0, import_jsx_dev_runtime14.jsxDEV)(Link2, { to: "/collections", children: "Start Shopping \u2192" }, void 0, !1, {
+    /* @__PURE__ */ (0, import_jsx_dev_runtime13.jsxDEV)("p", { children: /* @__PURE__ */ (0, import_jsx_dev_runtime13.jsxDEV)(Link2, { to: "/collections", children: "Start Shopping \u2192" }, void 0, !1, {
       fileName: "app/routes/($locale).account.orders._index.jsx",
       lineNumber: 103,
       columnNumber: 9
@@ -34867,9 +26274,9 @@ function EmptyOrders() {
   }, this);
 }
 function OrderItem({ order }) {
-  return /* @__PURE__ */ (0, import_jsx_dev_runtime14.jsxDEV)(import_jsx_dev_runtime14.Fragment, { children: [
-    /* @__PURE__ */ (0, import_jsx_dev_runtime14.jsxDEV)("fieldset", { children: [
-      /* @__PURE__ */ (0, import_jsx_dev_runtime14.jsxDEV)(Link2, { to: `/account/orders/${order.id}`, children: /* @__PURE__ */ (0, import_jsx_dev_runtime14.jsxDEV)("strong", { children: [
+  return /* @__PURE__ */ (0, import_jsx_dev_runtime13.jsxDEV)(import_jsx_dev_runtime13.Fragment, { children: [
+    /* @__PURE__ */ (0, import_jsx_dev_runtime13.jsxDEV)("fieldset", { children: [
+      /* @__PURE__ */ (0, import_jsx_dev_runtime13.jsxDEV)(Link2, { to: `/account/orders/${order.id}`, children: /* @__PURE__ */ (0, import_jsx_dev_runtime13.jsxDEV)("strong", { children: [
         "#",
         order.orderNumber
       ] }, void 0, !0, {
@@ -34881,27 +26288,27 @@ function OrderItem({ order }) {
         lineNumber: 116,
         columnNumber: 9
       }, this),
-      /* @__PURE__ */ (0, import_jsx_dev_runtime14.jsxDEV)("p", { children: new Date(order.processedAt).toDateString() }, void 0, !1, {
+      /* @__PURE__ */ (0, import_jsx_dev_runtime13.jsxDEV)("p", { children: new Date(order.processedAt).toDateString() }, void 0, !1, {
         fileName: "app/routes/($locale).account.orders._index.jsx",
         lineNumber: 119,
         columnNumber: 9
       }, this),
-      /* @__PURE__ */ (0, import_jsx_dev_runtime14.jsxDEV)("p", { children: order.financialStatus }, void 0, !1, {
+      /* @__PURE__ */ (0, import_jsx_dev_runtime13.jsxDEV)("p", { children: order.financialStatus }, void 0, !1, {
         fileName: "app/routes/($locale).account.orders._index.jsx",
         lineNumber: 120,
         columnNumber: 9
       }, this),
-      /* @__PURE__ */ (0, import_jsx_dev_runtime14.jsxDEV)("p", { children: order.fulfillmentStatus }, void 0, !1, {
+      /* @__PURE__ */ (0, import_jsx_dev_runtime13.jsxDEV)("p", { children: order.fulfillmentStatus }, void 0, !1, {
         fileName: "app/routes/($locale).account.orders._index.jsx",
         lineNumber: 121,
         columnNumber: 9
       }, this),
-      /* @__PURE__ */ (0, import_jsx_dev_runtime14.jsxDEV)(Money, { data: order.currentTotalPrice }, void 0, !1, {
+      /* @__PURE__ */ (0, import_jsx_dev_runtime13.jsxDEV)(Money, { data: order.currentTotalPrice }, void 0, !1, {
         fileName: "app/routes/($locale).account.orders._index.jsx",
         lineNumber: 122,
         columnNumber: 9
       }, this),
-      /* @__PURE__ */ (0, import_jsx_dev_runtime14.jsxDEV)(Link2, { to: `/account/orders/${btoa(order.id)}`, children: "View Order \u2192" }, void 0, !1, {
+      /* @__PURE__ */ (0, import_jsx_dev_runtime13.jsxDEV)(Link2, { to: `/account/orders/${btoa(order.id)}`, children: "View Order \u2192" }, void 0, !1, {
         fileName: "app/routes/($locale).account.orders._index.jsx",
         lineNumber: 123,
         columnNumber: 9
@@ -34911,7 +26318,7 @@ function OrderItem({ order }) {
       lineNumber: 115,
       columnNumber: 7
     }, this),
-    /* @__PURE__ */ (0, import_jsx_dev_runtime14.jsxDEV)("br", {}, void 0, !1, {
+    /* @__PURE__ */ (0, import_jsx_dev_runtime13.jsxDEV)("br", {}, void 0, !1, {
       fileName: "app/routes/($locale).account.orders._index.jsx",
       lineNumber: 125,
       columnNumber: 7
@@ -35228,11 +26635,11 @@ var PREDICTIVE_SEARCH_QUERY = `#graphql
 var locale_account_orders_id_exports = {};
 __export(locale_account_orders_id_exports, {
   default: () => OrderRoute,
-  loader: () => loader8,
-  meta: () => meta8
+  loader: () => loader7,
+  meta: () => meta7
 });
-var import_jsx_dev_runtime15 = __toESM(require_jsx_dev_runtime()), meta8 = ({ data }) => [{ title: `Order ${data?.order?.name}` }];
-async function loader8({ params, context }) {
+var import_jsx_dev_runtime14 = __toESM(require_jsx_dev_runtime()), meta7 = ({ data }) => [{ title: `Order ${data?.order?.name}` }];
+async function loader7({ params, context }) {
   let { session, storefront } = context;
   if (!params.id)
     return redirect5("/account/orders");
@@ -35254,8 +26661,8 @@ async function loader8({ params, context }) {
 }
 function OrderRoute() {
   let { order, lineItems, discountValue, discountPercentage } = useLoaderData2();
-  return /* @__PURE__ */ (0, import_jsx_dev_runtime15.jsxDEV)("div", { className: "account-order", children: [
-    /* @__PURE__ */ (0, import_jsx_dev_runtime15.jsxDEV)("h2", { children: [
+  return /* @__PURE__ */ (0, import_jsx_dev_runtime14.jsxDEV)("div", { className: "account-order", children: [
+    /* @__PURE__ */ (0, import_jsx_dev_runtime14.jsxDEV)("h2", { children: [
       "Order ",
       order.name
     ] }, void 0, !0, {
@@ -35263,7 +26670,7 @@ function OrderRoute() {
       lineNumber: 62,
       columnNumber: 7
     }, this),
-    /* @__PURE__ */ (0, import_jsx_dev_runtime15.jsxDEV)("p", { children: [
+    /* @__PURE__ */ (0, import_jsx_dev_runtime14.jsxDEV)("p", { children: [
       "Placed on ",
       new Date(order.processedAt).toDateString()
     ] }, void 0, !0, {
@@ -35271,30 +26678,30 @@ function OrderRoute() {
       lineNumber: 63,
       columnNumber: 7
     }, this),
-    /* @__PURE__ */ (0, import_jsx_dev_runtime15.jsxDEV)("br", {}, void 0, !1, {
+    /* @__PURE__ */ (0, import_jsx_dev_runtime14.jsxDEV)("br", {}, void 0, !1, {
       fileName: "app/routes/($locale).account.orders.$id.jsx",
       lineNumber: 64,
       columnNumber: 7
     }, this),
-    /* @__PURE__ */ (0, import_jsx_dev_runtime15.jsxDEV)("div", { children: [
-      /* @__PURE__ */ (0, import_jsx_dev_runtime15.jsxDEV)("table", { children: [
-        /* @__PURE__ */ (0, import_jsx_dev_runtime15.jsxDEV)("thead", { children: /* @__PURE__ */ (0, import_jsx_dev_runtime15.jsxDEV)("tr", { children: [
-          /* @__PURE__ */ (0, import_jsx_dev_runtime15.jsxDEV)("th", { scope: "col", children: "Product" }, void 0, !1, {
+    /* @__PURE__ */ (0, import_jsx_dev_runtime14.jsxDEV)("div", { children: [
+      /* @__PURE__ */ (0, import_jsx_dev_runtime14.jsxDEV)("table", { children: [
+        /* @__PURE__ */ (0, import_jsx_dev_runtime14.jsxDEV)("thead", { children: /* @__PURE__ */ (0, import_jsx_dev_runtime14.jsxDEV)("tr", { children: [
+          /* @__PURE__ */ (0, import_jsx_dev_runtime14.jsxDEV)("th", { scope: "col", children: "Product" }, void 0, !1, {
             fileName: "app/routes/($locale).account.orders.$id.jsx",
             lineNumber: 69,
             columnNumber: 15
           }, this),
-          /* @__PURE__ */ (0, import_jsx_dev_runtime15.jsxDEV)("th", { scope: "col", children: "Price" }, void 0, !1, {
+          /* @__PURE__ */ (0, import_jsx_dev_runtime14.jsxDEV)("th", { scope: "col", children: "Price" }, void 0, !1, {
             fileName: "app/routes/($locale).account.orders.$id.jsx",
             lineNumber: 70,
             columnNumber: 15
           }, this),
-          /* @__PURE__ */ (0, import_jsx_dev_runtime15.jsxDEV)("th", { scope: "col", children: "Quantity" }, void 0, !1, {
+          /* @__PURE__ */ (0, import_jsx_dev_runtime14.jsxDEV)("th", { scope: "col", children: "Quantity" }, void 0, !1, {
             fileName: "app/routes/($locale).account.orders.$id.jsx",
             lineNumber: 71,
             columnNumber: 15
           }, this),
-          /* @__PURE__ */ (0, import_jsx_dev_runtime15.jsxDEV)("th", { scope: "col", children: "Total" }, void 0, !1, {
+          /* @__PURE__ */ (0, import_jsx_dev_runtime14.jsxDEV)("th", { scope: "col", children: "Total" }, void 0, !1, {
             fileName: "app/routes/($locale).account.orders.$id.jsx",
             lineNumber: 72,
             columnNumber: 15
@@ -35308,9 +26715,9 @@ function OrderRoute() {
           lineNumber: 67,
           columnNumber: 11
         }, this),
-        /* @__PURE__ */ (0, import_jsx_dev_runtime15.jsxDEV)("tbody", { children: lineItems.map((lineItem, lineItemIndex) => (
+        /* @__PURE__ */ (0, import_jsx_dev_runtime14.jsxDEV)("tbody", { children: lineItems.map((lineItem, lineItemIndex) => (
           // eslint-disable-next-line react/no-array-index-key
-          /* @__PURE__ */ (0, import_jsx_dev_runtime15.jsxDEV)(OrderLineRow, { lineItem }, lineItemIndex, !1, {
+          /* @__PURE__ */ (0, import_jsx_dev_runtime14.jsxDEV)(OrderLineRow, { lineItem }, lineItemIndex, !1, {
             fileName: "app/routes/($locale).account.orders.$id.jsx",
             lineNumber: 78,
             columnNumber: 15
@@ -35320,9 +26727,9 @@ function OrderRoute() {
           lineNumber: 75,
           columnNumber: 11
         }, this),
-        /* @__PURE__ */ (0, import_jsx_dev_runtime15.jsxDEV)("tfoot", { children: [
-          (discountValue && discountValue.amount || discountPercentage) && /* @__PURE__ */ (0, import_jsx_dev_runtime15.jsxDEV)("tr", { children: [
-            /* @__PURE__ */ (0, import_jsx_dev_runtime15.jsxDEV)("th", { scope: "row", colSpan: 3, children: /* @__PURE__ */ (0, import_jsx_dev_runtime15.jsxDEV)("p", { children: "Discounts" }, void 0, !1, {
+        /* @__PURE__ */ (0, import_jsx_dev_runtime14.jsxDEV)("tfoot", { children: [
+          (discountValue && discountValue.amount || discountPercentage) && /* @__PURE__ */ (0, import_jsx_dev_runtime14.jsxDEV)("tr", { children: [
+            /* @__PURE__ */ (0, import_jsx_dev_runtime14.jsxDEV)("th", { scope: "row", colSpan: 3, children: /* @__PURE__ */ (0, import_jsx_dev_runtime14.jsxDEV)("p", { children: "Discounts" }, void 0, !1, {
               fileName: "app/routes/($locale).account.orders.$id.jsx",
               lineNumber: 86,
               columnNumber: 19
@@ -35331,7 +26738,7 @@ function OrderRoute() {
               lineNumber: 85,
               columnNumber: 17
             }, this),
-            /* @__PURE__ */ (0, import_jsx_dev_runtime15.jsxDEV)("th", { scope: "row", children: /* @__PURE__ */ (0, import_jsx_dev_runtime15.jsxDEV)("p", { children: "Discounts" }, void 0, !1, {
+            /* @__PURE__ */ (0, import_jsx_dev_runtime14.jsxDEV)("th", { scope: "row", children: /* @__PURE__ */ (0, import_jsx_dev_runtime14.jsxDEV)("p", { children: "Discounts" }, void 0, !1, {
               fileName: "app/routes/($locale).account.orders.$id.jsx",
               lineNumber: 89,
               columnNumber: 19
@@ -35340,7 +26747,7 @@ function OrderRoute() {
               lineNumber: 88,
               columnNumber: 17
             }, this),
-            /* @__PURE__ */ (0, import_jsx_dev_runtime15.jsxDEV)("td", { children: discountPercentage ? /* @__PURE__ */ (0, import_jsx_dev_runtime15.jsxDEV)("span", { children: [
+            /* @__PURE__ */ (0, import_jsx_dev_runtime14.jsxDEV)("td", { children: discountPercentage ? /* @__PURE__ */ (0, import_jsx_dev_runtime14.jsxDEV)("span", { children: [
               "-",
               discountPercentage,
               "% OFF"
@@ -35348,7 +26755,7 @@ function OrderRoute() {
               fileName: "app/routes/($locale).account.orders.$id.jsx",
               lineNumber: 93,
               columnNumber: 21
-            }, this) : discountValue && /* @__PURE__ */ (0, import_jsx_dev_runtime15.jsxDEV)(Money, { data: discountValue }, void 0, !1, {
+            }, this) : discountValue && /* @__PURE__ */ (0, import_jsx_dev_runtime14.jsxDEV)(Money, { data: discountValue }, void 0, !1, {
               fileName: "app/routes/($locale).account.orders.$id.jsx",
               lineNumber: 95,
               columnNumber: 38
@@ -35362,8 +26769,8 @@ function OrderRoute() {
             lineNumber: 84,
             columnNumber: 15
           }, this),
-          /* @__PURE__ */ (0, import_jsx_dev_runtime15.jsxDEV)("tr", { children: [
-            /* @__PURE__ */ (0, import_jsx_dev_runtime15.jsxDEV)("th", { scope: "row", colSpan: 3, children: /* @__PURE__ */ (0, import_jsx_dev_runtime15.jsxDEV)("p", { children: "Subtotal" }, void 0, !1, {
+          /* @__PURE__ */ (0, import_jsx_dev_runtime14.jsxDEV)("tr", { children: [
+            /* @__PURE__ */ (0, import_jsx_dev_runtime14.jsxDEV)("th", { scope: "row", colSpan: 3, children: /* @__PURE__ */ (0, import_jsx_dev_runtime14.jsxDEV)("p", { children: "Subtotal" }, void 0, !1, {
               fileName: "app/routes/($locale).account.orders.$id.jsx",
               lineNumber: 102,
               columnNumber: 17
@@ -35372,7 +26779,7 @@ function OrderRoute() {
               lineNumber: 101,
               columnNumber: 15
             }, this),
-            /* @__PURE__ */ (0, import_jsx_dev_runtime15.jsxDEV)("th", { scope: "row", children: /* @__PURE__ */ (0, import_jsx_dev_runtime15.jsxDEV)("p", { children: "Subtotal" }, void 0, !1, {
+            /* @__PURE__ */ (0, import_jsx_dev_runtime14.jsxDEV)("th", { scope: "row", children: /* @__PURE__ */ (0, import_jsx_dev_runtime14.jsxDEV)("p", { children: "Subtotal" }, void 0, !1, {
               fileName: "app/routes/($locale).account.orders.$id.jsx",
               lineNumber: 105,
               columnNumber: 17
@@ -35381,7 +26788,7 @@ function OrderRoute() {
               lineNumber: 104,
               columnNumber: 15
             }, this),
-            /* @__PURE__ */ (0, import_jsx_dev_runtime15.jsxDEV)("td", { children: /* @__PURE__ */ (0, import_jsx_dev_runtime15.jsxDEV)(Money, { data: order.subtotalPriceV2 }, void 0, !1, {
+            /* @__PURE__ */ (0, import_jsx_dev_runtime14.jsxDEV)("td", { children: /* @__PURE__ */ (0, import_jsx_dev_runtime14.jsxDEV)(Money, { data: order.subtotalPriceV2 }, void 0, !1, {
               fileName: "app/routes/($locale).account.orders.$id.jsx",
               lineNumber: 108,
               columnNumber: 17
@@ -35395,13 +26802,13 @@ function OrderRoute() {
             lineNumber: 100,
             columnNumber: 13
           }, this),
-          /* @__PURE__ */ (0, import_jsx_dev_runtime15.jsxDEV)("tr", { children: [
-            /* @__PURE__ */ (0, import_jsx_dev_runtime15.jsxDEV)("th", { scope: "row", colSpan: 3, children: "Tax" }, void 0, !1, {
+          /* @__PURE__ */ (0, import_jsx_dev_runtime14.jsxDEV)("tr", { children: [
+            /* @__PURE__ */ (0, import_jsx_dev_runtime14.jsxDEV)("th", { scope: "row", colSpan: 3, children: "Tax" }, void 0, !1, {
               fileName: "app/routes/($locale).account.orders.$id.jsx",
               lineNumber: 112,
               columnNumber: 15
             }, this),
-            /* @__PURE__ */ (0, import_jsx_dev_runtime15.jsxDEV)("th", { scope: "row", children: /* @__PURE__ */ (0, import_jsx_dev_runtime15.jsxDEV)("p", { children: "Tax" }, void 0, !1, {
+            /* @__PURE__ */ (0, import_jsx_dev_runtime14.jsxDEV)("th", { scope: "row", children: /* @__PURE__ */ (0, import_jsx_dev_runtime14.jsxDEV)("p", { children: "Tax" }, void 0, !1, {
               fileName: "app/routes/($locale).account.orders.$id.jsx",
               lineNumber: 116,
               columnNumber: 17
@@ -35410,7 +26817,7 @@ function OrderRoute() {
               lineNumber: 115,
               columnNumber: 15
             }, this),
-            /* @__PURE__ */ (0, import_jsx_dev_runtime15.jsxDEV)("td", { children: /* @__PURE__ */ (0, import_jsx_dev_runtime15.jsxDEV)(Money, { data: order.totalTaxV2 }, void 0, !1, {
+            /* @__PURE__ */ (0, import_jsx_dev_runtime14.jsxDEV)("td", { children: /* @__PURE__ */ (0, import_jsx_dev_runtime14.jsxDEV)(Money, { data: order.totalTaxV2 }, void 0, !1, {
               fileName: "app/routes/($locale).account.orders.$id.jsx",
               lineNumber: 119,
               columnNumber: 17
@@ -35424,13 +26831,13 @@ function OrderRoute() {
             lineNumber: 111,
             columnNumber: 13
           }, this),
-          /* @__PURE__ */ (0, import_jsx_dev_runtime15.jsxDEV)("tr", { children: [
-            /* @__PURE__ */ (0, import_jsx_dev_runtime15.jsxDEV)("th", { scope: "row", colSpan: 3, children: "Total" }, void 0, !1, {
+          /* @__PURE__ */ (0, import_jsx_dev_runtime14.jsxDEV)("tr", { children: [
+            /* @__PURE__ */ (0, import_jsx_dev_runtime14.jsxDEV)("th", { scope: "row", colSpan: 3, children: "Total" }, void 0, !1, {
               fileName: "app/routes/($locale).account.orders.$id.jsx",
               lineNumber: 123,
               columnNumber: 15
             }, this),
-            /* @__PURE__ */ (0, import_jsx_dev_runtime15.jsxDEV)("th", { scope: "row", children: /* @__PURE__ */ (0, import_jsx_dev_runtime15.jsxDEV)("p", { children: "Total" }, void 0, !1, {
+            /* @__PURE__ */ (0, import_jsx_dev_runtime14.jsxDEV)("th", { scope: "row", children: /* @__PURE__ */ (0, import_jsx_dev_runtime14.jsxDEV)("p", { children: "Total" }, void 0, !1, {
               fileName: "app/routes/($locale).account.orders.$id.jsx",
               lineNumber: 127,
               columnNumber: 17
@@ -35439,7 +26846,7 @@ function OrderRoute() {
               lineNumber: 126,
               columnNumber: 15
             }, this),
-            /* @__PURE__ */ (0, import_jsx_dev_runtime15.jsxDEV)("td", { children: /* @__PURE__ */ (0, import_jsx_dev_runtime15.jsxDEV)(Money, { data: order.totalPriceV2 }, void 0, !1, {
+            /* @__PURE__ */ (0, import_jsx_dev_runtime14.jsxDEV)("td", { children: /* @__PURE__ */ (0, import_jsx_dev_runtime14.jsxDEV)(Money, { data: order.totalPriceV2 }, void 0, !1, {
               fileName: "app/routes/($locale).account.orders.$id.jsx",
               lineNumber: 130,
               columnNumber: 17
@@ -35463,14 +26870,14 @@ function OrderRoute() {
         lineNumber: 66,
         columnNumber: 9
       }, this),
-      /* @__PURE__ */ (0, import_jsx_dev_runtime15.jsxDEV)("div", { children: [
-        /* @__PURE__ */ (0, import_jsx_dev_runtime15.jsxDEV)("h3", { children: "Shipping Address" }, void 0, !1, {
+      /* @__PURE__ */ (0, import_jsx_dev_runtime14.jsxDEV)("div", { children: [
+        /* @__PURE__ */ (0, import_jsx_dev_runtime14.jsxDEV)("h3", { children: "Shipping Address" }, void 0, !1, {
           fileName: "app/routes/($locale).account.orders.$id.jsx",
           lineNumber: 136,
           columnNumber: 11
         }, this),
-        order?.shippingAddress ? /* @__PURE__ */ (0, import_jsx_dev_runtime15.jsxDEV)("address", { children: [
-          /* @__PURE__ */ (0, import_jsx_dev_runtime15.jsxDEV)("p", { children: [
+        order?.shippingAddress ? /* @__PURE__ */ (0, import_jsx_dev_runtime14.jsxDEV)("address", { children: [
+          /* @__PURE__ */ (0, import_jsx_dev_runtime14.jsxDEV)("p", { children: [
             order.shippingAddress.firstName && order.shippingAddress.firstName + " ",
             order.shippingAddress.lastName
           ] }, void 0, !0, {
@@ -35478,11 +26885,11 @@ function OrderRoute() {
             lineNumber: 139,
             columnNumber: 15
           }, this),
-          order?.shippingAddress?.formatted ? order.shippingAddress.formatted.map((line) => /* @__PURE__ */ (0, import_jsx_dev_runtime15.jsxDEV)("p", { children: line }, line, !1, {
+          order?.shippingAddress?.formatted ? order.shippingAddress.formatted.map((line) => /* @__PURE__ */ (0, import_jsx_dev_runtime14.jsxDEV)("p", { children: line }, line, !1, {
             fileName: "app/routes/($locale).account.orders.$id.jsx",
             lineNumber: 146,
             columnNumber: 19
-          }, this)) : /* @__PURE__ */ (0, import_jsx_dev_runtime15.jsxDEV)(import_jsx_dev_runtime15.Fragment, {}, void 0, !1, {
+          }, this)) : /* @__PURE__ */ (0, import_jsx_dev_runtime14.jsxDEV)(import_jsx_dev_runtime14.Fragment, {}, void 0, !1, {
             fileName: "app/routes/($locale).account.orders.$id.jsx",
             lineNumber: 149,
             columnNumber: 17
@@ -35491,17 +26898,17 @@ function OrderRoute() {
           fileName: "app/routes/($locale).account.orders.$id.jsx",
           lineNumber: 138,
           columnNumber: 13
-        }, this) : /* @__PURE__ */ (0, import_jsx_dev_runtime15.jsxDEV)("p", { children: "No shipping address defined" }, void 0, !1, {
+        }, this) : /* @__PURE__ */ (0, import_jsx_dev_runtime14.jsxDEV)("p", { children: "No shipping address defined" }, void 0, !1, {
           fileName: "app/routes/($locale).account.orders.$id.jsx",
           lineNumber: 153,
           columnNumber: 13
         }, this),
-        /* @__PURE__ */ (0, import_jsx_dev_runtime15.jsxDEV)("h3", { children: "Status" }, void 0, !1, {
+        /* @__PURE__ */ (0, import_jsx_dev_runtime14.jsxDEV)("h3", { children: "Status" }, void 0, !1, {
           fileName: "app/routes/($locale).account.orders.$id.jsx",
           lineNumber: 155,
           columnNumber: 11
         }, this),
-        /* @__PURE__ */ (0, import_jsx_dev_runtime15.jsxDEV)("div", { children: /* @__PURE__ */ (0, import_jsx_dev_runtime15.jsxDEV)("p", { children: order.fulfillmentStatus }, void 0, !1, {
+        /* @__PURE__ */ (0, import_jsx_dev_runtime14.jsxDEV)("div", { children: /* @__PURE__ */ (0, import_jsx_dev_runtime14.jsxDEV)("p", { children: order.fulfillmentStatus }, void 0, !1, {
           fileName: "app/routes/($locale).account.orders.$id.jsx",
           lineNumber: 157,
           columnNumber: 13
@@ -35520,12 +26927,12 @@ function OrderRoute() {
       lineNumber: 65,
       columnNumber: 7
     }, this),
-    /* @__PURE__ */ (0, import_jsx_dev_runtime15.jsxDEV)("br", {}, void 0, !1, {
+    /* @__PURE__ */ (0, import_jsx_dev_runtime14.jsxDEV)("br", {}, void 0, !1, {
       fileName: "app/routes/($locale).account.orders.$id.jsx",
       lineNumber: 161,
       columnNumber: 7
     }, this),
-    /* @__PURE__ */ (0, import_jsx_dev_runtime15.jsxDEV)("p", { children: /* @__PURE__ */ (0, import_jsx_dev_runtime15.jsxDEV)("a", { target: "_blank", href: order.statusUrl, rel: "noreferrer", children: "View Order Status \u2192" }, void 0, !1, {
+    /* @__PURE__ */ (0, import_jsx_dev_runtime14.jsxDEV)("p", { children: /* @__PURE__ */ (0, import_jsx_dev_runtime14.jsxDEV)("a", { target: "_blank", href: order.statusUrl, rel: "noreferrer", children: "View Order Status \u2192" }, void 0, !1, {
       fileName: "app/routes/($locale).account.orders.$id.jsx",
       lineNumber: 163,
       columnNumber: 9
@@ -35541,9 +26948,9 @@ function OrderRoute() {
   }, this);
 }
 function OrderLineRow({ lineItem }) {
-  return /* @__PURE__ */ (0, import_jsx_dev_runtime15.jsxDEV)("tr", { children: [
-    /* @__PURE__ */ (0, import_jsx_dev_runtime15.jsxDEV)("td", { children: /* @__PURE__ */ (0, import_jsx_dev_runtime15.jsxDEV)("div", { children: [
-      /* @__PURE__ */ (0, import_jsx_dev_runtime15.jsxDEV)(Link2, { to: `/products/${lineItem.variant.product.handle}`, children: lineItem?.variant?.image && /* @__PURE__ */ (0, import_jsx_dev_runtime15.jsxDEV)("div", { children: /* @__PURE__ */ (0, import_jsx_dev_runtime15.jsxDEV)(Image, { data: lineItem.variant.image, width: 96, height: 96 }, void 0, !1, {
+  return /* @__PURE__ */ (0, import_jsx_dev_runtime14.jsxDEV)("tr", { children: [
+    /* @__PURE__ */ (0, import_jsx_dev_runtime14.jsxDEV)("td", { children: /* @__PURE__ */ (0, import_jsx_dev_runtime14.jsxDEV)("div", { children: [
+      /* @__PURE__ */ (0, import_jsx_dev_runtime14.jsxDEV)(Link2, { to: `/products/${lineItem.variant.product.handle}`, children: lineItem?.variant?.image && /* @__PURE__ */ (0, import_jsx_dev_runtime14.jsxDEV)("div", { children: /* @__PURE__ */ (0, import_jsx_dev_runtime14.jsxDEV)(Image, { data: lineItem.variant.image, width: 96, height: 96 }, void 0, !1, {
         fileName: "app/routes/($locale).account.orders.$id.jsx",
         lineNumber: 182,
         columnNumber: 17
@@ -35556,13 +26963,13 @@ function OrderLineRow({ lineItem }) {
         lineNumber: 179,
         columnNumber: 11
       }, this),
-      /* @__PURE__ */ (0, import_jsx_dev_runtime15.jsxDEV)("div", { children: [
-        /* @__PURE__ */ (0, import_jsx_dev_runtime15.jsxDEV)("p", { children: lineItem.title }, void 0, !1, {
+      /* @__PURE__ */ (0, import_jsx_dev_runtime14.jsxDEV)("div", { children: [
+        /* @__PURE__ */ (0, import_jsx_dev_runtime14.jsxDEV)("p", { children: lineItem.title }, void 0, !1, {
           fileName: "app/routes/($locale).account.orders.$id.jsx",
           lineNumber: 187,
           columnNumber: 13
         }, this),
-        /* @__PURE__ */ (0, import_jsx_dev_runtime15.jsxDEV)("small", { children: lineItem.variant.title }, void 0, !1, {
+        /* @__PURE__ */ (0, import_jsx_dev_runtime14.jsxDEV)("small", { children: lineItem.variant.title }, void 0, !1, {
           fileName: "app/routes/($locale).account.orders.$id.jsx",
           lineNumber: 188,
           columnNumber: 13
@@ -35581,7 +26988,7 @@ function OrderLineRow({ lineItem }) {
       lineNumber: 177,
       columnNumber: 7
     }, this),
-    /* @__PURE__ */ (0, import_jsx_dev_runtime15.jsxDEV)("td", { children: /* @__PURE__ */ (0, import_jsx_dev_runtime15.jsxDEV)(Money, { data: lineItem.variant.price }, void 0, !1, {
+    /* @__PURE__ */ (0, import_jsx_dev_runtime14.jsxDEV)("td", { children: /* @__PURE__ */ (0, import_jsx_dev_runtime14.jsxDEV)(Money, { data: lineItem.variant.price }, void 0, !1, {
       fileName: "app/routes/($locale).account.orders.$id.jsx",
       lineNumber: 193,
       columnNumber: 9
@@ -35590,12 +26997,12 @@ function OrderLineRow({ lineItem }) {
       lineNumber: 192,
       columnNumber: 7
     }, this),
-    /* @__PURE__ */ (0, import_jsx_dev_runtime15.jsxDEV)("td", { children: lineItem.quantity }, void 0, !1, {
+    /* @__PURE__ */ (0, import_jsx_dev_runtime14.jsxDEV)("td", { children: lineItem.quantity }, void 0, !1, {
       fileName: "app/routes/($locale).account.orders.$id.jsx",
       lineNumber: 195,
       columnNumber: 7
     }, this),
-    /* @__PURE__ */ (0, import_jsx_dev_runtime15.jsxDEV)("td", { children: /* @__PURE__ */ (0, import_jsx_dev_runtime15.jsxDEV)(Money, { data: lineItem.discountedTotalPrice }, void 0, !1, {
+    /* @__PURE__ */ (0, import_jsx_dev_runtime14.jsxDEV)("td", { children: /* @__PURE__ */ (0, import_jsx_dev_runtime14.jsxDEV)(Money, { data: lineItem.discountedTotalPrice }, void 0, !1, {
       fileName: "app/routes/($locale).account.orders.$id.jsx",
       lineNumber: 197,
       columnNumber: 9
@@ -35731,11 +27138,11 @@ __export(locale_account_addresses_exports, {
   AddressForm: () => AddressForm,
   action: () => action4,
   default: () => Addresses,
-  loader: () => loader9,
-  meta: () => meta9
+  loader: () => loader8,
+  meta: () => meta8
 });
-var import_jsx_dev_runtime16 = __toESM(require_jsx_dev_runtime()), meta9 = () => [{ title: "Addresses" }];
-async function loader9({ context }) {
+var import_jsx_dev_runtime15 = __toESM(require_jsx_dev_runtime()), meta8 = () => [{ title: "Addresses" }];
+async function loader8({ context }) {
   let { session } = context;
   return await session.get("customerAccessToken") ? json5({}) : redirect5("/account/login");
 }
@@ -35864,25 +27271,25 @@ async function action4({ request, context }) {
 }
 function Addresses() {
   let { customer } = useOutletContext(), { defaultAddress, addresses } = customer;
-  return /* @__PURE__ */ (0, import_jsx_dev_runtime16.jsxDEV)("div", { className: "account-addresses", children: [
-    /* @__PURE__ */ (0, import_jsx_dev_runtime16.jsxDEV)("h2", { children: "Addresses" }, void 0, !1, {
+  return /* @__PURE__ */ (0, import_jsx_dev_runtime15.jsxDEV)("div", { className: "account-addresses", children: [
+    /* @__PURE__ */ (0, import_jsx_dev_runtime15.jsxDEV)("h2", { children: "Addresses" }, void 0, !1, {
       fileName: "app/routes/($locale).account.addresses.jsx",
       lineNumber: 215,
       columnNumber: 7
     }, this),
-    /* @__PURE__ */ (0, import_jsx_dev_runtime16.jsxDEV)("br", {}, void 0, !1, {
+    /* @__PURE__ */ (0, import_jsx_dev_runtime15.jsxDEV)("br", {}, void 0, !1, {
       fileName: "app/routes/($locale).account.addresses.jsx",
       lineNumber: 216,
       columnNumber: 7
     }, this),
-    addresses.nodes.length ? /* @__PURE__ */ (0, import_jsx_dev_runtime16.jsxDEV)("div", { children: [
-      /* @__PURE__ */ (0, import_jsx_dev_runtime16.jsxDEV)("div", { children: [
-        /* @__PURE__ */ (0, import_jsx_dev_runtime16.jsxDEV)("legend", { children: "Create address" }, void 0, !1, {
+    addresses.nodes.length ? /* @__PURE__ */ (0, import_jsx_dev_runtime15.jsxDEV)("div", { children: [
+      /* @__PURE__ */ (0, import_jsx_dev_runtime15.jsxDEV)("div", { children: [
+        /* @__PURE__ */ (0, import_jsx_dev_runtime15.jsxDEV)("legend", { children: "Create address" }, void 0, !1, {
           fileName: "app/routes/($locale).account.addresses.jsx",
           lineNumber: 222,
           columnNumber: 13
         }, this),
-        /* @__PURE__ */ (0, import_jsx_dev_runtime16.jsxDEV)(NewAddressForm, {}, void 0, !1, {
+        /* @__PURE__ */ (0, import_jsx_dev_runtime15.jsxDEV)(NewAddressForm, {}, void 0, !1, {
           fileName: "app/routes/($locale).account.addresses.jsx",
           lineNumber: 223,
           columnNumber: 13
@@ -35892,22 +27299,22 @@ function Addresses() {
         lineNumber: 221,
         columnNumber: 11
       }, this),
-      /* @__PURE__ */ (0, import_jsx_dev_runtime16.jsxDEV)("br", {}, void 0, !1, {
+      /* @__PURE__ */ (0, import_jsx_dev_runtime15.jsxDEV)("br", {}, void 0, !1, {
         fileName: "app/routes/($locale).account.addresses.jsx",
         lineNumber: 225,
         columnNumber: 11
       }, this),
-      /* @__PURE__ */ (0, import_jsx_dev_runtime16.jsxDEV)("hr", {}, void 0, !1, {
+      /* @__PURE__ */ (0, import_jsx_dev_runtime15.jsxDEV)("hr", {}, void 0, !1, {
         fileName: "app/routes/($locale).account.addresses.jsx",
         lineNumber: 226,
         columnNumber: 11
       }, this),
-      /* @__PURE__ */ (0, import_jsx_dev_runtime16.jsxDEV)("br", {}, void 0, !1, {
+      /* @__PURE__ */ (0, import_jsx_dev_runtime15.jsxDEV)("br", {}, void 0, !1, {
         fileName: "app/routes/($locale).account.addresses.jsx",
         lineNumber: 227,
         columnNumber: 11
       }, this),
-      /* @__PURE__ */ (0, import_jsx_dev_runtime16.jsxDEV)(
+      /* @__PURE__ */ (0, import_jsx_dev_runtime15.jsxDEV)(
         ExistingAddresses,
         {
           addresses,
@@ -35926,7 +27333,7 @@ function Addresses() {
       fileName: "app/routes/($locale).account.addresses.jsx",
       lineNumber: 220,
       columnNumber: 9
-    }, this) : /* @__PURE__ */ (0, import_jsx_dev_runtime16.jsxDEV)("p", { children: "You have no addresses saved." }, void 0, !1, {
+    }, this) : /* @__PURE__ */ (0, import_jsx_dev_runtime15.jsxDEV)("p", { children: "You have no addresses saved." }, void 0, !1, {
       fileName: "app/routes/($locale).account.addresses.jsx",
       lineNumber: 218,
       columnNumber: 9
@@ -35938,7 +27345,7 @@ function Addresses() {
   }, this);
 }
 function NewAddressForm() {
-  return /* @__PURE__ */ (0, import_jsx_dev_runtime16.jsxDEV)(AddressForm, { address: {
+  return /* @__PURE__ */ (0, import_jsx_dev_runtime15.jsxDEV)(AddressForm, { address: {
     address1: "",
     address2: "",
     city: "",
@@ -35950,7 +27357,7 @@ function NewAddressForm() {
     phone: "",
     province: "",
     zip: ""
-  }, defaultAddress: null, children: ({ stateForMethod }) => /* @__PURE__ */ (0, import_jsx_dev_runtime16.jsxDEV)("div", { children: /* @__PURE__ */ (0, import_jsx_dev_runtime16.jsxDEV)(
+  }, defaultAddress: null, children: ({ stateForMethod }) => /* @__PURE__ */ (0, import_jsx_dev_runtime15.jsxDEV)("div", { children: /* @__PURE__ */ (0, import_jsx_dev_runtime15.jsxDEV)(
     "button",
     {
       disabled: stateForMethod("POST") !== "idle",
@@ -35977,19 +27384,19 @@ function NewAddressForm() {
   }, this);
 }
 function ExistingAddresses({ addresses, defaultAddress }) {
-  return /* @__PURE__ */ (0, import_jsx_dev_runtime16.jsxDEV)("div", { children: [
-    /* @__PURE__ */ (0, import_jsx_dev_runtime16.jsxDEV)("legend", { children: "Existing addresses" }, void 0, !1, {
+  return /* @__PURE__ */ (0, import_jsx_dev_runtime15.jsxDEV)("div", { children: [
+    /* @__PURE__ */ (0, import_jsx_dev_runtime15.jsxDEV)("legend", { children: "Existing addresses" }, void 0, !1, {
       fileName: "app/routes/($locale).account.addresses.jsx",
       lineNumber: 276,
       columnNumber: 7
     }, this),
-    addresses.nodes.map((address) => /* @__PURE__ */ (0, import_jsx_dev_runtime16.jsxDEV)(
+    addresses.nodes.map((address) => /* @__PURE__ */ (0, import_jsx_dev_runtime15.jsxDEV)(
       AddressForm,
       {
         address,
         defaultAddress,
-        children: ({ stateForMethod }) => /* @__PURE__ */ (0, import_jsx_dev_runtime16.jsxDEV)("div", { children: [
-          /* @__PURE__ */ (0, import_jsx_dev_runtime16.jsxDEV)(
+        children: ({ stateForMethod }) => /* @__PURE__ */ (0, import_jsx_dev_runtime15.jsxDEV)("div", { children: [
+          /* @__PURE__ */ (0, import_jsx_dev_runtime15.jsxDEV)(
             "button",
             {
               disabled: stateForMethod("PUT") !== "idle",
@@ -36006,7 +27413,7 @@ function ExistingAddresses({ addresses, defaultAddress }) {
             },
             this
           ),
-          /* @__PURE__ */ (0, import_jsx_dev_runtime16.jsxDEV)(
+          /* @__PURE__ */ (0, import_jsx_dev_runtime15.jsxDEV)(
             "button",
             {
               disabled: stateForMethod("DELETE") !== "idle",
@@ -36046,18 +27453,18 @@ function ExistingAddresses({ addresses, defaultAddress }) {
 }
 function AddressForm({ address, defaultAddress, children }) {
   let { state, formMethod } = useNavigation(), error = useActionData2()?.error?.[address.id], isDefaultAddress = defaultAddress?.id === address.id;
-  return /* @__PURE__ */ (0, import_jsx_dev_runtime16.jsxDEV)(Form, { id: address.id, children: /* @__PURE__ */ (0, import_jsx_dev_runtime16.jsxDEV)("fieldset", { children: [
-    /* @__PURE__ */ (0, import_jsx_dev_runtime16.jsxDEV)("input", { type: "hidden", name: "addressId", defaultValue: address.id }, void 0, !1, {
+  return /* @__PURE__ */ (0, import_jsx_dev_runtime15.jsxDEV)(Form, { id: address.id, children: /* @__PURE__ */ (0, import_jsx_dev_runtime15.jsxDEV)("fieldset", { children: [
+    /* @__PURE__ */ (0, import_jsx_dev_runtime15.jsxDEV)("input", { type: "hidden", name: "addressId", defaultValue: address.id }, void 0, !1, {
       fileName: "app/routes/($locale).account.addresses.jsx",
       lineNumber: 319,
       columnNumber: 9
     }, this),
-    /* @__PURE__ */ (0, import_jsx_dev_runtime16.jsxDEV)("label", { htmlFor: "firstName", children: "First name*" }, void 0, !1, {
+    /* @__PURE__ */ (0, import_jsx_dev_runtime15.jsxDEV)("label", { htmlFor: "firstName", children: "First name*" }, void 0, !1, {
       fileName: "app/routes/($locale).account.addresses.jsx",
       lineNumber: 320,
       columnNumber: 9
     }, this),
-    /* @__PURE__ */ (0, import_jsx_dev_runtime16.jsxDEV)(
+    /* @__PURE__ */ (0, import_jsx_dev_runtime15.jsxDEV)(
       "input",
       {
         "aria-label": "First name",
@@ -36078,12 +27485,12 @@ function AddressForm({ address, defaultAddress, children }) {
       },
       this
     ),
-    /* @__PURE__ */ (0, import_jsx_dev_runtime16.jsxDEV)("label", { htmlFor: "lastName", children: "Last name*" }, void 0, !1, {
+    /* @__PURE__ */ (0, import_jsx_dev_runtime15.jsxDEV)("label", { htmlFor: "lastName", children: "Last name*" }, void 0, !1, {
       fileName: "app/routes/($locale).account.addresses.jsx",
       lineNumber: 331,
       columnNumber: 9
     }, this),
-    /* @__PURE__ */ (0, import_jsx_dev_runtime16.jsxDEV)(
+    /* @__PURE__ */ (0, import_jsx_dev_runtime15.jsxDEV)(
       "input",
       {
         "aria-label": "Last name",
@@ -36104,12 +27511,12 @@ function AddressForm({ address, defaultAddress, children }) {
       },
       this
     ),
-    /* @__PURE__ */ (0, import_jsx_dev_runtime16.jsxDEV)("label", { htmlFor: "company", children: "Company" }, void 0, !1, {
+    /* @__PURE__ */ (0, import_jsx_dev_runtime15.jsxDEV)("label", { htmlFor: "company", children: "Company" }, void 0, !1, {
       fileName: "app/routes/($locale).account.addresses.jsx",
       lineNumber: 342,
       columnNumber: 9
     }, this),
-    /* @__PURE__ */ (0, import_jsx_dev_runtime16.jsxDEV)(
+    /* @__PURE__ */ (0, import_jsx_dev_runtime15.jsxDEV)(
       "input",
       {
         "aria-label": "Company",
@@ -36129,12 +27536,12 @@ function AddressForm({ address, defaultAddress, children }) {
       },
       this
     ),
-    /* @__PURE__ */ (0, import_jsx_dev_runtime16.jsxDEV)("label", { htmlFor: "address1", children: "Address line*" }, void 0, !1, {
+    /* @__PURE__ */ (0, import_jsx_dev_runtime15.jsxDEV)("label", { htmlFor: "address1", children: "Address line*" }, void 0, !1, {
       fileName: "app/routes/($locale).account.addresses.jsx",
       lineNumber: 352,
       columnNumber: 9
     }, this),
-    /* @__PURE__ */ (0, import_jsx_dev_runtime16.jsxDEV)(
+    /* @__PURE__ */ (0, import_jsx_dev_runtime15.jsxDEV)(
       "input",
       {
         "aria-label": "Address line 1",
@@ -36155,12 +27562,12 @@ function AddressForm({ address, defaultAddress, children }) {
       },
       this
     ),
-    /* @__PURE__ */ (0, import_jsx_dev_runtime16.jsxDEV)("label", { htmlFor: "address2", children: "Address line 2" }, void 0, !1, {
+    /* @__PURE__ */ (0, import_jsx_dev_runtime15.jsxDEV)("label", { htmlFor: "address2", children: "Address line 2" }, void 0, !1, {
       fileName: "app/routes/($locale).account.addresses.jsx",
       lineNumber: 363,
       columnNumber: 9
     }, this),
-    /* @__PURE__ */ (0, import_jsx_dev_runtime16.jsxDEV)(
+    /* @__PURE__ */ (0, import_jsx_dev_runtime15.jsxDEV)(
       "input",
       {
         "aria-label": "Address line 2",
@@ -36180,12 +27587,12 @@ function AddressForm({ address, defaultAddress, children }) {
       },
       this
     ),
-    /* @__PURE__ */ (0, import_jsx_dev_runtime16.jsxDEV)("label", { htmlFor: "city", children: "City*" }, void 0, !1, {
+    /* @__PURE__ */ (0, import_jsx_dev_runtime15.jsxDEV)("label", { htmlFor: "city", children: "City*" }, void 0, !1, {
       fileName: "app/routes/($locale).account.addresses.jsx",
       lineNumber: 373,
       columnNumber: 9
     }, this),
-    /* @__PURE__ */ (0, import_jsx_dev_runtime16.jsxDEV)(
+    /* @__PURE__ */ (0, import_jsx_dev_runtime15.jsxDEV)(
       "input",
       {
         "aria-label": "City",
@@ -36206,12 +27613,12 @@ function AddressForm({ address, defaultAddress, children }) {
       },
       this
     ),
-    /* @__PURE__ */ (0, import_jsx_dev_runtime16.jsxDEV)("label", { htmlFor: "province", children: "State / Province*" }, void 0, !1, {
+    /* @__PURE__ */ (0, import_jsx_dev_runtime15.jsxDEV)("label", { htmlFor: "province", children: "State / Province*" }, void 0, !1, {
       fileName: "app/routes/($locale).account.addresses.jsx",
       lineNumber: 384,
       columnNumber: 9
     }, this),
-    /* @__PURE__ */ (0, import_jsx_dev_runtime16.jsxDEV)(
+    /* @__PURE__ */ (0, import_jsx_dev_runtime15.jsxDEV)(
       "input",
       {
         "aria-label": "State",
@@ -36232,12 +27639,12 @@ function AddressForm({ address, defaultAddress, children }) {
       },
       this
     ),
-    /* @__PURE__ */ (0, import_jsx_dev_runtime16.jsxDEV)("label", { htmlFor: "zip", children: "Zip / Postal Code*" }, void 0, !1, {
+    /* @__PURE__ */ (0, import_jsx_dev_runtime15.jsxDEV)("label", { htmlFor: "zip", children: "Zip / Postal Code*" }, void 0, !1, {
       fileName: "app/routes/($locale).account.addresses.jsx",
       lineNumber: 395,
       columnNumber: 9
     }, this),
-    /* @__PURE__ */ (0, import_jsx_dev_runtime16.jsxDEV)(
+    /* @__PURE__ */ (0, import_jsx_dev_runtime15.jsxDEV)(
       "input",
       {
         "aria-label": "Zip",
@@ -36258,12 +27665,12 @@ function AddressForm({ address, defaultAddress, children }) {
       },
       this
     ),
-    /* @__PURE__ */ (0, import_jsx_dev_runtime16.jsxDEV)("label", { htmlFor: "country", children: "Country*" }, void 0, !1, {
+    /* @__PURE__ */ (0, import_jsx_dev_runtime15.jsxDEV)("label", { htmlFor: "country", children: "Country*" }, void 0, !1, {
       fileName: "app/routes/($locale).account.addresses.jsx",
       lineNumber: 406,
       columnNumber: 9
     }, this),
-    /* @__PURE__ */ (0, import_jsx_dev_runtime16.jsxDEV)(
+    /* @__PURE__ */ (0, import_jsx_dev_runtime15.jsxDEV)(
       "input",
       {
         "aria-label": "Country",
@@ -36284,12 +27691,12 @@ function AddressForm({ address, defaultAddress, children }) {
       },
       this
     ),
-    /* @__PURE__ */ (0, import_jsx_dev_runtime16.jsxDEV)("label", { htmlFor: "phone", children: "Phone" }, void 0, !1, {
+    /* @__PURE__ */ (0, import_jsx_dev_runtime15.jsxDEV)("label", { htmlFor: "phone", children: "Phone" }, void 0, !1, {
       fileName: "app/routes/($locale).account.addresses.jsx",
       lineNumber: 417,
       columnNumber: 9
     }, this),
-    /* @__PURE__ */ (0, import_jsx_dev_runtime16.jsxDEV)(
+    /* @__PURE__ */ (0, import_jsx_dev_runtime15.jsxDEV)(
       "input",
       {
         "aria-label": "Phone",
@@ -36310,8 +27717,8 @@ function AddressForm({ address, defaultAddress, children }) {
       },
       this
     ),
-    /* @__PURE__ */ (0, import_jsx_dev_runtime16.jsxDEV)("div", { children: [
-      /* @__PURE__ */ (0, import_jsx_dev_runtime16.jsxDEV)(
+    /* @__PURE__ */ (0, import_jsx_dev_runtime15.jsxDEV)("div", { children: [
+      /* @__PURE__ */ (0, import_jsx_dev_runtime15.jsxDEV)(
         "input",
         {
           defaultChecked: isDefaultAddress,
@@ -36328,7 +27735,7 @@ function AddressForm({ address, defaultAddress, children }) {
         },
         this
       ),
-      /* @__PURE__ */ (0, import_jsx_dev_runtime16.jsxDEV)("label", { htmlFor: "defaultAddress", children: "Set as default address" }, void 0, !1, {
+      /* @__PURE__ */ (0, import_jsx_dev_runtime15.jsxDEV)("label", { htmlFor: "defaultAddress", children: "Set as default address" }, void 0, !1, {
         fileName: "app/routes/($locale).account.addresses.jsx",
         lineNumber: 435,
         columnNumber: 11
@@ -36338,7 +27745,7 @@ function AddressForm({ address, defaultAddress, children }) {
       lineNumber: 428,
       columnNumber: 9
     }, this),
-    error ? /* @__PURE__ */ (0, import_jsx_dev_runtime16.jsxDEV)("p", { children: /* @__PURE__ */ (0, import_jsx_dev_runtime16.jsxDEV)("mark", { children: /* @__PURE__ */ (0, import_jsx_dev_runtime16.jsxDEV)("small", { children: error }, void 0, !1, {
+    error ? /* @__PURE__ */ (0, import_jsx_dev_runtime15.jsxDEV)("p", { children: /* @__PURE__ */ (0, import_jsx_dev_runtime15.jsxDEV)("mark", { children: /* @__PURE__ */ (0, import_jsx_dev_runtime15.jsxDEV)("small", { children: error }, void 0, !1, {
       fileName: "app/routes/($locale).account.addresses.jsx",
       lineNumber: 440,
       columnNumber: 15
@@ -36350,7 +27757,7 @@ function AddressForm({ address, defaultAddress, children }) {
       fileName: "app/routes/($locale).account.addresses.jsx",
       lineNumber: 438,
       columnNumber: 11
-    }, this) : /* @__PURE__ */ (0, import_jsx_dev_runtime16.jsxDEV)("br", {}, void 0, !1, {
+    }, this) : /* @__PURE__ */ (0, import_jsx_dev_runtime15.jsxDEV)("br", {}, void 0, !1, {
       fileName: "app/routes/($locale).account.addresses.jsx",
       lineNumber: 444,
       columnNumber: 11
@@ -36458,10 +27865,10 @@ var locale_account_register_exports = {};
 __export(locale_account_register_exports, {
   action: () => action5,
   default: () => Register,
-  loader: () => loader10
+  loader: () => loader9
 });
-var import_jsx_dev_runtime17 = __toESM(require_jsx_dev_runtime());
-async function loader10({ context }) {
+var import_jsx_dev_runtime16 = __toESM(require_jsx_dev_runtime());
+async function loader9({ context }) {
   return await context.session.get("customerAccessToken") ? redirect5("/account") : json5({});
 }
 async function action5({ request, context }) {
@@ -36515,20 +27922,20 @@ async function action5({ request, context }) {
 }
 function Register() {
   let error = useActionData2()?.error || null;
-  return /* @__PURE__ */ (0, import_jsx_dev_runtime17.jsxDEV)("div", { className: "login", children: [
-    /* @__PURE__ */ (0, import_jsx_dev_runtime17.jsxDEV)("h1", { children: "Register." }, void 0, !1, {
+  return /* @__PURE__ */ (0, import_jsx_dev_runtime16.jsxDEV)("div", { className: "login", children: [
+    /* @__PURE__ */ (0, import_jsx_dev_runtime16.jsxDEV)("h1", { children: "Register." }, void 0, !1, {
       fileName: "app/routes/($locale).account_.register.jsx",
       lineNumber: 105,
       columnNumber: 7
     }, this),
-    /* @__PURE__ */ (0, import_jsx_dev_runtime17.jsxDEV)(Form, { method: "POST", children: [
-      /* @__PURE__ */ (0, import_jsx_dev_runtime17.jsxDEV)("fieldset", { children: [
-        /* @__PURE__ */ (0, import_jsx_dev_runtime17.jsxDEV)("label", { htmlFor: "email", children: "Email address" }, void 0, !1, {
+    /* @__PURE__ */ (0, import_jsx_dev_runtime16.jsxDEV)(Form, { method: "POST", children: [
+      /* @__PURE__ */ (0, import_jsx_dev_runtime16.jsxDEV)("fieldset", { children: [
+        /* @__PURE__ */ (0, import_jsx_dev_runtime16.jsxDEV)("label", { htmlFor: "email", children: "Email address" }, void 0, !1, {
           fileName: "app/routes/($locale).account_.register.jsx",
           lineNumber: 108,
           columnNumber: 11
         }, this),
-        /* @__PURE__ */ (0, import_jsx_dev_runtime17.jsxDEV)(
+        /* @__PURE__ */ (0, import_jsx_dev_runtime16.jsxDEV)(
           "input",
           {
             id: "email",
@@ -36549,12 +27956,12 @@ function Register() {
           },
           this
         ),
-        /* @__PURE__ */ (0, import_jsx_dev_runtime17.jsxDEV)("label", { htmlFor: "password", children: "Password" }, void 0, !1, {
+        /* @__PURE__ */ (0, import_jsx_dev_runtime16.jsxDEV)("label", { htmlFor: "password", children: "Password" }, void 0, !1, {
           fileName: "app/routes/($locale).account_.register.jsx",
           lineNumber: 120,
           columnNumber: 11
         }, this),
-        /* @__PURE__ */ (0, import_jsx_dev_runtime17.jsxDEV)(
+        /* @__PURE__ */ (0, import_jsx_dev_runtime16.jsxDEV)(
           "input",
           {
             id: "password",
@@ -36575,12 +27982,12 @@ function Register() {
           },
           this
         ),
-        /* @__PURE__ */ (0, import_jsx_dev_runtime17.jsxDEV)("label", { htmlFor: "passwordConfirm", children: "Re-enter password" }, void 0, !1, {
+        /* @__PURE__ */ (0, import_jsx_dev_runtime16.jsxDEV)("label", { htmlFor: "passwordConfirm", children: "Re-enter password" }, void 0, !1, {
           fileName: "app/routes/($locale).account_.register.jsx",
           lineNumber: 131,
           columnNumber: 11
         }, this),
-        /* @__PURE__ */ (0, import_jsx_dev_runtime17.jsxDEV)(
+        /* @__PURE__ */ (0, import_jsx_dev_runtime16.jsxDEV)(
           "input",
           {
             id: "passwordConfirm",
@@ -36606,7 +28013,7 @@ function Register() {
         lineNumber: 107,
         columnNumber: 9
       }, this),
-      error ? /* @__PURE__ */ (0, import_jsx_dev_runtime17.jsxDEV)("p", { children: /* @__PURE__ */ (0, import_jsx_dev_runtime17.jsxDEV)("mark", { children: /* @__PURE__ */ (0, import_jsx_dev_runtime17.jsxDEV)("small", { children: error }, void 0, !1, {
+      error ? /* @__PURE__ */ (0, import_jsx_dev_runtime16.jsxDEV)("p", { children: /* @__PURE__ */ (0, import_jsx_dev_runtime16.jsxDEV)("mark", { children: /* @__PURE__ */ (0, import_jsx_dev_runtime16.jsxDEV)("small", { children: error }, void 0, !1, {
         fileName: "app/routes/($locale).account_.register.jsx",
         lineNumber: 146,
         columnNumber: 15
@@ -36618,12 +28025,12 @@ function Register() {
         fileName: "app/routes/($locale).account_.register.jsx",
         lineNumber: 144,
         columnNumber: 11
-      }, this) : /* @__PURE__ */ (0, import_jsx_dev_runtime17.jsxDEV)("br", {}, void 0, !1, {
+      }, this) : /* @__PURE__ */ (0, import_jsx_dev_runtime16.jsxDEV)("br", {}, void 0, !1, {
         fileName: "app/routes/($locale).account_.register.jsx",
         lineNumber: 150,
         columnNumber: 11
       }, this),
-      /* @__PURE__ */ (0, import_jsx_dev_runtime17.jsxDEV)("button", { type: "submit", children: "Register" }, void 0, !1, {
+      /* @__PURE__ */ (0, import_jsx_dev_runtime16.jsxDEV)("button", { type: "submit", children: "Register" }, void 0, !1, {
         fileName: "app/routes/($locale).account_.register.jsx",
         lineNumber: 152,
         columnNumber: 9
@@ -36633,12 +28040,12 @@ function Register() {
       lineNumber: 106,
       columnNumber: 7
     }, this),
-    /* @__PURE__ */ (0, import_jsx_dev_runtime17.jsxDEV)("br", {}, void 0, !1, {
+    /* @__PURE__ */ (0, import_jsx_dev_runtime16.jsxDEV)("br", {}, void 0, !1, {
       fileName: "app/routes/($locale).account_.register.jsx",
       lineNumber: 154,
       columnNumber: 7
     }, this),
-    /* @__PURE__ */ (0, import_jsx_dev_runtime17.jsxDEV)("p", { children: /* @__PURE__ */ (0, import_jsx_dev_runtime17.jsxDEV)(Link2, { to: "/account/login", children: "Login \u2192" }, void 0, !1, {
+    /* @__PURE__ */ (0, import_jsx_dev_runtime16.jsxDEV)("p", { children: /* @__PURE__ */ (0, import_jsx_dev_runtime16.jsxDEV)(Link2, { to: "/account/login", children: "Login \u2192" }, void 0, !1, {
       fileName: "app/routes/($locale).account_.register.jsx",
       lineNumber: 156,
       columnNumber: 9
@@ -36695,10 +28102,10 @@ var locale_account_recover_exports = {};
 __export(locale_account_recover_exports, {
   action: () => action6,
   default: () => Recover,
-  loader: () => loader11
+  loader: () => loader10
 });
-var import_jsx_dev_runtime18 = __toESM(require_jsx_dev_runtime());
-async function loader11({ context }) {
+var import_jsx_dev_runtime17 = __toESM(require_jsx_dev_runtime());
+async function loader10({ context }) {
   return await context.session.get("customerAccessToken") ? redirect5("/account") : json5({});
 }
 async function action6({ request, context }) {
@@ -36717,23 +28124,23 @@ async function action6({ request, context }) {
 }
 function Recover() {
   let action11 = useActionData2();
-  return /* @__PURE__ */ (0, import_jsx_dev_runtime18.jsxDEV)("div", { className: "account-recover", children: /* @__PURE__ */ (0, import_jsx_dev_runtime18.jsxDEV)("div", { children: action11?.resetRequested ? /* @__PURE__ */ (0, import_jsx_dev_runtime18.jsxDEV)(import_jsx_dev_runtime18.Fragment, { children: [
-    /* @__PURE__ */ (0, import_jsx_dev_runtime18.jsxDEV)("h1", { children: "Request Sent." }, void 0, !1, {
+  return /* @__PURE__ */ (0, import_jsx_dev_runtime17.jsxDEV)("div", { className: "account-recover", children: /* @__PURE__ */ (0, import_jsx_dev_runtime17.jsxDEV)("div", { children: action11?.resetRequested ? /* @__PURE__ */ (0, import_jsx_dev_runtime17.jsxDEV)(import_jsx_dev_runtime17.Fragment, { children: [
+    /* @__PURE__ */ (0, import_jsx_dev_runtime17.jsxDEV)("h1", { children: "Request Sent." }, void 0, !1, {
       fileName: "app/routes/($locale).account_.recover.jsx",
       lineNumber: 55,
       columnNumber: 13
     }, this),
-    /* @__PURE__ */ (0, import_jsx_dev_runtime18.jsxDEV)("p", { children: "If that email address is in our system, you will receive an email with instructions about how to reset your password in a few minutes." }, void 0, !1, {
+    /* @__PURE__ */ (0, import_jsx_dev_runtime17.jsxDEV)("p", { children: "If that email address is in our system, you will receive an email with instructions about how to reset your password in a few minutes." }, void 0, !1, {
       fileName: "app/routes/($locale).account_.recover.jsx",
       lineNumber: 56,
       columnNumber: 13
     }, this),
-    /* @__PURE__ */ (0, import_jsx_dev_runtime18.jsxDEV)("br", {}, void 0, !1, {
+    /* @__PURE__ */ (0, import_jsx_dev_runtime17.jsxDEV)("br", {}, void 0, !1, {
       fileName: "app/routes/($locale).account_.recover.jsx",
       lineNumber: 61,
       columnNumber: 13
     }, this),
-    /* @__PURE__ */ (0, import_jsx_dev_runtime18.jsxDEV)(Link2, { to: "/account/login", children: "Return to Login" }, void 0, !1, {
+    /* @__PURE__ */ (0, import_jsx_dev_runtime17.jsxDEV)(Link2, { to: "/account/login", children: "Return to Login" }, void 0, !1, {
       fileName: "app/routes/($locale).account_.recover.jsx",
       lineNumber: 62,
       columnNumber: 13
@@ -36742,30 +28149,30 @@ function Recover() {
     fileName: "app/routes/($locale).account_.recover.jsx",
     lineNumber: 54,
     columnNumber: 11
-  }, this) : /* @__PURE__ */ (0, import_jsx_dev_runtime18.jsxDEV)(import_jsx_dev_runtime18.Fragment, { children: [
-    /* @__PURE__ */ (0, import_jsx_dev_runtime18.jsxDEV)("h1", { children: "Forgot Password." }, void 0, !1, {
+  }, this) : /* @__PURE__ */ (0, import_jsx_dev_runtime17.jsxDEV)(import_jsx_dev_runtime17.Fragment, { children: [
+    /* @__PURE__ */ (0, import_jsx_dev_runtime17.jsxDEV)("h1", { children: "Forgot Password." }, void 0, !1, {
       fileName: "app/routes/($locale).account_.recover.jsx",
       lineNumber: 66,
       columnNumber: 13
     }, this),
-    /* @__PURE__ */ (0, import_jsx_dev_runtime18.jsxDEV)("p", { children: "Enter the email address associated with your account to receive a link to reset your password." }, void 0, !1, {
+    /* @__PURE__ */ (0, import_jsx_dev_runtime17.jsxDEV)("p", { children: "Enter the email address associated with your account to receive a link to reset your password." }, void 0, !1, {
       fileName: "app/routes/($locale).account_.recover.jsx",
       lineNumber: 67,
       columnNumber: 13
     }, this),
-    /* @__PURE__ */ (0, import_jsx_dev_runtime18.jsxDEV)("br", {}, void 0, !1, {
+    /* @__PURE__ */ (0, import_jsx_dev_runtime17.jsxDEV)("br", {}, void 0, !1, {
       fileName: "app/routes/($locale).account_.recover.jsx",
       lineNumber: 71,
       columnNumber: 13
     }, this),
-    /* @__PURE__ */ (0, import_jsx_dev_runtime18.jsxDEV)(Form, { method: "POST", children: [
-      /* @__PURE__ */ (0, import_jsx_dev_runtime18.jsxDEV)("fieldset", { children: [
-        /* @__PURE__ */ (0, import_jsx_dev_runtime18.jsxDEV)("label", { htmlFor: "email", children: "Email" }, void 0, !1, {
+    /* @__PURE__ */ (0, import_jsx_dev_runtime17.jsxDEV)(Form, { method: "POST", children: [
+      /* @__PURE__ */ (0, import_jsx_dev_runtime17.jsxDEV)("fieldset", { children: [
+        /* @__PURE__ */ (0, import_jsx_dev_runtime17.jsxDEV)("label", { htmlFor: "email", children: "Email" }, void 0, !1, {
           fileName: "app/routes/($locale).account_.recover.jsx",
           lineNumber: 74,
           columnNumber: 17
         }, this),
-        /* @__PURE__ */ (0, import_jsx_dev_runtime18.jsxDEV)(
+        /* @__PURE__ */ (0, import_jsx_dev_runtime17.jsxDEV)(
           "input",
           {
             "aria-label": "Email address",
@@ -36791,7 +28198,7 @@ function Recover() {
         lineNumber: 73,
         columnNumber: 15
       }, this),
-      action11?.error ? /* @__PURE__ */ (0, import_jsx_dev_runtime18.jsxDEV)("p", { children: /* @__PURE__ */ (0, import_jsx_dev_runtime18.jsxDEV)("mark", { children: /* @__PURE__ */ (0, import_jsx_dev_runtime18.jsxDEV)("small", { children: action11.error }, void 0, !1, {
+      action11?.error ? /* @__PURE__ */ (0, import_jsx_dev_runtime17.jsxDEV)("p", { children: /* @__PURE__ */ (0, import_jsx_dev_runtime17.jsxDEV)("mark", { children: /* @__PURE__ */ (0, import_jsx_dev_runtime17.jsxDEV)("small", { children: action11.error }, void 0, !1, {
         fileName: "app/routes/($locale).account_.recover.jsx",
         lineNumber: 90,
         columnNumber: 21
@@ -36803,12 +28210,12 @@ function Recover() {
         fileName: "app/routes/($locale).account_.recover.jsx",
         lineNumber: 88,
         columnNumber: 17
-      }, this) : /* @__PURE__ */ (0, import_jsx_dev_runtime18.jsxDEV)("br", {}, void 0, !1, {
+      }, this) : /* @__PURE__ */ (0, import_jsx_dev_runtime17.jsxDEV)("br", {}, void 0, !1, {
         fileName: "app/routes/($locale).account_.recover.jsx",
         lineNumber: 94,
         columnNumber: 17
       }, this),
-      /* @__PURE__ */ (0, import_jsx_dev_runtime18.jsxDEV)("button", { type: "submit", children: "Request Reset Link" }, void 0, !1, {
+      /* @__PURE__ */ (0, import_jsx_dev_runtime17.jsxDEV)("button", { type: "submit", children: "Request Reset Link" }, void 0, !1, {
         fileName: "app/routes/($locale).account_.recover.jsx",
         lineNumber: 96,
         columnNumber: 15
@@ -36818,13 +28225,13 @@ function Recover() {
       lineNumber: 72,
       columnNumber: 13
     }, this),
-    /* @__PURE__ */ (0, import_jsx_dev_runtime18.jsxDEV)("div", { children: [
-      /* @__PURE__ */ (0, import_jsx_dev_runtime18.jsxDEV)("br", {}, void 0, !1, {
+    /* @__PURE__ */ (0, import_jsx_dev_runtime17.jsxDEV)("div", { children: [
+      /* @__PURE__ */ (0, import_jsx_dev_runtime17.jsxDEV)("br", {}, void 0, !1, {
         fileName: "app/routes/($locale).account_.recover.jsx",
         lineNumber: 99,
         columnNumber: 15
       }, this),
-      /* @__PURE__ */ (0, import_jsx_dev_runtime18.jsxDEV)("p", { children: /* @__PURE__ */ (0, import_jsx_dev_runtime18.jsxDEV)(Link2, { to: "/account/login", children: "Login \u2192" }, void 0, !1, {
+      /* @__PURE__ */ (0, import_jsx_dev_runtime17.jsxDEV)("p", { children: /* @__PURE__ */ (0, import_jsx_dev_runtime17.jsxDEV)(Link2, { to: "/account/login", children: "Login \u2192" }, void 0, !1, {
         fileName: "app/routes/($locale).account_.recover.jsx",
         lineNumber: 101,
         columnNumber: 17
@@ -36872,16 +28279,16 @@ var CUSTOMER_RECOVER_MUTATION = `#graphql
 var locale_policies_handle_exports = {};
 __export(locale_policies_handle_exports, {
   default: () => Policy,
-  loader: () => loader12,
-  meta: () => meta10
+  loader: () => loader11,
+  meta: () => meta9
 });
-var import_jsx_dev_runtime19 = __toESM(require_jsx_dev_runtime()), meta10 = ({ data }) => [{ title: `Hydrogen | ${data?.policy.title ?? ""}` }];
-async function loader12({ params, context }) {
+var import_jsx_dev_runtime18 = __toESM(require_jsx_dev_runtime()), meta9 = ({ data }) => [{ title: `Hydrogen | ${data?.policy.title ?? ""}` }];
+async function loader11({ params, context }) {
   if (!params.handle)
     throw new Response("No handle was passed in", { status: 404 });
   let policyName = params.handle.replace(
     /-([a-z])/g,
-    (_2, m1) => m1.toUpperCase()
+    (_, m1) => m1.toUpperCase()
   ), policy = (await context.storefront.query(POLICY_CONTENT_QUERY, {
     variables: {
       privacyPolicy: !1,
@@ -36898,18 +28305,18 @@ async function loader12({ params, context }) {
 }
 function Policy() {
   let { policy } = useLoaderData2();
-  return /* @__PURE__ */ (0, import_jsx_dev_runtime19.jsxDEV)("div", { className: "policy", children: [
-    /* @__PURE__ */ (0, import_jsx_dev_runtime19.jsxDEV)("br", {}, void 0, !1, {
+  return /* @__PURE__ */ (0, import_jsx_dev_runtime18.jsxDEV)("div", { className: "policy", children: [
+    /* @__PURE__ */ (0, import_jsx_dev_runtime18.jsxDEV)("br", {}, void 0, !1, {
       fileName: "app/routes/($locale).policies.$handle.jsx",
       lineNumber: 49,
       columnNumber: 7
     }, this),
-    /* @__PURE__ */ (0, import_jsx_dev_runtime19.jsxDEV)("br", {}, void 0, !1, {
+    /* @__PURE__ */ (0, import_jsx_dev_runtime18.jsxDEV)("br", {}, void 0, !1, {
       fileName: "app/routes/($locale).policies.$handle.jsx",
       lineNumber: 50,
       columnNumber: 7
     }, this),
-    /* @__PURE__ */ (0, import_jsx_dev_runtime19.jsxDEV)("div", { children: /* @__PURE__ */ (0, import_jsx_dev_runtime19.jsxDEV)(Link2, { to: "/policies", children: "\u2190 Back to Policies" }, void 0, !1, {
+    /* @__PURE__ */ (0, import_jsx_dev_runtime18.jsxDEV)("div", { children: /* @__PURE__ */ (0, import_jsx_dev_runtime18.jsxDEV)(Link2, { to: "/policies", children: "\u2190 Back to Policies" }, void 0, !1, {
       fileName: "app/routes/($locale).policies.$handle.jsx",
       lineNumber: 52,
       columnNumber: 9
@@ -36918,17 +28325,17 @@ function Policy() {
       lineNumber: 51,
       columnNumber: 7
     }, this),
-    /* @__PURE__ */ (0, import_jsx_dev_runtime19.jsxDEV)("br", {}, void 0, !1, {
+    /* @__PURE__ */ (0, import_jsx_dev_runtime18.jsxDEV)("br", {}, void 0, !1, {
       fileName: "app/routes/($locale).policies.$handle.jsx",
       lineNumber: 54,
       columnNumber: 7
     }, this),
-    /* @__PURE__ */ (0, import_jsx_dev_runtime19.jsxDEV)("h1", { children: policy.title }, void 0, !1, {
+    /* @__PURE__ */ (0, import_jsx_dev_runtime18.jsxDEV)("h1", { children: policy.title }, void 0, !1, {
       fileName: "app/routes/($locale).policies.$handle.jsx",
       lineNumber: 55,
       columnNumber: 7
     }, this),
-    /* @__PURE__ */ (0, import_jsx_dev_runtime19.jsxDEV)("div", { dangerouslySetInnerHTML: { __html: policy.body } }, void 0, !1, {
+    /* @__PURE__ */ (0, import_jsx_dev_runtime18.jsxDEV)("div", { dangerouslySetInnerHTML: { __html: policy.body } }, void 0, !1, {
       fileName: "app/routes/($locale).policies.$handle.jsx",
       lineNumber: 56,
       columnNumber: 7
@@ -36975,13 +28382,13 @@ var POLICY_CONTENT_QUERY = `#graphql
 // app/routes/($locale).products.$handle.jsx
 var locale_products_handle_exports = {};
 __export(locale_products_handle_exports, {
-  default: () => Product,
-  loader: () => loader13,
-  meta: () => meta11
+  default: () => Product2,
+  loader: () => loader12,
+  meta: () => meta10
 });
-var import_react38 = __toESM(require_react());
-var import_jsx_dev_runtime20 = __toESM(require_jsx_dev_runtime()), meta11 = ({ data }) => [{ title: `Hydrogen | ${data?.product.title ?? ""}` }];
-async function loader13({ params, request, context }) {
+var import_react33 = __toESM(require_react());
+var import_jsx_dev_runtime19 = __toESM(require_jsx_dev_runtime()), meta10 = ({ data }) => [{ title: `Hydrogen | ${data?.product.title ?? ""}` }];
+async function loader12({ params, request, context }) {
   let { handle } = params, { storefront } = context, selectedOptions = getSelectedProductOptions(request).filter(
     (option) => (
       // Filter out Shopify predictive search query params
@@ -37024,15 +28431,15 @@ function redirectToFirstVariant({ product, request }) {
     }
   );
 }
-function Product() {
+function Product2() {
   let { product, variants } = useLoaderData2(), { selectedVariant } = product;
-  return /* @__PURE__ */ (0, import_jsx_dev_runtime20.jsxDEV)("div", { className: "product", children: [
-    /* @__PURE__ */ (0, import_jsx_dev_runtime20.jsxDEV)(ProductImage, { image: selectedVariant?.image }, void 0, !1, {
+  return /* @__PURE__ */ (0, import_jsx_dev_runtime19.jsxDEV)("div", { className: "product", children: [
+    /* @__PURE__ */ (0, import_jsx_dev_runtime19.jsxDEV)(ProductImage, { image: selectedVariant?.image }, void 0, !1, {
       fileName: "app/routes/($locale).products.$handle.jsx",
       lineNumber: 111,
       columnNumber: 7
     }, this),
-    /* @__PURE__ */ (0, import_jsx_dev_runtime20.jsxDEV)(
+    /* @__PURE__ */ (0, import_jsx_dev_runtime19.jsxDEV)(
       ProductMain,
       {
         selectedVariant,
@@ -37055,7 +28462,7 @@ function Product() {
   }, this);
 }
 function ProductImage({ image }) {
-  return image ? /* @__PURE__ */ (0, import_jsx_dev_runtime20.jsxDEV)("div", { className: "product-image", children: /* @__PURE__ */ (0, import_jsx_dev_runtime20.jsxDEV)(
+  return image ? /* @__PURE__ */ (0, import_jsx_dev_runtime19.jsxDEV)("div", { className: "product-image", children: /* @__PURE__ */ (0, import_jsx_dev_runtime19.jsxDEV)(
     Image,
     {
       alt: image.altText || "Product Image",
@@ -37075,7 +28482,7 @@ function ProductImage({ image }) {
     fileName: "app/routes/($locale).products.$handle.jsx",
     lineNumber: 129,
     columnNumber: 5
-  }, this) : /* @__PURE__ */ (0, import_jsx_dev_runtime20.jsxDEV)("div", { className: "product-image" }, void 0, !1, {
+  }, this) : /* @__PURE__ */ (0, import_jsx_dev_runtime19.jsxDEV)("div", { className: "product-image" }, void 0, !1, {
     fileName: "app/routes/($locale).products.$handle.jsx",
     lineNumber: 126,
     columnNumber: 12
@@ -37083,26 +28490,26 @@ function ProductImage({ image }) {
 }
 function ProductMain({ selectedVariant, product, variants }) {
   let { title, descriptionHtml } = product;
-  return /* @__PURE__ */ (0, import_jsx_dev_runtime20.jsxDEV)("div", { className: "product-main", children: [
-    /* @__PURE__ */ (0, import_jsx_dev_runtime20.jsxDEV)("h1", { children: title }, void 0, !1, {
+  return /* @__PURE__ */ (0, import_jsx_dev_runtime19.jsxDEV)("div", { className: "product-main", children: [
+    /* @__PURE__ */ (0, import_jsx_dev_runtime19.jsxDEV)("h1", { children: title }, void 0, !1, {
       fileName: "app/routes/($locale).products.$handle.jsx",
       lineNumber: 152,
       columnNumber: 7
     }, this),
-    /* @__PURE__ */ (0, import_jsx_dev_runtime20.jsxDEV)(ProductPrice, { selectedVariant }, void 0, !1, {
+    /* @__PURE__ */ (0, import_jsx_dev_runtime19.jsxDEV)(ProductPrice, { selectedVariant }, void 0, !1, {
       fileName: "app/routes/($locale).products.$handle.jsx",
       lineNumber: 153,
       columnNumber: 7
     }, this),
-    /* @__PURE__ */ (0, import_jsx_dev_runtime20.jsxDEV)("br", {}, void 0, !1, {
+    /* @__PURE__ */ (0, import_jsx_dev_runtime19.jsxDEV)("br", {}, void 0, !1, {
       fileName: "app/routes/($locale).products.$handle.jsx",
       lineNumber: 154,
       columnNumber: 7
     }, this),
-    /* @__PURE__ */ (0, import_jsx_dev_runtime20.jsxDEV)(
-      import_react38.Suspense,
+    /* @__PURE__ */ (0, import_jsx_dev_runtime19.jsxDEV)(
+      import_react33.Suspense,
       {
-        fallback: /* @__PURE__ */ (0, import_jsx_dev_runtime20.jsxDEV)(
+        fallback: /* @__PURE__ */ (0, import_jsx_dev_runtime19.jsxDEV)(
           ProductForm,
           {
             product,
@@ -37118,12 +28525,12 @@ function ProductMain({ selectedVariant, product, variants }) {
           },
           this
         ),
-        children: /* @__PURE__ */ (0, import_jsx_dev_runtime20.jsxDEV)(
+        children: /* @__PURE__ */ (0, import_jsx_dev_runtime19.jsxDEV)(
           Await2,
           {
             errorElement: "There was a problem loading product variants",
             resolve: variants,
-            children: (data) => /* @__PURE__ */ (0, import_jsx_dev_runtime20.jsxDEV)(
+            children: (data) => /* @__PURE__ */ (0, import_jsx_dev_runtime19.jsxDEV)(
               ProductForm,
               {
                 product,
@@ -37159,17 +28566,17 @@ function ProductMain({ selectedVariant, product, variants }) {
       },
       this
     ),
-    /* @__PURE__ */ (0, import_jsx_dev_runtime20.jsxDEV)("br", {}, void 0, !1, {
+    /* @__PURE__ */ (0, import_jsx_dev_runtime19.jsxDEV)("br", {}, void 0, !1, {
       fileName: "app/routes/($locale).products.$handle.jsx",
       lineNumber: 177,
       columnNumber: 7
     }, this),
-    /* @__PURE__ */ (0, import_jsx_dev_runtime20.jsxDEV)("br", {}, void 0, !1, {
+    /* @__PURE__ */ (0, import_jsx_dev_runtime19.jsxDEV)("br", {}, void 0, !1, {
       fileName: "app/routes/($locale).products.$handle.jsx",
       lineNumber: 178,
       columnNumber: 7
     }, this),
-    /* @__PURE__ */ (0, import_jsx_dev_runtime20.jsxDEV)("p", { children: /* @__PURE__ */ (0, import_jsx_dev_runtime20.jsxDEV)("strong", { children: "Description" }, void 0, !1, {
+    /* @__PURE__ */ (0, import_jsx_dev_runtime19.jsxDEV)("p", { children: /* @__PURE__ */ (0, import_jsx_dev_runtime19.jsxDEV)("strong", { children: "Description" }, void 0, !1, {
       fileName: "app/routes/($locale).products.$handle.jsx",
       lineNumber: 180,
       columnNumber: 9
@@ -37178,17 +28585,17 @@ function ProductMain({ selectedVariant, product, variants }) {
       lineNumber: 179,
       columnNumber: 7
     }, this),
-    /* @__PURE__ */ (0, import_jsx_dev_runtime20.jsxDEV)("br", {}, void 0, !1, {
+    /* @__PURE__ */ (0, import_jsx_dev_runtime19.jsxDEV)("br", {}, void 0, !1, {
       fileName: "app/routes/($locale).products.$handle.jsx",
       lineNumber: 182,
       columnNumber: 7
     }, this),
-    /* @__PURE__ */ (0, import_jsx_dev_runtime20.jsxDEV)("div", { dangerouslySetInnerHTML: { __html: descriptionHtml } }, void 0, !1, {
+    /* @__PURE__ */ (0, import_jsx_dev_runtime19.jsxDEV)("div", { dangerouslySetInnerHTML: { __html: descriptionHtml } }, void 0, !1, {
       fileName: "app/routes/($locale).products.$handle.jsx",
       lineNumber: 183,
       columnNumber: 7
     }, this),
-    /* @__PURE__ */ (0, import_jsx_dev_runtime20.jsxDEV)("br", {}, void 0, !1, {
+    /* @__PURE__ */ (0, import_jsx_dev_runtime19.jsxDEV)("br", {}, void 0, !1, {
       fileName: "app/routes/($locale).products.$handle.jsx",
       lineNumber: 184,
       columnNumber: 7
@@ -37200,24 +28607,24 @@ function ProductMain({ selectedVariant, product, variants }) {
   }, this);
 }
 function ProductPrice({ selectedVariant }) {
-  return /* @__PURE__ */ (0, import_jsx_dev_runtime20.jsxDEV)("div", { className: "product-price", children: selectedVariant?.compareAtPrice ? /* @__PURE__ */ (0, import_jsx_dev_runtime20.jsxDEV)(import_jsx_dev_runtime20.Fragment, { children: [
-    /* @__PURE__ */ (0, import_jsx_dev_runtime20.jsxDEV)("p", { children: "Sale" }, void 0, !1, {
+  return /* @__PURE__ */ (0, import_jsx_dev_runtime19.jsxDEV)("div", { className: "product-price", children: selectedVariant?.compareAtPrice ? /* @__PURE__ */ (0, import_jsx_dev_runtime19.jsxDEV)(import_jsx_dev_runtime19.Fragment, { children: [
+    /* @__PURE__ */ (0, import_jsx_dev_runtime19.jsxDEV)("p", { children: "Sale" }, void 0, !1, {
       fileName: "app/routes/($locale).products.$handle.jsx",
       lineNumber: 199,
       columnNumber: 11
     }, this),
-    /* @__PURE__ */ (0, import_jsx_dev_runtime20.jsxDEV)("br", {}, void 0, !1, {
+    /* @__PURE__ */ (0, import_jsx_dev_runtime19.jsxDEV)("br", {}, void 0, !1, {
       fileName: "app/routes/($locale).products.$handle.jsx",
       lineNumber: 200,
       columnNumber: 11
     }, this),
-    /* @__PURE__ */ (0, import_jsx_dev_runtime20.jsxDEV)("div", { className: "product-price-on-sale", children: [
-      selectedVariant ? /* @__PURE__ */ (0, import_jsx_dev_runtime20.jsxDEV)(Money, { data: selectedVariant.price }, void 0, !1, {
+    /* @__PURE__ */ (0, import_jsx_dev_runtime19.jsxDEV)("div", { className: "product-price-on-sale", children: [
+      selectedVariant ? /* @__PURE__ */ (0, import_jsx_dev_runtime19.jsxDEV)(Money, { data: selectedVariant.price }, void 0, !1, {
         fileName: "app/routes/($locale).products.$handle.jsx",
         lineNumber: 202,
         columnNumber: 32
       }, this) : null,
-      /* @__PURE__ */ (0, import_jsx_dev_runtime20.jsxDEV)("s", { children: /* @__PURE__ */ (0, import_jsx_dev_runtime20.jsxDEV)(Money, { data: selectedVariant.compareAtPrice }, void 0, !1, {
+      /* @__PURE__ */ (0, import_jsx_dev_runtime19.jsxDEV)("s", { children: /* @__PURE__ */ (0, import_jsx_dev_runtime19.jsxDEV)(Money, { data: selectedVariant.compareAtPrice }, void 0, !1, {
         fileName: "app/routes/($locale).products.$handle.jsx",
         lineNumber: 204,
         columnNumber: 15
@@ -37235,7 +28642,7 @@ function ProductPrice({ selectedVariant }) {
     fileName: "app/routes/($locale).products.$handle.jsx",
     lineNumber: 198,
     columnNumber: 9
-  }, this) : selectedVariant?.price && /* @__PURE__ */ (0, import_jsx_dev_runtime20.jsxDEV)(Money, { data: selectedVariant?.price }, void 0, !1, {
+  }, this) : selectedVariant?.price && /* @__PURE__ */ (0, import_jsx_dev_runtime19.jsxDEV)(Money, { data: selectedVariant?.price }, void 0, !1, {
     fileName: "app/routes/($locale).products.$handle.jsx",
     lineNumber: 209,
     columnNumber: 35
@@ -37246,14 +28653,14 @@ function ProductPrice({ selectedVariant }) {
   }, this);
 }
 function ProductForm({ product, selectedVariant, variants }) {
-  return /* @__PURE__ */ (0, import_jsx_dev_runtime20.jsxDEV)("div", { className: "product-form", children: [
-    /* @__PURE__ */ (0, import_jsx_dev_runtime20.jsxDEV)(
+  return /* @__PURE__ */ (0, import_jsx_dev_runtime19.jsxDEV)("div", { className: "product-form", children: [
+    /* @__PURE__ */ (0, import_jsx_dev_runtime19.jsxDEV)(
       VariantSelector,
       {
         handle: product.handle,
         options: product.options,
         variants,
-        children: ({ option }) => /* @__PURE__ */ (0, import_jsx_dev_runtime20.jsxDEV)(ProductOptions, { option }, option.name, !1, {
+        children: ({ option }) => /* @__PURE__ */ (0, import_jsx_dev_runtime19.jsxDEV)(ProductOptions, { option }, option.name, !1, {
           fileName: "app/routes/($locale).products.$handle.jsx",
           lineNumber: 230,
           columnNumber: 24
@@ -37268,12 +28675,12 @@ function ProductForm({ product, selectedVariant, variants }) {
       },
       this
     ),
-    /* @__PURE__ */ (0, import_jsx_dev_runtime20.jsxDEV)("br", {}, void 0, !1, {
+    /* @__PURE__ */ (0, import_jsx_dev_runtime19.jsxDEV)("br", {}, void 0, !1, {
       fileName: "app/routes/($locale).products.$handle.jsx",
       lineNumber: 232,
       columnNumber: 7
     }, this),
-    /* @__PURE__ */ (0, import_jsx_dev_runtime20.jsxDEV)(
+    /* @__PURE__ */ (0, import_jsx_dev_runtime19.jsxDEV)(
       AddToCartButton,
       {
         disabled: !selectedVariant || !selectedVariant.availableForSale,
@@ -37304,13 +28711,13 @@ function ProductForm({ product, selectedVariant, variants }) {
   }, this);
 }
 function ProductOptions({ option }) {
-  return /* @__PURE__ */ (0, import_jsx_dev_runtime20.jsxDEV)("div", { className: "product-options", children: [
-    /* @__PURE__ */ (0, import_jsx_dev_runtime20.jsxDEV)("h5", { children: option.name }, void 0, !1, {
+  return /* @__PURE__ */ (0, import_jsx_dev_runtime19.jsxDEV)("div", { className: "product-options", children: [
+    /* @__PURE__ */ (0, import_jsx_dev_runtime19.jsxDEV)("h5", { children: option.name }, void 0, !1, {
       fileName: "app/routes/($locale).products.$handle.jsx",
       lineNumber: 261,
       columnNumber: 7
     }, this),
-    /* @__PURE__ */ (0, import_jsx_dev_runtime20.jsxDEV)("div", { className: "product-options-grid", children: option.values.map(({ value, isAvailable, isActive, to }) => /* @__PURE__ */ (0, import_jsx_dev_runtime20.jsxDEV)(
+    /* @__PURE__ */ (0, import_jsx_dev_runtime19.jsxDEV)("div", { className: "product-options-grid", children: option.values.map(({ value, isAvailable, isActive, to }) => /* @__PURE__ */ (0, import_jsx_dev_runtime19.jsxDEV)(
       Link2,
       {
         className: "product-options-item",
@@ -37337,7 +28744,7 @@ function ProductOptions({ option }) {
       lineNumber: 262,
       columnNumber: 7
     }, this),
-    /* @__PURE__ */ (0, import_jsx_dev_runtime20.jsxDEV)("br", {}, void 0, !1, {
+    /* @__PURE__ */ (0, import_jsx_dev_runtime19.jsxDEV)("br", {}, void 0, !1, {
       fileName: "app/routes/($locale).products.$handle.jsx",
       lineNumber: 282,
       columnNumber: 7
@@ -37349,8 +28756,8 @@ function ProductOptions({ option }) {
   }, this);
 }
 function AddToCartButton({ analytics, children, disabled, lines, onClick }) {
-  return /* @__PURE__ */ (0, import_jsx_dev_runtime20.jsxDEV)(CartForm, { route: "/cart", inputs: { lines }, action: CartForm.ACTIONS.LinesAdd, children: (fetcher) => /* @__PURE__ */ (0, import_jsx_dev_runtime20.jsxDEV)(import_jsx_dev_runtime20.Fragment, { children: [
-    /* @__PURE__ */ (0, import_jsx_dev_runtime20.jsxDEV)(
+  return /* @__PURE__ */ (0, import_jsx_dev_runtime19.jsxDEV)(CartForm, { route: "/cart", inputs: { lines }, action: CartForm.ACTIONS.LinesAdd, children: (fetcher) => /* @__PURE__ */ (0, import_jsx_dev_runtime19.jsxDEV)(import_jsx_dev_runtime19.Fragment, { children: [
+    /* @__PURE__ */ (0, import_jsx_dev_runtime19.jsxDEV)(
       "input",
       {
         name: "analytics",
@@ -37366,7 +28773,7 @@ function AddToCartButton({ analytics, children, disabled, lines, onClick }) {
       },
       this
     ),
-    /* @__PURE__ */ (0, import_jsx_dev_runtime20.jsxDEV)(
+    /* @__PURE__ */ (0, import_jsx_dev_runtime19.jsxDEV)(
       "button",
       {
         type: "submit",
@@ -37493,11 +28900,11 @@ var locale_account_profile_exports = {};
 __export(locale_account_profile_exports, {
   action: () => action7,
   default: () => AccountProfile,
-  loader: () => loader14,
-  meta: () => meta12
+  loader: () => loader13,
+  meta: () => meta11
 });
-var import_jsx_dev_runtime21 = __toESM(require_jsx_dev_runtime()), meta12 = () => [{ title: "Profile" }];
-async function loader14({ context }) {
+var import_jsx_dev_runtime20 = __toESM(require_jsx_dev_runtime()), meta11 = () => [{ title: "Profile" }];
+async function loader13({ context }) {
   return await context.session.get("customerAccessToken") ? json5({}) : redirect5("/account/login");
 }
 async function action7({ request, context }) {
@@ -37544,30 +28951,30 @@ async function action7({ request, context }) {
 }
 function AccountProfile() {
   let account = useOutletContext(), { state } = useNavigation(), action11 = useActionData2(), customer = action11?.customer ?? account?.customer;
-  return /* @__PURE__ */ (0, import_jsx_dev_runtime21.jsxDEV)("div", { className: "account-profile", children: [
-    /* @__PURE__ */ (0, import_jsx_dev_runtime21.jsxDEV)("h2", { children: "My profile" }, void 0, !1, {
+  return /* @__PURE__ */ (0, import_jsx_dev_runtime20.jsxDEV)("div", { className: "account-profile", children: [
+    /* @__PURE__ */ (0, import_jsx_dev_runtime20.jsxDEV)("h2", { children: "My profile" }, void 0, !1, {
       fileName: "app/routes/($locale).account.profile.jsx",
       lineNumber: 115,
       columnNumber: 7
     }, this),
-    /* @__PURE__ */ (0, import_jsx_dev_runtime21.jsxDEV)("br", {}, void 0, !1, {
+    /* @__PURE__ */ (0, import_jsx_dev_runtime20.jsxDEV)("br", {}, void 0, !1, {
       fileName: "app/routes/($locale).account.profile.jsx",
       lineNumber: 116,
       columnNumber: 7
     }, this),
-    /* @__PURE__ */ (0, import_jsx_dev_runtime21.jsxDEV)(Form, { method: "PUT", children: [
-      /* @__PURE__ */ (0, import_jsx_dev_runtime21.jsxDEV)("legend", { children: "Personal information" }, void 0, !1, {
+    /* @__PURE__ */ (0, import_jsx_dev_runtime20.jsxDEV)(Form, { method: "PUT", children: [
+      /* @__PURE__ */ (0, import_jsx_dev_runtime20.jsxDEV)("legend", { children: "Personal information" }, void 0, !1, {
         fileName: "app/routes/($locale).account.profile.jsx",
         lineNumber: 118,
         columnNumber: 9
       }, this),
-      /* @__PURE__ */ (0, import_jsx_dev_runtime21.jsxDEV)("fieldset", { children: [
-        /* @__PURE__ */ (0, import_jsx_dev_runtime21.jsxDEV)("label", { htmlFor: "firstName", children: "First name" }, void 0, !1, {
+      /* @__PURE__ */ (0, import_jsx_dev_runtime20.jsxDEV)("fieldset", { children: [
+        /* @__PURE__ */ (0, import_jsx_dev_runtime20.jsxDEV)("label", { htmlFor: "firstName", children: "First name" }, void 0, !1, {
           fileName: "app/routes/($locale).account.profile.jsx",
           lineNumber: 120,
           columnNumber: 11
         }, this),
-        /* @__PURE__ */ (0, import_jsx_dev_runtime21.jsxDEV)(
+        /* @__PURE__ */ (0, import_jsx_dev_runtime20.jsxDEV)(
           "input",
           {
             id: "firstName",
@@ -37588,12 +28995,12 @@ function AccountProfile() {
           },
           this
         ),
-        /* @__PURE__ */ (0, import_jsx_dev_runtime21.jsxDEV)("label", { htmlFor: "lastName", children: "Last name" }, void 0, !1, {
+        /* @__PURE__ */ (0, import_jsx_dev_runtime20.jsxDEV)("label", { htmlFor: "lastName", children: "Last name" }, void 0, !1, {
           fileName: "app/routes/($locale).account.profile.jsx",
           lineNumber: 131,
           columnNumber: 11
         }, this),
-        /* @__PURE__ */ (0, import_jsx_dev_runtime21.jsxDEV)(
+        /* @__PURE__ */ (0, import_jsx_dev_runtime20.jsxDEV)(
           "input",
           {
             id: "lastName",
@@ -37614,12 +29021,12 @@ function AccountProfile() {
           },
           this
         ),
-        /* @__PURE__ */ (0, import_jsx_dev_runtime21.jsxDEV)("label", { htmlFor: "phone", children: "Mobile" }, void 0, !1, {
+        /* @__PURE__ */ (0, import_jsx_dev_runtime20.jsxDEV)("label", { htmlFor: "phone", children: "Mobile" }, void 0, !1, {
           fileName: "app/routes/($locale).account.profile.jsx",
           lineNumber: 142,
           columnNumber: 11
         }, this),
-        /* @__PURE__ */ (0, import_jsx_dev_runtime21.jsxDEV)(
+        /* @__PURE__ */ (0, import_jsx_dev_runtime20.jsxDEV)(
           "input",
           {
             id: "phone",
@@ -37639,12 +29046,12 @@ function AccountProfile() {
           },
           this
         ),
-        /* @__PURE__ */ (0, import_jsx_dev_runtime21.jsxDEV)("label", { htmlFor: "email", children: "Email address" }, void 0, !1, {
+        /* @__PURE__ */ (0, import_jsx_dev_runtime20.jsxDEV)("label", { htmlFor: "email", children: "Email address" }, void 0, !1, {
           fileName: "app/routes/($locale).account.profile.jsx",
           lineNumber: 152,
           columnNumber: 11
         }, this),
-        /* @__PURE__ */ (0, import_jsx_dev_runtime21.jsxDEV)(
+        /* @__PURE__ */ (0, import_jsx_dev_runtime20.jsxDEV)(
           "input",
           {
             id: "email",
@@ -37665,8 +29072,8 @@ function AccountProfile() {
           },
           this
         ),
-        /* @__PURE__ */ (0, import_jsx_dev_runtime21.jsxDEV)("div", { className: "account-profile-marketing", children: [
-          /* @__PURE__ */ (0, import_jsx_dev_runtime21.jsxDEV)(
+        /* @__PURE__ */ (0, import_jsx_dev_runtime20.jsxDEV)("div", { className: "account-profile-marketing", children: [
+          /* @__PURE__ */ (0, import_jsx_dev_runtime20.jsxDEV)(
             "input",
             {
               id: "acceptsMarketing",
@@ -37685,7 +29092,7 @@ function AccountProfile() {
             },
             this
           ),
-          /* @__PURE__ */ (0, import_jsx_dev_runtime21.jsxDEV)("label", { htmlFor: "acceptsMarketing", children: "\xA0 Subscribed to marketing communications" }, void 0, !1, {
+          /* @__PURE__ */ (0, import_jsx_dev_runtime20.jsxDEV)("label", { htmlFor: "acceptsMarketing", children: "\xA0 Subscribed to marketing communications" }, void 0, !1, {
             fileName: "app/routes/($locale).account.profile.jsx",
             lineNumber: 172,
             columnNumber: 13
@@ -37700,23 +29107,23 @@ function AccountProfile() {
         lineNumber: 119,
         columnNumber: 9
       }, this),
-      /* @__PURE__ */ (0, import_jsx_dev_runtime21.jsxDEV)("br", {}, void 0, !1, {
+      /* @__PURE__ */ (0, import_jsx_dev_runtime20.jsxDEV)("br", {}, void 0, !1, {
         fileName: "app/routes/($locale).account.profile.jsx",
         lineNumber: 177,
         columnNumber: 9
       }, this),
-      /* @__PURE__ */ (0, import_jsx_dev_runtime21.jsxDEV)("legend", { children: "Change password (optional)" }, void 0, !1, {
+      /* @__PURE__ */ (0, import_jsx_dev_runtime20.jsxDEV)("legend", { children: "Change password (optional)" }, void 0, !1, {
         fileName: "app/routes/($locale).account.profile.jsx",
         lineNumber: 178,
         columnNumber: 9
       }, this),
-      /* @__PURE__ */ (0, import_jsx_dev_runtime21.jsxDEV)("fieldset", { children: [
-        /* @__PURE__ */ (0, import_jsx_dev_runtime21.jsxDEV)("label", { htmlFor: "currentPassword", children: "Current password" }, void 0, !1, {
+      /* @__PURE__ */ (0, import_jsx_dev_runtime20.jsxDEV)("fieldset", { children: [
+        /* @__PURE__ */ (0, import_jsx_dev_runtime20.jsxDEV)("label", { htmlFor: "currentPassword", children: "Current password" }, void 0, !1, {
           fileName: "app/routes/($locale).account.profile.jsx",
           lineNumber: 180,
           columnNumber: 11
         }, this),
-        /* @__PURE__ */ (0, import_jsx_dev_runtime21.jsxDEV)(
+        /* @__PURE__ */ (0, import_jsx_dev_runtime20.jsxDEV)(
           "input",
           {
             id: "currentPassword",
@@ -37736,12 +29143,12 @@ function AccountProfile() {
           },
           this
         ),
-        /* @__PURE__ */ (0, import_jsx_dev_runtime21.jsxDEV)("label", { htmlFor: "newPassword", children: "New password" }, void 0, !1, {
+        /* @__PURE__ */ (0, import_jsx_dev_runtime20.jsxDEV)("label", { htmlFor: "newPassword", children: "New password" }, void 0, !1, {
           fileName: "app/routes/($locale).account.profile.jsx",
           lineNumber: 191,
           columnNumber: 11
         }, this),
-        /* @__PURE__ */ (0, import_jsx_dev_runtime21.jsxDEV)(
+        /* @__PURE__ */ (0, import_jsx_dev_runtime20.jsxDEV)(
           "input",
           {
             id: "newPassword",
@@ -37760,12 +29167,12 @@ function AccountProfile() {
           },
           this
         ),
-        /* @__PURE__ */ (0, import_jsx_dev_runtime21.jsxDEV)("label", { htmlFor: "newPasswordConfirm", children: "New password (confirm)" }, void 0, !1, {
+        /* @__PURE__ */ (0, import_jsx_dev_runtime20.jsxDEV)("label", { htmlFor: "newPasswordConfirm", children: "New password (confirm)" }, void 0, !1, {
           fileName: "app/routes/($locale).account.profile.jsx",
           lineNumber: 201,
           columnNumber: 11
         }, this),
-        /* @__PURE__ */ (0, import_jsx_dev_runtime21.jsxDEV)(
+        /* @__PURE__ */ (0, import_jsx_dev_runtime20.jsxDEV)(
           "input",
           {
             id: "newPasswordConfirm",
@@ -37784,7 +29191,7 @@ function AccountProfile() {
           },
           this
         ),
-        /* @__PURE__ */ (0, import_jsx_dev_runtime21.jsxDEV)("small", { children: "Passwords must be at least 8 characters." }, void 0, !1, {
+        /* @__PURE__ */ (0, import_jsx_dev_runtime20.jsxDEV)("small", { children: "Passwords must be at least 8 characters." }, void 0, !1, {
           fileName: "app/routes/($locale).account.profile.jsx",
           lineNumber: 210,
           columnNumber: 11
@@ -37794,7 +29201,7 @@ function AccountProfile() {
         lineNumber: 179,
         columnNumber: 9
       }, this),
-      action11?.error ? /* @__PURE__ */ (0, import_jsx_dev_runtime21.jsxDEV)("p", { children: /* @__PURE__ */ (0, import_jsx_dev_runtime21.jsxDEV)("mark", { children: /* @__PURE__ */ (0, import_jsx_dev_runtime21.jsxDEV)("small", { children: action11.error }, void 0, !1, {
+      action11?.error ? /* @__PURE__ */ (0, import_jsx_dev_runtime20.jsxDEV)("p", { children: /* @__PURE__ */ (0, import_jsx_dev_runtime20.jsxDEV)("mark", { children: /* @__PURE__ */ (0, import_jsx_dev_runtime20.jsxDEV)("small", { children: action11.error }, void 0, !1, {
         fileName: "app/routes/($locale).account.profile.jsx",
         lineNumber: 215,
         columnNumber: 15
@@ -37806,12 +29213,12 @@ function AccountProfile() {
         fileName: "app/routes/($locale).account.profile.jsx",
         lineNumber: 213,
         columnNumber: 11
-      }, this) : /* @__PURE__ */ (0, import_jsx_dev_runtime21.jsxDEV)("br", {}, void 0, !1, {
+      }, this) : /* @__PURE__ */ (0, import_jsx_dev_runtime20.jsxDEV)("br", {}, void 0, !1, {
         fileName: "app/routes/($locale).account.profile.jsx",
         lineNumber: 219,
         columnNumber: 11
       }, this),
-      /* @__PURE__ */ (0, import_jsx_dev_runtime21.jsxDEV)("button", { type: "submit", disabled: state !== "idle", children: state !== "idle" ? "Updating" : "Update" }, void 0, !1, {
+      /* @__PURE__ */ (0, import_jsx_dev_runtime20.jsxDEV)("button", { type: "submit", disabled: state !== "idle", children: state !== "idle" ? "Updating" : "Update" }, void 0, !1, {
         fileName: "app/routes/($locale).account.profile.jsx",
         lineNumber: 221,
         columnNumber: 9
@@ -37870,11 +29277,11 @@ var locale_account_logout_exports = {};
 __export(locale_account_logout_exports, {
   action: () => action8,
   default: () => Logout,
-  loader: () => loader15,
-  meta: () => meta13
+  loader: () => loader14,
+  meta: () => meta12
 });
-var meta13 = () => [{ title: "Logout" }];
-async function loader15() {
+var meta12 = () => [{ title: "Logout" }];
+async function loader14() {
   return redirect5("/account/login");
 }
 async function action8({ request, context }) {
@@ -37893,10 +29300,10 @@ function Logout() {
 var locale_policies_index_exports = {};
 __export(locale_policies_index_exports, {
   default: () => Policies,
-  loader: () => loader16
+  loader: () => loader15
 });
-var import_jsx_dev_runtime22 = __toESM(require_jsx_dev_runtime());
-async function loader16({ context }) {
+var import_jsx_dev_runtime21 = __toESM(require_jsx_dev_runtime());
+async function loader15({ context }) {
   let data = await context.storefront.query(POLICIES_QUERY), policies = Object.values(data.shop || {});
   if (!policies.length)
     throw new Response("No policies found", { status: 404 });
@@ -37904,13 +29311,13 @@ async function loader16({ context }) {
 }
 function Policies() {
   let { policies } = useLoaderData2();
-  return /* @__PURE__ */ (0, import_jsx_dev_runtime22.jsxDEV)("div", { className: "policies", children: [
-    /* @__PURE__ */ (0, import_jsx_dev_runtime22.jsxDEV)("h1", { children: "Policies" }, void 0, !1, {
+  return /* @__PURE__ */ (0, import_jsx_dev_runtime21.jsxDEV)("div", { className: "policies", children: [
+    /* @__PURE__ */ (0, import_jsx_dev_runtime21.jsxDEV)("h1", { children: "Policies" }, void 0, !1, {
       fileName: "app/routes/($locale).policies._index.jsx",
       lineNumber: 24,
       columnNumber: 7
     }, this),
-    /* @__PURE__ */ (0, import_jsx_dev_runtime22.jsxDEV)("div", { children: policies.map((policy) => policy ? /* @__PURE__ */ (0, import_jsx_dev_runtime22.jsxDEV)("fieldset", { children: /* @__PURE__ */ (0, import_jsx_dev_runtime22.jsxDEV)(Link2, { to: `/policies/${policy.handle}`, children: policy.title }, void 0, !1, {
+    /* @__PURE__ */ (0, import_jsx_dev_runtime21.jsxDEV)("div", { children: policies.map((policy) => policy ? /* @__PURE__ */ (0, import_jsx_dev_runtime21.jsxDEV)("fieldset", { children: /* @__PURE__ */ (0, import_jsx_dev_runtime21.jsxDEV)(Link2, { to: `/policies/${policy.handle}`, children: policy.title }, void 0, !1, {
       fileName: "app/routes/($locale).policies._index.jsx",
       lineNumber: 30,
       columnNumber: 15
@@ -37964,11 +29371,11 @@ var locale_account_login_exports = {};
 __export(locale_account_login_exports, {
   action: () => action9,
   default: () => Login,
-  loader: () => loader17,
-  meta: () => meta14
+  loader: () => loader16,
+  meta: () => meta13
 });
-var import_jsx_dev_runtime23 = __toESM(require_jsx_dev_runtime()), meta14 = () => [{ title: "Login" }];
-async function loader17({ context }) {
+var import_jsx_dev_runtime22 = __toESM(require_jsx_dev_runtime()), meta13 = () => [{ title: "Login" }];
+async function loader16({ context }) {
   return await context.session.get("customerAccessToken") ? redirect5("/account") : json5({});
 }
 async function action9({ request, context }) {
@@ -38001,20 +29408,20 @@ async function action9({ request, context }) {
 }
 function Login() {
   let error = useActionData2()?.error || null;
-  return /* @__PURE__ */ (0, import_jsx_dev_runtime23.jsxDEV)("div", { className: "login", children: [
-    /* @__PURE__ */ (0, import_jsx_dev_runtime23.jsxDEV)("h1", { children: "Sign in." }, void 0, !1, {
+  return /* @__PURE__ */ (0, import_jsx_dev_runtime22.jsxDEV)("div", { className: "login", children: [
+    /* @__PURE__ */ (0, import_jsx_dev_runtime22.jsxDEV)("h1", { children: "Sign in." }, void 0, !1, {
       fileName: "app/routes/($locale).account_.login.jsx",
       lineNumber: 77,
       columnNumber: 7
     }, this),
-    /* @__PURE__ */ (0, import_jsx_dev_runtime23.jsxDEV)(Form, { method: "POST", children: [
-      /* @__PURE__ */ (0, import_jsx_dev_runtime23.jsxDEV)("fieldset", { children: [
-        /* @__PURE__ */ (0, import_jsx_dev_runtime23.jsxDEV)("label", { htmlFor: "email", children: "Email address" }, void 0, !1, {
+    /* @__PURE__ */ (0, import_jsx_dev_runtime22.jsxDEV)(Form, { method: "POST", children: [
+      /* @__PURE__ */ (0, import_jsx_dev_runtime22.jsxDEV)("fieldset", { children: [
+        /* @__PURE__ */ (0, import_jsx_dev_runtime22.jsxDEV)("label", { htmlFor: "email", children: "Email address" }, void 0, !1, {
           fileName: "app/routes/($locale).account_.login.jsx",
           lineNumber: 80,
           columnNumber: 11
         }, this),
-        /* @__PURE__ */ (0, import_jsx_dev_runtime23.jsxDEV)(
+        /* @__PURE__ */ (0, import_jsx_dev_runtime22.jsxDEV)(
           "input",
           {
             id: "email",
@@ -38035,12 +29442,12 @@ function Login() {
           },
           this
         ),
-        /* @__PURE__ */ (0, import_jsx_dev_runtime23.jsxDEV)("label", { htmlFor: "password", children: "Password" }, void 0, !1, {
+        /* @__PURE__ */ (0, import_jsx_dev_runtime22.jsxDEV)("label", { htmlFor: "password", children: "Password" }, void 0, !1, {
           fileName: "app/routes/($locale).account_.login.jsx",
           lineNumber: 92,
           columnNumber: 11
         }, this),
-        /* @__PURE__ */ (0, import_jsx_dev_runtime23.jsxDEV)(
+        /* @__PURE__ */ (0, import_jsx_dev_runtime22.jsxDEV)(
           "input",
           {
             id: "password",
@@ -38066,7 +29473,7 @@ function Login() {
         lineNumber: 79,
         columnNumber: 9
       }, this),
-      error ? /* @__PURE__ */ (0, import_jsx_dev_runtime23.jsxDEV)("p", { children: /* @__PURE__ */ (0, import_jsx_dev_runtime23.jsxDEV)("mark", { children: /* @__PURE__ */ (0, import_jsx_dev_runtime23.jsxDEV)("small", { children: error }, void 0, !1, {
+      error ? /* @__PURE__ */ (0, import_jsx_dev_runtime22.jsxDEV)("p", { children: /* @__PURE__ */ (0, import_jsx_dev_runtime22.jsxDEV)("mark", { children: /* @__PURE__ */ (0, import_jsx_dev_runtime22.jsxDEV)("small", { children: error }, void 0, !1, {
         fileName: "app/routes/($locale).account_.login.jsx",
         lineNumber: 107,
         columnNumber: 15
@@ -38078,12 +29485,12 @@ function Login() {
         fileName: "app/routes/($locale).account_.login.jsx",
         lineNumber: 105,
         columnNumber: 11
-      }, this) : /* @__PURE__ */ (0, import_jsx_dev_runtime23.jsxDEV)("br", {}, void 0, !1, {
+      }, this) : /* @__PURE__ */ (0, import_jsx_dev_runtime22.jsxDEV)("br", {}, void 0, !1, {
         fileName: "app/routes/($locale).account_.login.jsx",
         lineNumber: 111,
         columnNumber: 11
       }, this),
-      /* @__PURE__ */ (0, import_jsx_dev_runtime23.jsxDEV)("button", { type: "submit", children: "Sign in" }, void 0, !1, {
+      /* @__PURE__ */ (0, import_jsx_dev_runtime22.jsxDEV)("button", { type: "submit", children: "Sign in" }, void 0, !1, {
         fileName: "app/routes/($locale).account_.login.jsx",
         lineNumber: 113,
         columnNumber: 9
@@ -38093,13 +29500,13 @@ function Login() {
       lineNumber: 78,
       columnNumber: 7
     }, this),
-    /* @__PURE__ */ (0, import_jsx_dev_runtime23.jsxDEV)("br", {}, void 0, !1, {
+    /* @__PURE__ */ (0, import_jsx_dev_runtime22.jsxDEV)("br", {}, void 0, !1, {
       fileName: "app/routes/($locale).account_.login.jsx",
       lineNumber: 115,
       columnNumber: 7
     }, this),
-    /* @__PURE__ */ (0, import_jsx_dev_runtime23.jsxDEV)("div", { children: [
-      /* @__PURE__ */ (0, import_jsx_dev_runtime23.jsxDEV)("p", { children: /* @__PURE__ */ (0, import_jsx_dev_runtime23.jsxDEV)(Link2, { to: "/account/recover", children: "Forgot password \u2192" }, void 0, !1, {
+    /* @__PURE__ */ (0, import_jsx_dev_runtime22.jsxDEV)("div", { children: [
+      /* @__PURE__ */ (0, import_jsx_dev_runtime22.jsxDEV)("p", { children: /* @__PURE__ */ (0, import_jsx_dev_runtime22.jsxDEV)(Link2, { to: "/account/recover", children: "Forgot password \u2192" }, void 0, !1, {
         fileName: "app/routes/($locale).account_.login.jsx",
         lineNumber: 118,
         columnNumber: 11
@@ -38108,7 +29515,7 @@ function Login() {
         lineNumber: 117,
         columnNumber: 9
       }, this),
-      /* @__PURE__ */ (0, import_jsx_dev_runtime23.jsxDEV)("p", { children: /* @__PURE__ */ (0, import_jsx_dev_runtime23.jsxDEV)(Link2, { to: "/account/register", children: "Register \u2192" }, void 0, !1, {
+      /* @__PURE__ */ (0, import_jsx_dev_runtime22.jsxDEV)("p", { children: /* @__PURE__ */ (0, import_jsx_dev_runtime22.jsxDEV)(Link2, { to: "/account/register", children: "Register \u2192" }, void 0, !1, {
         fileName: "app/routes/($locale).account_.login.jsx",
         lineNumber: 121,
         columnNumber: 11
@@ -38147,9 +29554,9 @@ var LOGIN_MUTATION = `#graphql
 // app/routes/($locale).discount.$code.jsx
 var locale_discount_code_exports = {};
 __export(locale_discount_code_exports, {
-  loader: () => loader18
+  loader: () => loader17
 });
-async function loader18({ request, context, params }) {
+async function loader17({ request, context, params }) {
   let { cart } = context, { code } = params, url = new URL(request.url), searchParams = new URLSearchParams(url.search), redirectParam = searchParams.get("redirect") || searchParams.get("return_to") || "/";
   redirectParam.includes("//") && (redirectParam = "/"), searchParams.delete("redirect"), searchParams.delete("return_to");
   let redirectUrl = `${redirectParam}?${searchParams}`;
@@ -38161,6 +29568,68 @@ async function loader18({ request, context, params }) {
     headers
   });
 }
+
+// app/routes/($locale).pages.$handle.jsx
+var locale_pages_handle_exports = {};
+__export(locale_pages_handle_exports, {
+  default: () => Page,
+  loader: () => loader18,
+  meta: () => meta14
+});
+var import_jsx_dev_runtime23 = __toESM(require_jsx_dev_runtime()), meta14 = ({ data }) => [{ title: `Hydrogen | ${data?.page.title ?? ""}` }];
+async function loader18({ params, context }) {
+  if (!params.handle)
+    throw new Error("Missing page handle");
+  let { page } = await context.storefront.query(PAGE_QUERY, {
+    variables: {
+      handle: params.handle
+    }
+  });
+  if (!page)
+    throw new Response("Not Found", { status: 404 });
+  return json5({ page });
+}
+function Page() {
+  let { page } = useLoaderData2();
+  return /* @__PURE__ */ (0, import_jsx_dev_runtime23.jsxDEV)("div", { className: "page", children: [
+    /* @__PURE__ */ (0, import_jsx_dev_runtime23.jsxDEV)("header", { children: /* @__PURE__ */ (0, import_jsx_dev_runtime23.jsxDEV)("h1", { children: page.title }, void 0, !1, {
+      fileName: "app/routes/($locale).pages.$handle.jsx",
+      lineNumber: 39,
+      columnNumber: 9
+    }, this) }, void 0, !1, {
+      fileName: "app/routes/($locale).pages.$handle.jsx",
+      lineNumber: 38,
+      columnNumber: 7
+    }, this),
+    /* @__PURE__ */ (0, import_jsx_dev_runtime23.jsxDEV)("main", { dangerouslySetInnerHTML: { __html: page.body } }, void 0, !1, {
+      fileName: "app/routes/($locale).pages.$handle.jsx",
+      lineNumber: 41,
+      columnNumber: 7
+    }, this)
+  ] }, void 0, !0, {
+    fileName: "app/routes/($locale).pages.$handle.jsx",
+    lineNumber: 37,
+    columnNumber: 5
+  }, this);
+}
+var PAGE_QUERY = `#graphql
+  query Page(
+    $language: LanguageCode,
+    $country: CountryCode,
+    $handle: String!
+  )
+  @inContext(language: $language, country: $country) {
+    page(handle: $handle) {
+      id
+      title
+      body
+      seo {
+        description
+        title
+      }
+    }
+  }
+`;
 
 // app/routes/($locale).[sitemap.xml].jsx
 var locale_sitemap_xml_exports = {};
@@ -38268,76 +29737,14 @@ var SITEMAP_QUERY = `#graphql
   }
 `;
 
-// app/routes/($locale).pages.$handle.jsx
-var locale_pages_handle_exports = {};
-__export(locale_pages_handle_exports, {
-  default: () => Page,
-  loader: () => loader20,
-  meta: () => meta15
-});
-var import_jsx_dev_runtime24 = __toESM(require_jsx_dev_runtime()), meta15 = ({ data }) => [{ title: `Hydrogen | ${data?.page.title ?? ""}` }];
-async function loader20({ params, context }) {
-  if (!params.handle)
-    throw new Error("Missing page handle");
-  let { page } = await context.storefront.query(PAGE_QUERY, {
-    variables: {
-      handle: params.handle
-    }
-  });
-  if (!page)
-    throw new Response("Not Found", { status: 404 });
-  return json5({ page });
-}
-function Page() {
-  let { page } = useLoaderData2();
-  return /* @__PURE__ */ (0, import_jsx_dev_runtime24.jsxDEV)("div", { className: "page", children: [
-    /* @__PURE__ */ (0, import_jsx_dev_runtime24.jsxDEV)("header", { children: /* @__PURE__ */ (0, import_jsx_dev_runtime24.jsxDEV)("h1", { children: page.title }, void 0, !1, {
-      fileName: "app/routes/($locale).pages.$handle.jsx",
-      lineNumber: 39,
-      columnNumber: 9
-    }, this) }, void 0, !1, {
-      fileName: "app/routes/($locale).pages.$handle.jsx",
-      lineNumber: 38,
-      columnNumber: 7
-    }, this),
-    /* @__PURE__ */ (0, import_jsx_dev_runtime24.jsxDEV)("main", { dangerouslySetInnerHTML: { __html: page.body } }, void 0, !1, {
-      fileName: "app/routes/($locale).pages.$handle.jsx",
-      lineNumber: 41,
-      columnNumber: 7
-    }, this)
-  ] }, void 0, !0, {
-    fileName: "app/routes/($locale).pages.$handle.jsx",
-    lineNumber: 37,
-    columnNumber: 5
-  }, this);
-}
-var PAGE_QUERY = `#graphql
-  query Page(
-    $language: LanguageCode,
-    $country: CountryCode,
-    $handle: String!
-  )
-  @inContext(language: $language, country: $country) {
-    page(handle: $handle) {
-      id
-      title
-      body
-      seo {
-        description
-        title
-      }
-    }
-  }
-`;
-
 // app/routes/($locale).blogs._index.jsx
 var locale_blogs_index_exports = {};
 __export(locale_blogs_index_exports, {
   default: () => Blogs,
-  loader: () => loader21,
-  meta: () => meta16
+  loader: () => loader20,
+  meta: () => meta15
 });
-var import_jsx_dev_runtime25 = __toESM(require_jsx_dev_runtime()), meta16 = () => [{ title: "Hydrogen | Blogs" }], loader21 = async ({ request, context: { storefront } }) => {
+var import_jsx_dev_runtime24 = __toESM(require_jsx_dev_runtime()), meta15 = () => [{ title: "Hydrogen | Blogs" }], loader20 = async ({ request, context: { storefront } }) => {
   let paginationVariables = getPaginationVariables(request, {
     pageBy: 10
   }), { blogs } = await storefront.query(BLOGS_QUERY2, {
@@ -38349,14 +29756,14 @@ var import_jsx_dev_runtime25 = __toESM(require_jsx_dev_runtime()), meta16 = () =
 };
 function Blogs() {
   let { blogs } = useLoaderData2();
-  return /* @__PURE__ */ (0, import_jsx_dev_runtime25.jsxDEV)("div", { className: "blogs", children: [
-    /* @__PURE__ */ (0, import_jsx_dev_runtime25.jsxDEV)("h1", { children: "Blogs" }, void 0, !1, {
+  return /* @__PURE__ */ (0, import_jsx_dev_runtime24.jsxDEV)("div", { className: "blogs", children: [
+    /* @__PURE__ */ (0, import_jsx_dev_runtime24.jsxDEV)("h1", { children: "Blogs" }, void 0, !1, {
       fileName: "app/routes/($locale).blogs._index.jsx",
       lineNumber: 35,
       columnNumber: 7
     }, this),
-    /* @__PURE__ */ (0, import_jsx_dev_runtime25.jsxDEV)("div", { className: "blogs-grid", children: /* @__PURE__ */ (0, import_jsx_dev_runtime25.jsxDEV)(Pagination, { connection: blogs, children: ({ nodes, isLoading, PreviousLink, NextLink }) => /* @__PURE__ */ (0, import_jsx_dev_runtime25.jsxDEV)(import_jsx_dev_runtime25.Fragment, { children: [
-      /* @__PURE__ */ (0, import_jsx_dev_runtime25.jsxDEV)(PreviousLink, { children: isLoading ? "Loading..." : /* @__PURE__ */ (0, import_jsx_dev_runtime25.jsxDEV)("span", { children: "\u2191 Load previous" }, void 0, !1, {
+    /* @__PURE__ */ (0, import_jsx_dev_runtime24.jsxDEV)("div", { className: "blogs-grid", children: /* @__PURE__ */ (0, import_jsx_dev_runtime24.jsxDEV)(Pagination, { connection: blogs, children: ({ nodes, isLoading, PreviousLink, NextLink }) => /* @__PURE__ */ (0, import_jsx_dev_runtime24.jsxDEV)(import_jsx_dev_runtime24.Fragment, { children: [
+      /* @__PURE__ */ (0, import_jsx_dev_runtime24.jsxDEV)(PreviousLink, { children: isLoading ? "Loading..." : /* @__PURE__ */ (0, import_jsx_dev_runtime24.jsxDEV)("span", { children: "\u2191 Load previous" }, void 0, !1, {
         fileName: "app/routes/($locale).blogs._index.jsx",
         lineNumber: 42,
         columnNumber: 47
@@ -38365,13 +29772,13 @@ function Blogs() {
         lineNumber: 41,
         columnNumber: 17
       }, this),
-      nodes.map((blog) => /* @__PURE__ */ (0, import_jsx_dev_runtime25.jsxDEV)(
+      nodes.map((blog) => /* @__PURE__ */ (0, import_jsx_dev_runtime24.jsxDEV)(
         Link2,
         {
           className: "blog",
           prefetch: "intent",
           to: `/blogs/${blog.handle}`,
-          children: /* @__PURE__ */ (0, import_jsx_dev_runtime25.jsxDEV)("h2", { children: blog.title }, void 0, !1, {
+          children: /* @__PURE__ */ (0, import_jsx_dev_runtime24.jsxDEV)("h2", { children: blog.title }, void 0, !1, {
             fileName: "app/routes/($locale).blogs._index.jsx",
             lineNumber: 52,
             columnNumber: 23
@@ -38386,7 +29793,7 @@ function Blogs() {
         },
         this
       )),
-      /* @__PURE__ */ (0, import_jsx_dev_runtime25.jsxDEV)(NextLink, { children: isLoading ? "Loading..." : /* @__PURE__ */ (0, import_jsx_dev_runtime25.jsxDEV)("span", { children: "Load more \u2193" }, void 0, !1, {
+      /* @__PURE__ */ (0, import_jsx_dev_runtime24.jsxDEV)(NextLink, { children: isLoading ? "Loading..." : /* @__PURE__ */ (0, import_jsx_dev_runtime24.jsxDEV)("span", { children: "Load more \u2193" }, void 0, !1, {
         fileName: "app/routes/($locale).blogs._index.jsx",
         lineNumber: 57,
         columnNumber: 47
@@ -38451,9 +29858,9 @@ var BLOGS_QUERY2 = `#graphql
 var locale_cart_lines_exports = {};
 __export(locale_cart_lines_exports, {
   default: () => Component3,
-  loader: () => loader22
+  loader: () => loader21
 });
-async function loader22({ request, context, params }) {
+async function loader21({ request, context, params }) {
   let { cart } = context, { lines } = params;
   if (!lines)
     return redirect5("/cart");
@@ -38483,9 +29890,9 @@ function Component3() {
 // app/routes/($locale).account.$.jsx
 var locale_account_exports = {};
 __export(locale_account_exports, {
-  loader: () => loader23
+  loader: () => loader22
 });
-async function loader23({ context }) {
+async function loader22({ context }) {
   return await context.session.get("customerAccessToken") ? redirect5("/account") : redirect5("/account/login");
 }
 
@@ -38494,14 +29901,14 @@ var locale_account_exports2 = {};
 __export(locale_account_exports2, {
   CUSTOMER_FRAGMENT: () => CUSTOMER_FRAGMENT2,
   default: () => Acccount,
-  loader: () => loader24,
+  loader: () => loader23,
   shouldRevalidate: () => shouldRevalidate2
 });
-var import_jsx_dev_runtime26 = __toESM(require_jsx_dev_runtime());
+var import_jsx_dev_runtime25 = __toESM(require_jsx_dev_runtime());
 function shouldRevalidate2() {
   return !0;
 }
-async function loader24({ request, context }) {
+async function loader23({ request, context }) {
   let { session, storefront } = context, { pathname } = new URL(request.url), customerAccessToken = await session.get("customerAccessToken"), isLoggedIn = !!customerAccessToken?.accessToken, isAccountHome = pathname === "/account" || pathname === "/account/", isPrivateRoute = /^\/account\/(orders|orders\/.*|profile|addresses|addresses\/.*)$/.test(
     pathname
   );
@@ -38548,22 +29955,22 @@ async function loader24({ request, context }) {
 }
 function Acccount() {
   let { customer, isPrivateRoute, isAccountHome } = useLoaderData2();
-  return !isPrivateRoute && !isAccountHome ? /* @__PURE__ */ (0, import_jsx_dev_runtime26.jsxDEV)(Outlet, { context: { customer } }, void 0, !1, {
+  return !isPrivateRoute && !isAccountHome ? /* @__PURE__ */ (0, import_jsx_dev_runtime25.jsxDEV)(Outlet, { context: { customer } }, void 0, !1, {
     fileName: "app/routes/($locale).account.jsx",
     lineNumber: 85,
     columnNumber: 12
-  }, this) : /* @__PURE__ */ (0, import_jsx_dev_runtime26.jsxDEV)(AccountLayout, { customer, children: [
-    /* @__PURE__ */ (0, import_jsx_dev_runtime26.jsxDEV)("br", {}, void 0, !1, {
+  }, this) : /* @__PURE__ */ (0, import_jsx_dev_runtime25.jsxDEV)(AccountLayout, { customer, children: [
+    /* @__PURE__ */ (0, import_jsx_dev_runtime25.jsxDEV)("br", {}, void 0, !1, {
       fileName: "app/routes/($locale).account.jsx",
       lineNumber: 90,
       columnNumber: 7
     }, this),
-    /* @__PURE__ */ (0, import_jsx_dev_runtime26.jsxDEV)("br", {}, void 0, !1, {
+    /* @__PURE__ */ (0, import_jsx_dev_runtime25.jsxDEV)("br", {}, void 0, !1, {
       fileName: "app/routes/($locale).account.jsx",
       lineNumber: 91,
       columnNumber: 7
     }, this),
-    /* @__PURE__ */ (0, import_jsx_dev_runtime26.jsxDEV)(Outlet, { context: { customer } }, void 0, !1, {
+    /* @__PURE__ */ (0, import_jsx_dev_runtime25.jsxDEV)(Outlet, { context: { customer } }, void 0, !1, {
       fileName: "app/routes/($locale).account.jsx",
       lineNumber: 92,
       columnNumber: 7
@@ -38576,18 +29983,18 @@ function Acccount() {
 }
 function AccountLayout({ customer, children }) {
   let heading = customer ? customer.firstName ? `Welcome, ${customer.firstName}` : "Welcome to your account." : "Account Details";
-  return /* @__PURE__ */ (0, import_jsx_dev_runtime26.jsxDEV)("div", { className: "account", children: [
-    /* @__PURE__ */ (0, import_jsx_dev_runtime26.jsxDEV)("h1", { children: heading }, void 0, !1, {
+  return /* @__PURE__ */ (0, import_jsx_dev_runtime25.jsxDEV)("div", { className: "account", children: [
+    /* @__PURE__ */ (0, import_jsx_dev_runtime25.jsxDEV)("h1", { children: heading }, void 0, !1, {
       fileName: "app/routes/($locale).account.jsx",
       lineNumber: 112,
       columnNumber: 7
     }, this),
-    /* @__PURE__ */ (0, import_jsx_dev_runtime26.jsxDEV)("br", {}, void 0, !1, {
+    /* @__PURE__ */ (0, import_jsx_dev_runtime25.jsxDEV)("br", {}, void 0, !1, {
       fileName: "app/routes/($locale).account.jsx",
       lineNumber: 113,
       columnNumber: 7
     }, this),
-    /* @__PURE__ */ (0, import_jsx_dev_runtime26.jsxDEV)(AccountMenu, {}, void 0, !1, {
+    /* @__PURE__ */ (0, import_jsx_dev_runtime25.jsxDEV)(AccountMenu, {}, void 0, !1, {
       fileName: "app/routes/($locale).account.jsx",
       lineNumber: 114,
       columnNumber: 7
@@ -38606,26 +30013,26 @@ function AccountMenu() {
       color: isPending ? "grey" : "black"
     };
   }
-  return /* @__PURE__ */ (0, import_jsx_dev_runtime26.jsxDEV)("nav", { role: "navigation", children: [
-    /* @__PURE__ */ (0, import_jsx_dev_runtime26.jsxDEV)(NavLink2, { to: "/account/orders", style: isActiveStyle, children: "Orders \xA0" }, void 0, !1, {
+  return /* @__PURE__ */ (0, import_jsx_dev_runtime25.jsxDEV)("nav", { role: "navigation", children: [
+    /* @__PURE__ */ (0, import_jsx_dev_runtime25.jsxDEV)(NavLink2, { to: "/account/orders", style: isActiveStyle, children: "Orders \xA0" }, void 0, !1, {
       fileName: "app/routes/($locale).account.jsx",
       lineNumber: 130,
       columnNumber: 7
     }, this),
     "\xA0|\xA0",
-    /* @__PURE__ */ (0, import_jsx_dev_runtime26.jsxDEV)(NavLink2, { to: "/account/profile", style: isActiveStyle, children: "\xA0 Profile \xA0" }, void 0, !1, {
+    /* @__PURE__ */ (0, import_jsx_dev_runtime25.jsxDEV)(NavLink2, { to: "/account/profile", style: isActiveStyle, children: "\xA0 Profile \xA0" }, void 0, !1, {
       fileName: "app/routes/($locale).account.jsx",
       lineNumber: 134,
       columnNumber: 7
     }, this),
     "\xA0|\xA0",
-    /* @__PURE__ */ (0, import_jsx_dev_runtime26.jsxDEV)(NavLink2, { to: "/account/addresses", style: isActiveStyle, children: "\xA0 Addresses \xA0" }, void 0, !1, {
+    /* @__PURE__ */ (0, import_jsx_dev_runtime25.jsxDEV)(NavLink2, { to: "/account/addresses", style: isActiveStyle, children: "\xA0 Addresses \xA0" }, void 0, !1, {
       fileName: "app/routes/($locale).account.jsx",
       lineNumber: 138,
       columnNumber: 7
     }, this),
     "\xA0|\xA0",
-    /* @__PURE__ */ (0, import_jsx_dev_runtime26.jsxDEV)(Logout2, {}, void 0, !1, {
+    /* @__PURE__ */ (0, import_jsx_dev_runtime25.jsxDEV)(Logout2, {}, void 0, !1, {
       fileName: "app/routes/($locale).account.jsx",
       lineNumber: 142,
       columnNumber: 7
@@ -38637,9 +30044,9 @@ function AccountMenu() {
   }, this);
 }
 function Logout2() {
-  return /* @__PURE__ */ (0, import_jsx_dev_runtime26.jsxDEV)(Form, { className: "account-logout", method: "POST", action: "/account/logout", children: [
+  return /* @__PURE__ */ (0, import_jsx_dev_runtime25.jsxDEV)(Form, { className: "account-logout", method: "POST", action: "/account/logout", children: [
     "\xA0",
-    /* @__PURE__ */ (0, import_jsx_dev_runtime26.jsxDEV)("button", { type: "submit", children: "Sign out" }, void 0, !1, {
+    /* @__PURE__ */ (0, import_jsx_dev_runtime25.jsxDEV)("button", { type: "submit", children: "Sign out" }, void 0, !1, {
       fileName: "app/routes/($locale).account.jsx",
       lineNumber: 150,
       columnNumber: 13
@@ -38694,106 +30101,15 @@ var CUSTOMER_FRAGMENT2 = `#graphql
   ${CUSTOMER_FRAGMENT2}
 `;
 
-// app/routes/($locale)._index.jsx
-var locale_index_exports = {};
-__export(locale_index_exports, {
-  default: () => Index,
-  loader: () => loader25,
-  meta: () => meta17
-});
-var import_jsx_dev_runtime27 = __toESM(require_jsx_dev_runtime());
-function meta17() {
-  return [
-    { title: "KnockTwice" },
-    { description: "KnockTwice Toronto Marketing Site" }
-  ];
-}
-async function loader25({ context }) {
-  return await context.storefront.query(COLLECTIONS_QUERY);
-}
-function Index() {
-  let { collections } = useLoaderData2();
-  return /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)("div", { className: "index", children: [
-    /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)("div", { className: "index-header", children: /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)("h2", { className: "whitespace-pre-wrap max-w-prose font-bold text-lead", children: "Collections" }, void 0, !1, {
-      fileName: "app/routes/($locale)._index.jsx",
-      lineNumber: 22,
-      columnNumber: 9
-    }, this) }, void 0, !1, {
-      fileName: "app/routes/($locale)._index.jsx",
-      lineNumber: 21,
-      columnNumber: 7
-    }, this),
-    collections.nodes.map((collection) => /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)("div", { class: "index-collection-item", children: /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)(Link2, { to: `/collectiongrid/${collection.handle}`, children: [
-      collection.products.nodes.map((product) => /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)(
-        Image,
-        {
-          alt: `Image of ${collection.title}`,
-          data: product.featuredImage,
-          sizes: "(max-width: 32em) 100vw, 33vw",
-          width: 256,
-          height: 256,
-          crop: "center"
-        },
-        collection.id,
-        !1,
-        {
-          fileName: "app/routes/($locale)._index.jsx",
-          lineNumber: 33,
-          columnNumber: 23
-        },
-        this
-      )),
-      /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)("div", { className: "font-medium text-copy index-collection-title", children: collection.products.nodes.length > 0 && collection.title }, void 0, !1, {
-        fileName: "app/routes/($locale)._index.jsx",
-        lineNumber: 44,
-        columnNumber: 19
-      }, this)
-    ] }, collection.id, !0, {
-      fileName: "app/routes/($locale)._index.jsx",
-      lineNumber: 30,
-      columnNumber: 17
-    }, this) }, void 0, !1, {
-      fileName: "app/routes/($locale)._index.jsx",
-      lineNumber: 29,
-      columnNumber: 15
-    }, this))
-  ] }, void 0, !0, {
-    fileName: "app/routes/($locale)._index.jsx",
-    lineNumber: 20,
-    columnNumber: 5
-  }, this);
-}
-var COLLECTIONS_QUERY = `#graphql
-  query FeaturedCollections {
-    collections(first: 250) {
-      nodes {
-        id
-        title
-        handle
-        products(first: 1) {
-          nodes {
-            featuredImage {
-              altText
-              width
-              height
-              url
-            }
-          }
-        }
-      }
-    }
-  }
-`;
-
 // app/routes/($locale).search.jsx
 var locale_search_exports = {};
 __export(locale_search_exports, {
   default: () => SearchPage,
-  loader: () => loader26,
-  meta: () => meta18
+  loader: () => loader24,
+  meta: () => meta16
 });
-var import_jsx_dev_runtime28 = __toESM(require_jsx_dev_runtime()), meta18 = () => [{ title: "Hydrogen | Search" }];
-async function loader26({ request, context }) {
+var import_jsx_dev_runtime26 = __toESM(require_jsx_dev_runtime()), meta16 = () => [{ title: "Hydrogen | Search" }];
+async function loader24({ request, context }) {
   let url = new URL(request.url), searchParams = new URLSearchParams(url.search), variables = getPaginationVariables(request, { pageBy: 8 }), searchTerm = String(searchParams.get("q") || "");
   if (!searchTerm)
     return {
@@ -38816,22 +30132,22 @@ async function loader26({ request, context }) {
 }
 function SearchPage() {
   let { searchTerm, searchResults } = useLoaderData2();
-  return /* @__PURE__ */ (0, import_jsx_dev_runtime28.jsxDEV)("div", { className: "search", children: [
-    /* @__PURE__ */ (0, import_jsx_dev_runtime28.jsxDEV)("h1", { children: "Search" }, void 0, !1, {
+  return /* @__PURE__ */ (0, import_jsx_dev_runtime26.jsxDEV)("div", { className: "search", children: [
+    /* @__PURE__ */ (0, import_jsx_dev_runtime26.jsxDEV)("h1", { children: "Search" }, void 0, !1, {
       fileName: "app/routes/($locale).search.jsx",
       lineNumber: 59,
       columnNumber: 7
     }, this),
-    /* @__PURE__ */ (0, import_jsx_dev_runtime28.jsxDEV)(SearchForm, { searchTerm }, void 0, !1, {
+    /* @__PURE__ */ (0, import_jsx_dev_runtime26.jsxDEV)(SearchForm, { searchTerm }, void 0, !1, {
       fileName: "app/routes/($locale).search.jsx",
       lineNumber: 60,
       columnNumber: 7
     }, this),
-    !searchTerm || !searchResults.totalResults ? /* @__PURE__ */ (0, import_jsx_dev_runtime28.jsxDEV)(NoSearchResults, {}, void 0, !1, {
+    !searchTerm || !searchResults.totalResults ? /* @__PURE__ */ (0, import_jsx_dev_runtime26.jsxDEV)(NoSearchResults, {}, void 0, !1, {
       fileName: "app/routes/($locale).search.jsx",
       lineNumber: 62,
       columnNumber: 9
-    }, this) : /* @__PURE__ */ (0, import_jsx_dev_runtime28.jsxDEV)(SearchResults, { results: searchResults.results }, void 0, !1, {
+    }, this) : /* @__PURE__ */ (0, import_jsx_dev_runtime26.jsxDEV)(SearchResults, { results: searchResults.results }, void 0, !1, {
       fileName: "app/routes/($locale).search.jsx",
       lineNumber: 64,
       columnNumber: 9
@@ -38949,15 +30265,106 @@ var SEARCH_QUERY = `#graphql
   }
 `;
 
+// app/routes/($locale)._index.jsx
+var locale_index_exports = {};
+__export(locale_index_exports, {
+  default: () => Index,
+  loader: () => loader25,
+  meta: () => meta17
+});
+var import_jsx_dev_runtime27 = __toESM(require_jsx_dev_runtime());
+function meta17() {
+  return [
+    { title: "KnockTwice" },
+    { description: "KnockTwice Toronto Marketing Site" }
+  ];
+}
+async function loader25({ context }) {
+  return await context.storefront.query(COLLECTIONS_QUERY);
+}
+function Index() {
+  let { collections } = useLoaderData2();
+  return /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)("div", { className: "index", children: [
+    /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)("div", { className: "index-header", children: /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)("h2", { className: "whitespace-pre-wrap max-w-prose font-bold text-lead", children: "Collections" }, void 0, !1, {
+      fileName: "app/routes/($locale)._index.jsx",
+      lineNumber: 22,
+      columnNumber: 9
+    }, this) }, void 0, !1, {
+      fileName: "app/routes/($locale)._index.jsx",
+      lineNumber: 21,
+      columnNumber: 7
+    }, this),
+    collections.nodes.map((collection) => /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)("div", { className: "index-collection-item", children: /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)(Link2, { to: `/collectioncarousel/${collection.handle}`, children: [
+      collection.products.nodes.map((product) => /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)(
+        Image,
+        {
+          alt: `Image of ${collection.title}`,
+          data: product.featuredImage,
+          sizes: "(max-width: 32em) 100vw, 33vw",
+          width: 256,
+          height: 256,
+          crop: "center"
+        },
+        collection.id,
+        !1,
+        {
+          fileName: "app/routes/($locale)._index.jsx",
+          lineNumber: 33,
+          columnNumber: 23
+        },
+        this
+      )),
+      /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)("div", { className: "font-medium text-copy index-collection-title", children: collection.products.nodes.length > 0 && collection.title }, void 0, !1, {
+        fileName: "app/routes/($locale)._index.jsx",
+        lineNumber: 44,
+        columnNumber: 19
+      }, this)
+    ] }, collection.id, !0, {
+      fileName: "app/routes/($locale)._index.jsx",
+      lineNumber: 30,
+      columnNumber: 17
+    }, this) }, void 0, !1, {
+      fileName: "app/routes/($locale)._index.jsx",
+      lineNumber: 29,
+      columnNumber: 15
+    }, this))
+  ] }, void 0, !0, {
+    fileName: "app/routes/($locale)._index.jsx",
+    lineNumber: 20,
+    columnNumber: 5
+  }, this);
+}
+var COLLECTIONS_QUERY = `#graphql
+  query FeaturedCollections {
+    collections(first: 250) {
+      nodes {
+        id
+        title
+        handle
+        products(first: 1) {
+          nodes {
+            featuredImage {
+              altText
+              width
+              height
+              url
+            }
+          }
+        }
+      }
+    }
+  }
+`;
+
 // app/routes/($locale).cart.jsx
 var locale_cart_exports = {};
 __export(locale_cart_exports, {
   action: () => action10,
   default: () => Cart,
-  meta: () => meta19
+  meta: () => meta18
 });
-var import_react49 = __toESM(require_react());
-var import_jsx_dev_runtime29 = __toESM(require_jsx_dev_runtime()), meta19 = () => [{ title: "Hydrogen | Cart" }];
+var import_react44 = __toESM(require_react());
+var import_jsx_dev_runtime28 = __toESM(require_jsx_dev_runtime()), meta18 = () => [{ title: "Hydrogen | Cart" }];
 async function action10({ request, context }) {
   let { session, cart } = context, [formData, customerAccessToken] = await Promise.all([
     request.formData(),
@@ -39005,26 +30412,26 @@ async function action10({ request, context }) {
 }
 function Cart() {
   let cartPromise = useRootLoaderData().cart;
-  return /* @__PURE__ */ (0, import_jsx_dev_runtime29.jsxDEV)("div", { className: "cart", children: [
-    /* @__PURE__ */ (0, import_jsx_dev_runtime29.jsxDEV)("h1", { children: "Cart" }, void 0, !1, {
+  return /* @__PURE__ */ (0, import_jsx_dev_runtime28.jsxDEV)("div", { className: "cart", children: [
+    /* @__PURE__ */ (0, import_jsx_dev_runtime28.jsxDEV)("h1", { children: "Cart" }, void 0, !1, {
       fileName: "app/routes/($locale).cart.jsx",
       lineNumber: 96,
       columnNumber: 7
     }, this),
-    /* @__PURE__ */ (0, import_jsx_dev_runtime29.jsxDEV)(import_react49.Suspense, { fallback: /* @__PURE__ */ (0, import_jsx_dev_runtime29.jsxDEV)("p", { children: "Loading cart ..." }, void 0, !1, {
+    /* @__PURE__ */ (0, import_jsx_dev_runtime28.jsxDEV)(import_react44.Suspense, { fallback: /* @__PURE__ */ (0, import_jsx_dev_runtime28.jsxDEV)("p", { children: "Loading cart ..." }, void 0, !1, {
       fileName: "app/routes/($locale).cart.jsx",
       lineNumber: 97,
       columnNumber: 27
-    }, this), children: /* @__PURE__ */ (0, import_jsx_dev_runtime29.jsxDEV)(
+    }, this), children: /* @__PURE__ */ (0, import_jsx_dev_runtime28.jsxDEV)(
       Await2,
       {
         resolve: cartPromise,
-        errorElement: /* @__PURE__ */ (0, import_jsx_dev_runtime29.jsxDEV)("div", { children: "An error occurred" }, void 0, !1, {
+        errorElement: /* @__PURE__ */ (0, import_jsx_dev_runtime28.jsxDEV)("div", { children: "An error occurred" }, void 0, !1, {
           fileName: "app/routes/($locale).cart.jsx",
           lineNumber: 100,
           columnNumber: 25
         }, this),
-        children: (cart) => /* @__PURE__ */ (0, import_jsx_dev_runtime29.jsxDEV)(CartMain, { layout: "page", cart }, void 0, !1, {
+        children: (cart) => /* @__PURE__ */ (0, import_jsx_dev_runtime28.jsxDEV)(CartMain, { layout: "page", cart }, void 0, !1, {
           fileName: "app/routes/($locale).cart.jsx",
           lineNumber: 103,
           columnNumber: 20
@@ -39054,10 +30461,10 @@ function Cart() {
 var robots_txt_exports = {};
 __export(robots_txt_exports, {
   ErrorBoundary: () => ErrorBoundary2,
-  loader: () => loader27
+  loader: () => loader26
 });
-var import_jsx_dev_runtime30 = __toESM(require_jsx_dev_runtime());
-async function loader27({ request, context }) {
+var import_jsx_dev_runtime29 = __toESM(require_jsx_dev_runtime());
+async function loader26({ request, context }) {
   let url = new URL(request.url), { shop } = await context.storefront.query(ROBOTS_QUERY), shopId = parseGid(shop.id).id, body = robotsTxtData({ url: url.origin, shopId });
   return new Response(body, {
     status: 200,
@@ -39070,13 +30477,13 @@ async function loader27({ request, context }) {
 function ErrorBoundary2() {
   let error = useRouteError();
   if (isRouteErrorResponse(error))
-    return /* @__PURE__ */ (0, import_jsx_dev_runtime30.jsxDEV)("div", { children: [
-      /* @__PURE__ */ (0, import_jsx_dev_runtime30.jsxDEV)("h1", { children: "Oops" }, void 0, !1, {
+    return /* @__PURE__ */ (0, import_jsx_dev_runtime29.jsxDEV)("div", { children: [
+      /* @__PURE__ */ (0, import_jsx_dev_runtime29.jsxDEV)("h1", { children: "Oops" }, void 0, !1, {
         fileName: "app/routes/[robots.txt].jsx",
         lineNumber: 31,
         columnNumber: 9
       }, this),
-      /* @__PURE__ */ (0, import_jsx_dev_runtime30.jsxDEV)("p", { children: [
+      /* @__PURE__ */ (0, import_jsx_dev_runtime29.jsxDEV)("p", { children: [
         "Status: ",
         error.status
       ] }, void 0, !0, {
@@ -39084,7 +30491,7 @@ function ErrorBoundary2() {
         lineNumber: 32,
         columnNumber: 9
       }, this),
-      /* @__PURE__ */ (0, import_jsx_dev_runtime30.jsxDEV)("p", { children: error.data.message }, void 0, !1, {
+      /* @__PURE__ */ (0, import_jsx_dev_runtime29.jsxDEV)("p", { children: error.data.message }, void 0, !1, {
         fileName: "app/routes/[robots.txt].jsx",
         lineNumber: 33,
         columnNumber: 9
@@ -39095,18 +30502,18 @@ function ErrorBoundary2() {
       columnNumber: 7
     }, this);
   let errorMessage = "Unknown error";
-  return error instanceof Error && (errorMessage = error.message), /* @__PURE__ */ (0, import_jsx_dev_runtime30.jsxDEV)("div", { children: [
-    /* @__PURE__ */ (0, import_jsx_dev_runtime30.jsxDEV)("h1", { children: "Uh oh ..." }, void 0, !1, {
+  return error instanceof Error && (errorMessage = error.message), /* @__PURE__ */ (0, import_jsx_dev_runtime29.jsxDEV)("div", { children: [
+    /* @__PURE__ */ (0, import_jsx_dev_runtime29.jsxDEV)("h1", { children: "Uh oh ..." }, void 0, !1, {
       fileName: "app/routes/[robots.txt].jsx",
       lineNumber: 45,
       columnNumber: 7
     }, this),
-    /* @__PURE__ */ (0, import_jsx_dev_runtime30.jsxDEV)("p", { children: "Something went wrong." }, void 0, !1, {
+    /* @__PURE__ */ (0, import_jsx_dev_runtime29.jsxDEV)("p", { children: "Something went wrong." }, void 0, !1, {
       fileName: "app/routes/[robots.txt].jsx",
       lineNumber: 46,
       columnNumber: 7
     }, this),
-    /* @__PURE__ */ (0, import_jsx_dev_runtime30.jsxDEV)("pre", { children: errorMessage }, void 0, !1, {
+    /* @__PURE__ */ (0, import_jsx_dev_runtime29.jsxDEV)("pre", { children: errorMessage }, void 0, !1, {
       fileName: "app/routes/[robots.txt].jsx",
       lineNumber: 47,
       columnNumber: 7
@@ -39205,9 +30612,9 @@ var ROBOTS_QUERY = `#graphql
 var locale_exports = {};
 __export(locale_exports, {
   default: () => CatchAllPage,
-  loader: () => loader28
+  loader: () => loader27
 });
-async function loader28({ request }) {
+async function loader27({ request }) {
   throw new Response(`${new URL(request.url).pathname} not found`, {
     status: 404
   });
@@ -39221,21 +30628,21 @@ var debug_network_exports = {};
 __export(debug_network_exports, {
   default: () => DebugNetwork
 });
-var import_jsx_runtime25 = __toESM(require_jsx_runtime(), 1), import_react53 = __toESM(require_react(), 1);
+var import_jsx_runtime6 = __toESM(require_jsx_runtime(), 1), import_react48 = __toESM(require_react(), 1);
 
 // node_modules/@shopify/cli-hydrogen/dist/virtual-routes/components/FlameChartWrapper.jsx
-var import_jsx_runtime24 = __toESM(require_jsx_runtime(), 1), import_react52 = __toESM(require_react(), 1);
+var import_jsx_runtime5 = __toESM(require_jsx_runtime(), 1), import_react47 = __toESM(require_react(), 1);
 
 // node_modules/use-resize-observer/dist/bundle.esm.js
-var import_react51 = __toESM(require_react());
+var import_react46 = __toESM(require_react());
 function useResolvedElement(subscriber, refOrElement) {
-  var lastReportRef = (0, import_react51.useRef)(null), refOrElementRef = (0, import_react51.useRef)(null);
+  var lastReportRef = (0, import_react46.useRef)(null), refOrElementRef = (0, import_react46.useRef)(null);
   refOrElementRef.current = refOrElement;
-  var cbElementRef = (0, import_react51.useRef)(null);
-  (0, import_react51.useEffect)(function() {
+  var cbElementRef = (0, import_react46.useRef)(null);
+  (0, import_react46.useEffect)(function() {
     evaluateSubscription();
   });
-  var evaluateSubscription = (0, import_react51.useCallback)(function() {
+  var evaluateSubscription = (0, import_react46.useCallback)(function() {
     var cbElement = cbElementRef.current, refOrElement2 = refOrElementRef.current, element = cbElement || (refOrElement2 ? refOrElement2 instanceof Element ? refOrElement2 : refOrElement2.current : null);
     lastReportRef.current && lastReportRef.current.element === element && lastReportRef.current.subscriber === subscriber || (lastReportRef.current && lastReportRef.current.cleanup && lastReportRef.current.cleanup(), lastReportRef.current = {
       element,
@@ -39245,11 +30652,11 @@ function useResolvedElement(subscriber, refOrElement) {
       cleanup: element ? subscriber(element) : void 0
     });
   }, [subscriber]);
-  return (0, import_react51.useEffect)(function() {
+  return (0, import_react46.useEffect)(function() {
     return function() {
       lastReportRef.current && lastReportRef.current.cleanup && (lastReportRef.current.cleanup(), lastReportRef.current = null);
     };
-  }, []), (0, import_react51.useCallback)(function(element) {
+  }, []), (0, import_react46.useCallback)(function(element) {
     cbElementRef.current = element, evaluateSubscription();
   }, [evaluateSubscription]);
 }
@@ -39263,26 +30670,26 @@ function extractSize(entry2, boxProp, sizeType) {
 }
 function useResizeObserver(opts) {
   opts === void 0 && (opts = {});
-  var onResize = opts.onResize, onResizeRef = (0, import_react51.useRef)(void 0);
+  var onResize = opts.onResize, onResizeRef = (0, import_react46.useRef)(void 0);
   onResizeRef.current = onResize;
-  var round2 = opts.round || Math.round, resizeObserverRef = (0, import_react51.useRef)(), _useState = (0, import_react51.useState)({
+  var round = opts.round || Math.round, resizeObserverRef = (0, import_react46.useRef)(), _useState = (0, import_react46.useState)({
     width: void 0,
     height: void 0
-  }), size2 = _useState[0], setSize = _useState[1], didUnmount = (0, import_react51.useRef)(!1);
-  (0, import_react51.useEffect)(function() {
+  }), size2 = _useState[0], setSize = _useState[1], didUnmount = (0, import_react46.useRef)(!1);
+  (0, import_react46.useEffect)(function() {
     return didUnmount.current = !1, function() {
       didUnmount.current = !0;
     };
   }, []);
-  var previous = (0, import_react51.useRef)({
+  var previous = (0, import_react46.useRef)({
     width: void 0,
     height: void 0
-  }), refCallback = useResolvedElement((0, import_react51.useCallback)(function(element) {
-    return (!resizeObserverRef.current || resizeObserverRef.current.box !== opts.box || resizeObserverRef.current.round !== round2) && (resizeObserverRef.current = {
+  }), refCallback = useResolvedElement((0, import_react46.useCallback)(function(element) {
+    return (!resizeObserverRef.current || resizeObserverRef.current.box !== opts.box || resizeObserverRef.current.round !== round) && (resizeObserverRef.current = {
       box: opts.box,
-      round: round2,
+      round,
       instance: new ResizeObserver(function(entries) {
-        var entry2 = entries[0], boxProp = opts.box === "border-box" ? "borderBoxSize" : opts.box === "device-pixel-content-box" ? "devicePixelContentBoxSize" : "contentBoxSize", reportedWidth = extractSize(entry2, boxProp, "inlineSize"), reportedHeight = extractSize(entry2, boxProp, "blockSize"), newWidth = reportedWidth ? round2(reportedWidth) : void 0, newHeight = reportedHeight ? round2(reportedHeight) : void 0;
+        var entry2 = entries[0], boxProp = opts.box === "border-box" ? "borderBoxSize" : opts.box === "device-pixel-content-box" ? "devicePixelContentBoxSize" : "contentBoxSize", reportedWidth = extractSize(entry2, boxProp, "inlineSize"), reportedHeight = extractSize(entry2, boxProp, "blockSize"), newWidth = reportedWidth ? round(reportedWidth) : void 0, newHeight = reportedHeight ? round(reportedHeight) : void 0;
         if (previous.current.width !== newWidth || previous.current.height !== newHeight) {
           var newSize = {
             width: newWidth,
@@ -39296,8 +30703,8 @@ function useResizeObserver(opts) {
     }), function() {
       resizeObserverRef.current && resizeObserverRef.current.instance.unobserve(element);
     };
-  }, [opts.box, round2]), opts.ref);
-  return (0, import_react51.useMemo)(function() {
+  }, [opts.box, round]), opts.ref);
+  return (0, import_react46.useMemo)(function() {
     return {
       ref: refCallback,
       width: size2.width,
@@ -39308,12 +30715,12 @@ function useResizeObserver(opts) {
 
 // node_modules/@shopify/cli-hydrogen/dist/virtual-routes/components/FlameChartWrapper.jsx
 var useResizeObserver2 = useResizeObserver, FlameChartWrapper = (props) => {
-  let boxRef = (0, import_react52.useRef)(null), canvasRef = (0, import_react52.useRef)(null), flameChart = (0, import_react52.useRef)(null);
+  let boxRef = (0, import_react47.useRef)(null), canvasRef = (0, import_react47.useRef)(null), flameChart = (0, import_react47.useRef)(null);
   useResizeObserver2({
     ref: boxRef,
-    onResize: ({ width: width3 = 0, height: height3 = 0 }) => flameChart.current?.resize(width3, height3 - 3)
+    onResize: ({ width: width2 = 0, height: height2 = 0 }) => flameChart.current?.resize(width2, height2 - 3)
   });
-  let initialize = (0, import_react52.useCallback)(() => {
+  let initialize = (0, import_react47.useCallback)(() => {
     let {
       data,
       marks,
@@ -39325,8 +30732,8 @@ var useResizeObserver2 = useResizeObserver, FlameChartWrapper = (props) => {
       timeframeTimeseries
     } = props;
     if (canvasRef.current && boxRef.current) {
-      let { width: width3 = 0, height: height3 = 0 } = boxRef.current.getBoundingClientRect();
-      canvasRef.current.width = width3, canvasRef.current.height = height3 - 3, flameChart.current = new flameChartJs.FlameChart({
+      let { width: width2 = 0, height: height2 = 0 } = boxRef.current.getBoundingClientRect();
+      canvasRef.current.width = width2, canvasRef.current.height = height2 - 3, flameChart.current = new flameChartJs.FlameChart({
         canvas: canvasRef.current,
         data,
         marks,
@@ -39338,56 +30745,56 @@ var useResizeObserver2 = useResizeObserver, FlameChartWrapper = (props) => {
         plugins
       });
     }
-  }, [props]), setBoxRef = (0, import_react52.useCallback)(
+  }, [props]), setBoxRef = (0, import_react47.useCallback)(
     (ref) => {
       let isNewRef = ref !== boxRef.current;
       boxRef.current = ref, isNewRef && initialize();
     },
     [initialize]
-  ), setCanvasRef = (0, import_react52.useCallback)(
+  ), setCanvasRef = (0, import_react47.useCallback)(
     (ref) => {
       let isNewRef = ref !== canvasRef.current;
       canvasRef.current = ref, isNewRef && initialize();
     },
     [initialize]
   );
-  return (0, import_react52.useEffect)(() => {
+  return (0, import_react47.useEffect)(() => {
     props.data && flameChart.current?.setNodes(props.data);
-  }, [props.data]), (0, import_react52.useEffect)(() => {
+  }, [props.data]), (0, import_react47.useEffect)(() => {
     props.marks && flameChart.current?.setMarks(props.marks);
-  }, [props.marks]), (0, import_react52.useEffect)(() => {
+  }, [props.marks]), (0, import_react47.useEffect)(() => {
     props.waterfall && flameChart.current?.setWaterfall(props.waterfall);
-  }, [props.waterfall]), (0, import_react52.useEffect)(() => {
+  }, [props.waterfall]), (0, import_react47.useEffect)(() => {
     props.timeseries && flameChart.current?.setTimeseries(props.timeseries);
-  }, [props.timeseries]), (0, import_react52.useEffect)(() => {
+  }, [props.timeseries]), (0, import_react47.useEffect)(() => {
     props.timeframeTimeseries && flameChart.current?.setTimeframeTimeseries(props.timeframeTimeseries);
-  }, [props.timeframeTimeseries]), (0, import_react52.useEffect)(() => {
+  }, [props.timeframeTimeseries]), (0, import_react47.useEffect)(() => {
     props.settings && flameChart.current && (flameChart.current.setSettings(props.settings), flameChart.current.renderEngine.recalcChildrenSizes(), flameChart.current.render());
-  }, [props.settings]), (0, import_react52.useEffect)(() => {
+  }, [props.settings]), (0, import_react47.useEffect)(() => {
     props.position && flameChart.current?.setFlameChartPosition(props.position);
-  }, [props.position]), (0, import_react52.useEffect)(() => {
+  }, [props.position]), (0, import_react47.useEffect)(() => {
     props.zoom && flameChart.current?.setZoom(props.zoom.start, props.zoom.end);
-  }, [props.zoom]), (0, import_react52.useEffect)(() => (props.onSelect && flameChart.current?.on("select", props.onSelect), () => {
+  }, [props.zoom]), (0, import_react47.useEffect)(() => (props.onSelect && flameChart.current?.on("select", props.onSelect), () => {
     props.onSelect && flameChart.current?.removeListener("select", props.onSelect);
-  }), [props.onSelect]), /* @__PURE__ */ (0, import_jsx_runtime24.jsx)(
+  }), [props.onSelect]), /* @__PURE__ */ (0, import_jsx_runtime5.jsx)(
     "div",
     {
       style: { height: `${props.height ? props.height : 300}px` },
       className: props.className,
       ref: setBoxRef,
-      children: /* @__PURE__ */ (0, import_jsx_runtime24.jsx)("canvas", { ref: setCanvasRef })
+      children: /* @__PURE__ */ (0, import_jsx_runtime5.jsx)("canvas", { ref: setCanvasRef })
     }
   );
 };
 
 // node_modules/@shopify/cli-hydrogen/dist/virtual-routes/routes/debug-network.jsx
 function DebugNetwork() {
-  let serverEvents = (0, import_react53.useRef)({
+  let serverEvents = (0, import_react48.useRef)({
     smallestStartTime: 0,
     mainRequests: [],
     subRequests: {},
     showPutRequests: !1
-  }), [timestamp, setTimestamp] = (0, import_react53.useState)();
+  }), [timestamp, setTimestamp] = (0, import_react48.useState)();
   function serverEventHandler(onEvent) {
     return (event) => {
       let data = JSON.parse(event.data);
@@ -39399,7 +30806,7 @@ function DebugNetwork() {
       }, 0);
     };
   }
-  return (0, import_react53.useEffect)(() => {
+  return (0, import_react48.useEffect)(() => {
     let evtSource = new EventSource("/debug-network-server", {
       withCredentials: !0
     }), mainRequestHandler = serverEventHandler((data) => {
@@ -39422,15 +30829,15 @@ function DebugNetwork() {
     return evtSource.addEventListener("Sub request", subRequestHandler), () => {
       evtSource.removeEventListener("Request", mainRequestHandler), evtSource.removeEventListener("Sub request", subRequestHandler), evtSource.close();
     };
-  }, []), /* @__PURE__ */ (0, import_jsx_runtime25.jsxs)(import_jsx_runtime25.Fragment, { children: [
-    /* @__PURE__ */ (0, import_jsx_runtime25.jsx)(
+  }, []), /* @__PURE__ */ (0, import_jsx_runtime6.jsxs)(import_jsx_runtime6.Fragment, { children: [
+    /* @__PURE__ */ (0, import_jsx_runtime6.jsx)(
       Script,
       {
         src: "https://unpkg.com/flame-chart-js@2.3.1/dist/index.min.js",
         suppressHydrationWarning: !0
       }
     ),
-    /* @__PURE__ */ (0, import_jsx_runtime25.jsxs)(
+    /* @__PURE__ */ (0, import_jsx_runtime6.jsxs)(
       "div",
       {
         style: {
@@ -39439,7 +30846,7 @@ function DebugNetwork() {
           fontSize: "0.8rem"
         },
         children: [
-          /* @__PURE__ */ (0, import_jsx_runtime25.jsxs)(
+          /* @__PURE__ */ (0, import_jsx_runtime6.jsxs)(
             "div",
             {
               style: {
@@ -39447,7 +30854,7 @@ function DebugNetwork() {
                 justifyContent: "space-between"
               },
               children: [
-                /* @__PURE__ */ (0, import_jsx_runtime25.jsxs)(
+                /* @__PURE__ */ (0, import_jsx_runtime6.jsxs)(
                   "div",
                   {
                     style: {
@@ -39455,7 +30862,7 @@ function DebugNetwork() {
                       alignItems: "center"
                     },
                     children: [
-                      /* @__PURE__ */ (0, import_jsx_runtime25.jsx)(
+                      /* @__PURE__ */ (0, import_jsx_runtime6.jsx)(
                         "button",
                         {
                           onClick: () => {
@@ -39471,7 +30878,7 @@ function DebugNetwork() {
                           children: "Clear"
                         }
                       ),
-                      /* @__PURE__ */ (0, import_jsx_runtime25.jsx)(
+                      /* @__PURE__ */ (0, import_jsx_runtime6.jsx)(
                         "input",
                         {
                           id: "showPutRequests",
@@ -39482,11 +30889,11 @@ function DebugNetwork() {
                           }
                         }
                       ),
-                      /* @__PURE__ */ (0, import_jsx_runtime25.jsx)("label", { htmlFor: "showPutRequests", children: "Show cache update requests (PUT)" })
+                      /* @__PURE__ */ (0, import_jsx_runtime6.jsx)("label", { htmlFor: "showPutRequests", children: "Show cache update requests (PUT)" })
                     ]
                   }
                 ),
-                /* @__PURE__ */ (0, import_jsx_runtime25.jsx)(
+                /* @__PURE__ */ (0, import_jsx_runtime6.jsx)(
                   "p",
                   {
                     style: {
@@ -39498,12 +30905,12 @@ function DebugNetwork() {
               ]
             }
           ),
-          /* @__PURE__ */ (0, import_jsx_runtime25.jsx)(FlameChart, { serverEvents: serverEvents.current }, timestamp),
-          /* @__PURE__ */ (0, import_jsx_runtime25.jsxs)("p", { style: { color: "#777", fontSize: "0.7rem", paddingLeft: "5px" }, children: [
+          /* @__PURE__ */ (0, import_jsx_runtime6.jsx)(FlameChart, { serverEvents: serverEvents.current }, timestamp),
+          /* @__PURE__ */ (0, import_jsx_runtime6.jsxs)("p", { style: { color: "#777", fontSize: "0.7rem", paddingLeft: "5px" }, children: [
             "Note: You may need to turn on '",
-            /* @__PURE__ */ (0, import_jsx_runtime25.jsx)("b", { children: "Disable Cache" }),
+            /* @__PURE__ */ (0, import_jsx_runtime6.jsx)("b", { children: "Disable Cache" }),
             "' for your navigating window. If you are not seeing any requests, try re-running '",
-            /* @__PURE__ */ (0, import_jsx_runtime25.jsx)("b", { children: "npm run dev" }),
+            /* @__PURE__ */ (0, import_jsx_runtime6.jsx)("b", { children: "npm run dev" }),
             "' in your terminal while leaving this window open."
           ] })
         ]
@@ -39514,7 +30921,7 @@ function DebugNetwork() {
 var PANEL_HEIGHT = 300;
 function FlameChart({ serverEvents }) {
   if (serverEvents.mainRequests.length === 0)
-    return /* @__PURE__ */ (0, import_jsx_runtime25.jsx)(
+    return /* @__PURE__ */ (0, import_jsx_runtime6.jsx)(
       "div",
       {
         style: {
@@ -39524,10 +30931,10 @@ function FlameChart({ serverEvents }) {
           alignItems: "center",
           backgroundColor: "#FAFAFA"
         },
-        children: /* @__PURE__ */ (0, import_jsx_runtime25.jsxs)("p", { style: { fontWeight: "bold", color: "#777" }, children: [
+        children: /* @__PURE__ */ (0, import_jsx_runtime6.jsxs)("p", { style: { fontWeight: "bold", color: "#777" }, children: [
           "Navigate your",
           " ",
-          /* @__PURE__ */ (0, import_jsx_runtime25.jsx)(Link2, { to: "/", target: "_blank", children: "app" })
+          /* @__PURE__ */ (0, import_jsx_runtime6.jsx)(Link2, { to: "/", target: "_blank", children: "app" })
         ] })
       }
     );
@@ -39555,8 +30962,8 @@ function FlameChart({ serverEvents }) {
         responseEnd: mainResponseEnd
       }
     }), items = items.concat(subRequestItems);
-  }), /* @__PURE__ */ (0, import_jsx_runtime25.jsxs)(import_jsx_runtime25.Fragment, { children: [
-    /* @__PURE__ */ (0, import_jsx_runtime25.jsx)(
+  }), /* @__PURE__ */ (0, import_jsx_runtime6.jsxs)(import_jsx_runtime6.Fragment, { children: [
+    /* @__PURE__ */ (0, import_jsx_runtime6.jsx)(
       FlameChartWrapper,
       {
         height: PANEL_HEIGHT,
@@ -39599,7 +31006,7 @@ function FlameChart({ serverEvents }) {
         }
       }
     ),
-    /* @__PURE__ */ (0, import_jsx_runtime25.jsxs)(
+    /* @__PURE__ */ (0, import_jsx_runtime6.jsxs)(
       "div",
       {
         style: {
@@ -39611,7 +31018,7 @@ function FlameChart({ serverEvents }) {
         children: [
           totalRequests,
           " requests",
-          /* @__PURE__ */ (0, import_jsx_runtime25.jsx)(
+          /* @__PURE__ */ (0, import_jsx_runtime6.jsx)(
             "span",
             {
               style: {
@@ -39636,7 +31043,7 @@ __export(virtual_root_exports, {
   default: () => App2,
   links: () => links2
 });
-var import_jsx_runtime27 = __toESM(require_jsx_runtime(), 1);
+var import_jsx_runtime8 = __toESM(require_jsx_runtime(), 1);
 
 // node_modules/@shopify/cli-hydrogen/dist/virtual-routes/assets/styles.css
 var styles_default = "/build/_assets/styles-G72WKIIU.css";
@@ -39645,9 +31052,9 @@ var styles_default = "/build/_assets/styles-G72WKIIU.css";
 var favicon_default2 = "/build/_assets/favicon-5FIZBM2K.svg";
 
 // node_modules/@shopify/cli-hydrogen/dist/virtual-routes/components/Layout.jsx
-var import_jsx_runtime26 = __toESM(require_jsx_runtime(), 1);
+var import_jsx_runtime7 = __toESM(require_jsx_runtime(), 1);
 function Layout2(props) {
-  return /* @__PURE__ */ (0, import_jsx_runtime26.jsx)("div", { className: "hydrogen-virtual-route", children: props.children });
+  return /* @__PURE__ */ (0, import_jsx_runtime7.jsx)("div", { className: "hydrogen-virtual-route", children: props.children });
 }
 
 // node_modules/@shopify/cli-hydrogen/dist/virtual-routes/virtual-root.jsx
@@ -39657,30 +31064,30 @@ var links2 = () => [
 ];
 function App2() {
   let nonce = useNonce();
-  return /* @__PURE__ */ (0, import_jsx_runtime27.jsxs)("html", {
+  return /* @__PURE__ */ (0, import_jsx_runtime8.jsxs)("html", {
     lang: "en",
     children: [
-      /* @__PURE__ */ (0, import_jsx_runtime27.jsxs)("head", {
+      /* @__PURE__ */ (0, import_jsx_runtime8.jsxs)("head", {
         children: [
-          /* @__PURE__ */ (0, import_jsx_runtime27.jsx)("meta", { charSet: "utf-8" }),
-          /* @__PURE__ */ (0, import_jsx_runtime27.jsx)("meta", { name: "viewport", content: "width=device-width,initial-scale=1" }),
-          /* @__PURE__ */ (0, import_jsx_runtime27.jsx)("title", { children: "Hydrogen" }),
-          /* @__PURE__ */ (0, import_jsx_runtime27.jsx)(
+          /* @__PURE__ */ (0, import_jsx_runtime8.jsx)("meta", { charSet: "utf-8" }),
+          /* @__PURE__ */ (0, import_jsx_runtime8.jsx)("meta", { name: "viewport", content: "width=device-width,initial-scale=1" }),
+          /* @__PURE__ */ (0, import_jsx_runtime8.jsx)("title", { children: "Hydrogen" }),
+          /* @__PURE__ */ (0, import_jsx_runtime8.jsx)(
             "meta",
             {
               name: "description",
               content: "A custom storefront powered by Hydrogen"
             }
           ),
-          /* @__PURE__ */ (0, import_jsx_runtime27.jsx)(Meta, {}),
-          /* @__PURE__ */ (0, import_jsx_runtime27.jsx)(Links, {})
+          /* @__PURE__ */ (0, import_jsx_runtime8.jsx)(Meta, {}),
+          /* @__PURE__ */ (0, import_jsx_runtime8.jsx)(Links, {})
         ]
       }),
-      /* @__PURE__ */ (0, import_jsx_runtime27.jsxs)("body", {
+      /* @__PURE__ */ (0, import_jsx_runtime8.jsxs)("body", {
         children: [
-          /* @__PURE__ */ (0, import_jsx_runtime27.jsx)(Layout2, { children: /* @__PURE__ */ (0, import_jsx_runtime27.jsx)(Outlet, {}) }),
-          /* @__PURE__ */ (0, import_jsx_runtime27.jsx)(ScrollRestoration2, { nonce }),
-          /* @__PURE__ */ (0, import_jsx_runtime27.jsx)(Scripts, { nonce })
+          /* @__PURE__ */ (0, import_jsx_runtime8.jsx)(Layout2, { children: /* @__PURE__ */ (0, import_jsx_runtime8.jsx)(Outlet, {}) }),
+          /* @__PURE__ */ (0, import_jsx_runtime8.jsx)(ScrollRestoration2, { nonce }),
+          /* @__PURE__ */ (0, import_jsx_runtime8.jsx)(Scripts, { nonce })
         ]
       })
     ]
@@ -39688,37 +31095,37 @@ function App2() {
 }
 function ErrorBoundary3() {
   let nonce = useNonce(), error = useRouteError(), errorMessage = "Unknown error", errorStatus = 500;
-  return isRouteErrorResponse(error) ? (errorMessage = error?.data?.message ?? error.data, errorStatus = error.status) : error instanceof Error && (errorMessage = error.message), /* @__PURE__ */ (0, import_jsx_runtime27.jsxs)("html", {
+  return isRouteErrorResponse(error) ? (errorMessage = error?.data?.message ?? error.data, errorStatus = error.status) : error instanceof Error && (errorMessage = error.message), /* @__PURE__ */ (0, import_jsx_runtime8.jsxs)("html", {
     lang: "en",
     children: [
-      /* @__PURE__ */ (0, import_jsx_runtime27.jsxs)("head", {
+      /* @__PURE__ */ (0, import_jsx_runtime8.jsxs)("head", {
         children: [
-          /* @__PURE__ */ (0, import_jsx_runtime27.jsx)("meta", { charSet: "utf-8" }),
-          /* @__PURE__ */ (0, import_jsx_runtime27.jsx)("meta", { name: "viewport", content: "width=device-width,initial-scale=1" }),
-          /* @__PURE__ */ (0, import_jsx_runtime27.jsx)("title", { children: "Hydrogen" }),
-          /* @__PURE__ */ (0, import_jsx_runtime27.jsx)(
+          /* @__PURE__ */ (0, import_jsx_runtime8.jsx)("meta", { charSet: "utf-8" }),
+          /* @__PURE__ */ (0, import_jsx_runtime8.jsx)("meta", { name: "viewport", content: "width=device-width,initial-scale=1" }),
+          /* @__PURE__ */ (0, import_jsx_runtime8.jsx)("title", { children: "Hydrogen" }),
+          /* @__PURE__ */ (0, import_jsx_runtime8.jsx)(
             "meta",
             {
               name: "description",
               content: "A custom storefront powered by Hydrogen"
             }
           ),
-          /* @__PURE__ */ (0, import_jsx_runtime27.jsx)(Meta, {}),
-          /* @__PURE__ */ (0, import_jsx_runtime27.jsx)(Links, {})
+          /* @__PURE__ */ (0, import_jsx_runtime8.jsx)(Meta, {}),
+          /* @__PURE__ */ (0, import_jsx_runtime8.jsx)(Links, {})
         ]
       }),
-      /* @__PURE__ */ (0, import_jsx_runtime27.jsxs)("body", {
+      /* @__PURE__ */ (0, import_jsx_runtime8.jsxs)("body", {
         children: [
-          /* @__PURE__ */ (0, import_jsx_runtime27.jsx)(Layout2, { children: /* @__PURE__ */ (0, import_jsx_runtime27.jsxs)("div", {
+          /* @__PURE__ */ (0, import_jsx_runtime8.jsx)(Layout2, { children: /* @__PURE__ */ (0, import_jsx_runtime8.jsxs)("div", {
             className: "route-error",
             children: [
-              /* @__PURE__ */ (0, import_jsx_runtime27.jsx)("h1", { children: "Please report this error" }),
-              /* @__PURE__ */ (0, import_jsx_runtime27.jsx)("h2", { children: errorStatus }),
-              errorMessage && /* @__PURE__ */ (0, import_jsx_runtime27.jsx)("fieldset", { children: /* @__PURE__ */ (0, import_jsx_runtime27.jsx)("pre", { children: errorMessage }) })
+              /* @__PURE__ */ (0, import_jsx_runtime8.jsx)("h1", { children: "Please report this error" }),
+              /* @__PURE__ */ (0, import_jsx_runtime8.jsx)("h2", { children: errorStatus }),
+              errorMessage && /* @__PURE__ */ (0, import_jsx_runtime8.jsx)("fieldset", { children: /* @__PURE__ */ (0, import_jsx_runtime8.jsx)("pre", { children: errorMessage }) })
             ]
           }) }),
-          /* @__PURE__ */ (0, import_jsx_runtime27.jsx)(ScrollRestoration2, { nonce }),
-          /* @__PURE__ */ (0, import_jsx_runtime27.jsx)(Scripts, { nonce })
+          /* @__PURE__ */ (0, import_jsx_runtime8.jsx)(ScrollRestoration2, { nonce }),
+          /* @__PURE__ */ (0, import_jsx_runtime8.jsx)(Scripts, { nonce })
         ]
       })
     ]
@@ -39728,9 +31135,9 @@ function ErrorBoundary3() {
 // node_modules/@shopify/cli-hydrogen/dist/virtual-routes/routes/graphiql.jsx
 var graphiql_exports = {};
 __export(graphiql_exports, {
-  loader: () => loader29
+  loader: () => loader28
 });
-var loader29 = graphiqlLoader;
+var loader28 = graphiqlLoader;
 
 // node_modules/@shopify/cli-hydrogen/dist/virtual-routes/routes/index.jsx
 var routes_exports = {};
@@ -39739,12 +31146,12 @@ __export(routes_exports, {
   HYDROGEN_SHOP_ID: () => HYDROGEN_SHOP_ID,
   default: () => Index2,
   links: () => links3,
-  loader: () => loader30
+  loader: () => loader29
 });
-var import_jsx_runtime35 = __toESM(require_jsx_runtime(), 1);
+var import_jsx_runtime16 = __toESM(require_jsx_runtime(), 1);
 
 // node_modules/@shopify/cli-hydrogen/dist/virtual-routes/components/HydrogenLogoBaseBW.jsx
-var import_jsx_runtime28 = __toESM(require_jsx_runtime(), 1), HydrogenLogoBaseBW = (props) => /* @__PURE__ */ (0, import_jsx_runtime28.jsxs)(
+var import_jsx_runtime9 = __toESM(require_jsx_runtime(), 1), HydrogenLogoBaseBW = (props) => /* @__PURE__ */ (0, import_jsx_runtime9.jsxs)(
   "svg",
   {
     width: 81,
@@ -39753,14 +31160,14 @@ var import_jsx_runtime28 = __toESM(require_jsx_runtime(), 1), HydrogenLogoBaseBW
     xmlns: "http://www.w3.org/2000/svg",
     ...props,
     children: [
-      /* @__PURE__ */ (0, import_jsx_runtime28.jsx)(
+      /* @__PURE__ */ (0, import_jsx_runtime9.jsx)(
         "path",
         {
           d: "M39.955 81.28 2.138 61.19l12.933-6.818 14.562 7.733 12.218-6.441L27.29 47.93l12.933-6.833L78.04 61.189l-12.934 6.817L51.35 60.7l-12.236 6.457 13.774 7.308-12.933 6.817Z",
           fill: "#000"
         }
       ),
-      /* @__PURE__ */ (0, import_jsx_runtime28.jsx)(
+      /* @__PURE__ */ (0, import_jsx_runtime9.jsx)(
         "path",
         {
           fillRule: "evenodd",
@@ -39774,7 +31181,7 @@ var import_jsx_runtime28 = __toESM(require_jsx_runtime(), 1), HydrogenLogoBaseBW
 );
 
 // node_modules/@shopify/cli-hydrogen/dist/virtual-routes/components/HydrogenLogoBaseColor.jsx
-var import_jsx_runtime29 = __toESM(require_jsx_runtime(), 1), HydrogenLogoBaseColor = (props) => /* @__PURE__ */ (0, import_jsx_runtime29.jsxs)(
+var import_jsx_runtime10 = __toESM(require_jsx_runtime(), 1), HydrogenLogoBaseColor = (props) => /* @__PURE__ */ (0, import_jsx_runtime10.jsxs)(
   "svg",
   {
     width: 76,
@@ -39783,21 +31190,21 @@ var import_jsx_runtime29 = __toESM(require_jsx_runtime(), 1), HydrogenLogoBaseCo
     xmlns: "http://www.w3.org/2000/svg",
     ...props,
     children: [
-      /* @__PURE__ */ (0, import_jsx_runtime29.jsx)(
+      /* @__PURE__ */ (0, import_jsx_runtime10.jsx)(
         "path",
         {
           d: "M37.817 80.149 0 60.057l12.934-6.817 14.561 7.733 12.218-6.441-14.561-7.733 12.933-6.833 37.818 20.091-12.934 6.817-13.757-7.307-12.236 6.457 13.775 7.308-12.934 6.817Z",
           fill: "#000"
         }
       ),
-      /* @__PURE__ */ (0, import_jsx_runtime29.jsx)(
+      /* @__PURE__ */ (0, import_jsx_runtime10.jsx)(
         "path",
         {
           d: "M37.818 40.183 0 20.092l12.934-6.818 14.562 7.733 12.218-6.441-14.562-7.733L38.086 0l37.817 20.091-12.934 6.817-13.756-7.307-12.236 6.457 13.774 7.308-12.933 6.817Z",
           fill: "url(#a)"
         }
       ),
-      /* @__PURE__ */ (0, import_jsx_runtime29.jsx)("defs", { children: /* @__PURE__ */ (0, import_jsx_runtime29.jsxs)(
+      /* @__PURE__ */ (0, import_jsx_runtime10.jsx)("defs", { children: /* @__PURE__ */ (0, import_jsx_runtime10.jsxs)(
         "linearGradient",
         {
           id: "a",
@@ -39807,10 +31214,10 @@ var import_jsx_runtime29 = __toESM(require_jsx_runtime(), 1), HydrogenLogoBaseCo
           y2: 51.694,
           gradientUnits: "userSpaceOnUse",
           children: [
-            /* @__PURE__ */ (0, import_jsx_runtime29.jsx)("stop", { offset: 2e-3, stopColor: "#430470" }),
-            /* @__PURE__ */ (0, import_jsx_runtime29.jsx)("stop", { offset: 0.385, stopColor: "#8E01F0" }),
-            /* @__PURE__ */ (0, import_jsx_runtime29.jsx)("stop", { offset: 0.635, stopColor: "#354CF6" }),
-            /* @__PURE__ */ (0, import_jsx_runtime29.jsx)("stop", { offset: 1, stopColor: "#01FFFF" })
+            /* @__PURE__ */ (0, import_jsx_runtime10.jsx)("stop", { offset: 2e-3, stopColor: "#430470" }),
+            /* @__PURE__ */ (0, import_jsx_runtime10.jsx)("stop", { offset: 0.385, stopColor: "#8E01F0" }),
+            /* @__PURE__ */ (0, import_jsx_runtime10.jsx)("stop", { offset: 0.635, stopColor: "#354CF6" }),
+            /* @__PURE__ */ (0, import_jsx_runtime10.jsx)("stop", { offset: 1, stopColor: "#01FFFF" })
           ]
         }
       ) })
@@ -39819,7 +31226,7 @@ var import_jsx_runtime29 = __toESM(require_jsx_runtime(), 1), HydrogenLogoBaseCo
 );
 
 // node_modules/@shopify/cli-hydrogen/dist/virtual-routes/components/IconDiscord.jsx
-var import_jsx_runtime30 = __toESM(require_jsx_runtime(), 1), IconDiscord = (props) => /* @__PURE__ */ (0, import_jsx_runtime30.jsx)(
+var import_jsx_runtime11 = __toESM(require_jsx_runtime(), 1), IconDiscord = (props) => /* @__PURE__ */ (0, import_jsx_runtime11.jsx)(
   "svg",
   {
     width: 26,
@@ -39827,7 +31234,7 @@ var import_jsx_runtime30 = __toESM(require_jsx_runtime(), 1), IconDiscord = (pro
     fill: "none",
     xmlns: "http://www.w3.org/2000/svg",
     ...props,
-    children: /* @__PURE__ */ (0, import_jsx_runtime30.jsx)(
+    children: /* @__PURE__ */ (0, import_jsx_runtime11.jsx)(
       "path",
       {
         d: "M21.19 1.675A19.91 19.91 0 0 0 16.03 0c-.223.415-.482.973-.661 1.418a18.355 18.355 0 0 0-5.72 0A15.367 15.367 0 0 0 8.98 0a19.844 19.844 0 0 0-5.165 1.68C.55 6.776-.336 11.747.106 16.647c2.167 1.67 4.266 2.686 6.33 3.35.51-.724.964-1.495 1.356-2.306a13.149 13.149 0 0 1-2.135-1.073c.179-.137.354-.28.523-.428 4.116 1.989 8.588 1.989 12.655 0 .172.148.347.291.524.428a13.12 13.12 0 0 1-2.139 1.075c.392.81.844 1.582 1.356 2.306 2.066-.664 4.167-1.68 6.333-3.352.52-5.68-.887-10.606-3.718-14.973ZM8.353 13.635c-1.235 0-2.249-1.192-2.249-2.643 0-1.45.992-2.644 2.25-2.644 1.257 0 2.27 1.191 2.248 2.644.002 1.45-.991 2.642-2.249 2.642Zm8.311 0c-1.235 0-2.249-1.192-2.249-2.643 0-1.45.992-2.644 2.25-2.644 1.257 0 2.27 1.191 2.248 2.644 0 1.45-.991 2.642-2.249 2.642Z",
@@ -39838,7 +31245,7 @@ var import_jsx_runtime30 = __toESM(require_jsx_runtime(), 1), IconDiscord = (pro
 );
 
 // node_modules/@shopify/cli-hydrogen/dist/virtual-routes/components/IconGithub.jsx
-var import_jsx_runtime31 = __toESM(require_jsx_runtime(), 1), IconGithub = (props) => /* @__PURE__ */ (0, import_jsx_runtime31.jsx)(
+var import_jsx_runtime12 = __toESM(require_jsx_runtime(), 1), IconGithub = (props) => /* @__PURE__ */ (0, import_jsx_runtime12.jsx)(
   "svg",
   {
     width: 20,
@@ -39846,7 +31253,7 @@ var import_jsx_runtime31 = __toESM(require_jsx_runtime(), 1), IconGithub = (prop
     fill: "none",
     xmlns: "http://www.w3.org/2000/svg",
     ...props,
-    children: /* @__PURE__ */ (0, import_jsx_runtime31.jsx)(
+    children: /* @__PURE__ */ (0, import_jsx_runtime12.jsx)(
       "path",
       {
         fillRule: "evenodd",
@@ -39859,7 +31266,7 @@ var import_jsx_runtime31 = __toESM(require_jsx_runtime(), 1), IconGithub = (prop
 );
 
 // node_modules/@shopify/cli-hydrogen/dist/virtual-routes/components/IconTwitter.jsx
-var import_jsx_runtime32 = __toESM(require_jsx_runtime(), 1), IconTwitter = (props) => /* @__PURE__ */ (0, import_jsx_runtime32.jsx)(
+var import_jsx_runtime13 = __toESM(require_jsx_runtime(), 1), IconTwitter = (props) => /* @__PURE__ */ (0, import_jsx_runtime13.jsx)(
   "svg",
   {
     width: 23,
@@ -39867,7 +31274,7 @@ var import_jsx_runtime32 = __toESM(require_jsx_runtime(), 1), IconTwitter = (pro
     fill: "none",
     xmlns: "http://www.w3.org/2000/svg",
     ...props,
-    children: /* @__PURE__ */ (0, import_jsx_runtime32.jsx)(
+    children: /* @__PURE__ */ (0, import_jsx_runtime13.jsx)(
       "path",
       {
         d: "M20.53 4.979c.014.217.014.434.014.653C20.544 12.305 15.824 20 7.193 20v-.004C4.643 20 2.146 19.214 0 17.732c.37.048.743.072 1.117.073 2.113.002 4.165-.76 5.828-2.166-2.008-.04-3.77-1.45-4.384-3.506a4.356 4.356 0 0 0 2.118-.087C2.49 11.57.915 9.5.915 7.096v-.064a4.414 4.414 0 0 0 2.13.632C.983 6.18.348 3.229 1.593.92c2.382 3.155 5.897 5.073 9.67 5.276-.378-1.754.139-3.592 1.358-4.825 1.89-1.912 4.862-1.814 6.639.22A9.023 9.023 0 0 0 22.24.364c-.35 1.17-1.084 2.162-2.063 2.793a8.822 8.822 0 0 0 2.694-.795A9.97 9.97 0 0 1 20.53 4.98Z",
@@ -39878,7 +31285,7 @@ var import_jsx_runtime32 = __toESM(require_jsx_runtime(), 1), IconTwitter = (pro
 );
 
 // node_modules/@shopify/cli-hydrogen/dist/virtual-routes/components/IconBanner.jsx
-var import_jsx_runtime33 = __toESM(require_jsx_runtime(), 1), IconBanner = (props) => /* @__PURE__ */ (0, import_jsx_runtime33.jsxs)(
+var import_jsx_runtime14 = __toESM(require_jsx_runtime(), 1), IconBanner = (props) => /* @__PURE__ */ (0, import_jsx_runtime14.jsxs)(
   "svg",
   {
     width: 32,
@@ -39887,276 +31294,276 @@ var import_jsx_runtime33 = __toESM(require_jsx_runtime(), 1), IconBanner = (prop
     xmlns: "http://www.w3.org/2000/svg",
     ...props,
     children: [
-      /* @__PURE__ */ (0, import_jsx_runtime33.jsx)("path", { fill: "#000", d: "M0 9.726h1.455v1.455H0z" }),
-      /* @__PURE__ */ (0, import_jsx_runtime33.jsx)(
+      /* @__PURE__ */ (0, import_jsx_runtime14.jsx)("path", { fill: "#000", d: "M0 9.726h1.455v1.455H0z" }),
+      /* @__PURE__ */ (0, import_jsx_runtime14.jsx)(
         "path",
         {
           fill: "#E172AC",
           d: "M1.454 9.726h1.455v1.455H1.454zM13.091 3.907h1.455v1.455h-1.455zM24.727 9.726h1.455v1.455h-1.455zM24.727 24.271h1.455v1.455h-1.455zM13.091 30.09h1.455v1.455h-1.455zM1.454 24.271h1.455v1.455H1.454z"
         }
       ),
-      /* @__PURE__ */ (0, import_jsx_runtime33.jsx)(
+      /* @__PURE__ */ (0, import_jsx_runtime14.jsx)(
         "path",
         {
           fill: "#AC217D",
           d: "M5.818 9.726h1.455v1.455H5.818zM17.454 3.907h1.455v1.455h-1.455zM29.091 9.726h1.455v1.455h-1.455zM21.818 16.998h1.455v1.455h-1.455zM21.818 18.454h1.455v1.455h-1.455zM20.363 24.271h1.455v1.455h-1.455zM20.363 11.181h1.455v1.455h-1.455zM29.091 24.271h1.455v1.455h-1.455zM17.455 30.09h1.455v1.455h-1.455zM5.818 24.271h1.455v1.455H5.818z"
         }
       ),
-      /* @__PURE__ */ (0, import_jsx_runtime33.jsx)(
+      /* @__PURE__ */ (0, import_jsx_runtime14.jsx)(
         "path",
         {
           fill: "#000",
           d: "M7.273 9.726h1.455v1.455H7.273zM1.454 8.271h1.455v1.455H1.454zM5.818 8.271h1.455v1.455H5.818zM2.909 6.817h1.455v1.455H2.909z"
         }
       ),
-      /* @__PURE__ */ (0, import_jsx_runtime33.jsx)(
+      /* @__PURE__ */ (0, import_jsx_runtime14.jsx)(
         "path",
         {
           fill: "#D43694",
           d: "M2.909 9.726h1.455v1.455H2.909zM14.546 3.907h1.455v1.455h-1.455zM26.182 9.726h1.455v1.455h-1.455zM18.909 11.181h1.455v1.455h-1.455z"
         }
       ),
-      /* @__PURE__ */ (0, import_jsx_runtime33.jsx)(
+      /* @__PURE__ */ (0, import_jsx_runtime14.jsx)(
         "path",
         {
           fill: "#D43694",
           d: "M20.363 12.635h1.455v1.455h-1.455zM20.363 14.09h1.455v1.455h-1.455z"
         }
       ),
-      /* @__PURE__ */ (0, import_jsx_runtime33.jsx)(
+      /* @__PURE__ */ (0, import_jsx_runtime14.jsx)(
         "path",
         {
           fill: "#D43694",
           d: "M20.363 15.544h1.455v1.455h-1.455zM11.636 11.181h1.455v1.455h-1.455z"
         }
       ),
-      /* @__PURE__ */ (0, import_jsx_runtime33.jsx)(
+      /* @__PURE__ */ (0, import_jsx_runtime14.jsx)(
         "path",
         {
           fill: "#D43694",
           d: "M10.182 12.635h1.455v1.455h-1.455zM10.182 14.09h1.455v1.455h-1.455z"
         }
       ),
-      /* @__PURE__ */ (0, import_jsx_runtime33.jsx)(
+      /* @__PURE__ */ (0, import_jsx_runtime14.jsx)(
         "path",
         {
           fill: "#D43694",
           d: "M10.182 15.544h1.455v1.455h-1.455zM10.182 19.908h1.455v1.455h-1.455z"
         }
       ),
-      /* @__PURE__ */ (0, import_jsx_runtime33.jsx)(
+      /* @__PURE__ */ (0, import_jsx_runtime14.jsx)(
         "path",
         {
           fill: "#D43694",
           d: "M10.182 21.362h1.455v1.455h-1.455zM10.182 22.817h1.455v1.455h-1.455z"
         }
       ),
-      /* @__PURE__ */ (0, import_jsx_runtime33.jsx)(
+      /* @__PURE__ */ (0, import_jsx_runtime14.jsx)(
         "path",
         {
           fill: "#D43694",
           d: "M11.636 24.271h1.455v1.455h-1.455zM20.363 19.908h1.455v1.455h-1.455z"
         }
       ),
-      /* @__PURE__ */ (0, import_jsx_runtime33.jsx)(
+      /* @__PURE__ */ (0, import_jsx_runtime14.jsx)(
         "path",
         {
           fill: "#D43694",
           d: "M20.363 21.362h1.455v1.455h-1.455zM20.363 22.817h1.455v1.455h-1.455z"
         }
       ),
-      /* @__PURE__ */ (0, import_jsx_runtime33.jsx)(
+      /* @__PURE__ */ (0, import_jsx_runtime14.jsx)(
         "path",
         {
           fill: "#D43694",
           d: "M18.909 24.271h1.455v1.455h-1.455zM26.182 24.271h1.455v1.455h-1.455zM14.545 30.09H16v1.455h-1.455zM2.909 24.271h1.455v1.455H2.909zM2.909 11.181h1.455v1.455H2.909zM14.546 5.361h1.455v1.455h-1.455zM26.182 11.181h1.455v1.455h-1.455zM26.182 25.726h1.455v1.455h-1.455z"
         }
       ),
-      /* @__PURE__ */ (0, import_jsx_runtime33.jsx)(
+      /* @__PURE__ */ (0, import_jsx_runtime14.jsx)(
         "path",
         {
           fill: "#D43694",
           d: "M14.546 31.544h1.455v1.455h-1.455zM2.909 25.726h1.455v1.455H2.909z"
         }
       ),
-      /* @__PURE__ */ (0, import_jsx_runtime33.jsx)("path", { fill: "#000", d: "M4.364 6.817h1.455v1.455H4.364z" }),
-      /* @__PURE__ */ (0, import_jsx_runtime33.jsx)(
+      /* @__PURE__ */ (0, import_jsx_runtime14.jsx)("path", { fill: "#000", d: "M4.364 6.817h1.455v1.455H4.364z" }),
+      /* @__PURE__ */ (0, import_jsx_runtime14.jsx)(
         "path",
         {
           fill: "#D43694",
           d: "M4.364 9.726h1.455v1.455H4.364zM16 3.907h1.455v1.455H16zM27.637 9.726h1.455v1.455h-1.455zM27.637 24.271h1.455v1.455h-1.455zM16 30.09h1.455v1.455H16zM4.364 24.271h1.455v1.455H4.364z"
         }
       ),
-      /* @__PURE__ */ (0, import_jsx_runtime33.jsx)(
+      /* @__PURE__ */ (0, import_jsx_runtime14.jsx)(
         "path",
         {
           fill: "#D43694",
           d: "M4.364 11.181h1.455v1.455H4.364zM16 5.361h1.455v1.455H16zM27.637 11.181h1.455v1.455h-1.455zM27.637 25.726h1.455v1.455h-1.455zM16 31.544h1.455v1.455H16zM4.364 25.726h1.455v1.455H4.364z"
         }
       ),
-      /* @__PURE__ */ (0, import_jsx_runtime33.jsx)(
+      /* @__PURE__ */ (0, import_jsx_runtime14.jsx)(
         "path",
         {
           fill: "#E172AC",
           d: "M2.909 8.271h1.455v1.455H2.909zM14.545 2.453H16v1.455h-1.455zM26.182 8.271h1.455v1.455h-1.455zM26.182 22.817h1.455v1.455h-1.455zM14.546 28.635h1.455v1.455h-1.455zM2.909 22.817h1.455v1.455H2.909z"
         }
       ),
-      /* @__PURE__ */ (0, import_jsx_runtime33.jsx)(
+      /* @__PURE__ */ (0, import_jsx_runtime14.jsx)(
         "path",
         {
           fill: "#AC217D",
           d: "M2.909 12.635h1.455v1.455H2.909zM14.545 6.817H16v1.455h-1.455zM26.182 12.635h1.455v1.455h-1.455zM26.182 27.181h1.455v1.455h-1.455zM14.546 32.998h1.455v1.455h-1.455zM2.909 27.181h1.455v1.455H2.909z"
         }
       ),
-      /* @__PURE__ */ (0, import_jsx_runtime33.jsx)(
+      /* @__PURE__ */ (0, import_jsx_runtime14.jsx)(
         "path",
         {
           fill: "#E172AC",
           d: "M4.364 8.271h1.455v1.455H4.364zM16 2.453h1.455v1.455H16zM27.637 8.271h1.455v1.455h-1.455zM27.637 22.817h1.455v1.455h-1.455zM16 28.635h1.455v1.455H16zM4.364 22.817h1.455v1.455H4.364z"
         }
       ),
-      /* @__PURE__ */ (0, import_jsx_runtime33.jsx)(
+      /* @__PURE__ */ (0, import_jsx_runtime14.jsx)(
         "path",
         {
           fill: "#AC217D",
           d: "M4.364 12.635h1.455v1.455H4.364zM16 6.817h1.455v1.455H16zM27.637 12.635h1.455v1.455h-1.455zM27.637 27.181h1.455v1.455h-1.455zM16 32.998h1.455v1.455H16zM4.364 27.181h1.455v1.455H4.364z"
         }
       ),
-      /* @__PURE__ */ (0, import_jsx_runtime33.jsx)(
+      /* @__PURE__ */ (0, import_jsx_runtime14.jsx)(
         "path",
         {
           fill: "#000",
           d: "M2.909 14.09h1.455v1.455H2.909zM4.364 14.09h1.455v1.455H4.364zM0 11.181h1.455v1.455H0z"
         }
       ),
-      /* @__PURE__ */ (0, import_jsx_runtime33.jsx)("path", { fill: "#000", d: "M1.454 12.635h1.455v1.455H1.454z" }),
-      /* @__PURE__ */ (0, import_jsx_runtime33.jsx)(
+      /* @__PURE__ */ (0, import_jsx_runtime14.jsx)("path", { fill: "#000", d: "M1.454 12.635h1.455v1.455H1.454z" }),
+      /* @__PURE__ */ (0, import_jsx_runtime14.jsx)(
         "path",
         {
           fill: "#E172AC",
           d: "M1.454 11.181h1.455v1.455H1.454zM8.727 16.998h1.455v1.455H8.727zM10.182 11.181h1.455v1.455h-1.455zM10.182 24.271h1.455v1.455h-1.455zM8.727 18.454h1.455v1.455H8.727zM13.091 5.361h1.455v1.455h-1.455zM24.727 11.181h1.455v1.455h-1.455zM24.727 25.726h1.455v1.455h-1.455zM13.091 31.544h1.455v1.455h-1.455zM1.454 25.726h1.455v1.455H1.454z"
         }
       ),
-      /* @__PURE__ */ (0, import_jsx_runtime33.jsx)(
+      /* @__PURE__ */ (0, import_jsx_runtime14.jsx)(
         "path",
         {
           fill: "#AC217D",
           d: "M5.818 11.181h1.455v1.455H5.818zM17.454 5.361h1.455v1.455h-1.455zM29.091 11.181h1.455v1.455h-1.455zM29.091 25.726h1.455v1.455h-1.455zM17.454 31.544h1.455v1.455h-1.455zM5.818 25.726h1.455v1.455H5.818z"
         }
       ),
-      /* @__PURE__ */ (0, import_jsx_runtime33.jsx)(
+      /* @__PURE__ */ (0, import_jsx_runtime14.jsx)(
         "path",
         {
           fill: "#000",
           d: "M5.818 12.635h1.455v1.455H5.818zM7.273 11.181h1.455v1.455H7.273zM0 24.271h1.455v1.455H0zM23.273 9.726h1.455v1.455h-1.455zM7.273 24.271h1.455v1.455H7.273zM30.546 9.726h1.455v1.455h-1.455zM1.455 22.817H2.91v1.455H1.455zM24.727 8.271h1.455v1.455h-1.455zM5.818 22.817h1.455v1.455H5.818zM29.091 8.271h1.455v1.455h-1.455zM2.909 21.362h1.455v1.455H2.909z"
         }
       ),
-      /* @__PURE__ */ (0, import_jsx_runtime33.jsx)(
+      /* @__PURE__ */ (0, import_jsx_runtime14.jsx)(
         "path",
         {
           fill: "#000",
           d: "M26.182 6.817h1.455v1.455h-1.455zM4.364 21.362h1.455v1.455H4.364zM27.637 6.817h1.455v1.455h-1.455zM2.909 28.635h1.455v1.455H2.909zM26.182 14.09h1.455v1.455h-1.455zM4.364 28.635h1.455v1.455H4.364zM27.637 14.09h1.455v1.455h-1.455zM1.454 27.181h1.455v1.455H1.454zM24.727 12.635h1.455v1.455h-1.455zM0 25.726h1.455v1.455H0z"
         }
       ),
-      /* @__PURE__ */ (0, import_jsx_runtime33.jsx)(
+      /* @__PURE__ */ (0, import_jsx_runtime14.jsx)(
         "path",
         {
           fill: "#000",
           d: "M23.273 11.181h1.455v1.455h-1.455zM5.818 27.181h1.455v1.455H5.818zM29.091 12.635h1.455v1.455h-1.455zM7.273 25.726h1.455v1.455H7.273zM30.546 11.181h1.455v1.455h-1.455zM23.273 24.271h1.455v1.455h-1.455zM11.636 30.09h1.455v1.455h-1.455zM11.636 3.907h1.455v1.455h-1.455zM18.909 30.09h1.455v1.455h-1.455zM30.546 24.271h1.455v1.455h-1.455zM13.091 28.635h1.455v1.455h-1.455zM18.909 3.907h1.455v1.455h-1.455zM17.454 28.635h1.455v1.455h-1.455z"
         }
       ),
-      /* @__PURE__ */ (0, import_jsx_runtime33.jsx)(
+      /* @__PURE__ */ (0, import_jsx_runtime14.jsx)(
         "path",
         {
           fill: "#000",
           d: "M24.727 22.817h1.455v1.455h-1.455zM14.546 27.181h1.455v1.455h-1.455zM13.091 2.453h1.455v1.455h-1.455z"
         }
       ),
-      /* @__PURE__ */ (0, import_jsx_runtime33.jsx)(
+      /* @__PURE__ */ (0, import_jsx_runtime14.jsx)(
         "path",
         {
           fill: "#000",
           d: "M16 27.181h1.455v1.455H16zM29.091 22.817h1.455v1.455h-1.455zM14.545 34.454H16v1.455h-1.455zM17.455 2.453h1.455v1.455h-1.455zM16 34.454h1.455v1.455H16zM26.182 21.362h1.455v1.455h-1.455zM13.091 32.998h1.455v1.455h-1.455zM14.546.998h1.455v1.455h-1.455zM11.636 31.544h1.455v1.455h-1.455zM27.637 21.362h1.455v1.455h-1.455zM17.454 32.998h1.455v1.455h-1.455z"
         }
       ),
-      /* @__PURE__ */ (0, import_jsx_runtime33.jsx)(
+      /* @__PURE__ */ (0, import_jsx_runtime14.jsx)(
         "path",
         {
           fill: "#000",
           d: "M16 .998h1.455v1.455H16zM18.909 31.544h1.455v1.455h-1.455zM26.182 28.635h1.455v1.455h-1.455zM14.546 8.271h1.455v1.455h-1.455zM27.637 28.635h1.455v1.455h-1.455z"
         }
       ),
-      /* @__PURE__ */ (0, import_jsx_runtime33.jsx)(
+      /* @__PURE__ */ (0, import_jsx_runtime14.jsx)(
         "path",
         {
           fill: "#000",
           d: "M16 8.271h1.455v1.455H16zM24.727 27.181h1.455v1.455h-1.455zM13.091 6.817h1.455v1.455h-1.455zM23.273 25.726h1.455v1.455h-1.455zM11.636 5.361h1.455v1.455h-1.455zM29.091 27.181h1.455v1.455h-1.455zM17.455 6.817h1.455v1.455h-1.455zM30.546 25.726h1.455v1.455h-1.455zM18.909 5.361h1.455v1.455h-1.455zM8.727 11.181h1.455v1.455H8.727z"
         }
       ),
-      /* @__PURE__ */ (0, import_jsx_runtime33.jsx)(
+      /* @__PURE__ */ (0, import_jsx_runtime14.jsx)(
         "path",
         {
           fill: "#000",
           d: "M8.727 12.635h1.455v1.455H8.727zM8.727 19.908h1.455v1.455H8.727zM21.818 19.908h1.455v1.455h-1.455zM21.818 11.181h1.455v1.455h-1.455z"
         }
       ),
-      /* @__PURE__ */ (0, import_jsx_runtime33.jsx)(
+      /* @__PURE__ */ (0, import_jsx_runtime14.jsx)(
         "path",
         {
           fill: "#000",
           d: "M8.727 21.362h1.455v1.455H8.727zM21.818 21.362h1.455v1.455h-1.455zM8.727 14.09h1.455v1.455H8.727zM21.818 12.635h1.455v1.455h-1.455zM8.727 22.817h1.455v1.455H8.727z"
         }
       ),
-      /* @__PURE__ */ (0, import_jsx_runtime33.jsx)(
+      /* @__PURE__ */ (0, import_jsx_runtime14.jsx)(
         "path",
         {
           fill: "#000",
           d: "M8.727 24.271h1.455v1.455H8.727zM7.273 16.998h1.455v1.455H7.273zM21.818 22.817h1.455v1.455h-1.455zM23.273 16.998h1.455v1.455h-1.455z"
         }
       ),
-      /* @__PURE__ */ (0, import_jsx_runtime33.jsx)(
+      /* @__PURE__ */ (0, import_jsx_runtime14.jsx)(
         "path",
         {
           fill: "#000",
           d: "M21.818 24.271h1.455v1.455h-1.455zM8.727 15.544h1.455v1.455H8.727zM21.818 14.09h1.455v1.455h-1.455zM7.273 18.454h1.455v1.455H7.273z"
         }
       ),
-      /* @__PURE__ */ (0, import_jsx_runtime33.jsx)(
+      /* @__PURE__ */ (0, import_jsx_runtime14.jsx)(
         "path",
         {
           fill: "#000",
           d: "M21.818 15.544h1.455v1.455h-1.455zM23.273 18.454h1.455v1.455h-1.455zM11.636 12.635h1.455v1.455h-1.455zM11.636 19.908h1.455v1.455h-1.455zM18.909 19.908h1.455v1.455h-1.455zM18.909 12.635h1.455v1.455h-1.455zM11.636 14.09h1.455v1.455h-1.455z"
         }
       ),
-      /* @__PURE__ */ (0, import_jsx_runtime33.jsx)(
+      /* @__PURE__ */ (0, import_jsx_runtime14.jsx)(
         "path",
         {
           fill: "#000",
           d: "M11.636 21.362h1.455v1.455h-1.455zM18.909 21.362h1.455v1.455h-1.455zM18.909 14.09h1.455v1.455h-1.455zM10.182 16.998h1.455v1.455h-1.455zM20.363 16.998h1.455v1.455h-1.455z"
         }
       ),
-      /* @__PURE__ */ (0, import_jsx_runtime33.jsx)(
+      /* @__PURE__ */ (0, import_jsx_runtime14.jsx)(
         "path",
         {
           fill: "#000",
           d: "M11.636 15.544h1.455v1.455h-1.455zM11.636 22.817h1.455v1.455h-1.455zM18.909 22.817h1.455v1.455h-1.455zM18.909 15.544h1.455v1.455h-1.455zM13.091 24.271h1.455v1.455h-1.455zM17.454 24.271h1.455v1.455h-1.455zM13.091 25.726h1.455v1.455h-1.455zM17.454 25.726h1.455v1.455h-1.455zM11.636 25.726h1.455v1.455h-1.455zM20.363 25.726h1.455v1.455h-1.455z"
         }
       ),
-      /* @__PURE__ */ (0, import_jsx_runtime33.jsx)(
+      /* @__PURE__ */ (0, import_jsx_runtime14.jsx)(
         "path",
         {
           fill: "#000",
           d: "M10.182 25.726h1.455v1.455h-1.455zM18.909 25.726h1.455v1.455h-1.455zM10.182 18.454h1.455v1.455h-1.455zM20.363 18.454h1.455v1.455h-1.455zM10.182 9.726h1.455v1.455h-1.455zM18.909 9.726h1.455v1.455h-1.455z"
         }
       ),
-      /* @__PURE__ */ (0, import_jsx_runtime33.jsx)(
+      /* @__PURE__ */ (0, import_jsx_runtime14.jsx)(
         "path",
         {
           fill: "#000",
           d: "M11.636 9.726h1.455v1.455h-1.455zM20.363 9.726h1.455v1.455h-1.455zM13.091 9.726h1.455v1.455h-1.455zM17.454 9.726h1.455v1.455h-1.455z"
         }
       ),
-      /* @__PURE__ */ (0, import_jsx_runtime33.jsx)(
+      /* @__PURE__ */ (0, import_jsx_runtime14.jsx)(
         "path",
         {
           fill: "#000",
@@ -40168,7 +31575,7 @@ var import_jsx_runtime33 = __toESM(require_jsx_runtime(), 1), IconBanner = (prop
 );
 
 // node_modules/@shopify/cli-hydrogen/dist/virtual-routes/components/IconError.jsx
-var import_jsx_runtime34 = __toESM(require_jsx_runtime(), 1), IconError = (props) => /* @__PURE__ */ (0, import_jsx_runtime34.jsxs)(
+var import_jsx_runtime15 = __toESM(require_jsx_runtime(), 1), IconError = (props) => /* @__PURE__ */ (0, import_jsx_runtime15.jsxs)(
   "svg",
   {
     width: 32,
@@ -40177,45 +31584,45 @@ var import_jsx_runtime34 = __toESM(require_jsx_runtime(), 1), IconError = (props
     xmlns: "http://www.w3.org/2000/svg",
     ...props,
     children: [
-      /* @__PURE__ */ (0, import_jsx_runtime34.jsx)("path", { fill: "#000", d: "M6 18h20v2H6zM30 8h2v16h-2zM0 8h2v16H0z" }),
-      /* @__PURE__ */ (0, import_jsx_runtime34.jsx)(
+      /* @__PURE__ */ (0, import_jsx_runtime15.jsx)("path", { fill: "#000", d: "M6 18h20v2H6zM30 8h2v16h-2zM0 8h2v16H0z" }),
+      /* @__PURE__ */ (0, import_jsx_runtime15.jsx)(
         "path",
         {
           fill: "#F63310",
           d: "M2 8h2v16H2zM4 6h2v4H4zM6 4h2v4H6zM8 2h2v4H8zM24 4h2v2h-2zM26 6h2v2h-2z"
         }
       ),
-      /* @__PURE__ */ (0, import_jsx_runtime34.jsx)(
+      /* @__PURE__ */ (0, import_jsx_runtime15.jsx)(
         "path",
         {
           fill: "#74170B",
           d: "M26 24h2v2h-2zM28 22h2v2h-2zM24 26h2v2h-2zM22 28h2v2h-2z"
         }
       ),
-      /* @__PURE__ */ (0, import_jsx_runtime34.jsx)(
+      /* @__PURE__ */ (0, import_jsx_runtime15.jsx)(
         "path",
         {
           fill: "#971C06",
           d: "M6 26h2v2H6zM4 24h2v2H4zM4 18h2v2H4zM26 18h2v2h-2zM26 12h2v2h-2z"
         }
       ),
-      /* @__PURE__ */ (0, import_jsx_runtime34.jsx)(
+      /* @__PURE__ */ (0, import_jsx_runtime15.jsx)(
         "path",
         {
           fill: "#D62C0D",
           d: "M26 8h2v4h-2zM4 10h2v2H4zM8 6h18v2H8zM10 4h14v2H10zM6 8h20v2H6z"
         }
       ),
-      /* @__PURE__ */ (0, import_jsx_runtime34.jsx)("path", { fill: "#971C06", d: "M28 10h2v12h-2zM8 28h14v2H8z" }),
-      /* @__PURE__ */ (0, import_jsx_runtime34.jsx)("path", { fill: "#D62C0D", d: "M26 20h2v2h-2zM4 20h2v2H4z" }),
-      /* @__PURE__ */ (0, import_jsx_runtime34.jsx)("path", { fill: "#F63310", d: "M4 12h2v2H4z" }),
-      /* @__PURE__ */ (0, import_jsx_runtime34.jsx)("path", { fill: "#971C06", d: "M6 20h20v2H6z" }),
-      /* @__PURE__ */ (0, import_jsx_runtime34.jsx)("path", { fill: "#F63310", d: "M28 8h2v2h-2zM10 2h14v2H10zM6 10h20v2H6z" }),
-      /* @__PURE__ */ (0, import_jsx_runtime34.jsx)("path", { fill: "#D62C0D", d: "M4 22h24v2H4zM6 24h20v2H6zM8 26h16v2H8z" }),
-      /* @__PURE__ */ (0, import_jsx_runtime34.jsx)("path", { fill: "#000", d: "M6 12h20v2H6z" }),
-      /* @__PURE__ */ (0, import_jsx_runtime34.jsx)("path", { fill: "#fff", d: "M6 14h20v2H6zM6 16h2v2H6z" }),
-      /* @__PURE__ */ (0, import_jsx_runtime34.jsx)("path", { fill: "#ECEDEE", d: "M8 16h18v2H8z" }),
-      /* @__PURE__ */ (0, import_jsx_runtime34.jsx)(
+      /* @__PURE__ */ (0, import_jsx_runtime15.jsx)("path", { fill: "#971C06", d: "M28 10h2v12h-2zM8 28h14v2H8z" }),
+      /* @__PURE__ */ (0, import_jsx_runtime15.jsx)("path", { fill: "#D62C0D", d: "M26 20h2v2h-2zM4 20h2v2H4z" }),
+      /* @__PURE__ */ (0, import_jsx_runtime15.jsx)("path", { fill: "#F63310", d: "M4 12h2v2H4z" }),
+      /* @__PURE__ */ (0, import_jsx_runtime15.jsx)("path", { fill: "#971C06", d: "M6 20h20v2H6z" }),
+      /* @__PURE__ */ (0, import_jsx_runtime15.jsx)("path", { fill: "#F63310", d: "M28 8h2v2h-2zM10 2h14v2H10zM6 10h20v2H6z" }),
+      /* @__PURE__ */ (0, import_jsx_runtime15.jsx)("path", { fill: "#D62C0D", d: "M4 22h24v2H4zM6 24h20v2H6zM8 26h16v2H8z" }),
+      /* @__PURE__ */ (0, import_jsx_runtime15.jsx)("path", { fill: "#000", d: "M6 12h20v2H6z" }),
+      /* @__PURE__ */ (0, import_jsx_runtime15.jsx)("path", { fill: "#fff", d: "M6 14h20v2H6zM6 16h2v2H6z" }),
+      /* @__PURE__ */ (0, import_jsx_runtime15.jsx)("path", { fill: "#ECEDEE", d: "M8 16h18v2H8z" }),
+      /* @__PURE__ */ (0, import_jsx_runtime15.jsx)(
         "path",
         {
           fill: "#000",
@@ -40254,56 +31661,56 @@ var links3 = () => [
     crossOrigin: "anonymous"
   }
 ];
-async function loader30({
+async function loader29({
   context: { storefront }
 }) {
   return { layout: await storefront.query(LAYOUT_QUERY), isMockShop: storefront.getApiUrl().includes("mock.shop") };
 }
 var HYDROGEN_SHOP_ID = "gid://shopify/Shop/55145660472";
 function ErrorBoundary4() {
-  return /* @__PURE__ */ (0, import_jsx_runtime35.jsx)(ErrorPage, {});
+  return /* @__PURE__ */ (0, import_jsx_runtime16.jsx)(ErrorPage, {});
 }
 function Index2() {
   let {
     isMockShop: isMockShop2,
     layout: { shop }
   } = useLoaderData2(), { name: shopName, id: shopId } = shop, configDone = shopId !== HYDROGEN_SHOP_ID && !isMockShop2;
-  return (isMockShop2 || !shopName) && (shopName = "Hydrogen"), /* @__PURE__ */ (0, import_jsx_runtime35.jsx)(import_jsx_runtime35.Fragment, { children: /* @__PURE__ */ (0, import_jsx_runtime35.jsxs)(Layout3, { shopName, children: [
-    configDone ? /* @__PURE__ */ (0, import_jsx_runtime35.jsx)(HydrogenLogoBaseColor, {}) : /* @__PURE__ */ (0, import_jsx_runtime35.jsx)(HydrogenLogoBaseBW, {}),
-    /* @__PURE__ */ (0, import_jsx_runtime35.jsxs)("h1", { children: [
+  return (isMockShop2 || !shopName) && (shopName = "Hydrogen"), /* @__PURE__ */ (0, import_jsx_runtime16.jsx)(import_jsx_runtime16.Fragment, { children: /* @__PURE__ */ (0, import_jsx_runtime16.jsxs)(Layout3, { shopName, children: [
+    configDone ? /* @__PURE__ */ (0, import_jsx_runtime16.jsx)(HydrogenLogoBaseColor, {}) : /* @__PURE__ */ (0, import_jsx_runtime16.jsx)(HydrogenLogoBaseBW, {}),
+    /* @__PURE__ */ (0, import_jsx_runtime16.jsxs)("h1", { children: [
       "Hello, ",
       shopName
     ] }),
-    /* @__PURE__ */ (0, import_jsx_runtime35.jsx)("p", { children: "Welcome to your new custom storefront" }),
-    /* @__PURE__ */ (0, import_jsx_runtime35.jsxs)("section", { className: "Banner", children: [
-      /* @__PURE__ */ (0, import_jsx_runtime35.jsxs)("div", { children: [
-        /* @__PURE__ */ (0, import_jsx_runtime35.jsx)(IconBanner, {}),
-        /* @__PURE__ */ (0, import_jsx_runtime35.jsx)("h2", { children: configDone ? "Create your first route" : "Configure storefront token" })
+    /* @__PURE__ */ (0, import_jsx_runtime16.jsx)("p", { children: "Welcome to your new custom storefront" }),
+    /* @__PURE__ */ (0, import_jsx_runtime16.jsxs)("section", { className: "Banner", children: [
+      /* @__PURE__ */ (0, import_jsx_runtime16.jsxs)("div", { children: [
+        /* @__PURE__ */ (0, import_jsx_runtime16.jsx)(IconBanner, {}),
+        /* @__PURE__ */ (0, import_jsx_runtime16.jsx)("h2", { children: configDone ? "Create your first route" : "Configure storefront token" })
       ] }),
-      configDone ? /* @__PURE__ */ (0, import_jsx_runtime35.jsxs)("p", { children: [
+      configDone ? /* @__PURE__ */ (0, import_jsx_runtime16.jsxs)("p", { children: [
         "You\u2019re seeing this because you don\u2019t have a home route in your project yet. ",
-        /* @__PURE__ */ (0, import_jsx_runtime35.jsx)("br", {}),
+        /* @__PURE__ */ (0, import_jsx_runtime16.jsx)("br", {}),
         "Run ",
-        /* @__PURE__ */ (0, import_jsx_runtime35.jsx)("code", { children: "h2 setup" }),
+        /* @__PURE__ */ (0, import_jsx_runtime16.jsx)("code", { children: "h2 setup" }),
         " to scaffold standard Shopify routes. Learn more about",
         " ",
-        /* @__PURE__ */ (0, import_jsx_runtime35.jsx)(CreateRoutesLink, {})
-      ] }) : /* @__PURE__ */ (0, import_jsx_runtime35.jsxs)("p", { children: [
+        /* @__PURE__ */ (0, import_jsx_runtime16.jsx)(CreateRoutesLink, {})
+      ] }) : /* @__PURE__ */ (0, import_jsx_runtime16.jsxs)("p", { children: [
         "You\u2019re seeing this because you have not yet configured your storefront token. ",
-        /* @__PURE__ */ (0, import_jsx_runtime35.jsx)("br", {}),
-        /* @__PURE__ */ (0, import_jsx_runtime35.jsx)("br", {}),
+        /* @__PURE__ */ (0, import_jsx_runtime16.jsx)("br", {}),
+        /* @__PURE__ */ (0, import_jsx_runtime16.jsx)("br", {}),
         " To link your store,",
         " ",
         "run ",
-        /* @__PURE__ */ (0, import_jsx_runtime35.jsx)("code", { children: "h2 link && h2 env pull" }),
+        /* @__PURE__ */ (0, import_jsx_runtime16.jsx)("code", { children: "h2 link && h2 env pull" }),
         ". Then, run",
         " ",
-        /* @__PURE__ */ (0, import_jsx_runtime35.jsx)("code", { children: "h2 setup" }),
+        /* @__PURE__ */ (0, import_jsx_runtime16.jsx)("code", { children: "h2 setup" }),
         " to scaffold standard Shopify routes.",
-        /* @__PURE__ */ (0, import_jsx_runtime35.jsx)("br", {}),
+        /* @__PURE__ */ (0, import_jsx_runtime16.jsx)("br", {}),
         "Learn more about",
         " ",
-        /* @__PURE__ */ (0, import_jsx_runtime35.jsx)(
+        /* @__PURE__ */ (0, import_jsx_runtime16.jsx)(
           "a",
           {
             target: "_blank",
@@ -40315,15 +31722,15 @@ function Index2() {
         " ",
         "and",
         " ",
-        /* @__PURE__ */ (0, import_jsx_runtime35.jsx)(CreateRoutesLink, {}),
+        /* @__PURE__ */ (0, import_jsx_runtime16.jsx)(CreateRoutesLink, {}),
         "."
       ] })
     ] }),
-    /* @__PURE__ */ (0, import_jsx_runtime35.jsx)(ResourcesLinks, {})
+    /* @__PURE__ */ (0, import_jsx_runtime16.jsx)(ResourcesLinks, {})
   ] }) });
 }
 function CreateRoutesLink() {
-  return /* @__PURE__ */ (0, import_jsx_runtime35.jsx)(
+  return /* @__PURE__ */ (0, import_jsx_runtime16.jsx)(
     "a",
     {
       target: "_blank",
@@ -40334,21 +31741,21 @@ function CreateRoutesLink() {
   );
 }
 function ErrorPage() {
-  return /* @__PURE__ */ (0, import_jsx_runtime35.jsx)(import_jsx_runtime35.Fragment, { children: /* @__PURE__ */ (0, import_jsx_runtime35.jsxs)(Layout3, { shopName: "Hydrogen", children: [
-    /* @__PURE__ */ (0, import_jsx_runtime35.jsx)(HydrogenLogoBaseBW, {}),
-    /* @__PURE__ */ (0, import_jsx_runtime35.jsx)("h1", { children: "Hello, Hydrogen" }),
-    /* @__PURE__ */ (0, import_jsx_runtime35.jsx)("p", { children: "Welcome to your new custom storefront" }),
-    /* @__PURE__ */ (0, import_jsx_runtime35.jsxs)("section", { className: "Banner ErrorBanner", children: [
-      /* @__PURE__ */ (0, import_jsx_runtime35.jsxs)("div", { children: [
-        /* @__PURE__ */ (0, import_jsx_runtime35.jsx)(IconError, {}),
-        /* @__PURE__ */ (0, import_jsx_runtime35.jsx)("h2", { children: "There\u2019s a problem with your storefront" })
+  return /* @__PURE__ */ (0, import_jsx_runtime16.jsx)(import_jsx_runtime16.Fragment, { children: /* @__PURE__ */ (0, import_jsx_runtime16.jsxs)(Layout3, { shopName: "Hydrogen", children: [
+    /* @__PURE__ */ (0, import_jsx_runtime16.jsx)(HydrogenLogoBaseBW, {}),
+    /* @__PURE__ */ (0, import_jsx_runtime16.jsx)("h1", { children: "Hello, Hydrogen" }),
+    /* @__PURE__ */ (0, import_jsx_runtime16.jsx)("p", { children: "Welcome to your new custom storefront" }),
+    /* @__PURE__ */ (0, import_jsx_runtime16.jsxs)("section", { className: "Banner ErrorBanner", children: [
+      /* @__PURE__ */ (0, import_jsx_runtime16.jsxs)("div", { children: [
+        /* @__PURE__ */ (0, import_jsx_runtime16.jsx)(IconError, {}),
+        /* @__PURE__ */ (0, import_jsx_runtime16.jsx)("h2", { children: "There\u2019s a problem with your storefront" })
       ] }),
-      /* @__PURE__ */ (0, import_jsx_runtime35.jsxs)("p", { children: [
+      /* @__PURE__ */ (0, import_jsx_runtime16.jsxs)("p", { children: [
         "Check your domain and API token in your ",
-        /* @__PURE__ */ (0, import_jsx_runtime35.jsx)("code", { children: ".env" }),
+        /* @__PURE__ */ (0, import_jsx_runtime16.jsx)("code", { children: ".env" }),
         " file. Learn more about",
         " ",
-        /* @__PURE__ */ (0, import_jsx_runtime35.jsx)(
+        /* @__PURE__ */ (0, import_jsx_runtime16.jsx)(
           "a",
           {
             target: "_blank",
@@ -40360,14 +31767,14 @@ function ErrorPage() {
         "."
       ] })
     ] }),
-    /* @__PURE__ */ (0, import_jsx_runtime35.jsx)(ResourcesLinks, {})
+    /* @__PURE__ */ (0, import_jsx_runtime16.jsx)(ResourcesLinks, {})
   ] }) });
 }
 function ResourcesLinks() {
-  return /* @__PURE__ */ (0, import_jsx_runtime35.jsx)(import_jsx_runtime35.Fragment, { children: /* @__PURE__ */ (0, import_jsx_runtime35.jsxs)("section", { className: "Links", children: [
-    /* @__PURE__ */ (0, import_jsx_runtime35.jsx)("h2", { children: "Start building" }),
-    /* @__PURE__ */ (0, import_jsx_runtime35.jsxs)("ul", { children: [
-      /* @__PURE__ */ (0, import_jsx_runtime35.jsx)("li", { children: /* @__PURE__ */ (0, import_jsx_runtime35.jsx)(
+  return /* @__PURE__ */ (0, import_jsx_runtime16.jsx)(import_jsx_runtime16.Fragment, { children: /* @__PURE__ */ (0, import_jsx_runtime16.jsxs)("section", { className: "Links", children: [
+    /* @__PURE__ */ (0, import_jsx_runtime16.jsx)("h2", { children: "Start building" }),
+    /* @__PURE__ */ (0, import_jsx_runtime16.jsxs)("ul", { children: [
+      /* @__PURE__ */ (0, import_jsx_runtime16.jsx)("li", { children: /* @__PURE__ */ (0, import_jsx_runtime16.jsx)(
         "a",
         {
           target: "_blank",
@@ -40376,7 +31783,7 @@ function ResourcesLinks() {
           children: "Collection template"
         }
       ) }),
-      /* @__PURE__ */ (0, import_jsx_runtime35.jsx)("li", { children: /* @__PURE__ */ (0, import_jsx_runtime35.jsx)(
+      /* @__PURE__ */ (0, import_jsx_runtime16.jsx)("li", { children: /* @__PURE__ */ (0, import_jsx_runtime16.jsx)(
         "a",
         {
           target: "_blank",
@@ -40385,7 +31792,7 @@ function ResourcesLinks() {
           children: "Product template"
         }
       ) }),
-      /* @__PURE__ */ (0, import_jsx_runtime35.jsx)("li", { children: /* @__PURE__ */ (0, import_jsx_runtime35.jsx)(
+      /* @__PURE__ */ (0, import_jsx_runtime16.jsx)("li", { children: /* @__PURE__ */ (0, import_jsx_runtime16.jsx)(
         "a",
         {
           target: "_blank",
@@ -40395,9 +31802,9 @@ function ResourcesLinks() {
         }
       ) })
     ] }),
-    /* @__PURE__ */ (0, import_jsx_runtime35.jsx)("h2", { children: "Resources" }),
-    /* @__PURE__ */ (0, import_jsx_runtime35.jsxs)("ul", { children: [
-      /* @__PURE__ */ (0, import_jsx_runtime35.jsx)("li", { children: /* @__PURE__ */ (0, import_jsx_runtime35.jsx)(
+    /* @__PURE__ */ (0, import_jsx_runtime16.jsx)("h2", { children: "Resources" }),
+    /* @__PURE__ */ (0, import_jsx_runtime16.jsxs)("ul", { children: [
+      /* @__PURE__ */ (0, import_jsx_runtime16.jsx)("li", { children: /* @__PURE__ */ (0, import_jsx_runtime16.jsx)(
         "a",
         {
           target: "_blank",
@@ -40406,7 +31813,7 @@ function ResourcesLinks() {
           children: "Hydrogen docs"
         }
       ) }),
-      /* @__PURE__ */ (0, import_jsx_runtime35.jsx)("li", { children: /* @__PURE__ */ (0, import_jsx_runtime35.jsx)(
+      /* @__PURE__ */ (0, import_jsx_runtime16.jsx)("li", { children: /* @__PURE__ */ (0, import_jsx_runtime16.jsx)(
         "a",
         {
           target: "_blank",
@@ -40415,7 +31822,7 @@ function ResourcesLinks() {
           children: "Remix and project structure"
         }
       ) }),
-      /* @__PURE__ */ (0, import_jsx_runtime35.jsx)("li", { children: /* @__PURE__ */ (0, import_jsx_runtime35.jsx)(
+      /* @__PURE__ */ (0, import_jsx_runtime16.jsx)("li", { children: /* @__PURE__ */ (0, import_jsx_runtime16.jsx)(
         "a",
         {
           target: "_blank",
@@ -40431,42 +31838,42 @@ function Layout3({
   shopName,
   children
 }) {
-  return /* @__PURE__ */ (0, import_jsx_runtime35.jsxs)(import_jsx_runtime35.Fragment, { children: [
-    /* @__PURE__ */ (0, import_jsx_runtime35.jsxs)("header", { children: [
-      /* @__PURE__ */ (0, import_jsx_runtime35.jsx)("h1", { children: shopName?.toUpperCase() }),
-      /* @__PURE__ */ (0, import_jsx_runtime35.jsx)("p", { children: "\xA0Dev Mode\xA0" }),
-      /* @__PURE__ */ (0, import_jsx_runtime35.jsxs)("nav", { children: [
-        /* @__PURE__ */ (0, import_jsx_runtime35.jsx)(
+  return /* @__PURE__ */ (0, import_jsx_runtime16.jsxs)(import_jsx_runtime16.Fragment, { children: [
+    /* @__PURE__ */ (0, import_jsx_runtime16.jsxs)("header", { children: [
+      /* @__PURE__ */ (0, import_jsx_runtime16.jsx)("h1", { children: shopName?.toUpperCase() }),
+      /* @__PURE__ */ (0, import_jsx_runtime16.jsx)("p", { children: "\xA0Dev Mode\xA0" }),
+      /* @__PURE__ */ (0, import_jsx_runtime16.jsxs)("nav", { children: [
+        /* @__PURE__ */ (0, import_jsx_runtime16.jsx)(
           "a",
           {
             target: "_blank",
             rel: "norefferer noopener",
             href: "https://discord.com/invite/shopifydevs",
-            children: /* @__PURE__ */ (0, import_jsx_runtime35.jsx)(IconDiscord, {})
+            children: /* @__PURE__ */ (0, import_jsx_runtime16.jsx)(IconDiscord, {})
           }
         ),
-        /* @__PURE__ */ (0, import_jsx_runtime35.jsx)(
+        /* @__PURE__ */ (0, import_jsx_runtime16.jsx)(
           "a",
           {
             target: "_blank",
             rel: "norefferer noopener",
             href: "https://github.com/Shopify/hydrogen",
-            children: /* @__PURE__ */ (0, import_jsx_runtime35.jsx)(IconGithub, {})
+            children: /* @__PURE__ */ (0, import_jsx_runtime16.jsx)(IconGithub, {})
           }
         ),
-        /* @__PURE__ */ (0, import_jsx_runtime35.jsx)(
+        /* @__PURE__ */ (0, import_jsx_runtime16.jsx)(
           "a",
           {
             target: "_blank",
             rel: "norefferer noopener",
             href: "https://twitter.com/shopifydevs?lang=en",
-            children: /* @__PURE__ */ (0, import_jsx_runtime35.jsx)(IconTwitter, {})
+            children: /* @__PURE__ */ (0, import_jsx_runtime16.jsx)(IconTwitter, {})
           }
         )
       ] })
     ] }),
-    /* @__PURE__ */ (0, import_jsx_runtime35.jsx)("main", { children }),
-    /* @__PURE__ */ (0, import_jsx_runtime35.jsx)("footer", { children: /* @__PURE__ */ (0, import_jsx_runtime35.jsx)("div", { children: /* @__PURE__ */ (0, import_jsx_runtime35.jsx)(
+    /* @__PURE__ */ (0, import_jsx_runtime16.jsx)("main", { children }),
+    /* @__PURE__ */ (0, import_jsx_runtime16.jsx)("footer", { children: /* @__PURE__ */ (0, import_jsx_runtime16.jsx)("div", { children: /* @__PURE__ */ (0, import_jsx_runtime16.jsx)(
       "a",
       {
         href: "https://shopify.com",
@@ -40487,7 +31894,7 @@ var LAYOUT_QUERY = `#graphql
 `;
 
 // server-assets-manifest:@remix-run/dev/assets-manifest
-var assets_manifest_default = { entry: { module: "/build/entry.client-4M42FBCQ.js", imports: ["/build/_shared/chunk-776LNBDF.js", "/build/_shared/chunk-IEDAELJY.js", "/build/_shared/chunk-UHAUI7PR.js", "/build/_shared/chunk-A7ADF3B4.js", "/build/_shared/chunk-BVWHYGSQ.js", "/build/_shared/chunk-ZM7RJEKX.js", "/build/_shared/chunk-LSHG36UU.js", "/build/_shared/chunk-PNG5AS42.js"] }, routes: { root: { id: "root", parentId: void 0, path: "", index: void 0, caseSensitive: void 0, module: "/build/root-2EBXLTTA.js", imports: ["/build/_shared/chunk-34GME4LJ.js", "/build/_shared/chunk-3757K5JE.js", "/build/_shared/chunk-B26HRCCK.js", "/build/_shared/chunk-ADIXOBES.js", "/build/_shared/chunk-YOSDW4RD.js"], hasAction: !1, hasLoader: !0, hasErrorBoundary: !0 }, "routes/($locale).$": { id: "routes/($locale).$", parentId: "root", path: ":locale?/*", index: void 0, caseSensitive: void 0, module: "/build/routes/($locale).$-AI3DE24H.js", imports: void 0, hasAction: !1, hasLoader: !0, hasErrorBoundary: !1 }, "routes/($locale).[sitemap.xml]": { id: "routes/($locale).[sitemap.xml]", parentId: "root", path: ":locale?/sitemap.xml", index: void 0, caseSensitive: void 0, module: "/build/routes/($locale).[sitemap.xml]-H6EIDNVM.js", imports: void 0, hasAction: !1, hasLoader: !0, hasErrorBoundary: !1 }, "routes/($locale)._index": { id: "routes/($locale)._index", parentId: "root", path: ":locale?", index: !0, caseSensitive: void 0, module: "/build/routes/($locale)._index-QDHQHHGM.js", imports: void 0, hasAction: !1, hasLoader: !0, hasErrorBoundary: !1 }, "routes/($locale).account": { id: "routes/($locale).account", parentId: "root", path: ":locale?/account", index: void 0, caseSensitive: void 0, module: "/build/routes/($locale).account-IWJX4GQJ.js", imports: void 0, hasAction: !1, hasLoader: !0, hasErrorBoundary: !1 }, "routes/($locale).account.$": { id: "routes/($locale).account.$", parentId: "routes/($locale).account", path: "*", index: void 0, caseSensitive: void 0, module: "/build/routes/($locale).account.$-IDA7PP7J.js", imports: void 0, hasAction: !1, hasLoader: !0, hasErrorBoundary: !1 }, "routes/($locale).account.addresses": { id: "routes/($locale).account.addresses", parentId: "routes/($locale).account", path: "addresses", index: void 0, caseSensitive: void 0, module: "/build/routes/($locale).account.addresses-V6JSFKDD.js", imports: void 0, hasAction: !0, hasLoader: !0, hasErrorBoundary: !1 }, "routes/($locale).account.orders.$id": { id: "routes/($locale).account.orders.$id", parentId: "routes/($locale).account", path: "orders/:id", index: void 0, caseSensitive: void 0, module: "/build/routes/($locale).account.orders.$id-W35PTMDE.js", imports: ["/build/_shared/chunk-ADIXOBES.js", "/build/_shared/chunk-YOSDW4RD.js"], hasAction: !1, hasLoader: !0, hasErrorBoundary: !1 }, "routes/($locale).account.orders._index": { id: "routes/($locale).account.orders._index", parentId: "routes/($locale).account", path: "orders", index: !0, caseSensitive: void 0, module: "/build/routes/($locale).account.orders._index-CDUMYDET.js", imports: ["/build/_shared/chunk-ADIXOBES.js", "/build/_shared/chunk-YOSDW4RD.js"], hasAction: !1, hasLoader: !0, hasErrorBoundary: !1 }, "routes/($locale).account.profile": { id: "routes/($locale).account.profile", parentId: "routes/($locale).account", path: "profile", index: void 0, caseSensitive: void 0, module: "/build/routes/($locale).account.profile-33UDM3EO.js", imports: void 0, hasAction: !0, hasLoader: !0, hasErrorBoundary: !1 }, "routes/($locale).account_.activate.$id.$activationToken": { id: "routes/($locale).account_.activate.$id.$activationToken", parentId: "root", path: ":locale?/account/activate/:id/:activationToken", index: void 0, caseSensitive: void 0, module: "/build/routes/($locale).account_.activate.$id.$activationToken-YDLBKUPS.js", imports: void 0, hasAction: !0, hasLoader: !0, hasErrorBoundary: !1 }, "routes/($locale).account_.login": { id: "routes/($locale).account_.login", parentId: "root", path: ":locale?/account/login", index: void 0, caseSensitive: void 0, module: "/build/routes/($locale).account_.login-YZDXCPYW.js", imports: void 0, hasAction: !0, hasLoader: !0, hasErrorBoundary: !1 }, "routes/($locale).account_.logout": { id: "routes/($locale).account_.logout", parentId: "root", path: ":locale?/account/logout", index: void 0, caseSensitive: void 0, module: "/build/routes/($locale).account_.logout-5DXONABL.js", imports: void 0, hasAction: !0, hasLoader: !0, hasErrorBoundary: !1 }, "routes/($locale).account_.recover": { id: "routes/($locale).account_.recover", parentId: "root", path: ":locale?/account/recover", index: void 0, caseSensitive: void 0, module: "/build/routes/($locale).account_.recover-L6YZPAEL.js", imports: void 0, hasAction: !0, hasLoader: !0, hasErrorBoundary: !1 }, "routes/($locale).account_.register": { id: "routes/($locale).account_.register", parentId: "root", path: ":locale?/account/register", index: void 0, caseSensitive: void 0, module: "/build/routes/($locale).account_.register-RVPPTYDF.js", imports: void 0, hasAction: !0, hasLoader: !0, hasErrorBoundary: !1 }, "routes/($locale).account_.reset.$id.$resetToken": { id: "routes/($locale).account_.reset.$id.$resetToken", parentId: "root", path: ":locale?/account/reset/:id/:resetToken", index: void 0, caseSensitive: void 0, module: "/build/routes/($locale).account_.reset.$id.$resetToken-GX2EAHXN.js", imports: void 0, hasAction: !0, hasLoader: !1, hasErrorBoundary: !1 }, "routes/($locale).api.predictive-search": { id: "routes/($locale).api.predictive-search", parentId: "root", path: ":locale?/api/predictive-search", index: void 0, caseSensitive: void 0, module: "/build/routes/($locale).api.predictive-search-6SBFKV26.js", imports: void 0, hasAction: !0, hasLoader: !1, hasErrorBoundary: !1 }, "routes/($locale).blogs.$blogHandle.$articleHandle": { id: "routes/($locale).blogs.$blogHandle.$articleHandle", parentId: "root", path: ":locale?/blogs/:blogHandle/:articleHandle", index: void 0, caseSensitive: void 0, module: "/build/routes/($locale).blogs.$blogHandle.$articleHandle-X3YRBHJU.js", imports: void 0, hasAction: !1, hasLoader: !0, hasErrorBoundary: !1 }, "routes/($locale).blogs.$blogHandle._index": { id: "routes/($locale).blogs.$blogHandle._index", parentId: "root", path: ":locale?/blogs/:blogHandle", index: !0, caseSensitive: void 0, module: "/build/routes/($locale).blogs.$blogHandle._index-BBMYM2SR.js", imports: void 0, hasAction: !1, hasLoader: !0, hasErrorBoundary: !1 }, "routes/($locale).blogs._index": { id: "routes/($locale).blogs._index", parentId: "root", path: ":locale?/blogs", index: !0, caseSensitive: void 0, module: "/build/routes/($locale).blogs._index-IFZS3WC5.js", imports: void 0, hasAction: !1, hasLoader: !0, hasErrorBoundary: !1 }, "routes/($locale).cart": { id: "routes/($locale).cart", parentId: "root", path: ":locale?/cart", index: void 0, caseSensitive: void 0, module: "/build/routes/($locale).cart-WNOQ4BV3.js", imports: void 0, hasAction: !0, hasLoader: !1, hasErrorBoundary: !1 }, "routes/($locale).cart.$lines": { id: "routes/($locale).cart.$lines", parentId: "routes/($locale).cart", path: ":lines", index: void 0, caseSensitive: void 0, module: "/build/routes/($locale).cart.$lines-LW7MVLFP.js", imports: void 0, hasAction: !1, hasLoader: !0, hasErrorBoundary: !1 }, "routes/($locale).collectioncarousel.$handle": { id: "routes/($locale).collectioncarousel.$handle", parentId: "root", path: ":locale?/collectioncarousel/:handle", index: void 0, caseSensitive: void 0, module: "/build/routes/($locale).collectioncarousel.$handle-XSVJYU4Q.js", imports: ["/build/_shared/chunk-F5HEY3ZX.js"], hasAction: !1, hasLoader: !0, hasErrorBoundary: !1 }, "routes/($locale).collectiongrid.$handle": { id: "routes/($locale).collectiongrid.$handle", parentId: "root", path: ":locale?/collectiongrid/:handle", index: void 0, caseSensitive: void 0, module: "/build/routes/($locale).collectiongrid.$handle-LZGK3JFX.js", imports: ["/build/_shared/chunk-F5HEY3ZX.js"], hasAction: !1, hasLoader: !0, hasErrorBoundary: !1 }, "routes/($locale).discount.$code": { id: "routes/($locale).discount.$code", parentId: "root", path: ":locale?/discount/:code", index: void 0, caseSensitive: void 0, module: "/build/routes/($locale).discount.$code-YCTJBBXD.js", imports: void 0, hasAction: !1, hasLoader: !0, hasErrorBoundary: !1 }, "routes/($locale).pages.$handle": { id: "routes/($locale).pages.$handle", parentId: "root", path: ":locale?/pages/:handle", index: void 0, caseSensitive: void 0, module: "/build/routes/($locale).pages.$handle-PJNAYGPE.js", imports: void 0, hasAction: !1, hasLoader: !0, hasErrorBoundary: !1 }, "routes/($locale).policies.$handle": { id: "routes/($locale).policies.$handle", parentId: "root", path: ":locale?/policies/:handle", index: void 0, caseSensitive: void 0, module: "/build/routes/($locale).policies.$handle-EFVABBHB.js", imports: void 0, hasAction: !1, hasLoader: !0, hasErrorBoundary: !1 }, "routes/($locale).policies._index": { id: "routes/($locale).policies._index", parentId: "root", path: ":locale?/policies", index: !0, caseSensitive: void 0, module: "/build/routes/($locale).policies._index-TDQT3PNJ.js", imports: void 0, hasAction: !1, hasLoader: !0, hasErrorBoundary: !1 }, "routes/($locale).products.$handle": { id: "routes/($locale).products.$handle", parentId: "root", path: ":locale?/products/:handle", index: void 0, caseSensitive: void 0, module: "/build/routes/($locale).products.$handle-3Y7S2MB3.js", imports: void 0, hasAction: !1, hasLoader: !0, hasErrorBoundary: !1 }, "routes/($locale).search": { id: "routes/($locale).search", parentId: "root", path: ":locale?/search", index: void 0, caseSensitive: void 0, module: "/build/routes/($locale).search-XXJH5USN.js", imports: void 0, hasAction: !1, hasLoader: !0, hasErrorBoundary: !1 }, "routes/[robots.txt]": { id: "routes/[robots.txt]", parentId: "root", path: "robots.txt", index: void 0, caseSensitive: void 0, module: "/build/routes/[robots.txt]-T2LPYFME.js", imports: void 0, hasAction: !1, hasLoader: !0, hasErrorBoundary: !0 }, "virtual-routes/routes/debug-network": { id: "virtual-routes/routes/debug-network", parentId: "virtual-routes/virtual-root", path: "debug-network", index: void 0, caseSensitive: void 0, module: "/build/virtual-routes/routes/debug-network-U7L663H4.js", imports: void 0, hasAction: !1, hasLoader: !1, hasErrorBoundary: !1 }, "virtual-routes/routes/graphiql": { id: "virtual-routes/routes/graphiql", parentId: "virtual-routes/virtual-root", path: "graphiql", index: void 0, caseSensitive: void 0, module: "/build/virtual-routes/routes/graphiql-IUV5DDHT.js", imports: void 0, hasAction: !1, hasLoader: !0, hasErrorBoundary: !1 }, "virtual-routes/routes/index": { id: "virtual-routes/routes/index", parentId: "virtual-routes/virtual-root", path: void 0, index: !0, caseSensitive: void 0, module: "/build/virtual-routes/routes/index-LNSKQWHK.js", imports: void 0, hasAction: !1, hasLoader: !0, hasErrorBoundary: !0 }, "virtual-routes/virtual-root": { id: "virtual-routes/virtual-root", parentId: void 0, path: "", index: void 0, caseSensitive: void 0, module: "/build/virtual-routes/virtual-root-AAS2OGCK.js", imports: ["/build/_shared/chunk-Z7RIBLB2.js", "/build/_shared/chunk-ADIXOBES.js", "/build/_shared/chunk-YOSDW4RD.js"], hasAction: !1, hasLoader: !1, hasErrorBoundary: !0 } }, version: "c19029f6", hmr: { runtime: "/build/_shared/chunk-ZM7RJEKX.js", timestamp: 1711321941284 }, url: "/build/manifest-C19029F6.js" };
+var assets_manifest_default = { entry: { module: "/build/entry.client-MKPL2EB6.js", imports: ["/build/_shared/chunk-776LNBDF.js", "/build/_shared/chunk-IEDAELJY.js", "/build/_shared/chunk-UHAUI7PR.js", "/build/_shared/chunk-D2D5VK3N.js", "/build/_shared/chunk-BVWHYGSQ.js", "/build/_shared/chunk-NIWKRXE6.js", "/build/_shared/chunk-LSHG36UU.js", "/build/_shared/chunk-PNG5AS42.js"] }, routes: { root: { id: "root", parentId: void 0, path: "", index: void 0, caseSensitive: void 0, module: "/build/root-QZLLZF3I.js", imports: ["/build/_shared/chunk-474OQG7H.js", "/build/_shared/chunk-T4LT3JLB.js", "/build/_shared/chunk-KO434EIH.js", "/build/_shared/chunk-SVIH3U4A.js", "/build/_shared/chunk-YOSDW4RD.js"], hasAction: !1, hasLoader: !0, hasErrorBoundary: !0 }, "routes/($locale).$": { id: "routes/($locale).$", parentId: "root", path: ":locale?/*", index: void 0, caseSensitive: void 0, module: "/build/routes/($locale).$-JVN2DLOC.js", imports: void 0, hasAction: !1, hasLoader: !0, hasErrorBoundary: !1 }, "routes/($locale).[sitemap.xml]": { id: "routes/($locale).[sitemap.xml]", parentId: "root", path: ":locale?/sitemap.xml", index: void 0, caseSensitive: void 0, module: "/build/routes/($locale).[sitemap.xml]-H6EIDNVM.js", imports: void 0, hasAction: !1, hasLoader: !0, hasErrorBoundary: !1 }, "routes/($locale)._index": { id: "routes/($locale)._index", parentId: "root", path: ":locale?", index: !0, caseSensitive: void 0, module: "/build/routes/($locale)._index-5FD7CIVH.js", imports: void 0, hasAction: !1, hasLoader: !0, hasErrorBoundary: !1 }, "routes/($locale).account": { id: "routes/($locale).account", parentId: "root", path: ":locale?/account", index: void 0, caseSensitive: void 0, module: "/build/routes/($locale).account-5U5BU7ZC.js", imports: void 0, hasAction: !1, hasLoader: !0, hasErrorBoundary: !1 }, "routes/($locale).account.$": { id: "routes/($locale).account.$", parentId: "routes/($locale).account", path: "*", index: void 0, caseSensitive: void 0, module: "/build/routes/($locale).account.$-IDA7PP7J.js", imports: void 0, hasAction: !1, hasLoader: !0, hasErrorBoundary: !1 }, "routes/($locale).account.addresses": { id: "routes/($locale).account.addresses", parentId: "routes/($locale).account", path: "addresses", index: void 0, caseSensitive: void 0, module: "/build/routes/($locale).account.addresses-BGEL7RYN.js", imports: void 0, hasAction: !0, hasLoader: !0, hasErrorBoundary: !1 }, "routes/($locale).account.orders.$id": { id: "routes/($locale).account.orders.$id", parentId: "routes/($locale).account", path: "orders/:id", index: void 0, caseSensitive: void 0, module: "/build/routes/($locale).account.orders.$id-7RBBLOK5.js", imports: ["/build/_shared/chunk-SVIH3U4A.js", "/build/_shared/chunk-YOSDW4RD.js"], hasAction: !1, hasLoader: !0, hasErrorBoundary: !1 }, "routes/($locale).account.orders._index": { id: "routes/($locale).account.orders._index", parentId: "routes/($locale).account", path: "orders", index: !0, caseSensitive: void 0, module: "/build/routes/($locale).account.orders._index-C7EQL2GD.js", imports: ["/build/_shared/chunk-SVIH3U4A.js", "/build/_shared/chunk-YOSDW4RD.js"], hasAction: !1, hasLoader: !0, hasErrorBoundary: !1 }, "routes/($locale).account.profile": { id: "routes/($locale).account.profile", parentId: "routes/($locale).account", path: "profile", index: void 0, caseSensitive: void 0, module: "/build/routes/($locale).account.profile-VUNKWDIS.js", imports: void 0, hasAction: !0, hasLoader: !0, hasErrorBoundary: !1 }, "routes/($locale).account_.activate.$id.$activationToken": { id: "routes/($locale).account_.activate.$id.$activationToken", parentId: "root", path: ":locale?/account/activate/:id/:activationToken", index: void 0, caseSensitive: void 0, module: "/build/routes/($locale).account_.activate.$id.$activationToken-2AXTZVX3.js", imports: void 0, hasAction: !0, hasLoader: !0, hasErrorBoundary: !1 }, "routes/($locale).account_.login": { id: "routes/($locale).account_.login", parentId: "root", path: ":locale?/account/login", index: void 0, caseSensitive: void 0, module: "/build/routes/($locale).account_.login-WQFZA3AM.js", imports: void 0, hasAction: !0, hasLoader: !0, hasErrorBoundary: !1 }, "routes/($locale).account_.logout": { id: "routes/($locale).account_.logout", parentId: "root", path: ":locale?/account/logout", index: void 0, caseSensitive: void 0, module: "/build/routes/($locale).account_.logout-7XPWF6Z6.js", imports: void 0, hasAction: !0, hasLoader: !0, hasErrorBoundary: !1 }, "routes/($locale).account_.recover": { id: "routes/($locale).account_.recover", parentId: "root", path: ":locale?/account/recover", index: void 0, caseSensitive: void 0, module: "/build/routes/($locale).account_.recover-354VQLBL.js", imports: void 0, hasAction: !0, hasLoader: !0, hasErrorBoundary: !1 }, "routes/($locale).account_.register": { id: "routes/($locale).account_.register", parentId: "root", path: ":locale?/account/register", index: void 0, caseSensitive: void 0, module: "/build/routes/($locale).account_.register-GBM2WWK6.js", imports: void 0, hasAction: !0, hasLoader: !0, hasErrorBoundary: !1 }, "routes/($locale).account_.reset.$id.$resetToken": { id: "routes/($locale).account_.reset.$id.$resetToken", parentId: "root", path: ":locale?/account/reset/:id/:resetToken", index: void 0, caseSensitive: void 0, module: "/build/routes/($locale).account_.reset.$id.$resetToken-CNM3XXHU.js", imports: void 0, hasAction: !0, hasLoader: !1, hasErrorBoundary: !1 }, "routes/($locale).api.predictive-search": { id: "routes/($locale).api.predictive-search", parentId: "root", path: ":locale?/api/predictive-search", index: void 0, caseSensitive: void 0, module: "/build/routes/($locale).api.predictive-search-6SBFKV26.js", imports: void 0, hasAction: !0, hasLoader: !1, hasErrorBoundary: !1 }, "routes/($locale).blogs.$blogHandle.$articleHandle": { id: "routes/($locale).blogs.$blogHandle.$articleHandle", parentId: "root", path: ":locale?/blogs/:blogHandle/:articleHandle", index: void 0, caseSensitive: void 0, module: "/build/routes/($locale).blogs.$blogHandle.$articleHandle-WA3ZJ6HV.js", imports: void 0, hasAction: !1, hasLoader: !0, hasErrorBoundary: !1 }, "routes/($locale).blogs.$blogHandle._index": { id: "routes/($locale).blogs.$blogHandle._index", parentId: "root", path: ":locale?/blogs/:blogHandle", index: !0, caseSensitive: void 0, module: "/build/routes/($locale).blogs.$blogHandle._index-PUTT23KH.js", imports: void 0, hasAction: !1, hasLoader: !0, hasErrorBoundary: !1 }, "routes/($locale).blogs._index": { id: "routes/($locale).blogs._index", parentId: "root", path: ":locale?/blogs", index: !0, caseSensitive: void 0, module: "/build/routes/($locale).blogs._index-UTKFFMBH.js", imports: void 0, hasAction: !1, hasLoader: !0, hasErrorBoundary: !1 }, "routes/($locale).cart": { id: "routes/($locale).cart", parentId: "root", path: ":locale?/cart", index: void 0, caseSensitive: void 0, module: "/build/routes/($locale).cart-X2U7LBKV.js", imports: void 0, hasAction: !0, hasLoader: !1, hasErrorBoundary: !1 }, "routes/($locale).cart.$lines": { id: "routes/($locale).cart.$lines", parentId: "routes/($locale).cart", path: ":lines", index: void 0, caseSensitive: void 0, module: "/build/routes/($locale).cart.$lines-WNDE44ZH.js", imports: void 0, hasAction: !1, hasLoader: !0, hasErrorBoundary: !1 }, "routes/($locale).collectioncarousel.$handle": { id: "routes/($locale).collectioncarousel.$handle", parentId: "root", path: ":locale?/collectioncarousel/:handle", index: void 0, caseSensitive: void 0, module: "/build/routes/($locale).collectioncarousel.$handle-4YI7RPXG.js", imports: void 0, hasAction: !1, hasLoader: !0, hasErrorBoundary: !1 }, "routes/($locale).discount.$code": { id: "routes/($locale).discount.$code", parentId: "root", path: ":locale?/discount/:code", index: void 0, caseSensitive: void 0, module: "/build/routes/($locale).discount.$code-YCTJBBXD.js", imports: void 0, hasAction: !1, hasLoader: !0, hasErrorBoundary: !1 }, "routes/($locale).pages.$handle": { id: "routes/($locale).pages.$handle", parentId: "root", path: ":locale?/pages/:handle", index: void 0, caseSensitive: void 0, module: "/build/routes/($locale).pages.$handle-DNOGQRAJ.js", imports: void 0, hasAction: !1, hasLoader: !0, hasErrorBoundary: !1 }, "routes/($locale).policies.$handle": { id: "routes/($locale).policies.$handle", parentId: "root", path: ":locale?/policies/:handle", index: void 0, caseSensitive: void 0, module: "/build/routes/($locale).policies.$handle-7DDA7TWZ.js", imports: void 0, hasAction: !1, hasLoader: !0, hasErrorBoundary: !1 }, "routes/($locale).policies._index": { id: "routes/($locale).policies._index", parentId: "root", path: ":locale?/policies", index: !0, caseSensitive: void 0, module: "/build/routes/($locale).policies._index-UJ5T3ECJ.js", imports: void 0, hasAction: !1, hasLoader: !0, hasErrorBoundary: !1 }, "routes/($locale).products.$handle": { id: "routes/($locale).products.$handle", parentId: "root", path: ":locale?/products/:handle", index: void 0, caseSensitive: void 0, module: "/build/routes/($locale).products.$handle-AFB7T27K.js", imports: void 0, hasAction: !1, hasLoader: !0, hasErrorBoundary: !1 }, "routes/($locale).search": { id: "routes/($locale).search", parentId: "root", path: ":locale?/search", index: void 0, caseSensitive: void 0, module: "/build/routes/($locale).search-W3ISVSHC.js", imports: void 0, hasAction: !1, hasLoader: !0, hasErrorBoundary: !1 }, "routes/[robots.txt]": { id: "routes/[robots.txt]", parentId: "root", path: "robots.txt", index: void 0, caseSensitive: void 0, module: "/build/routes/[robots.txt]-LLZUTA2K.js", imports: void 0, hasAction: !1, hasLoader: !0, hasErrorBoundary: !0 }, "virtual-routes/routes/debug-network": { id: "virtual-routes/routes/debug-network", parentId: "virtual-routes/virtual-root", path: "debug-network", index: void 0, caseSensitive: void 0, module: "/build/virtual-routes/routes/debug-network-BCP2LRNG.js", imports: void 0, hasAction: !1, hasLoader: !1, hasErrorBoundary: !1 }, "virtual-routes/routes/graphiql": { id: "virtual-routes/routes/graphiql", parentId: "virtual-routes/virtual-root", path: "graphiql", index: void 0, caseSensitive: void 0, module: "/build/virtual-routes/routes/graphiql-IUV5DDHT.js", imports: void 0, hasAction: !1, hasLoader: !0, hasErrorBoundary: !1 }, "virtual-routes/routes/index": { id: "virtual-routes/routes/index", parentId: "virtual-routes/virtual-root", path: void 0, index: !0, caseSensitive: void 0, module: "/build/virtual-routes/routes/index-BRLENSED.js", imports: void 0, hasAction: !1, hasLoader: !0, hasErrorBoundary: !0 }, "virtual-routes/virtual-root": { id: "virtual-routes/virtual-root", parentId: void 0, path: "", index: void 0, caseSensitive: void 0, module: "/build/virtual-routes/virtual-root-LF3HEJ32.js", imports: ["/build/_shared/chunk-Z7RIBLB2.js", "/build/_shared/chunk-SVIH3U4A.js", "/build/_shared/chunk-YOSDW4RD.js"], hasAction: !1, hasLoader: !1, hasErrorBoundary: !0 } }, version: "97ce4c68", hmr: { runtime: "/build/_shared\\chunk-NIWKRXE6.js", timestamp: 1718504073170 }, url: "/build/manifest-97CE4C68.js" };
 
 // server-entry-module:@remix-run/dev/server-build
 var mode = "development", assetsBuildDirectory = "dist/client/build", future = {}, publicPath = "/build/", entry = { module: entry_server_exports }, routes = {
@@ -40538,14 +31945,6 @@ var mode = "development", assetsBuildDirectory = "dist/client/build", future = {
     index: !0,
     caseSensitive: void 0,
     module: locale_blogs_blogHandle_index_exports
-  },
-  "routes/($locale).collectiongrid.$handle": {
-    id: "routes/($locale).collectiongrid.$handle",
-    parentId: "root",
-    path: ":locale?/collectiongrid/:handle",
-    index: void 0,
-    caseSensitive: void 0,
-    module: locale_collectiongrid_handle_exports
   },
   "routes/($locale).account.orders._index": {
     id: "routes/($locale).account.orders._index",
@@ -40651,14 +32050,6 @@ var mode = "development", assetsBuildDirectory = "dist/client/build", future = {
     caseSensitive: void 0,
     module: locale_discount_code_exports
   },
-  "routes/($locale).[sitemap.xml]": {
-    id: "routes/($locale).[sitemap.xml]",
-    parentId: "root",
-    path: ":locale?/sitemap.xml",
-    index: void 0,
-    caseSensitive: void 0,
-    module: locale_sitemap_xml_exports
-  },
   "routes/($locale).pages.$handle": {
     id: "routes/($locale).pages.$handle",
     parentId: "root",
@@ -40666,6 +32057,14 @@ var mode = "development", assetsBuildDirectory = "dist/client/build", future = {
     index: void 0,
     caseSensitive: void 0,
     module: locale_pages_handle_exports
+  },
+  "routes/($locale).[sitemap.xml]": {
+    id: "routes/($locale).[sitemap.xml]",
+    parentId: "root",
+    path: ":locale?/sitemap.xml",
+    index: void 0,
+    caseSensitive: void 0,
+    module: locale_sitemap_xml_exports
   },
   "routes/($locale).blogs._index": {
     id: "routes/($locale).blogs._index",
@@ -40699,14 +32098,6 @@ var mode = "development", assetsBuildDirectory = "dist/client/build", future = {
     caseSensitive: void 0,
     module: locale_account_exports2
   },
-  "routes/($locale)._index": {
-    id: "routes/($locale)._index",
-    parentId: "root",
-    path: ":locale?",
-    index: !0,
-    caseSensitive: void 0,
-    module: locale_index_exports
-  },
   "routes/($locale).search": {
     id: "routes/($locale).search",
     parentId: "root",
@@ -40714,6 +32105,14 @@ var mode = "development", assetsBuildDirectory = "dist/client/build", future = {
     index: void 0,
     caseSensitive: void 0,
     module: locale_search_exports
+  },
+  "routes/($locale)._index": {
+    id: "routes/($locale)._index",
+    parentId: "root",
+    path: ":locale?",
+    index: !0,
+    caseSensitive: void 0,
+    module: locale_index_exports
   },
   "routes/($locale).cart": {
     id: "routes/($locale).cart",
@@ -41063,44 +32462,6 @@ react/cjs/react-jsx-dev-runtime.development.js:
   (**
    * @license React
    * react-jsx-dev-runtime.development.js
-   *
-   * Copyright (c) Facebook, Inc. and its affiliates.
-   *
-   * This source code is licensed under the MIT license found in the
-   * LICENSE file in the root directory of this source tree.
-   *)
-
-react-is/cjs/react-is.development.js:
-  (** @license React v16.13.1
-   * react-is.development.js
-   *
-   * Copyright (c) Facebook, Inc. and its affiliates.
-   *
-   * This source code is licensed under the MIT license found in the
-   * LICENSE file in the root directory of this source tree.
-   *)
-
-object-assign/index.js:
-  (*
-  object-assign
-  (c) Sindre Sorhus
-  @license MIT
-  *)
-
-react-is/cjs/react-is.development.js:
-  (** @license React v16.13.1
-   * react-is.development.js
-   *
-   * Copyright (c) Facebook, Inc. and its affiliates.
-   *
-   * This source code is licensed under the MIT license found in the
-   * LICENSE file in the root directory of this source tree.
-   *)
-
-react-is/cjs/react-is.development.js:
-  (**
-   * @license React
-   * react-is.development.js
    *
    * Copyright (c) Facebook, Inc. and its affiliates.
    *
@@ -41492,41 +32853,5 @@ react-is/cjs/react-is.development.js:
   (*! @see https://shopify.dev/docs/api/storefront/latest/mutations/cartSelectedDeliveryOptionsUpdate *)
   (*! @see https://shopify.dev/docs/api/storefront/latest/mutations/cartMetafieldsSet *)
   (*! @see https://shopify.dev/docs/api/storefront/2023-10/mutations/cartMetafieldDelete *)
-
-@mui/styled-engine/index.js:
-  (**
-   * @mui/styled-engine v5.15.9
-   *
-   * @license MIT
-   * This source code is licensed under the MIT license found in the
-   * LICENSE file in the root directory of this source tree.
-   *)
-
-@mui/utils/index.js:
-  (**
-   * @mui/utils v5.15.9
-   *
-   * @license MIT
-   * This source code is licensed under the MIT license found in the
-   * LICENSE file in the root directory of this source tree.
-   *)
-
-@mui/material/index.js:
-  (**
-   * @mui/material v5.15.9
-   *
-   * @license MIT
-   * This source code is licensed under the MIT license found in the
-   * LICENSE file in the root directory of this source tree.
-   *)
-
-@mui/lab/index.js:
-  (**
-   * @mui/lab v5.0.0-alpha.165
-   *
-   * @license MIT
-   * This source code is licensed under the MIT license found in the
-   * LICENSE file in the root directory of this source tree.
-   *)
 */
 //# sourceMappingURL=index.js.map
