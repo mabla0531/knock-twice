@@ -1,10 +1,6 @@
 import {json, redirect} from '@shopify/remix-oxygen';
 import {useLoaderData, Link} from '@remix-run/react';
-import {
-  getPaginationVariables,
-  Image,
-  Money,
-} from '@shopify/hydrogen';
+import {getPaginationVariables, Image, Money} from '@shopify/hydrogen';
 import {useVariantUrl} from '~/utils';
 import * as React from 'react';
 
@@ -22,7 +18,7 @@ export async function loader({request, params, context}) {
   const {handle} = params;
   const {storefront} = context;
   const paginationVariables = getPaginationVariables(request, {
-    pageBy: 8,
+    pageBy: 250,
   });
 
   if (!handle) {
@@ -41,113 +37,321 @@ export async function loader({request, params, context}) {
   return json({collection});
 }
 
-export function Swatch({product, variant}) {
-  const variantUrl = useVariantUrl(product.handle, variant.selectedOptions);
-
-  return (
-    <div className='swatchContainer'>
-      <Link key={product.id} prefetch="intent" to={variantUrl}>
-        {product.featuredImage && (
-          <Image
-            alt={product.featuredImage.altText || product.title}
-            aspectRatio="1/1"
-            data={product.featuredImage}
-            style={{display: "block", width: "100%", height: "100%"}}
-          />
-        )}
-        <div style={{display: "flex", justifyContent: 'center', alignItems: 'center', paddingBottom: '1em'}}>
-          <div style={{display: "block"}}>
-            <div className="productTitle">{product.title}</div>
-            <div style={{display: "flex", justifyContent: 'center', alignItems: 'center', fontSize: '16pt'}}>
-              <Money data={product.priceRange.minVariantPrice} />
-            </div>
-          </div>
-        </div>
-      </Link>
-    </div>
-  );
-}
-
-function getProducts({collection, size}) {
-  let products = [];
-  collection.products.nodes.forEach(product => {
-    product.variants.nodes.forEach(variant => {
-      if (variant.selectedOptions[0].value == size) {
-        products.push(<Swatch product={product} variant={variant}></Swatch>)
-      }
-    });
-  });
-  
-  return (products);
-}
-
-export function Product({collection}) {
-
-  let swatchSet = new Map(
-    [
-      ["XS",   <>{getProducts({collection: collection, size: "XS"})}</>  ],
-      ["S",    <>{getProducts({collection: collection, size: "S"})}</>   ],
-      ["M",    <>{getProducts({collection: collection, size: "M"})}</>   ],
-      ["L",    <>{getProducts({collection: collection, size: "L"})}</>   ],
-      ["XL",   <>{getProducts({collection: collection, size: "XL"})}</>  ],
-      ["XXL",  <>{getProducts({collection: collection, size: "XXL"})}</> ],
-      ["XXXL", <>{getProducts({collection: collection, size: "XXXL"})}</>]
-    ]
-  );
-
-  const [sizes, setSizes] = React.useState(["M"]);
-
-  const [currentSwatchSet, setCurrentSwatchSet] = React.useState([swatchSet.get("M"), swatchSet.get("S")]);
-
-  const modifySizes = (size) => {
-    console.log("Checking if " + sizes + " includes " + size);
-    if (sizes.includes(size)) {
-      console.log("Removing " + size + " from " + sizes);
-      setSizes(sizes.filter((s) => {return s != size}));
-    } else {
-      console.log("Adding " + size + " to " + sizes);
-      setSizes([size].concat(sizes));
-      console.log("newSizes should be " + [size].concat(sizes));
-    }
-    console.log("New sizes: " + sizes);
-    setCurrentSwatchSet(sizes.map((size) => {swatchSet.get(size)}));
-  }
-
-  return (
-    <div className="collectionPanel">
-      <div className='productFilter'>
-        <div style={{ display: "flex", justifyContent: 'center', alignItems: 'center'}}> 
-          <h2>{collection.title}</h2> 
-        </div>
-        <div style={{display: "flex", justifyContent: 'center', alignItems: 'center'}}>
-          <div className="collection-description" style={{paddingTop: '16px'}}> {collection.description} </div>
-        </div>
-
-        <div className='productTabs'>
-          <div className="tabList">
-            <button className="tab" onClick={() => modifySizes("XS")}>XS</button>
-            <button className="tab" onClick={() => modifySizes("S")}>S</button>
-            <button className="tab" onClick={() => modifySizes("M")}>M</button>
-            <button className="tab" onClick={() => modifySizes("L")}>L</button>
-            <button className="tab" onClick={() => modifySizes("XL")}>XL</button>
-            <button className="tab" onClick={() => modifySizes("XXL")}>XXL</button>
-            <button className="tab" onClick={() => modifySizes("XXXL")}>XXXL</button>
-          </div>
-          <div className="tabPanel">
-              {currentSwatchSet}
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
-
 export default function Collection() {
   /** @type {LoaderReturnData} */
   const {collection} = useLoaderData();
 
+  const productSet = [].concat.apply(
+    [],
+    collection.products.nodes.map((product) => {
+      let products = [];
+
+      for (let i = 0; i < product.variants.nodes.length; i++) {
+        let size = 'NONE';
+        for (
+          let j = 0;
+          j < product.variants.nodes[i].selectedOptions.length;
+          j++
+        ) {
+          // shopify API is fucking abysmally designed
+          if (
+            product.variants.nodes[i].selectedOptions[j] != undefined &&
+            product.variants.nodes[i].selectedOptions[j].name.toUpperCase() ===
+              'SIZE'
+          ) {
+            size = product.variants.nodes[i].selectedOptions[j].value;
+          }
+        }
+
+        products.push({
+          id: product.id,
+          handle: product.handle,
+          title: product.title,
+          descriptionHtml: product.descriptionHtml,
+          priceRange: product.priceRange,
+          rawSelectedOptions: product.variants.nodes[i].selectedOptions, // needs to be intact for link retrieval
+          size: size,
+          featuredImage: product.featuredImage,
+          images: product.images.nodes,
+        });
+      }
+
+      return products;
+    }),
+  );
+
+  const [selectedProduct, setSelectedProduct] = React.useState();
+
+  function ProductPrice({priceRange}) {
+    console.log(priceRange);
+    return (
+      <div className="product-price">
+        {priceRange.minVariantPrice && (
+          <Money data={priceRange.minVariantPrice} />
+        )}
+      </div>
+    );
+  }
+
+  function ProductMain({product}) {
+    if (product === undefined) {
+      return <></>;
+    }
+
+    const variantUrl = useVariantUrl(
+      product.handle,
+      product.rawSelectedOptions,
+    );
+
+    return (
+      <div className="product-main">
+        <h1>{product.title}</h1>
+        <ProductPrice priceRange={product.priceRange} />
+        <p>
+          <strong>Description</strong>
+        </p>
+        <div dangerouslySetInnerHTML={{__html: product.descriptionHtml}} />
+        <Link key={product.id} prefetch="intent" to={variantUrl}>
+          Add to Cart
+        </Link>
+      </div>
+    );
+  }
+
+  const ProductImage = ({product}) => {
+    if (product === undefined) {
+      return (
+        <div className="productImagePanel">
+          <div className="productImageEmptyContainer">
+            <div className="productImageEmpty">
+              Please select a product to preview
+            </div>
+          </div>
+        </div>
+      );
+    } else {
+      const [currentImageIndex, setCurrentImageIndex] = React.useState(0);
+
+      let images = product.images.map((image) => {
+        return (
+          <Image
+            alt={image.altText || product.title}
+            style={{width: '100%', height: '100%'}}
+            className="goober_image_this_is_test"
+            aspectRatio="1/1"
+            data={image}
+          />
+        );
+      });
+
+      return (
+        <div className="productImagePanel">
+          <div className="productImageContainer">
+            <div className="productImage">
+              <button
+                className="productImageSifterLeft"
+                onClick={() => setCurrentImageIndex(currentImageIndex - 1)}
+              >
+                <svg
+                  width="32"
+                  height="32"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M14 6L8 12L14 18"
+                    stroke="black"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+              </button>
+              {images[currentImageIndex]}
+              <button
+                className="productImageSifterRight"
+                onClick={() => setCurrentImageIndex(currentImageIndex + 1)}
+              >
+                <svg
+                  width="32"
+                  height="32"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M10 6L16 12L10 18"
+                    stroke="black"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+      );
+    }
+  };
+
+  const Swatch = ({product}) => {
+    return (
+      <div
+        className="swatchContainer"
+        onClick={() => setSelectedProduct(product)}
+      >
+        {product.featuredImage && (
+          <Image
+            className="swatchImage"
+            alt={product.featuredImage.altText || product.title}
+            aspectRatio="1/1"
+            data={product.featuredImage}
+          />
+        )}
+      </div>
+    );
+  };
+
+  const SizeSpecifier = ({sizes}) => {
+    let selected = [...sizes]
+      .filter(([_, value]) => value)
+      .map(([key, _]) => key);
+
+    return (
+      <>
+        {selected.length > 1 ? 'Sizes: ' : 'Size: '}{' '}
+        {selected.length > 0 ? selected.join(', ') : 'ALL'}
+      </>
+    );
+  };
+
+  // need to component-alize currentSwatchSet hook so it doesn't
+  // enter a race condition with React's asynchronous useState set() method
+  // 🤡🤡🤡🤡🤡🤡🤡🤡🤡🤡🤡🤡🤡 dumbest shit I've ever written
+  const SwatchSet = ({currentSwatchSet}) => {
+    return currentSwatchSet.length > 0 ? (
+      <>{currentSwatchSet}</>
+    ) : (
+      <div className="noItemsMessage">No items available for this filter</div>
+    );
+  };
+
+  const createSwatchSet = (sizes) => {
+    // this set of distinctions is a workaround for JS not having any form of reduce
+    let distinctIDs = [];
+    let distinctSwatches = [];
+
+    productSet
+      .filter((product) => sizes.includes(product.size))
+      .forEach((product) => {
+        if (!distinctIDs.includes(product.id)) {
+          distinctIDs.push(product.id);
+          distinctSwatches.push(<Swatch product={product}></Swatch>);
+        }
+      });
+
+    return distinctSwatches;
+  };
+
+  let [currentSizeSet, setCurrentSizeSet] = React.useState(
+    new Map([
+      ['XS', false],
+      ['S', false],
+      ['M', false],
+      ['L', false],
+      ['XL', false],
+      ['XXL', false],
+      ['XXXL', false],
+    ]),
+  );
+
+  const getEnabledSizes = () => {
+    return [...currentSizeSet]
+      .filter(([_, value]) => value)
+      .map(([key, _]) => {
+        return key;
+      });
+  };
+  const flipSize = (size) => {
+    setCurrentSizeSet(currentSizeSet.set(size, !currentSizeSet.get(size)));
+  };
+
+  const defaultSwatchSet = createSwatchSet([
+    'XS',
+    'S',
+    'M',
+    'L',
+    'XL',
+    'XXL',
+    'XXXL',
+  ]);
+  const [currentSwatchSet, setCurrentSwatchSet] =
+    React.useState(defaultSwatchSet);
+
+  const modifyActiveSizes = (size) => {
+    flipSize(size);
+
+    // if all are false, show all swatches
+    if (
+      !currentSizeSet.get('XS') &&
+      !currentSizeSet.get('S') &&
+      !currentSizeSet.get('M') &&
+      !currentSizeSet.get('L') &&
+      !currentSizeSet.get('XL') &&
+      !currentSizeSet.get('XXL') &&
+      !currentSizeSet.get('XXXL')
+    ) {
+      setCurrentSwatchSet(defaultSwatchSet);
+    } else {
+      setCurrentSwatchSet(createSwatchSet(getEnabledSizes()));
+    }
+  };
+
+  let TabButton = ({name}) => {
+    let [selected, setSelected] = React.useState(false);
+    return (
+      <button
+        className={selected ? 'tab-selected' : 'tab'}
+        onClick={() => {
+          modifyActiveSizes(name);
+          setSelected(!selected);
+        }}
+      >
+        {name}
+      </button>
+    );
+  };
+
   return (
-      <Product collection={collection}></Product>
+    <>
+      <div className="collectionTitle">
+        <h2>{collection.title}</h2>
+      </div>
+      <div className="collectionPanel">
+        <ProductImage product={selectedProduct} />
+
+        <div className="productFilter">
+          <div className="productSelector">
+            <SizeSpecifier sizes={currentSizeSet} />
+            <div className="tabList">
+              <TabButton name={'XS'} />
+              <TabButton name={'S'} />
+              <TabButton name={'M'} />
+              <TabButton name={'L'} />
+              <TabButton name={'XL'} />
+              <TabButton name={'XXL'} />
+              <TabButton name={'XXXL'} />
+            </div>
+            <div className="tabPanel">
+              <SwatchSet currentSwatchSet={currentSwatchSet} />
+            </div>
+          </div>
+          <ProductMain product={selectedProduct} />
+        </div>
+      </div>
+    </>
   );
 }
 
@@ -158,14 +362,24 @@ const PRODUCT_ITEM_FRAGMENT = `#graphql
   }
   fragment ProductItem on Product {
     id
-    handle
     title
+    handle
+    descriptionHtml
+    description
     featuredImage {
       id
       altText
       url
       width
       height
+    }
+    images(first: 249) {
+      nodes {
+        altText
+        width
+        height
+        url
+      }
     }
     priceRange {
       minVariantPrice {
