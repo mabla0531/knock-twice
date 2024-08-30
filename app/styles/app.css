@@ -143,15 +143,38 @@ aside li {
 */
 .header {
   display: flex;
+  position: sticky;
   align-items: center;
   justify-content: center;
-  background: #f5f5f5;
+  background: rgb(210, 210, 210, 0.5);
+  backdrop-filter: blur(8px);
   height: var(--header-height);
-  padding: 0 1rem;
-  position: sticky;
   top: 0;
   z-index: 1;
-  box-shadow: 0 0 3px 3px lightgray;
+  box-shadow: 0 0 3px 3px rgb(210, 210, 210, 0.5);
+  /* a box shadow by nature is "blur" in a sense, so I won't do the mental gymnastics required to make it truly blurry. */
+}
+
+.k2t_logo_container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+.k2t_logo {
+  width: 64px;
+  height: 20px;
+
+  @media (min-width: 45em) {
+    width: 128px;
+    height: 32px;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    -webkit-filter: invert(85%);
+    filter: invert(85%);
+  }
 }
 
 .header-menu-mobile-toggle {
@@ -332,24 +355,24 @@ aside li {
   height: auto;
 }
 
-.collection-tile-wrapper {}
+.collection-tile-wrapper {
+  display: flex;
+  position: relative;
+  width: 50%;
+
+
+  @media (min-width: 45em) {
+    width: 256px;
+  }
+}
 
 .collection-tile {
-  margin: 0.5em;
-  width: 50%;
-  height: 50%;
+  padding: 0.3em;
 }
 
 .collection-tile-image {
   width: 100%;
   height: 100%;
-}
-
-@media (min-width: 45em) {
-  .collection-tile {
-    width: 256px;
-    height: 256px;
-  }
 }
 
 .index-grid {
@@ -376,10 +399,17 @@ aside li {
 
 .index-collection-title {
   display: flex;
-  width: 100%;
-  justify-content: center;
-  align-items: center;
-  margin-bottom: 0.5em;
+  padding-top: 0.15em;
+  padding-bottom: 0.15em;
+  padding-left: 0.5em;
+  padding-right: 0.5em;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(8px);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
 /*
@@ -712,8 +742,9 @@ aside li {
   }
 
   .header {
-    background-color: rgb(25, 30, 40);
-    box-shadow: 0 0 3px 3px rgb(25, 30, 40);
+    background-color: rgb(25, 30, 40, 0.5);
+    box-shadow: 0 0 3px 3px rgb(25, 30, 40, 0.75);
+    /* a box shadow by nature is "blur" in a sense, so I won't do the mental gymnastics required to make it truly blurry. */
   }
 
   svg {
@@ -725,26 +756,6 @@ aside li {
   .close,
   .collection-tile-wrapper a {
     color: rgb(225, 225, 225);
-  }
-
-  .k2t_logo_container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100%;
-  }
-
-  .k2t_logo {
-    -webkit-filter: invert(85%);
-    filter: invert(85%);
-
-    width: 64px;
-    height: 20px;
-
-    @media (min-width: 45em) {
-      width: 128px;
-      height: 32px;
-    }
   }
 
   aside {
