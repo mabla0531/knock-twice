@@ -144,6 +144,7 @@ aside li {
 .header {
   display: flex;
   align-items: center;
+  justify-content: center;
   background: #f5f5f5;
   height: var(--header-height);
   padding: 0 1rem;
@@ -180,14 +181,14 @@ aside li {
   cursor: pointer;
 }
 
-.header-ctas {
-  align-items: center;
+.cart-button {
   display: flex;
-  grid-gap: 1rem;
-  margin-left: auto;
+  align-items: center;
+  position: absolute;
+  right: 0.75em;
 }
 
-.header-ctas svg {
+.cart-button svg {
   width: 1.75em;
 }
 
@@ -331,8 +332,7 @@ aside li {
   height: auto;
 }
 
-.collection-tile-wrapper {
-}
+.collection-tile-wrapper {}
 
 .collection-tile {
   margin: 0.5em;
@@ -452,8 +452,7 @@ aside li {
   width: auto;
 }
 
-.product-main {
-}
+.product-main {}
 
 .product-price-on-sale {
   display: flex;
@@ -733,7 +732,6 @@ aside li {
     justify-content: center;
     align-items: center;
     height: 100%;
-    align-self: center;
   }
 
   .k2t_logo {
@@ -745,7 +743,7 @@ aside li {
 
     @media (min-width: 45em) {
       width: 128px;
-      height: 40px;
+      height: 32px;
     }
   }
 

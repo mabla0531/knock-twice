@@ -39,8 +39,8 @@ export function Header({ header, cart }) {
           </div>
         </NavLink>
       </div>
-      <HeaderCtas cart={cart} />
-      <HeaderMenuMobileToggle />
+
+      <CartToggle cart={cart} />
     </header>
   );
 }
@@ -112,16 +112,7 @@ function HeaderCtas({ cart }) {
     <nav className="header-ctas" role="navigation">
       <AboutToggle />
       <SearchToggle />
-      <CartToggle cart={cart} />
     </nav>
-  );
-}
-
-function HeaderMenuMobileToggle() {
-  return (
-    <a className="header-menu-mobile-toggle" href="#mobile-menu-aside">
-      <h3>☰</h3>
-    </a>
   );
 }
 
@@ -146,10 +137,12 @@ function SearchToggle() {
  */
 function CartBadge({ count }) {
   return (
-    <a href="#cart-aside" className="cart-badge">
-      <Icon className="titlebar-icon" source={CartIcon} tone="base" />
-      <div className="cart-count">{count}</div>
-    </a>
+    <div className='cart-button'>
+      <a href="#cart-aside" className="cart-badge">
+        <Icon className="titlebar-icon" source={CartIcon} tone="base" />
+        <div className="cart-count">{count}</div>
+      </a>
+    </div>
   );
 }
 

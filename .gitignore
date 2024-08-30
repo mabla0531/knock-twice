@@ -1,5 +1,5 @@
-.shopify
-node_modules
-.cache
-dist
+.shopify/
+node_modules/
+.cache/
+dist/
 .env
