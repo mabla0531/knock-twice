@@ -1,22 +1,22 @@
-import {json, redirect} from '@shopify/remix-oxygen';
-import {useLoaderData, Link} from '@remix-run/react';
-import {getPaginationVariables, Image, Money} from '@shopify/hydrogen';
-import {useVariantUrl} from '~/utils';
+import { json, redirect } from '@shopify/remix-oxygen';
+import { useLoaderData, Link } from '@remix-run/react';
+import { getPaginationVariables, Image, Money } from '@shopify/hydrogen';
+import { useVariantUrl } from '~/utils';
 import * as React from 'react';
 
 /**
  * @type {MetaFunction<typeof loader>}
  */
-export const meta = ({data}) => {
-  return [{title: `KT | ${data?.collection.title ?? ''}`}];
+export const meta = ({ data }) => {
+  return [{ title: `KT | ${data?.collection.title ?? ''}` }];
 };
 
 /**
  * @param {LoaderFunctionArgs}
  */
-export async function loader({request, params, context}) {
-  const {handle} = params;
-  const {storefront} = context;
+export async function loader({ request, params, context }) {
+  const { handle } = params;
+  const { storefront } = context;
   const paginationVariables = getPaginationVariables(request, {
     pageBy: 250,
   });
@@ -25,8 +25,8 @@ export async function loader({request, params, context}) {
     return redirect('/collections');
   }
 
-  const {collection} = await storefront.query(COLLECTION_QUERY, {
-    variables: {handle, ...paginationVariables},
+  const { collection } = await storefront.query(COLLECTION_QUERY, {
+    variables: { handle, ...paginationVariables },
   });
 
   if (!collection) {
@@ -34,12 +34,12 @@ export async function loader({request, params, context}) {
       status: 404,
     });
   }
-  return json({collection});
+  return json({ collection });
 }
 
 export default function Collection() {
   /** @type {LoaderReturnData} */
-  const {collection} = useLoaderData();
+  const { collection } = useLoaderData();
 
   const productSet = [].concat.apply(
     [],
@@ -57,7 +57,7 @@ export default function Collection() {
           if (
             product.variants.nodes[i].selectedOptions[j] != undefined &&
             product.variants.nodes[i].selectedOptions[j].name.toUpperCase() ===
-              'SIZE'
+            'SIZE'
           ) {
             size = product.variants.nodes[i].selectedOptions[j].value;
           }
@@ -82,7 +82,7 @@ export default function Collection() {
 
   const [selectedProduct, setSelectedProduct] = React.useState();
 
-  function ProductPrice({priceRange}) {
+  function ProductPrice({ priceRange }) {
     console.log(priceRange);
     return (
       <div className="product-price">
@@ -93,7 +93,7 @@ export default function Collection() {
     );
   }
 
-  function ProductMain({product}) {
+  function ProductMain({ product }) {
     if (product === undefined) {
       return <></>;
     }
@@ -110,7 +110,7 @@ export default function Collection() {
         <p>
           <strong>Description</strong>
         </p>
-        <div dangerouslySetInnerHTML={{__html: product.descriptionHtml}} />
+        <div dangerouslySetInnerHTML={{ __html: product.descriptionHtml }} />
         <Link key={product.id} prefetch="intent" to={variantUrl}>
           Add to Cart
         </Link>
@@ -118,7 +118,7 @@ export default function Collection() {
     );
   }
 
-  const ProductImage = ({product}) => {
+  const ProductImage = ({ product }) => {
     if (product === undefined) {
       return (
         <div className="productImagePanel">
@@ -136,7 +136,7 @@ export default function Collection() {
         return (
           <Image
             alt={image.altText || product.title}
-            style={{width: '100%', height: '100%'}}
+            style={{ width: '100%', height: '100%' }}
             className="goober_image_this_is_test"
             aspectRatio="1/1"
             data={image}
@@ -196,7 +196,7 @@ export default function Collection() {
     }
   };
 
-  const Swatch = ({product}) => {
+  const Swatch = ({ product }) => {
     return (
       <div
         className="swatchContainer"
@@ -214,23 +214,23 @@ export default function Collection() {
     );
   };
 
-  const SizeSpecifier = ({sizes}) => {
+  const SizeSpecifier = ({ sizes }) => {
     let selected = [...sizes]
       .filter(([_, value]) => value)
       .map(([key, _]) => key);
 
     return (
-      <>
-        {selected.length > 1 ? 'Sizes: ' : 'Size: '}{' '}
+      <div className='sizeSpecifier'>
+        {selected.length == 1 ? 'Size: ' : 'Sizes: '}{' '}
         {selected.length > 0 ? selected.join(', ') : 'ALL'}
-      </>
+      </div>
     );
   };
 
   // need to component-alize currentSwatchSet hook so it doesn't
   // enter a race condition with React's asynchronous useState set() method
   // 🤡🤡🤡🤡🤡🤡🤡🤡🤡🤡🤡🤡🤡 dumbest shit I've ever written
-  const SwatchSet = ({currentSwatchSet}) => {
+  const SwatchSet = ({ currentSwatchSet }) => {
     return currentSwatchSet.length > 0 ? (
       <>{currentSwatchSet}</>
     ) : (
@@ -309,18 +309,19 @@ export default function Collection() {
     }
   };
 
-  let TabButton = ({name}) => {
+  let TabButton = ({ name }) => {
     let [selected, setSelected] = React.useState(false);
     return (
       <button
-        className={selected ? 'tab-selected' : 'tab'}
+        className={selected ? 'tab tab-selected' : 'tab'}
         onClick={() => {
           modifyActiveSizes(name);
           setSelected(!selected);
-        }}
+        }
+        }
       >
         {name}
-      </button>
+      </button >
     );
   };
 
@@ -334,7 +335,6 @@ export default function Collection() {
 
         <div className="productFilter">
           <div className="productSelector">
-            <SizeSpecifier sizes={currentSizeSet} />
             <div className="tabList">
               <TabButton name={'XS'} />
               <TabButton name={'S'} />
@@ -344,9 +344,10 @@ export default function Collection() {
               <TabButton name={'XXL'} />
               <TabButton name={'XXXL'} />
             </div>
-            <div className="tabPanel">
-              <SwatchSet currentSwatchSet={currentSwatchSet} />
-            </div>
+            <SizeSpecifier sizes={currentSizeSet} />
+          </div>
+          <div className="tabPanel">
+            <SwatchSet currentSwatchSet={currentSwatchSet} />
           </div>
           <ProductMain product={selectedProduct} />
         </div>

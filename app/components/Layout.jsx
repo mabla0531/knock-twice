@@ -1,10 +1,11 @@
-import {Await} from '@remix-run/react';
-import {Icon} from '@shopify/polaris';
-import {SearchIcon} from '@shopify/polaris-icons';
-import {Suspense} from 'react';
-import {Aside} from '~/components/Aside';
-import {Header, HeaderMenu} from '~/components/Header';
-import {CartMain} from '~/components/Cart';
+import { Await } from '@remix-run/react';
+import { Icon } from '@shopify/polaris';
+import { SearchIcon } from '@shopify/polaris-icons';
+import { Suspense } from 'react';
+import { Aside } from '~/components/Aside';
+import { Header } from '~/components/Header';
+import { Footer, FooterMenu } from '~/components/Footer';
+import { CartMain } from '~/components/Cart';
 import {
   PredictiveSearchForm,
   PredictiveSearchResults,
@@ -13,75 +14,13 @@ import {
 /**
  * @param {LayoutProps}
  */
-export function Layout({cart, children = null, header, isLoggedIn}) {
+export function Layout({ cart, children = null, header, isLoggedIn }) {
   return (
     <>
-      <CartAside cart={cart} />
-      <SearchAside />
-      <MobileMenuAside menu={header.menu} shop={header.shop} />
-      <div className="wrapper">
-        <Header header={header} cart={cart} isLoggedIn={isLoggedIn} />
-        <div className="main">{children}</div>
-      </div>
+      <Header header={header} cart={cart} isLoggedIn={isLoggedIn} />
+      <div className="main">{children}</div>
+      <Footer />
     </>
-  );
-}
-
-/**
- * @param {{cart: LayoutProps['cart']}}
- */
-function CartAside({cart}) {
-  return (
-    <Aside id="cart-aside" heading="CART">
-      <Suspense fallback={<p>Loading cart ...</p>}>
-        <Await resolve={cart}>
-          {(cart) => {
-            return <CartMain cart={cart} layout="aside" />;
-          }}
-        </Await>
-      </Suspense>
-    </Aside>
-  );
-}
-
-function SearchAside() {
-  return (
-    <Aside id="search-aside" heading="SEARCH">
-      <div className="predictive-search">
-        <br />
-        <PredictiveSearchForm>
-          {({fetchResults, inputRef}) => (
-            <input
-              name="q"
-              onChange={fetchResults}
-              onFocus={fetchResults}
-              placeholder="Search"
-              ref={inputRef}
-              type="search"
-            />
-          )}
-        </PredictiveSearchForm>
-        <PredictiveSearchResults />
-      </div>
-    </Aside>
-  );
-}
-
-/**
- * @param {{
- *   menu: HeaderQuery['menu'];
- *   shop: HeaderQuery['shop'];
- * }}
- */
-function MobileMenuAside({menu, shop}) {
-  return (
-    <Aside id="mobile-menu-aside" heading="MENU">
-      <HeaderMenu
-        menu={menu}
-        viewport="mobile"
-        primaryDomainUrl={shop.primaryDomain.url}
-      />
-    </Aside>
   );
 }
 

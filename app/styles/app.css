@@ -17,10 +17,6 @@ img {
   border-radius: 4px;
 }
 
-.wrapper {
-  display: block;
-}
-
 .overlay {
   width: 100%;
 }
@@ -147,7 +143,7 @@ aside li {
   align-items: center;
   justify-content: center;
   background: rgb(210, 210, 210, 0.5);
-  backdrop-filter: blur(8px);
+  backdrop-filter: blur(16px);
   height: var(--header-height);
   top: 0;
   z-index: 1;
@@ -213,6 +209,75 @@ aside li {
 
 .cart-button svg {
   width: 1.75em;
+  height: 1.75em;
+}
+
+.search-container {
+  display: flex;
+  align-items: center;
+  position: absolute;
+  left: 0.75em;
+}
+
+.search-button {
+  background: none;
+  border: none;
+}
+
+.search-button:hover {
+  cursor: pointer;
+}
+
+.search-container svg {
+  width: 2em;
+  height: 2em;
+}
+
+.search-box-container {
+  display: flex;
+  margin-left: 0.75em;
+
+  /* can't get this to work, not really worth it */
+  align-items: center;
+}
+
+.search-box {
+
+  width: 15em;
+
+  @media(min-width: 45em) {
+    width: 20em;
+  }
+
+  @media(prefers-color-scheme: dark) {
+    background-color: rgb(30, 30, 30);
+    color: rgb(225, 225, 225);
+  }
+}
+
+/*
+* --------------------------------------------------
+* components/Footer
+* --------------------------------------------------
+*/
+.footer {
+  display: flex;
+  position: sticky;
+  bottom: 0;
+
+  padding-top: 0.25em;
+  padding-bottom: 0.25em;
+  padding-left: 0.5em;
+  padding-right: 0.5em;
+
+  background: rgb(210, 210, 210);
+
+  box-shadow: 0 0 3px 3px rgb(210, 210, 210, 0.5);
+}
+
+.footer-link {
+  display: flex;
+  width: 33%;
 }
 
 /*
@@ -357,16 +422,18 @@ aside li {
 
 .collection-tile-wrapper {
   display: flex;
-  position: relative;
-  width: 50%;
 
+  width: 50%;
 
   @media (min-width: 45em) {
     width: 256px;
   }
 }
 
+
 .collection-tile {
+  display: flex;
+  position: relative;
   padding: 0.3em;
 }
 
@@ -399,13 +466,18 @@ aside li {
 
 .index-collection-title {
   display: flex;
+
+  color: rgb(32, 32, 32);
+
   padding-top: 0.15em;
   padding-bottom: 0.15em;
   padding-left: 0.5em;
   padding-right: 0.5em;
+
   border-radius: 8px;
   background: rgba(255, 255, 255, 0.5);
-  backdrop-filter: blur(8px);
+  backdrop-filter: blur(16px);
+
   position: absolute;
   top: 50%;
   left: 50%;
@@ -573,35 +645,54 @@ aside li {
   margin-top: 2em;
 }
 
-.productSelector {
-  justify-content: center;
-  align-items: center;
-}
-
 .collectionDescription {
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
+.productSelector {
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 1.0em;
+}
+
 .tabList {
   display: flex;
-  padding-bottom: 1em;
+  justify-content: center;
+  width: 100%;
+  margin-bottom: 0.5em;
 }
 
 .tab {
-  width: 4em;
+  all: unset;
+  display: flex;
+
+  justify-content: center;
+
+  width: 64px;
+  margin-left: 0.3em;
+  margin-right: 0.3em;
+
+  padding: 0.2em;
+  padding-top: 0.4em;
+  padding-bottom: 0.4em;
+
+  border-radius: 6px;
+  background-color: rgb(55, 55, 55);
 }
 
-.tab-selected {
-  background-color: rgb(25, 25, 25);
+.tab-selected {}
+
+.sizeSpecifier {
+  display: flex;
+  align-items: center;
 }
 
 .tabPanel {
   display: flex;
   width: 100%;
   overflow-x: scroll;
-  overflow-y: visible;
   min-height: 64px;
 
   @media (min-width: 45em) {
@@ -667,7 +758,6 @@ aside li {
   padding: 0.3em;
 
   @media (min-width: 45em) {
-    padding-left: 3em;
     width: 50%;
     min-width: 50%;
     max-width: 50%;
@@ -737,14 +827,24 @@ aside li {
 
 @media (prefers-color-scheme: dark) {
   body {
-    background-color: rgb(37, 44, 58);
+    background-color: rgb(44, 44, 44);
     color: rgb(225, 225, 225);
   }
 
   .header {
-    background-color: rgb(25, 30, 40, 0.5);
-    box-shadow: 0 0 3px 3px rgb(25, 30, 40, 0.75);
+    background-color: rgb(30, 30, 30, 0.5);
+    box-shadow: 0 0 3px 3px rgb(30, 30, 30, 0.75);
     /* a box shadow by nature is "blur" in a sense, so I won't do the mental gymnastics required to make it truly blurry. */
+  }
+
+  .footer {
+    background-color: rgb(30, 30, 30);
+    box-shadow: 0 0 3px 3px rgb(30, 30, 30, 0.75);
+    /* a box shadow by nature is "blur" in a sense, so I won't do the mental gymnastics required to make it truly blurry. */
+  }
+
+  .footer-link {
+    color: rgb(225, 225, 225);
   }
 
   svg {
@@ -759,14 +859,14 @@ aside li {
   }
 
   aside {
-    background-color: rgb(25, 30, 40);
+    background-color: rgb(30, 30, 30);
     color: rgb(225, 225, 225);
   }
 
   .cart-details,
   .cart-main,
   .continue-shopping-link-text {
-    background-color: rgb(25, 30, 40);
+    background-color: rgb(30, 30, 30);
     color: rgb(225, 225, 225);
   }
 

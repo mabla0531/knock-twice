@@ -18,26 +18,26 @@ export default function Index() {
 
   const CollectionTile = ({ collection, product }) => {
     return (
-      <div>
+      <div className="collection-tile-wrapper">
         <Link
+          className='collection-tile-link'
           to={`/collectioncarousel/${collection.handle}`}
           key={collection.id}
         >
-          <div className="collection-tile-wrapper">
-            <div className="collection-tile">
-              <Image
-                alt={`Image of ${collection.title}`}
-                data={product.featuredImage}
-                key={collection.id}
-                className="collection-tile-image"
-                sizes="(max-width: 32em) 100vw, 33vw"
-                crop="center"
-              />
-            </div>
 
-            <div className="font-medium text-copy index-collection-title">
+          <div className="collection-tile">
+            <Image
+              alt={`Image of ${collection.title}`}
+              data={product.featuredImage}
+              key={collection.id}
+              className="collection-tile-image"
+              crop="center"
+            />
+
+            <div className="index-collection-title">
               {collection.products.nodes.length > 0 && collection.title}
             </div>
+
           </div>
         </Link>
       </div>
