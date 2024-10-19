@@ -77,9 +77,9 @@ function CartLineItem({ layout, line }) {
           alt={title}
           aspectRatio="1/1"
           data={image}
+          width={100}
           height={100}
           loading="lazy"
-          width={100}
         />
       )}
 

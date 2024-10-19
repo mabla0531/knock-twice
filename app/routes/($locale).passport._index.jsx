@@ -1,13 +1,13 @@
 import { json } from '@shopify/remix-oxygen';
 import { useLoaderData, Link } from '@remix-run/react';
 
-export default function Policies() {
+export default function Passport() {
 
   return (
-    <div className="policies">
-      <h1>Policies</h1>
+    <div className="passport">
+      <h1>Passport</h1>
       <div>
-        we dont care lmao
+        This is a work in progress. Please check back later; we are very excited for this service launch!
       </div>
     </div>
   );

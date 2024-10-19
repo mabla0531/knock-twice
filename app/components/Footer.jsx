@@ -7,25 +7,9 @@ import { useRootLoaderData } from '~/root';
 export function Footer({ menu, shop }) {
   return (
     <footer className="footer">
-      <NavLink className="footer-link" style={{ justifyContent: "left" }}>CONTACT</NavLink>
-      <NavLink className="footer-link" style={{ justifyContent: "center" }}>PASSPORT</NavLink>
-      <NavLink className="footer-link" style={{ justifyContent: "right" }}>POLICIES</NavLink>
+      <div className="footer-link" style={{ justifyContent: "left" }}><a href="/contact">CONTACT</a></div>
+      <div className="footer-link" style={{ justifyContent: "center" }}><a href="/passport">PASSPORT</a></div>
+      <div className="footer-link" style={{ justifyContent: "right" }}><a href="/policies">POLICIES</a></div>
     </footer>
   );
 }
-
-/**
- * @param {{
- *   isActive: boolean;
- *   isPending: boolean;
- * }}
- */
-function activeLinkStyle({ isActive, isPending }) {
-  return {
-    fontWeight: isActive ? 'bold' : undefined,
-    color: isPending ? 'grey' : 'white',
-  };
-}
-
-/** @typedef {import('storefrontapi.generated').FooterQuery} FooterQuery */
-/** @typedef {import('storefrontapi.generated').HeaderQuery} HeaderQuery */

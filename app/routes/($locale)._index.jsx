@@ -32,6 +32,8 @@ export default function Index() {
               key={collection.id}
               className="collection-tile-image"
               crop="center"
+              width={1080}
+              height={1080}
             />
 
             <div className="index-collection-title">
@@ -63,9 +65,7 @@ export default function Index() {
     });
 
   return (
-    <div className="index">
-      <div className="index-grid">{collectionTiles}</div>
-    </div>
+    <div className="index-grid">{collectionTiles}</div>
   );
 }
 

@@ -2,7 +2,6 @@ import { Await } from '@remix-run/react';
 import { Icon } from '@shopify/polaris';
 import { SearchIcon } from '@shopify/polaris-icons';
 import { Suspense } from 'react';
-import { Aside } from '~/components/Aside';
 import { Header } from '~/components/Header';
 import { Footer, FooterMenu } from '~/components/Footer';
 import { CartMain } from '~/components/Cart';

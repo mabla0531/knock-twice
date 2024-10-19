@@ -16,15 +16,16 @@ h1 {
   font-size: 1.6rem;
   font-weight: 700;
   line-height: 1.4;
-  margin-bottom: 2rem;
-  margin-top: 2rem;
+  margin-bottom: 8px;
+  margin-top: 8px;
 }
 
 h2 {
   font-size: 1.2rem;
   font-weight: 700;
   line-height: 1.4;
-  margin-bottom: 1rem;
+  margin-bottom: 8px;
+  margin-top: 8px;
 }
 
 h4 {
@@ -68,12 +69,13 @@ body {
   min-height: 100vh;
 }
 
-body > main {
+body>main {
   margin: 0 1rem 1rem 1rem;
 }
 
 section {
   padding: 1rem 0;
+
   @media (min-width: 768px) {
     padding: 2rem 0;
   }
@@ -88,6 +90,7 @@ fieldset {
 
 form {
   max-width: 100%;
+
   @media (min-width: 768px) {
     max-width: 400px;
   }

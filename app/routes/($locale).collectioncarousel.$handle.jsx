@@ -1,6 +1,8 @@
 import { json, redirect } from '@shopify/remix-oxygen';
 import { useLoaderData, Link } from '@remix-run/react';
-import { getPaginationVariables, Image, Money } from '@shopify/hydrogen';
+import {
+  getPaginationVariables, Image, Money, CartForm
+} from '@shopify/hydrogen';
 import { useVariantUrl } from '~/utils';
 import * as React from 'react';
 
@@ -83,7 +85,6 @@ export default function Collection() {
   const [selectedProduct, setSelectedProduct] = React.useState();
 
   function ProductPrice({ priceRange }) {
-    console.log(priceRange);
     return (
       <div className="product-price">
         {priceRange.minVariantPrice && (
@@ -105,15 +106,19 @@ export default function Collection() {
 
     return (
       <div className="product-main">
-        <h1>{product.title}</h1>
+        <div className='centered-flex'>
+          <h2>{product.title}</h2>
+        </div>
+        <div className='centered-flex'>
+          <Link key={product.id} prefetch="intent" to={variantUrl}>
+            <div className='button'>Add to Cart</div>
+          </Link>
+        </div>
         <ProductPrice priceRange={product.priceRange} />
         <p>
           <strong>Description</strong>
         </p>
         <div dangerouslySetInnerHTML={{ __html: product.descriptionHtml }} />
-        <Link key={product.id} prefetch="intent" to={variantUrl}>
-          Add to Cart
-        </Link>
       </div>
     );
   }
@@ -137,9 +142,11 @@ export default function Collection() {
           <Image
             alt={image.altText || product.title}
             style={{ width: '100%', height: '100%' }}
-            className="goober_image_this_is_test"
+            className="productImage"
             aspectRatio="1/1"
             data={image}
+            width={1080}
+            height={1080}
           />
         );
       });
@@ -208,6 +215,8 @@ export default function Collection() {
             alt={product.featuredImage.altText || product.title}
             aspectRatio="1/1"
             data={product.featuredImage}
+            width={480}
+            height={480}
           />
         )}
       </div>
@@ -310,25 +319,24 @@ export default function Collection() {
   };
 
   let TabButton = ({ name }) => {
-    let [selected, setSelected] = React.useState(false);
     return (
       <button
-        className={selected ? 'tab tab-selected' : 'tab'}
-        onClick={() => {
-          modifyActiveSizes(name);
-          setSelected(!selected);
-        }
+        className={currentSizeSet.get(name) ? 'button button-selected' : 'button'}
+        onClick={
+          () => {
+            modifyActiveSizes(name);
+          }
         }
       >
         {name}
-      </button >
+      </button>
     );
   };
 
   return (
     <>
       <div className="collectionTitle">
-        <h2>{collection.title}</h2>
+        <h1>{collection.title}</h1>
       </div>
       <div className="collectionPanel">
         <ProductImage product={selectedProduct} />
