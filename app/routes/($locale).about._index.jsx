@@ -2,16 +2,20 @@ import { json } from '@shopify/remix-oxygen';
 import { useLoaderData, Link } from '@remix-run/react';
 import { TabBar } from '~/components/Header';
 
-export default function Policies() {
+export default function Contact() {
 
   return (
-    <div className="policies">
+    <>
       <TabBar />
-      <h1>Policies</h1>
-      <div>
-        we dont care lmao
+      <div className="about">
+        <h1>About</h1>
+        <div>
+          WE IS OUT HERE THUGGIN ON GOD
+          JITARONI STRAIGHT TRIPARONI
+          plus plus
+        </div>
       </div>
-    </div>
+    </>
   );
 }
 

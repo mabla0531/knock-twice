@@ -20,16 +20,16 @@ export function Header({ header, cart }) {
   const [searching, setSearching] = useState(false);
 
   return (
-    <div className="header">
-      <button className="search-button" onClick={() => { setSearching(!searching) }}>
-        <Icon className="titlebar-icon" source={SearchIcon} tone="base" />
-      </button>
-      <SearchBox active={searching} />
+      <div className="header">
+        <button className="search-button" onClick={() => { setSearching(!searching) }}>
+          <Icon className="titlebar-icon" source={SearchIcon} tone="base" />
+        </button>
+        <SearchBox active={searching} />
 
-      <Logo visible={(!searching || (searching && !isMobile))} />
+        <Logo visible={(!searching || (searching && !isMobile))} />
 
-      <CartToggle cart={cart} />
-    </div>
+        <CartToggle cart={cart} />
+      </div>
   );
 }
 
@@ -102,5 +102,15 @@ function CartToggle({ cart }) {
         }}
       </Await>
     </Suspense>
+  );
+}
+
+export function TabBar({ menu, shop }) {
+  return (
+    <div className="tab-bar">
+      <div className="tab-bar-link"><a href="/">SHOP</a></div>
+      <div className="tab-bar-link"><a href="/about">INFO</a></div>
+      <div className="tab-bar-link"><a href="/passport">PASSPORT</a></div>
+    </div>
   );
 }

@@ -1,15 +1,19 @@
 import { json } from '@shopify/remix-oxygen';
 import { useLoaderData, Link } from '@remix-run/react';
+import { TabBar } from '~/components/Header';
 
-export default function Contact() {
+export default function Gallery() {
 
   return (
-    <div className="contact">
-      <h1>Contact</h1>
-      <div>
-        CALL US!!
+    <>
+      <TabBar />
+      <div className="gallery">
+        <h1>Gallery</h1>
+        <div>
+          PUT PICTURES HERE
+        </div>
       </div>
-    </div>
+    </>
   );
 }
 

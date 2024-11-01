@@ -55,7 +55,7 @@ export default function Collection() {
           j < product.variants.nodes[i].selectedOptions.length;
           j++
         ) {
-          // shopify API is fucking abysmally designed
+          // shopify API response model is abysmally designed
           if (
             product.variants.nodes[i].selectedOptions[j] != undefined &&
             product.variants.nodes[i].selectedOptions[j].name.toUpperCase() ===
@@ -110,11 +110,13 @@ export default function Collection() {
           <h2>{product.title}</h2>
         </div>
         <div className='centered-flex'>
+          <h3><ProductPrice priceRange={product.priceRange}/></h3>
+        </div>
+        <div className='centered-flex'>
           <Link key={product.id} prefetch="intent" to={variantUrl}>
             <div className='button'>Add to Cart</div>
           </Link>
         </div>
-        <ProductPrice priceRange={product.priceRange} />
         <p>
           <strong>Description</strong>
         </p>
@@ -319,17 +321,24 @@ export default function Collection() {
   };
 
   let TabButton = ({ name }) => {
+    let productCount = productSet.filter((product) => product.size == name).length;
+    console.log(productCount);
+
     return (
-      <button
-        className={currentSizeSet.get(name) ? 'button button-selected' : 'button'}
-        onClick={
-          () => {
-            modifyActiveSizes(name);
-          }
+      <>
+        {productCount > 0 && 
+          <button
+            className={currentSizeSet.get(name) ? 'button button-selected' : 'button'}
+            onClick={
+              () => {
+                modifyActiveSizes(name);
+              }
+            }
+          >
+            {name}
+          </button>
         }
-      >
-        {name}
-      </button>
+      </>
     );
   };
 

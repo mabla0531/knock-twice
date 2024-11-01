@@ -3,7 +3,6 @@ import { Icon } from '@shopify/polaris';
 import { SearchIcon } from '@shopify/polaris-icons';
 import { Suspense } from 'react';
 import { Header } from '~/components/Header';
-import { Footer, FooterMenu } from '~/components/Footer';
 import { CartMain } from '~/components/Cart';
 import {
   PredictiveSearchForm,
@@ -17,8 +16,9 @@ export function Layout({ cart, children = null, header, isLoggedIn }) {
   return (
     <>
       <Header header={header} cart={cart} isLoggedIn={isLoggedIn} />
-      <div className="main">{children}</div>
-      <Footer />
+      <div className="main">
+        {children}
+      </div>
     </>
   );
 }

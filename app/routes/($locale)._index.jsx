@@ -1,6 +1,7 @@
 import { useLoaderData, Link } from '@remix-run/react';
 import { Image } from '@shopify/hydrogen';
 import { Grid } from '@mui/material';
+import { TabBar } from '~/components/Header';
 
 export function meta() {
   return [
@@ -65,7 +66,10 @@ export default function Index() {
     });
 
   return (
-    <div className="index-grid">{collectionTiles}</div>
+    <>
+      <TabBar />
+      <div className="index-grid">{collectionTiles}</div>
+    </>
   );
 }
 
