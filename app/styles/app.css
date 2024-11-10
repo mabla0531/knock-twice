@@ -138,10 +138,6 @@ img {
     height: 32px;
   }
 
-  @media (prefers-color-scheme: dark) {
-    -webkit-filter: invert(85%);
-    filter: invert(85%);
-  }
 }
 
 .header-menu-mobile-toggle {
@@ -219,11 +215,6 @@ img {
 
   @media (max-width: 45em) {
     width: calc(100% - 128px);
-  }
-
-  @media (prefers-color-scheme: dark) {
-    background-color: rgb(30, 30, 30);
-    color: rgb(225, 225, 225);
   }
 }
 
@@ -788,55 +779,4 @@ button {
 
 .gallery {
   text-align: center;
-}
-
-/* DARK MODE */
-
-@media (prefers-color-scheme: dark) {
-  body {
-    background-color: rgb(44, 44, 44);
-    color: rgb(225, 225, 225);
-  }
-
-  .header {
-    background-color: rgb(30, 30, 30, 0.5);
-    box-shadow: 0 0 3px 3px rgb(30, 30, 30, 0.75);
-    /* a box shadow by nature is "blur" in a sense, so I won't do the mental gymnastics required to make it truly blurry. */
-  }
-
-  .tab-bar {
-    background-color: rgb(30, 30, 30);
-    box-shadow: 0 0 3px 3px rgb(30, 30, 30, 0.75);
-  }
-
-  .tab-bar-link {
-    color: rgb(225, 225, 225);
-  }
-
-  svg {
-    -webkit-filter: invert(90%);
-    filter: invert(90%);
-  }
-
-  .cart-count,
-  .close,
-  .collection-tile-wrapper a {
-    color: rgb(225, 225, 225);
-  }
-
-  aside {
-    background-color: rgb(30, 30, 30);
-    color: rgb(225, 225, 225);
-  }
-
-  .cart-details,
-  .cart-main,
-  .continue-shopping-link-text {
-    background-color: rgb(30, 30, 30);
-    color: rgb(225, 225, 225);
-  }
-
-  aside header {
-    border-bottom: 1px solid rgb(150, 150, 150);
-  }
 }
