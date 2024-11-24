@@ -24,7 +24,7 @@ export function Header({ header, cart }) {
           <NavLink prefetch="intent" to="/" end>
             <div style={{ display: "flex" }}>
               <svg
-                id="Layer_1"xz
+                id="Layer_1"
                 data-name="Layer 1"
                 className="k2t_logo"
                 xmlns="http://www.w3.org/2000/svg"
