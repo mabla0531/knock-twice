@@ -1,7 +1,6 @@
 import { useLoaderData, Link } from '@remix-run/react';
 import { Image } from '@shopify/hydrogen';
 import { Grid } from '@mui/material';
-import { TabBar } from '~/components/Header';
 
 export function meta() {
   return [
@@ -49,25 +48,19 @@ export default function Index() {
 
   let collectionTiles = collections.nodes
     .filter((collection) => collection.products.nodes.length > 0)
-    .map((collection) => {
-      return (
-        <>
-          {collection.products.nodes.map((product) => {
-            return (
-              <CollectionTile
-                key={collection}
-                collection={collection}
-                product={product}
-              />
-            );
-          })}
-        </>
-      );
-    });
+    .map(
+      (collection) => collection.products.nodes.map(
+        (product) => <CollectionTile key={product} collection={collection} product={product}/>
+      )
+    );
 
   return (
     <>
-      <TabBar />
+      <div role="tablist" className="tabs tabs-lifted my-16">
+        <div className="tab tab-active">SHOP</div>
+        <a role="tab" className="tab" href="/about">INFO</a>
+        <a role="tab" className="tab" href="/passport">PASSPORT</a>
+      </div>
       <div className="index-grid">{collectionTiles}</div>
     </>
   );

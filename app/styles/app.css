@@ -6,6 +6,7 @@
   --header-height: 48px;
   --color-dark: #000;
   --color-light: #fff;
+  --animation-btn: 0;
 }
 
 html,
@@ -13,88 +14,30 @@ body {
   height: 100%;
 }
 
+.btn {
+  min-height: unset;
+}
+
 a:hover {
   text-decoration: none;
 }
 
 .main {
-  min-height: calc(100% - 44px - 32px);
+  position: absolute; /* I am sorry for whoever has to read this, I know it's retarded, please don't be mean to me :( */
+  top: 0;
+  left: 0;
+  padding-top: 64px;
+  min-height: 100%;
+  height: 100%;
+  max-height: 100%;
+  min-width: 100%;
+  width: 100%;
+  max-width: 100%;
   overflow-y: scroll;
 }
 
 img {
   border-radius: 4px;
-}
-
-.overlay {
-  width: 100%;
-}
-
-.overlay {
-  background: rgba(0, 0, 0, 0.2);
-  bottom: 0;
-  left: 0;
-  opacity: 0;
-  pointer-events: none;
-  position: fixed;
-  right: 0;
-  top: 0;
-  transition: opacity 400ms ease-in-out;
-  transition: opacity 400ms;
-  visibility: hidden;
-  z-index: 10;
-}
-
-.overlay .close-outside {
-  background: transparent;
-  border: none;
-  color: transparent;
-  height: 100%;
-  left: 0;
-  position: absolute;
-  top: 0;
-  width: calc(100% - var(--aside-width));
-}
-
-.overlay .light {
-  background: rgba(255, 255, 255, 0.5);
-}
-
-.overlay .cancel {
-  cursor: default;
-  height: 100%;
-  position: absolute;
-  width: 100%;
-}
-
-.overlay:target {
-  opacity: 1;
-  pointer-events: auto;
-  visibility: visible;
-}
-
-/* reveal aside */
-.overlay:target aside {
-  transform: translateX(calc(var(--aside-width) * -1));
-}
-
-.button {
-  display: inline-flex;
-  /* holy shit inline-* finally did something */
-  word-wrap: unset;
-  padding: 4px;
-  border-radius: 6px;
-
-  background-color: rgb(250, 250, 250);
-  color: rgb(50, 50, 50);
-
-  border: 2px solid rgba(0, 0, 0, 0);
-}
-
-.centered-flex {
-  display: flex;
-  width: 100%;
-  justify-content: center;
 }
 
 /*
@@ -103,18 +46,11 @@ img {
 * --------------------------------------------------
 */
 .header {
-  display: flex;
   position: sticky;
-  align-items: center;
-
-  background: rgb(210, 210, 210, 0.5);
-  backdrop-filter: blur(16px);
-  height: 44px;
-  min-height: 44px;
   top: 0;
   z-index: 1;
-  box-shadow: 0 0 3px 3px rgb(210, 210, 210, 0.5);
-  /* a box shadow by nature is "blur" in a sense, so I won't do the mental gymnastics required to make it truly blurry. */
+  background-color: rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(16px);
 }
 
 .k2t_logo_container {
@@ -169,12 +105,11 @@ img {
 
 .cart-button {
   display: flex;
-  align-items: center;
-
+  position: relative;
+  align-items: end;
   margin-left: auto;
 
-  width: 54px;
-  /* the cart counter needs to be on the same line */
+  width: 32px;
   height: 32px;
 }
 
@@ -183,39 +118,21 @@ img {
   height: 1.75em;
 }
 
-.search-button {
-  background: none;
-  border: none;
-  width: 54px;
-  height: 32px;
-
-  @media (max-width: 45em) {
-    margin-right: auto;
-  }
-}
-
-.search-button:hover {
-  cursor: pointer;
-}
-
-.search-button svg {
-  width: 28px;
-  height: 28px;
-}
-
-.search-box {
+.cart-count {
   display: flex;
+  position: absolute;
+  top: 0;
+  right: 0;
+  font-size: 10pt;
 
-  margin-top: auto;
-  margin-bottom: auto;
+  justify-content: center;
+  align-items: center;
 
-  @media (min-width: 45em) {
-    width: 20em;
-  }
+  height: 16px;
+  width: 16px;
 
-  @media (max-width: 45em) {
-    width: calc(100% - 128px);
-  }
+  background-color: rgb(225, 225, 225);
+  border-radius: 16px;
 }
 
 .tab-bar {
@@ -271,10 +188,6 @@ img {
   padding-top: 0.75rem;
   position: absolute;
   width: calc(var(--aside-width) - 40px);
-}
-
-.cart-line-quantiy {
-  display: flex;
 }
 
 .cart-discount {
@@ -411,15 +324,13 @@ img {
 .index-collection-title {
   display: flex;
 
-  color: rgb(32, 32, 32);
+  text-align: center;
+  white-space: nowrap;
 
-  padding-top: 0.15em;
-  padding-bottom: 0.15em;
-  padding-left: 0.5em;
-  padding-right: 0.5em;
+  padding: 0.15em 0.5em;
 
   border-radius: 8px;
-  background: rgba(255, 255, 255, 0.5);
+  background: rgba(255, 255, 255, 0.4);
   backdrop-filter: blur(16px);
 
   position: absolute;
@@ -499,6 +410,7 @@ img {
 }
 
 .product-main {
+
 }
 
 .product-price-on-sale {
@@ -604,30 +516,9 @@ img {
 }
 
 .tabList {
-  display: flex;
-  justify-content: center;
+  text-align: center;
   width: 100%;
   margin-bottom: 0.5em;
-}
-
-button {
-  all: unset;
-  display: flex;
-
-  justify-content: center;
-  align-items: center;
-
-  width: 64px;
-  height: 24px;
-  margin-left: 0.3em;
-  margin-right: 0.3em;
-
-  padding: 0.2em;
-  padding-top: 0.4em;
-  padding-bottom: 0.4em;
-
-  border-radius: 6px;
-  background-color: rgb(55, 55, 55);
 }
 
 .button-selected {
@@ -656,15 +547,9 @@ button {
   }
 }
 
-.swatchContainer {
-  display: block;
-  height: 100%;
-  min-height: 100%;
-
-  padding-right: 8px;
-
-  justify-content: center;
-  align-items: center;
+.swatch-container {
+  margin-left: 4px;
+  margin-right: 4px;
 }
 
 .noItemsMessage {
@@ -676,7 +561,7 @@ button {
   color: rgb(200, 85, 100);
 }
 
-.swatchImage {
+.swatch-image {
   display: block;
   width: 64px;
   min-width: 64px;
@@ -685,87 +570,74 @@ button {
   cursor: pointer;
 }
 
-.productImagePanel {
-  display: block;
-  justify-content: center;
-  text-align: center;
-  align-items: center;
-
-  @media (min-width: 45em) {
-    width: 50%;
-    height: auto;
-  }
-}
-
 /* Product View */
 
 .productFilter {
-  display: block;
+
+  padding: 3%;
 
   @media (min-width: 45em) {
     width: 50%;
-  }
-
-  @media (max-width: 45em) {
-    padding: 16px;
+    padding: 32px;
   }
 }
 
-.productImageEmptyContainer {
-  display: flex;
-  justify-content: center;
-  text-align: center;
-  align-items: center;
+.product-image-panel-wrapper {
+  aspect-ratio: 1/1;
+  width: 100%;
+  height: auto;
+  max-height: 736px; /* max image size + (48px * 2) padding */
+
+  padding: 3%;
+
+  @media(min-width: 45em) {
+    width: 50%;
+  }
 }
 
-.productImageEmpty {
+.product-image-panel {
   display: flex;
+
+  border: 2px dashed rgb(0, 0, 0, 0);
+
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1/1;
+
+  @media (min-width: 45em) {
+    max-width: 640px;
+    max-height: 640px;
+  }
+}
+
+.product-image {
+  aspect-ratio: 1/1;
+  width: 100%;
+  height: auto;
+
+  @media (min-width: 45em) {
+    max-width: 640px;
+    max-height: 640px;
+  }
+}
+
+.product-image-panel-empty {
+  display: flex;
+
   border: 2px dashed darkgray;
   border-radius: 16px;
+
+  width: 100%;
+  height: auto;
   aspect-ratio: 1/1;
-  width: 75%;
+
   justify-content: center;
   align-items: center;
-}
 
-.productImageContainer {
-  display: flex;
-  justify-content: center;
-  text-align: center;
-  align-items: center;
-}
-
-.productImage {
-  display: flex;
-  position: relative;
-  aspect-ratio: 1/1;
-  width: calc(
-    75% + 4px
-  ); /* add 4 px to account for the border drawn by the placeholder image, preventing a jump up when image is loaded */
-  justify-content: center;
-  align-items: center;
-}
-
-.productImageSifterLeft {
-  position: absolute;
-  left: 0px;
-  top: 50%;
-  background: transparent;
-  border: none !important;
-  cursor: pointer;
-}
-
-.productImageSifterRight {
-  position: absolute;
-  right: 0px;
-  top: 50%;
-  background: transparent;
-  border: none !important;
-  cursor: pointer;
-}
-
-.cart-count {
-  display: inline;
+  @media (min-width: 45em) {
+    max-width: 640px;
+    max-height: 640px;
+  }
 }
 
 /* Footer Pages */

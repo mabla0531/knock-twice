@@ -10,7 +10,7 @@ export function CartMain({ layout, cart }) {
   const withDiscount =
     cart &&
     Boolean(cart.discountCodes.filter((code) => code.applicable).length);
-  const className = `cart-main ${withDiscount ? 'with-discount' : ''}`;
+  const className = `cart-main flex ${withDiscount ? 'with-discount' : ''}`;
 
   return (
     <div className={className}>
@@ -31,7 +31,6 @@ function CartDetails({ layout, cart }) {
       <CartLines lines={cart?.lines} layout={layout} />
       {cartHasItems && (
         <CartSummary cost={cart.cost} layout={layout}>
-          <CartDiscounts discountCodes={cart.discountCodes} />
           <CartCheckoutActions checkoutUrl={cart.checkoutUrl} />
         </CartSummary>
       )}
@@ -94,11 +93,9 @@ function CartLineItem({ layout, line }) {
             }
           }}
         >
-          <p>
-            <strong>{product.title}</strong>
-          </p>
+          <strong>{product.title}</strong>
         </Link>
-        <CartLinePrice line={line} as="span" />
+        <div><CartLinePrice line={line} as="span" /></div>
         <ul>
           {selectedOptions.map((option) => (
             <li key={option.name}>
@@ -108,7 +105,7 @@ function CartLineItem({ layout, line }) {
             </li>
           ))}
         </ul>
-        <CartLineQuantity line={line} />
+        <CartLineRemoveButton lineIds={[line.id]} />
       </div>
     </li>
   );
@@ -121,12 +118,9 @@ function CartCheckoutActions({ checkoutUrl }) {
   if (!checkoutUrl) return null;
 
   return (
-    <div>
       <a href={checkoutUrl} target="_self">
-        <p>Continue to Checkout &rarr;</p>
+        <button className="btn btn-primary w-full">Continue to Checkout</button>
       </a>
-      <br />
-    </div>
   );
 }
 
@@ -138,22 +132,18 @@ function CartCheckoutActions({ checkoutUrl }) {
  * }}
  */
 export function CartSummary({ cost, layout, children = null }) {
-  const className =
-    layout === 'page' ? 'cart-summary-page' : 'cart-summary-aside';
+  const className = layout === 'page' ? 'cart-summary-page' : 'cart-summary-aside';
 
   return (
     <div aria-labelledby="cart-summary" className={className}>
-      <h4>Totals</h4>
-      <dl className="cart-subtotal">
-        <dt>Subtotal</dt>
-        <dd>
-          {cost?.subtotalAmount?.amount ? (
-            <Money data={cost?.subtotalAmount} />
-          ) : (
-            '-'
-          )}
-        </dd>
-      </dl>
+      <div className="cart-subtotal my-8">
+        Subtotal:&nbsp;
+        {cost?.subtotalAmount?.amount ? (
+          <Money data={cost?.subtotalAmount} />
+        ) : (
+          '-'
+        )}
+      </div>
       {children}
     </div>
   );
@@ -171,44 +161,6 @@ function CartLineRemoveButton({ lineIds }) {
     >
       <button type="submit">Remove</button>
     </CartForm>
-  );
-}
-
-/**
- * @param {{line: CartLine}}
- */
-function CartLineQuantity({ line }) {
-  if (!line || typeof line?.quantity === 'undefined') return null;
-  const { id: lineId, quantity } = line;
-  const prevQuantity = Number(Math.max(0, quantity - 1).toFixed(0));
-  const nextQuantity = Number((quantity + 1).toFixed(0));
-
-  return (
-    <div className="cart-line-quantiy">
-      <small>Quantity: {quantity} &nbsp;&nbsp;</small>
-      <CartLineUpdateButton lines={[{ id: lineId, quantity: prevQuantity }]}>
-        <button
-          aria-label="Decrease quantity"
-          disabled={quantity <= 1}
-          name="decrease-quantity"
-          value={prevQuantity}
-        >
-          <span>&#8722; </span>
-        </button>
-      </CartLineUpdateButton>
-      &nbsp;
-      <CartLineUpdateButton lines={[{ id: lineId, quantity: nextQuantity }]}>
-        <button
-          aria-label="Increase quantity"
-          name="increase-quantity"
-          value={nextQuantity}
-        >
-          <span>&#43;</span>
-        </button>
-      </CartLineUpdateButton>
-      &nbsp;
-      <CartLineRemoveButton lineIds={[lineId]} />
-    </div>
   );
 }
 
@@ -231,11 +183,7 @@ function CartLinePrice({ line, priceType = 'regular', ...passthroughProps }) {
     return null;
   }
 
-  return (
-    <div>
-      <Money withoutTrailingZeros {...passthroughProps} data={moneyV2} />
-    </div>
-  );
+  return (<Money withoutTrailingZeros {...passthroughProps} data={moneyV2} />);
 }
 
 /**
@@ -246,84 +194,9 @@ function CartLinePrice({ line, priceType = 'regular', ...passthroughProps }) {
  */
 export function CartEmpty({ hidden = false, layout = 'aside' }) {
   return (
-    <div hidden={hidden}>
-      <br />
-      <p>
-        Looks like you haven&rsquo;t added anything yet, let&rsquo;s get you
-        started!
-      </p>
-      <br />
-      <Link
-        className='continue-shopping-link-text'
-        to="/collections"
-        onClick={() => {
-          if (layout === 'aside') {
-            window.location.href = '/collections';
-          }
-        }}
-      >
-        Continue shopping →
-      </Link>
+    <div className='my-8' hidden={hidden}>
+      Looks like you haven't added anything yet!
     </div>
-  );
-}
-
-/**
- * @param {{
- *   discountCodes: CartApiQueryFragment['discountCodes'];
- * }}
- */
-function CartDiscounts({ discountCodes }) {
-  const codes =
-    discountCodes
-      ?.filter((discount) => discount.applicable)
-      ?.map(({ code }) => code) || [];
-
-  return (
-    <div>
-      {/* Have existing discount, display it with a remove option */}
-      <dl hidden={!codes.length}>
-        <div>
-          <dt>Discount(s)</dt>
-          <UpdateDiscountForm>
-            <div className="cart-discount">
-              <code>{codes?.join(', ')}</code>
-              &nbsp;
-              <button>Remove</button>
-            </div>
-          </UpdateDiscountForm>
-        </div>
-      </dl>
-
-      {/* Show an input to apply a discount */}
-      <UpdateDiscountForm discountCodes={codes}>
-        <div>
-          <input type="text" name="discountCode" placeholder="Discount code" />
-          &nbsp;
-          <button type="submit">Apply</button>
-        </div>
-      </UpdateDiscountForm>
-    </div>
-  );
-}
-
-/**
- * @param {{
- *   discountCodes?: string[];
- *   children: React.ReactNode;
- * }}
- */
-function UpdateDiscountForm({ discountCodes, children }) {
-  return (
-    <CartForm
-      route="/cart"
-      action={CartForm.ACTIONS.DiscountCodesUpdate}
-      inputs={{
-        discountCodes: discountCodes || [],
-      }}
-    >
-      {children}
-    </CartForm>
   );
 }
 

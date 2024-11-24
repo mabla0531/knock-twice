@@ -5,6 +5,7 @@
   "version": "1.0.0",
   "scripts": {
     "build": "shopify hydrogen build",
+    "build-tw": "npx tailwindcss -i ./tailwind.css -o ./dist/client/tailwind.css --watch",
     "dev": "shopify hydrogen dev --codegen",
     "preview": "npm run build && shopify hydrogen preview",
     "lint": "eslint --no-error-on-unmatched-pattern --ext .js,.ts,.jsx,.tsx .",
@@ -35,6 +36,7 @@
     "react": "^18.3.1",
     "react-device-detect": "^2.2.3",
     "react-dom": "^18.3.1",
+    "react-use-scroll-snap": "^1.0.0",
     "shopify": "^3.65.3"
   },
   "devDependencies": {
@@ -42,16 +44,19 @@
     "@remix-run/eslint-config": "2.11.1",
     "@shopify/oxygen-workers-types": "^4.1.4",
     "@shopify/prettier-config": "^1.1.2",
+    "@tailwindcss/typography": "^0.5.15",
     "@total-typescript/ts-reset": "^0.5.1",
     "@types/eslint": "^9.6.0",
     "@types/react": "^18.3.3",
     "@types/react-dom": "^18.3.0",
+    "daisyui": "^4.12.14",
     "eslint": "^8.0.0",
     "eslint-plugin-hydrogen": "0.12.3",
     "postcss": "^8.4.41",
     "postcss-import": "^16.1.0",
     "postcss-preset-env": "^10.0.0",
     "prettier": "^3.3.3",
+    "tailwindcss": "^3.4.14",
     "typescript": "^5.5.4"
   },
   "engines": {

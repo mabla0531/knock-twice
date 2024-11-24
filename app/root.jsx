@@ -38,6 +38,7 @@ export const shouldRevalidate = ({formMethod, currentUrl, nextUrl}) => {
 export function links() {
   return [
     {rel: 'stylesheet', href: resetStyles},
+    {rel: 'stylesheet', href: "/tailwind.css"},
     {rel: 'stylesheet', href: appStyles},
     {
       rel: 'preconnect',

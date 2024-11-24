@@ -1,13 +1,8 @@
 import { Await } from '@remix-run/react';
 import { Icon } from '@shopify/polaris';
-import { SearchIcon } from '@shopify/polaris-icons';
 import { Suspense } from 'react';
 import { Header } from '~/components/Header';
 import { CartMain } from '~/components/Cart';
-import {
-  PredictiveSearchForm,
-  PredictiveSearchResults,
-} from '~/components/Search';
 
 /**
  * @param {LayoutProps}

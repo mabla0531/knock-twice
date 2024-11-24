@@ -1,12 +1,15 @@
 import { json } from '@shopify/remix-oxygen';
 import { useLoaderData, Link } from '@remix-run/react';
-import { TabBar } from '~/components/Header';
 
 export default function Contact() {
 
   return (
     <>
-      <TabBar />
+      <div role="tablist" className="tabs tabs-lifted my-16">
+        <a role="tab" className="tab" href="/">SHOP</a>
+        <div className="tab tab-active">INFO</div>
+        <a role="tab" className="tab" href="/passport">PASSPORT</a>
+      </div>
       <div className="about">
         <h1>About</h1>
         <div>

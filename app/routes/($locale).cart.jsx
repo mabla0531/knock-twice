@@ -92,7 +92,7 @@ export default function Cart() {
   const cartPromise = rootData.cart;
 
   return (
-    <div className="cart">
+    <div className="cart m-8">
       <h1>Cart</h1>
       <Suspense fallback={<p>Loading cart ...</p>}>
         <Await

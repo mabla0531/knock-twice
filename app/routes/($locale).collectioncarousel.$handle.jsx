@@ -5,6 +5,7 @@ import {
 } from '@shopify/hydrogen';
 import { useVariantUrl } from '~/utils';
 import * as React from 'react';
+import ReactDOM from 'react-dom';
 
 /**
  * @type {MetaFunction<typeof loader>}
@@ -39,11 +40,8 @@ export async function loader({ request, params, context }) {
   return json({ collection });
 }
 
-export default function Collection() {
-  /** @type {LoaderReturnData} */
-  const { collection } = useLoaderData();
-
-  const productSet = [].concat.apply(
+function constructInitialProductSet(collection) {
+  return [].concat.apply(
     [],
     collection.products.nodes.map((product) => {
       let products = [];
@@ -57,7 +55,7 @@ export default function Collection() {
         ) {
           // shopify API response model is abysmally designed
           if (
-            product.variants.nodes[i].selectedOptions[j] != undefined &&
+            product.variants.nodes[i].selectedOptions[j] !== undefined &&
             product.variants.nodes[i].selectedOptions[j].name.toUpperCase() ===
             'SIZE'
           ) {
@@ -71,6 +69,7 @@ export default function Collection() {
           title: product.title,
           descriptionHtml: product.descriptionHtml,
           priceRange: product.priceRange,
+          variantId: product.variants.nodes[i].id,
           rawSelectedOptions: product.variants.nodes[i].selectedOptions, // needs to be intact for link retrieval
           size: size,
           featuredImage: product.featuredImage,
@@ -81,171 +80,158 @@ export default function Collection() {
       return products;
     }),
   );
+}
+
+function AddToCartButton({ analytics, children, disabled, lines, onClick }) {
+  return (
+    <CartForm route="/cart" inputs={{ lines }} action={CartForm.ACTIONS.LinesAdd}>
+      {(fetcher) => (
+        <>
+          <input
+            name="analytics"
+            type="hidden"
+            value={JSON.stringify(analytics)}
+          />
+          <button
+            className="btn btn-primary w-full"
+            type="submit"
+            onClick={onClick}
+            disabled={disabled ?? fetcher.state !== 'idle'}
+          >
+            {children}
+          </button>
+        </>
+      )}
+    </CartForm>
+  );
+}
+
+function ProductPrice({ priceRange }) {
+  return (
+    <div className="product-price">
+      {priceRange.minVariantPrice && (
+        <Money data={priceRange.minVariantPrice} />
+      )}
+    </div>
+  );
+}
+
+function ProductMain({ product }) {
+  if (product === undefined) {
+    return <></>;
+  }
+
+  return (
+    <div className="product-main">
+      <h3 className="my-4">{product.title}</h3>
+      <div className="my-4"><ProductPrice priceRange={product.priceRange}/></div>
+      <div className="my-4">
+        
+        <AddToCartButton
+          onClick={() => {
+            window.location.href = '/cart';
+          }}
+          lines={[{
+            merchandiseId: product.variantId,
+            quantity: 1,
+          }]}
+        >
+          Add to cart
+        </AddToCartButton>
+      </div>
+      <div className="my-4 collapse collapse-arrow border-base-300 border">
+        <input type="checkbox" />
+        <div className="collapse-title text-l font-medium">Description</div>
+        <div className="collapse-content">
+          <div className="my-4" dangerouslySetInnerHTML={{ __html: product.descriptionHtml }} />
+        </div>
+      </div>
+    </div>
+  );
+}
+
+const ProductImageSet = ({product}) => {
+  if (product === undefined) {
+    return (
+      <div className='product-image-panel-wrapper'>
+        <div className="product-image-panel-empty">
+          Please select a product to preview
+        </div>
+      </div>
+    );
+  } else {
+    let images = product.images.map((image, index) => 
+      <div key={index} className='carousel-item product-image'>
+        <Image
+          style={{width: "100%", height: "100%"}}
+          alt={image.altText || product.title}
+          aspectRatio="1/1"
+          data={image}
+          width={640}
+          height={640}
+        />
+      </div>
+    );
+
+    return (
+      <div className="product-image-panel-wrapper">
+        <div className="carousel product-image-panel">
+          {images}
+        </div>
+      </div>
+    );
+  }
+}
+
+export default function Collection() {
+  /** @type {LoaderReturnData} */
+  const { collection } = useLoaderData();
+
+  const productSet = constructInitialProductSet(collection);
 
   const [selectedProduct, setSelectedProduct] = React.useState();
 
-  function ProductPrice({ priceRange }) {
-    return (
-      <div className="product-price">
-        {priceRange.minVariantPrice && (
-          <Money data={priceRange.minVariantPrice} />
-        )}
-      </div>
-    );
-  }
+  let [currentSizeSet, setCurrentSizeSet] = React.useState(
+    new Map([
+      ['XS', false],
+      ['S', false],
+      ['M', false],
+      ['L', false],
+      ['XL', false],
+      ['XXL', false],
+      ['3XL', false],
+    ]),
+  );
 
-  function ProductMain({ product }) {
-    if (product === undefined) {
-      return <></>;
-    }
-
-    const variantUrl = useVariantUrl(
-      product.handle,
-      product.rawSelectedOptions,
-    );
-
-    return (
-      <div className="product-main">
-        <div className='centered-flex'>
-          <h2>{product.title}</h2>
-        </div>
-        <div className='centered-flex'>
-          <h3><ProductPrice priceRange={product.priceRange}/></h3>
-        </div>
-        <div className='centered-flex'>
-          <Link key={product.id} prefetch="intent" to={variantUrl}>
-            <div className='button'>Add to Cart</div>
-          </Link>
-        </div>
-        <p>
-          <strong>Description</strong>
-        </p>
-        <div dangerouslySetInnerHTML={{ __html: product.descriptionHtml }} />
-      </div>
-    );
-  }
-
-  const ProductImage = ({ product }) => {
-    if (product === undefined) {
-      return (
-        <div className="productImagePanel">
-          <div className="productImageEmptyContainer">
-            <div className="productImageEmpty">
-              Please select a product to preview
-            </div>
-          </div>
-        </div>
-      );
-    } else {
-      const [currentImageIndex, setCurrentImageIndex] = React.useState(0);
-
-      let images = product.images.map((image) => {
-        return (
-          <Image
-            alt={image.altText || product.title}
-            style={{ width: '100%', height: '100%' }}
-            className="productImage"
-            aspectRatio="1/1"
-            data={image}
-            width={1080}
-            height={1080}
-          />
-        );
+  const getEnabledSizes = () => {
+    return [...currentSizeSet]
+      .filter(([_, value]) => value)
+      .map(([key, _]) => {
+        return key;
       });
+  };
 
-      return (
-        <div className="productImagePanel">
-          <div className="productImageContainer">
-            <div className="productImage">
-              <button
-                className="productImageSifterLeft"
-                onClick={() => setCurrentImageIndex(currentImageIndex - 1)}
-              >
-                <svg
-                  width="32"
-                  height="32"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M14 6L8 12L14 18"
-                    stroke="black"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  />
-                </svg>
-              </button>
-              {images[currentImageIndex]}
-              <button
-                className="productImageSifterRight"
-                onClick={() => setCurrentImageIndex(currentImageIndex + 1)}
-              >
-                <svg
-                  width="32"
-                  height="32"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M10 6L16 12L10 18"
-                    stroke="black"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  />
-                </svg>
-              </button>
-            </div>
-          </div>
-        </div>
-      );
-    }
+  const flipSize = (size) => {
+    setCurrentSizeSet(currentSizeSet.set(size, !currentSizeSet.get(size)));
   };
 
   const Swatch = ({ product }) => {
     return (
       <div
-        className="swatchContainer"
+        className="carousel-item swatch-container"
         onClick={() => setSelectedProduct(product)}
       >
         {product.featuredImage && (
           <Image
-            className="swatchImage"
+            className="swatch-image"
             alt={product.featuredImage.altText || product.title}
             aspectRatio="1/1"
             data={product.featuredImage}
-            width={480}
-            height={480}
+            width={64}
+            height={64}
           />
         )}
       </div>
-    );
-  };
-
-  const SizeSpecifier = ({ sizes }) => {
-    let selected = [...sizes]
-      .filter(([_, value]) => value)
-      .map(([key, _]) => key);
-
-    return (
-      <div className='sizeSpecifier'>
-        {selected.length == 1 ? 'Size: ' : 'Sizes: '}{' '}
-        {selected.length > 0 ? selected.join(', ') : 'ALL'}
-      </div>
-    );
-  };
-
-  // need to component-alize currentSwatchSet hook so it doesn't
-  // enter a race condition with React's asynchronous useState set() method
-  // 🤡🤡🤡🤡🤡🤡🤡🤡🤡🤡🤡🤡🤡 dumbest shit I've ever written
-  const SwatchSet = ({ currentSwatchSet }) => {
-    return currentSwatchSet.length > 0 ? (
-      <>{currentSwatchSet}</>
-    ) : (
-      <div className="noItemsMessage">No items available for this filter</div>
     );
   };
 
@@ -259,47 +245,19 @@ export default function Collection() {
       .forEach((product) => {
         if (!distinctIDs.includes(product.id)) {
           distinctIDs.push(product.id);
-          distinctSwatches.push(<Swatch product={product}></Swatch>);
+          distinctSwatches.push(<Swatch key={product.id} product={product}></Swatch>);
         }
       });
 
     return distinctSwatches;
   };
 
-  let [currentSizeSet, setCurrentSizeSet] = React.useState(
-    new Map([
-      ['XS', false],
-      ['S', false],
-      ['M', false],
-      ['L', false],
-      ['XL', false],
-      ['XXL', false],
-      ['XXXL', false],
-    ]),
+  const defaultSwatchSet = createSwatchSet(
+    ['XS', 'S', 'M', 'L', 'XL', 'XXL', '3XL'],
+    productSet
   );
 
-  const getEnabledSizes = () => {
-    return [...currentSizeSet]
-      .filter(([_, value]) => value)
-      .map(([key, _]) => {
-        return key;
-      });
-  };
-  const flipSize = (size) => {
-    setCurrentSizeSet(currentSizeSet.set(size, !currentSizeSet.get(size)));
-  };
-
-  const defaultSwatchSet = createSwatchSet([
-    'XS',
-    'S',
-    'M',
-    'L',
-    'XL',
-    'XXL',
-    'XXXL',
-  ]);
-  const [currentSwatchSet, setCurrentSwatchSet] =
-    React.useState(defaultSwatchSet);
+  const [currentSwatchSet, setCurrentSwatchSet] = React.useState(defaultSwatchSet);
 
   const modifyActiveSizes = (size) => {
     flipSize(size);
@@ -312,7 +270,7 @@ export default function Collection() {
       !currentSizeSet.get('L') &&
       !currentSizeSet.get('XL') &&
       !currentSizeSet.get('XXL') &&
-      !currentSizeSet.get('XXXL')
+      !currentSizeSet.get('3XL')
     ) {
       setCurrentSwatchSet(defaultSwatchSet);
     } else {
@@ -320,48 +278,53 @@ export default function Collection() {
     }
   };
 
-  let TabButton = ({ name }) => {
-    let productCount = productSet.filter((product) => product.size == name).length;
-    console.log(productCount);
-
-    return (
-      <>
-        {productCount > 0 && 
-          <button
-            className={currentSizeSet.get(name) ? 'button button-selected' : 'button'}
-            onClick={
-              () => {
-                modifyActiveSizes(name);
-              }
-            }
-          >
-            {name}
-          </button>
-        }
-      </>
+  const SwatchSet = ({ currentSwatchSet }) => {
+    return currentSwatchSet.length > 0 ? (
+      <div className="carousel">{currentSwatchSet}</div>
+    ) : (
+      <div className="noItemsMessage">No items available for this filter</div>
     );
   };
 
+  let TabButton = ({ name, buttonCount }) => {
+
+    let width_percent = ((1/buttonCount) * 100).toFixed(2);
+
+    console.log(width_percent);
+
+    return (
+      <button
+        className={"btn h-8 mx-1" + (currentSizeSet.get(name) ? "btn-primary" : "")}
+        onClick={() => modifyActiveSizes(name)}
+        style={{width: "calc(" + width_percent + "% - 10px)", maxWidth: "96px"}}
+      >
+        {name}
+      </button>
+    );
+  };
+
+  const TabList = () => {
+    let sizes = ['XS', 'S', 'M', 'L', 'XL', 'XXL', '3XL'];
+    
+    let relevantSizes = sizes.filter((size) => 
+      productSet.filter((product) => product.size === size).length > 0
+    );
+
+    return (
+      <div className="tabList">
+        {relevantSizes.map((size) => <TabButton name={size} buttonCount={relevantSizes.length} />)}
+      </div>
+    )
+  }
+
   return (
     <>
-      <div className="collectionTitle">
-        <h1>{collection.title}</h1>
-      </div>
       <div className="collectionPanel">
-        <ProductImage product={selectedProduct} />
+        <ProductImageSet product={selectedProduct} />
 
         <div className="productFilter">
           <div className="productSelector">
-            <div className="tabList">
-              <TabButton name={'XS'} />
-              <TabButton name={'S'} />
-              <TabButton name={'M'} />
-              <TabButton name={'L'} />
-              <TabButton name={'XL'} />
-              <TabButton name={'XXL'} />
-              <TabButton name={'XXXL'} />
-            </div>
-            <SizeSpecifier sizes={currentSizeSet} />
+            <TabList />
           </div>
           <div className="tabPanel">
             <SwatchSet currentSwatchSet={currentSwatchSet} />
@@ -372,6 +335,14 @@ export default function Collection() {
     </>
   );
 }
+
+const prod_info = `#graphql
+  fragment Info on Product {
+    id,
+    title,
+    description
+  }
+`;
 
 const PRODUCT_ITEM_FRAGMENT = `#graphql
   fragment MoneyProductItem on MoneyV2 {
@@ -409,6 +380,7 @@ const PRODUCT_ITEM_FRAGMENT = `#graphql
     }
     variants(first: 5) {
       nodes {
+        id,
         selectedOptions {
           name
           value
