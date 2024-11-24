@@ -1,6 +1,7 @@
 import { useLoaderData, Link } from '@remix-run/react';
 import { Image } from '@shopify/hydrogen';
 import { Grid } from '@mui/material';
+import { useState } from 'react';
 
 export function meta() {
   return [
@@ -16,26 +17,50 @@ export async function loader({ context }) {
 export default function Index() {
   const { collections } = useLoaderData();
 
-  const CollectionTile = ({ collection, product }) => {
+  const CollectionTile = ({ collection }) => {
+    let images = collection.products.nodes.map(
+      (product) => 
+        <Image
+          data={product.featuredImage}
+          className="collection-tile-image"
+          crop="center"
+          width={320}
+          height={320}
+        />
+    );
+
+    const [imageIndex, setImageIndex] = useState(0);
+    const [cycleEnabled, setCycleEnabled] = useState(true);
+
+    const tryCycleImage = () => {
+      if (cycleEnabled) {
+        setCycleEnabled(false);
+        if ((imageIndex + 1) >= images.length) {
+          setImageIndex(0);
+        } else {
+          setImageIndex(imageIndex + 1);
+        }
+      }
+    }
+
+    const allowCycleImage = () => {
+      setCycleEnabled(true);
+    }
+
     return (
-      <div className="collection-tile-wrapper">
+      <div className="collection-tile-wrapper"
+        onMouseOver={(e) => tryCycleImage()}
+        onMouseLeave={(e) => allowCycleImage()}
+      >
         <Link
           className='collection-tile-link'
           to={`/collectioncarousel/${collection.handle}`}
-          key={collection.id}
         >
 
-          <div className="collection-tile">
-            <Image
-              alt={`Image of ${collection.title}`}
-              data={product.featuredImage}
-              key={collection.id}
-              className="collection-tile-image"
-              crop="center"
-              width={1080}
-              height={1080}
-            />
-
+          <div 
+            className="collection-tile" 
+          >
+            {images[imageIndex]}
             <div className="index-collection-title">
               {collection.products.nodes.length > 0 && collection.title}
             </div>
@@ -49,9 +74,7 @@ export default function Index() {
   let collectionTiles = collections.nodes
     .filter((collection) => collection.products.nodes.length > 0)
     .map(
-      (collection) => collection.products.nodes.map(
-        (product) => <CollectionTile key={product} collection={collection} product={product}/>
-      )
+      (collection) => <CollectionTile collection={collection}/>
     );
 
   return (
@@ -73,7 +96,7 @@ const COLLECTIONS_QUERY = `#graphql
         id
         title
         handle
-        products(first: 1) {
+        products(first: 5) {
           nodes {
             featuredImage {
               altText

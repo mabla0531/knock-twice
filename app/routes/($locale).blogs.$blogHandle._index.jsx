@@ -90,7 +90,6 @@ function ArticleItem({article, loading}) {
         {article.image && (
           <div className="blog-article-image">
             <Image
-              alt={article.image.altText || article.title}
               aspectRatio="3/2"
               data={article.image}
               loading={loading}

@@ -164,7 +164,6 @@ const ProductImageSet = ({product}) => {
       <div key={index} className='carousel-item product-image'>
         <Image
           style={{width: "100%", height: "100%"}}
-          alt={image.altText || product.title}
           aspectRatio="1/1"
           data={image}
           width={640}
@@ -224,7 +223,6 @@ export default function Collection() {
         {product.featuredImage && (
           <Image
             className="swatch-image"
-            alt={product.featuredImage.altText || product.title}
             aspectRatio="1/1"
             data={product.featuredImage}
             width={64}
@@ -294,7 +292,7 @@ export default function Collection() {
 
     return (
       <button
-        className={"btn h-8 mx-1" + (currentSizeSet.get(name) ? "btn-primary" : "")}
+        className={"btn h-8 mx-1" + (currentSizeSet.get(name) ? " btn-primary" : "")}
         onClick={() => modifyActiveSizes(name)}
         style={{width: "calc(" + width_percent + "% - 10px)", maxWidth: "96px"}}
       >
