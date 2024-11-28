@@ -7,13 +7,9 @@ import { useVariantUrl } from '~/utils';
  */
 export function CartMain({ layout, cart }) {
   const linesCount = Boolean(cart?.lines?.nodes?.length || 0);
-  const withDiscount =
-    cart &&
-    Boolean(cart.discountCodes.filter((code) => code.applicable).length);
-  const className = `cart-main flex ${withDiscount ? 'with-discount' : ''}`;
-
+  
   return (
-    <div className={className}>
+    <div className="cart-main flex">
       <CartEmpty hidden={linesCount} layout={layout} />
       <CartDetails cart={cart} layout={layout} />
     </div>
@@ -27,7 +23,7 @@ function CartDetails({ layout, cart }) {
   const cartHasItems = !!cart && cart.totalQuantity > 0;
 
   return (
-    <div className="cart-details">
+    <div>
       <CartLines lines={cart?.lines} layout={layout} />
       {cartHasItems && (
         <CartSummary cost={cart.cost} layout={layout}>
@@ -131,11 +127,10 @@ function CartCheckoutActions({ checkoutUrl }) {
  * }}
  */
 export function CartSummary({ cost, layout, children = null }) {
-  const className = layout === 'page' ? 'cart-summary-page' : 'cart-summary-aside';
 
   return (
-    <div aria-labelledby="cart-summary" className={className}>
-      <div className="cart-subtotal my-8">
+    <div aria-labelledby="cart-summary">
+      <div className="my-8">
         Subtotal:&nbsp;
         {cost?.subtotalAmount?.amount ? (
           <Money data={cost?.subtotalAmount} />

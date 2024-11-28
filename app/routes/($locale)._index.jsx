@@ -22,7 +22,7 @@ export default function Index() {
       (product) => 
         <Image
           data={product.featuredImage}
-          className="collection-tile-image"
+          className="w-full h-full"
           crop="center"
           width={320}
           height={320}

@@ -10,7 +10,7 @@ export default function Passport() {
         <a role="tab" className="tab" href="/about">INFO</a>
         <div className="tab tab-active">PASSPORT</div>
       </div>
-      <div className="passport">
+      <div className="text-center">
         <h1>Passport</h1>
         <div>
           This is a work in progress. Please check back later; we are very excited for this service launch!

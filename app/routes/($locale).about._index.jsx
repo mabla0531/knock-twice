@@ -10,7 +10,7 @@ export default function Contact() {
         <div className="tab tab-active">INFO</div>
         <a role="tab" className="tab" href="/passport">PASSPORT</a>
       </div>
-      <div className="about">
+      <div className="text-center">
         <h1>About</h1>
         <div>
           WE IS OUT HERE THUGGIN ON GOD
