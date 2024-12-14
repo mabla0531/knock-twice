@@ -53,14 +53,14 @@ img {
   backdrop-filter: blur(16px);
 }
 
-.k2t_logo_container {
+.k2t-logo-container {
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100%;
 }
 
-.k2t_logo {
+.k2t-logo {
   width: 128px;
   height: 32px;
 }
@@ -97,18 +97,8 @@ img {
   border-radius: 16px;
 }
 
-.tab-bar {
-  display: flex;
-  width: 100%;
-  margin-top: 24px;
-}
-
-.tab-bar-link {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 33%;
-  background-color: rgb(255, 255, 255);
+.tabs {
+  overflow-x: hidden;
 }
 
 /*
@@ -170,16 +160,13 @@ img {
 }
 
 .index-collection-title {
-  display: flex;
-
-  justify-content: center;
-  white-space: nowrap;
+  text-align: center;
 
   width: calc(100% - 8px);
   max-width: calc(100% - 8px);
   overflow-x: hidden;
+  white-space: nowrap;
   text-overflow: ellipsis;
-
 
   padding: 0.15em 0.5em;
 
@@ -219,12 +206,6 @@ img {
   text-align: center;
   width: 100%;
   margin-bottom: 0.5em;
-}
-
-.button-selected {
-  background-color: rgb(60, 60, 70);
-  color: rgb(225, 225, 225);
-  border: 2px solid rgba(50, 100, 200, 1);
 }
 
 .tab-panel {
@@ -273,7 +254,7 @@ img {
 
   padding: 3%;
 
-  @media(min-width: 45em) {
+  @media (min-width: 45em) {
     width: 50%;
   }
 }

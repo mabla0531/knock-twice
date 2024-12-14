@@ -1,28 +1,30 @@
-import { json, redirect } from '@shopify/remix-oxygen';
-import { useLoaderData, Link } from '@remix-run/react';
+import {json, redirect} from '@shopify/remix-oxygen';
+import {useLoaderData, Link} from '@remix-run/react';
 import {
-  getPaginationVariables, Image, Money, CartForm
+  getPaginationVariables,
+  Image,
+  Money,
+  CartForm,
 } from '@shopify/hydrogen';
-import { useVariantUrl } from '~/utils';
+import {useVariantUrl} from '~/utils';
 import * as React from 'react';
 import ReactDOM from 'react-dom';
-import { isMobile } from 'react-device-detect';
+import {isMobile} from 'react-device-detect';
 
-import { 
+import {
   constructProductSetFromCollection,
   ProductPrice,
   ProductMain,
-  ProductImageSet
- } from '~/components/Product';
+  ProductImageSet,
+} from '~/components/Product';
 
-
-export const meta = ({ data }) => {
-  return [{ title: `KT | ${data?.collection.title ?? ''}` }];
+export const meta = ({data}) => {
+  return [{title: `KT | ${data?.collection.title ?? ''}`}];
 };
 
-export async function loader({ request, params, context }) {
-  const { handle } = params;
-  const { storefront } = context;
+export async function loader({request, params, context}) {
+  const {handle} = params;
+  const {storefront} = context;
   const paginationVariables = getPaginationVariables(request, {
     pageBy: 250,
   });
@@ -31,8 +33,8 @@ export async function loader({ request, params, context }) {
     return redirect('/collections');
   }
 
-  const { collection } = await storefront.query(COLLECTION_QUERY, {
-    variables: { handle, ...paginationVariables },
+  const {collection} = await storefront.query(COLLECTION_QUERY, {
+    variables: {handle, ...paginationVariables},
   });
 
   if (!collection) {
@@ -40,11 +42,11 @@ export async function loader({ request, params, context }) {
       status: 404,
     });
   }
-  return json({ collection });
+  return json({collection});
 }
 
 export default function Collection() {
-  const { collection } = useLoaderData();
+  const {collection} = useLoaderData();
 
   const productSet = constructProductSetFromCollection(collection);
 
@@ -60,7 +62,7 @@ export default function Collection() {
       ['3XL', false],
     ]),
   );
-    
+
   const getEnabledSizes = () => {
     return [...currentSizeSet]
       .filter(([_, value]) => value)
@@ -73,7 +75,7 @@ export default function Collection() {
     setCurrentSizeSet(currentSizeSet.set(size, !currentSizeSet.get(size)));
   };
 
-  const Swatch = ({ product }) => {
+  const Swatch = ({product}) => {
     return (
       <div
         className="carousel-item swatch-container"
@@ -105,16 +107,22 @@ export default function Collection() {
       .forEach((product) => {
         if (!distinctIDs.includes(product.id)) {
           distinctIDs.push(product.id);
-          distinctSwatches.push(<Swatch key={product.id} product={product}></Swatch>);
+          distinctSwatches.push(
+            <Swatch key={product.id} product={product}></Swatch>,
+          );
         }
       });
 
     return distinctSwatches;
   };
 
-  const defaultSwatchSet = createSwatchSet(['XS', 'S', 'M', 'L', 'XL', 'XXL', '3XL'], productSet);
+  const defaultSwatchSet = createSwatchSet(
+    ['XS', 'S', 'M', 'L', 'XL', 'XXL', '3XL'],
+    productSet,
+  );
 
-  const [currentSwatchSet, setCurrentSwatchSet] = React.useState(defaultSwatchSet);
+  const [currentSwatchSet, setCurrentSwatchSet] =
+    React.useState(defaultSwatchSet);
 
   const modifyActiveSizes = (size) => {
     flipSize(size);
@@ -135,25 +143,24 @@ export default function Collection() {
     }
   };
 
-  const SwatchSet = ({ currentSwatchSet }) => {
+  const SwatchSet = ({currentSwatchSet}) => {
     return currentSwatchSet.length > 0 ? (
       <div className="carousel">{currentSwatchSet}</div>
     ) : (
-      <div>{"No items available for this filter"}</div>
+      <div>{'No items available for this filter'}</div>
     );
   };
 
-  let TabButton = ({ name, buttonCount }) => {
-
-    let width_percent = ((1/buttonCount) * 100).toFixed(2);
-
-    console.log(width_percent);
+  let TabButton = ({name, buttonCount}) => {
+    let width_percent = ((1 / buttonCount) * 100).toFixed(2);
 
     return (
       <button
-        className={"btn h-8 mx-1" + (currentSizeSet.get(name) ? " btn-primary" : "")}
+        className={
+          'btn h-8 mx-1' + (currentSizeSet.get(name) ? ' btn-primary' : '')
+        }
         onClick={() => modifyActiveSizes(name)}
-        style={{width: "calc(" + width_percent + "% - 10px)", maxWidth: "96px"}}
+        style={{width: 'calc(' + width_percent + '% - 10px)', maxWidth: '96px'}}
       >
         {name}
       </button>
@@ -162,17 +169,20 @@ export default function Collection() {
 
   const TabList = () => {
     let sizes = ['XS', 'S', 'M', 'L', 'XL', 'XXL', '3XL'];
-    
-    let relevantSizes = sizes.filter((size) => 
-      productSet.filter((product) => product.size === size).length > 0
+
+    let relevantSizes = sizes.filter(
+      (size) =>
+        productSet.filter((product) => product.size === size).length > 0,
     );
 
     return (
       <div className="tab-list">
-        {relevantSizes.map((size) => <TabButton name={size} buttonCount={relevantSizes.length} />)}
+        {relevantSizes.map((size) => (
+          <TabButton name={size} buttonCount={relevantSizes.length} />
+        ))}
       </div>
-    )
-  }
+    );
+  };
 
   return (
     <>

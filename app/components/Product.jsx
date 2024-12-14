@@ -1,5 +1,5 @@
-import { isMobile } from 'react-device-detect';
-import { Image, Money, CartForm } from '@shopify/hydrogen';
+import {isMobile} from 'react-device-detect';
+import {Image, Money, CartForm} from '@shopify/hydrogen';
 
 export function constructProductSetFromCollection(collection) {
   return [].concat.apply(
@@ -18,7 +18,7 @@ export function constructProductSetFromCollection(collection) {
           if (
             product.variants.nodes[i].selectedOptions[j] !== undefined &&
             product.variants.nodes[i].selectedOptions[j].name.toUpperCase() ===
-            'SIZE'
+              'SIZE'
           ) {
             size = product.variants.nodes[i].selectedOptions[j].value;
           }
@@ -34,7 +34,7 @@ export function constructProductSetFromCollection(collection) {
           rawSelectedOptions: product.variants.nodes[i].selectedOptions, // needs to be intact for link retrieval
           size: size,
           featuredImage: product.featuredImage,
-          element: <ProductImageSet product={product} />
+          element: <ProductImageSet product={product} />,
         });
       }
 
@@ -43,7 +43,7 @@ export function constructProductSetFromCollection(collection) {
   );
 }
 
-export function ProductPrice({ priceRange }) {
+export function ProductPrice({priceRange}) {
   return (
     <div className="product-price">
       {priceRange.minVariantPrice && (
@@ -53,7 +53,7 @@ export function ProductPrice({ priceRange }) {
   );
 }
 
-export function ProductMain({ product }) {
+export function ProductMain({product}) {
   if (product === undefined) {
     return <></>;
   }
@@ -61,57 +61,64 @@ export function ProductMain({ product }) {
   return (
     <div className="product-main">
       <h3 className="my-4">{product.title}</h3>
-      <div className="my-4"><ProductPrice priceRange={product.priceRange} /></div>
       <div className="my-4">
-
+        <ProductPrice priceRange={product.priceRange} />
+      </div>
+      <div className="my-4">
         <AddToCartButton
-          onClick={() => {
-            window.location.href = '/cart';
-          }}
-          lines={[{
-            merchandiseId: product.variantId,
-            quantity: 1,
-          }]}
-        >
-          Add to cart
-        </AddToCartButton>
+          lines={[
+            {
+              merchandiseId: product.variantId,
+              quantity: 1,
+            },
+          ]}
+          children={'Add to cart'}
+        />
       </div>
       <div className="my-4 collapse collapse-arrow border-base-300 border">
         <input type="checkbox" />
         <div className="collapse-title text-l font-medium">Description</div>
         <div className="collapse-content">
-          <div className="my-4" dangerouslySetInnerHTML={{ __html: product.descriptionHtml }} />
+          <div
+            className="my-4"
+            dangerouslySetInnerHTML={{__html: product.descriptionHtml}}
+          />
         </div>
       </div>
     </div>
   );
 }
 
-export function ProductImageSet({ product }) {
+export function ProductImageSet({product}) {
   if (product === undefined) {
     return (
-      <div className='product-image-panel-wrapper'>
+      <div className="product-image-panel-wrapper">
         <div className="product-image-panel-empty">
           Please select a product to preview
         </div>
       </div>
     );
   } else {
-    let images = product.images.nodes.map((image, index) =>
-      <div key={index} className='carousel-item product-image'>
+    let images = product.images.nodes.map((image, index) => (
+      <div key={index} className="carousel-item product-image">
         <Image
-          style={{ width: "100%", height: "100%" }}
+          style={{width: '100%', height: '100%'}}
           aspectRatio="1/1"
           data={image}
           width={640}
           height={640}
         />
       </div>
-    );
+    ));
 
     return (
       <div className="product-image-panel-wrapper">
-        <div className={"carousel product-image-panel" + (isMobile ? "" : " carousel-vertical")}>
+        <div
+          className={
+            'carousel product-image-panel' +
+            (isMobile ? '' : ' carousel-vertical')
+          }
+        >
           {images}
         </div>
       </div>
@@ -119,9 +126,9 @@ export function ProductImageSet({ product }) {
   }
 }
 
-function AddToCartButton({ analytics, children, disabled, lines, onClick }) {
+function AddToCartButton({analytics, children, disabled, lines, onClick}) {
   return (
-    <CartForm route="/cart" inputs={{ lines }} action={CartForm.ACTIONS.LinesAdd}>
+    <CartForm route="/cart" inputs={{lines}} action={CartForm.ACTIONS.LinesAdd}>
       {(fetcher) => (
         <>
           <input

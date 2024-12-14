@@ -1,17 +1,19 @@
-import { CartForm, Image, Money } from '@shopify/hydrogen';
-import { Link } from '@remix-run/react';
-import { useVariantUrl } from '~/utils';
+import {CartForm, Image, Money} from '@shopify/hydrogen';
+import {NavLink} from '@remix-run/react';
+import {Link} from '@remix-run/react';
+import {useVariantUrl} from '~/utils';
 
 /**
  * @param {CartMainProps}
  */
-export function CartMain({ layout, cart }) {
-  const linesCount = Boolean(cart?.lines?.nodes?.length || 0);
-  
+export function CartMain({layout, cart}) {
   return (
     <div className="cart-main flex">
-      <CartEmpty hidden={linesCount} layout={layout} />
-      <CartDetails cart={cart} layout={layout} />
+      {cart?.lines?.nodes?.length > 0 ? (
+        <CartDetails cart={cart} />
+      ) : (
+        <CartEmpty layout={layout} />
+      )}
     </div>
   );
 }
@@ -19,7 +21,7 @@ export function CartMain({ layout, cart }) {
 /**
  * @param {CartMainProps}
  */
-function CartDetails({ layout, cart }) {
+function CartDetails({layout, cart}) {
   const cartHasItems = !!cart && cart.totalQuantity > 0;
 
   return (
@@ -40,7 +42,7 @@ function CartDetails({ layout, cart }) {
  *   lines: CartApiQueryFragment['lines'] | undefined;
  * }}
  */
-function CartLines({ lines, layout }) {
+function CartLines({lines, layout}) {
   if (!lines) return null;
 
   return (
@@ -60,9 +62,9 @@ function CartLines({ lines, layout }) {
  *   line: CartLine;
  * }}
  */
-function CartLineItem({ layout, line }) {
-  const { id, merchandise } = line;
-  const { product, title, image, selectedOptions } = merchandise;
+function CartLineItem({layout, line}) {
+  const {id, merchandise} = line;
+  const {product, title, image, selectedOptions} = merchandise;
   const lineItemUrl = useVariantUrl(product.handle, selectedOptions);
 
   return (
@@ -90,7 +92,9 @@ function CartLineItem({ layout, line }) {
         >
           <strong>{product.title}</strong>
         </Link>
-        <div><CartLinePrice line={line} as="span" /></div>
+        <div>
+          <CartLinePrice line={line} as="span" />
+        </div>
         <ul>
           {selectedOptions.map((option) => (
             <li key={option.name}>
@@ -109,13 +113,13 @@ function CartLineItem({ layout, line }) {
 /**
  * @param {{checkoutUrl: string}}
  */
-function CartCheckoutActions({ checkoutUrl }) {
+function CartCheckoutActions({checkoutUrl}) {
   if (!checkoutUrl) return null;
 
   return (
-      <a href={checkoutUrl} target="_self">
-        <button className="btn btn-primary w-full">Continue to Checkout</button>
-      </a>
+    <a href={checkoutUrl} target="_self">
+      <button className="btn btn-primary w-full">Continue to Checkout</button>
+    </a>
   );
 }
 
@@ -126,8 +130,7 @@ function CartCheckoutActions({ checkoutUrl }) {
  *   layout: CartMainProps['layout'];
  * }}
  */
-export function CartSummary({ cost, layout, children = null }) {
-
+export function CartSummary({cost, layout, children = null}) {
   return (
     <div aria-labelledby="cart-summary">
       <div className="my-8">
@@ -146,12 +149,12 @@ export function CartSummary({ cost, layout, children = null }) {
 /**
  * @param {{lineIds: string[]}}
  */
-function CartLineRemoveButton({ lineIds }) {
+function CartLineRemoveButton({lineIds}) {
   return (
     <CartForm
       route="/cart"
       action={CartForm.ACTIONS.LinesRemove}
-      inputs={{ lineIds }}
+      inputs={{lineIds}}
     >
       <button type="submit">Remove</button>
     </CartForm>
@@ -165,7 +168,7 @@ function CartLineRemoveButton({ lineIds }) {
  *   [key: string]: any;
  * }}
  */
-function CartLinePrice({ line, priceType = 'regular', ...passthroughProps }) {
+function CartLinePrice({line, priceType = 'regular', ...passthroughProps}) {
   if (!line?.cost?.amountPerQuantity || !line?.cost?.totalAmount) return null;
 
   const moneyV2 =
@@ -177,7 +180,7 @@ function CartLinePrice({ line, priceType = 'regular', ...passthroughProps }) {
     return null;
   }
 
-  return (<Money withoutTrailingZeros {...passthroughProps} data={moneyV2} />);
+  return <Money withoutTrailingZeros {...passthroughProps} data={moneyV2} />;
 }
 
 /**
@@ -186,10 +189,15 @@ function CartLinePrice({ line, priceType = 'regular', ...passthroughProps }) {
  *   layout?: CartMainProps['layout'];
  * }}
  */
-export function CartEmpty({ hidden = false, layout = 'aside' }) {
+export function CartEmpty() {
   return (
-    <div className='my-8' hidden={hidden}>
-      Looks like you haven't added anything yet!
+    <div className="my-8">
+      <div className="my-2">Looks like you haven't added anything yet!</div>
+      <div>
+        <NavLink prefetch="intent" to="/" end>
+          <button className="btn btn-primary w-full">Continue Shopping</button>
+        </NavLink>
+      </div>
     </div>
   );
 }
@@ -200,12 +208,12 @@ export function CartEmpty({ hidden = false, layout = 'aside' }) {
  *   lines: CartLineUpdateInput[];
  * }}
  */
-function CartLineUpdateButton({ children, lines }) {
+function CartLineUpdateButton({children, lines}) {
   return (
     <CartForm
       route="/cart"
       action={CartForm.ACTIONS.LinesUpdate}
-      inputs={{ lines }}
+      inputs={{lines}}
     >
       {children}
     </CartForm>

@@ -7,7 +7,7 @@ export default function Contact() {
     <>
       <div role="tablist" className="tabs tabs-lifted my-16">
         <a role="tab" className="tab" href="/">SHOP</a>
-        <div className="tab tab-active">INFO</div>
+        <div className="tab tab-active">ABOUT</div>
         <a role="tab" className="tab" href="/passport">PASSPORT</a>
       </div>
       <div className="text-center">

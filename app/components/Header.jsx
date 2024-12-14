@@ -1,7 +1,7 @@
-import { Await, NavLink } from '@remix-run/react';
-import { useState, Suspense } from 'react';
-import { useRootLoaderData } from '~/root';
-import { Form, Icon } from '@shopify/polaris';
+import {Await, NavLink} from '@remix-run/react';
+import {useState, Suspense} from 'react';
+import {useRootLoaderData} from '~/root';
+import {Form, Icon} from '@shopify/polaris';
 import {
   CartIcon,
   SearchIcon,
@@ -9,24 +9,24 @@ import {
   InfoIcon,
 } from '@shopify/polaris-icons';
 
-import { isMobile } from 'react-device-detect';
+import {isMobile} from 'react-device-detect';
 
 /**
  * @param {HeaderProps}
  */
-export function Header({ header, cart }) {
-  const { shop, _ } = header;
+export function Header({header, cart}) {
+  const {shop, _} = header;
 
   return (
     <div className="navbar header">
       <div className="flex-1">
-        <div className='k2t_logo_container'>
+        <div className="k2t-logo-container">
           <NavLink prefetch="intent" to="/" end>
-            <div style={{ display: "flex" }}>
+            <div style={{display: 'flex'}}>
               <svg
                 id="Layer_1"
                 data-name="Layer 1"
-                className="k2t_logo"
+                className="k2t-logo"
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 460 143"
               >
@@ -54,11 +54,15 @@ export function Header({ header, cart }) {
 /**
  * @param {{count: number}}
  */
-function CartBadge({ count }) {
+function CartBadge({count}) {
   return (
     <a href="/cart" className="cart-badge">
-      <div className='cart-button'>
-        <Icon className="titlebar-icon cart-icon" source={CartIcon} tone="base" />
+      <div className="cart-button">
+        <Icon
+          className="titlebar-icon cart-icon"
+          source={CartIcon}
+          tone="base"
+        />
         <div className="cart-count">{count}</div>
       </div>
     </a>
@@ -68,7 +72,7 @@ function CartBadge({ count }) {
 /**
  * @param {Pick<HeaderProps, 'cart'>}
  */
-function CartToggle({ cart }) {
+function CartToggle({cart}) {
   return (
     <Suspense fallback={<CartBadge count={0} />}>
       <Await resolve={cart}>
