@@ -1,5 +1,7 @@
 import {isMobile} from 'react-device-detect';
+import {useRef, useState} from 'react';
 import {Image, Money, CartForm} from '@shopify/hydrogen';
+import dot from 'public/dot.svg';
 
 export function constructProductSetFromCollection(collection) {
   return [].concat.apply(
@@ -26,6 +28,7 @@ export function constructProductSetFromCollection(collection) {
 
         products.push({
           id: product.id,
+          available: product.availableForSale,
           handle: product.handle,
           title: product.title,
           descriptionHtml: product.descriptionHtml,
@@ -53,43 +56,35 @@ export function ProductPrice({priceRange}) {
   );
 }
 
-export function ProductMain({product}) {
-  if (product === undefined) {
-    return <></>;
+export function ProductImageSet({product}) {
+  let elementRef = useRef(null);
+
+  let imageCount = product.images.nodes.length;
+
+  const [currentDot, setCurrentDot] = useState(0);
+  let dots = [];
+
+  for (let i = 0; i < imageCount; i++) {
+    dots.push(
+      <button
+        onClick={() => {
+          setCurrentDot(i);
+          if (isMobile)
+            elementRef.current.scrollLeft =
+              i * (elementRef.current.scrollWidth / imageCount);
+          else
+            elementRef.current.scrollTop =
+              i * (elementRef.current.scrollHeight / imageCount);
+        }}
+      >
+        <img
+          src={dot}
+          style={currentDot === i ? {} : {filter: 'invert(75%)'}}
+        />
+      </button>,
+    );
   }
 
-  return (
-    <div className="product-main">
-      <h3 className="my-4">{product.title}</h3>
-      <div className="my-4">
-        <ProductPrice priceRange={product.priceRange} />
-      </div>
-      <div className="my-4">
-        <AddToCartButton
-          lines={[
-            {
-              merchandiseId: product.variantId,
-              quantity: 1,
-            },
-          ]}
-          children={'Add to cart'}
-        />
-      </div>
-      <div className="my-4 collapse collapse-arrow border-base-300 border">
-        <input type="checkbox" />
-        <div className="collapse-title text-l font-medium">Description</div>
-        <div className="collapse-content">
-          <div
-            className="my-4"
-            dangerouslySetInnerHTML={{__html: product.descriptionHtml}}
-          />
-        </div>
-      </div>
-    </div>
-  );
-}
-
-export function ProductImageSet({product}) {
   if (product === undefined) {
     return (
       <div className="product-image-panel-wrapper">
@@ -118,15 +113,53 @@ export function ProductImageSet({product}) {
             'carousel product-image-panel' +
             (isMobile ? '' : ' carousel-vertical')
           }
+          ref={elementRef}
         >
           {images}
         </div>
+        <div className="product-image-dot-panel">{dots}</div>
       </div>
     );
   }
 }
 
-function AddToCartButton({analytics, children, disabled, lines, onClick}) {
+export function ProductMain({product}) {
+  if (product === undefined) {
+    return <></>;
+  }
+
+  return (
+    <div className="product-main">
+      <h3 className="my-4">{product.title}</h3>
+      <div className="my-4">
+        <ProductPrice priceRange={product.priceRange} />
+      </div>
+      <div className="my-4">
+        <AddToCartButton
+          lines={[
+            {
+              merchandiseId: product.variantId,
+              quantity: 1,
+            },
+          ]}
+          disabled={!product.available}
+        />
+      </div>
+      <div className="my-4 collapse collapse-arrow border-base-300 border">
+        <input type="checkbox" />
+        <div className="collapse-title text-l font-medium">Description</div>
+        <div className="collapse-content">
+          <div
+            className="my-4"
+            dangerouslySetInnerHTML={{__html: product.descriptionHtml}}
+          />
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function AddToCartButton({analytics, disabled, lines}) {
   return (
     <CartForm route="/cart" inputs={{lines}} action={CartForm.ACTIONS.LinesAdd}>
       {(fetcher) => (
@@ -139,10 +172,9 @@ function AddToCartButton({analytics, children, disabled, lines, onClick}) {
           <button
             className="btn btn-primary w-full"
             type="submit"
-            onClick={onClick}
             disabled={disabled ?? fetcher.state !== 'idle'}
           >
-            {children}
+            {disabled ? 'Sold' : 'Add to cart'}
           </button>
         </>
       )}

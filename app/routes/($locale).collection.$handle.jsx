@@ -1,21 +1,16 @@
 import {json, redirect} from '@shopify/remix-oxygen';
-import {useLoaderData, Link} from '@remix-run/react';
+import {useLoaderData} from '@remix-run/react';
 import {
   getPaginationVariables,
   Image,
-  Money,
-  CartForm,
 } from '@shopify/hydrogen';
-import {useVariantUrl} from '~/utils';
 import * as React from 'react';
-import ReactDOM from 'react-dom';
-import {isMobile} from 'react-device-detect';
+import left from 'public/left.svg';
+import right from 'public/right.svg';
 
 import {
   constructProductSetFromCollection,
-  ProductPrice,
   ProductMain,
-  ProductImageSet,
 } from '~/components/Product';
 
 export const meta = ({data}) => {
@@ -78,11 +73,11 @@ export default function Collection() {
   const Swatch = ({product}) => {
     return (
       <div
-        className="carousel-item swatch-container"
-        onClick={() => {
-          setSelectedProduct(product);
-          selectedProduct.element.scrollTo(0, 0);
-        }}
+        className={
+          'carousel-item swatch-container' +
+          (product.available ? '' : ' swatch-unavailable')
+        }
+        onClick={() => setSelectedProduct(product)}
       >
         {product.featuredImage && (
           <Image
@@ -92,6 +87,24 @@ export default function Collection() {
             width={64}
             height={64}
           />
+        )}
+        {!product.available && (
+          <svg
+            version="1.1"
+            id="Layer_1"
+            className="soldout-strikethrough"
+            x="0px"
+            y="0px"
+            viewBox="0 0 64 64"
+          >
+            <g className="st0">
+              <line className="st1" x1="58.25" y1="5.75" x2="5.75" y2="58.25" />
+              <path
+                d="M5.75,58.66c-0.1,0-0.21-0.04-0.29-0.12c-0.16-0.16-0.16-0.42,0-0.58L57.96,5.46c0.16-0.16,0.42-0.16,0.58,0
+              c0.16,0.16,0.16,0.42,0,0.58L6.04,58.54C5.96,58.62,5.86,58.66,5.75,58.66z"
+              />
+            </g>
+          </svg>
         )}
       </div>
     );
@@ -144,8 +157,30 @@ export default function Collection() {
   };
 
   const SwatchSet = ({currentSwatchSet}) => {
+    const elementRef = React.useRef(null);
+
     return currentSwatchSet.length > 0 ? (
-      <div className="carousel">{currentSwatchSet}</div>
+      <>
+        <button
+          className="swatch-scroll-button"
+          onClick={() => {
+            elementRef.current.scrollLeft -= 64;
+          }}
+        >
+          <img src={left} />
+        </button>
+        <div ref={elementRef} className="carousel mx-2">
+          {currentSwatchSet}
+        </div>
+        <button
+          className="swatch-scroll-button"
+          onClick={() => {
+            elementRef.current.scrollLeft += 64;
+          }}
+        >
+          <img src={right} />
+        </button>
+      </>
     ) : (
       <div>{'No items available for this filter'}</div>
     );
@@ -193,7 +228,7 @@ export default function Collection() {
           <div className="product-selector">
             <TabList />
           </div>
-          <div className="tab-panel">
+          <div className="swatch-panel">
             <SwatchSet currentSwatchSet={currentSwatchSet} />
           </div>
           <ProductMain product={selectedProduct} />
@@ -202,14 +237,6 @@ export default function Collection() {
     </>
   );
 }
-
-const prod_info = `#graphql
-  fragment Info on Product {
-    id,
-    title,
-    description
-  }
-`;
 
 const PRODUCT_ITEM_FRAGMENT = `#graphql
   fragment MoneyProductItem on MoneyV2 {
@@ -254,6 +281,7 @@ const PRODUCT_ITEM_FRAGMENT = `#graphql
         }
       }
     }
+    availableForSale
   }
 `;
 

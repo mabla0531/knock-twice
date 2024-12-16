@@ -52,7 +52,7 @@ export default function Index() {
         onMouseOver={(e) => tryCycleImage()}
         onMouseLeave={(e) => allowCycleImage()}
       >
-        <Link to={`/collectioncarousel/${collection.handle}`}>
+        <Link to={`/collection/${collection.handle}`}>
           <div className="collection-tile">
             {images[imageIndex]}
             <div className="index-collection-title">
