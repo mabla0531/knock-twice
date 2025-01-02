@@ -6,3 +6,4 @@ dist/
 .idea/*
 .DS_Store
 package-lock.json
+storefrontapi.generated.d.ts

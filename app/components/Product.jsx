@@ -1,6 +1,7 @@
 import {isMobile} from 'react-device-detect';
-import {useRef, useState} from 'react';
+import {useRef, useState, useEffect} from 'react';
 import {Image, Money, CartForm} from '@shopify/hydrogen';
+import ReactImageZoom from 'react-image-zoom';
 import dot from 'public/dot.svg';
 
 export function constructProductSetFromCollection(collection) {
@@ -37,7 +38,7 @@ export function constructProductSetFromCollection(collection) {
           rawSelectedOptions: product.variants.nodes[i].selectedOptions, // needs to be intact for link retrieval
           size: size,
           featuredImage: product.featuredImage,
-          element: <ProductImageSet product={product} />,
+          images: product.images.nodes
         });
       }
 
@@ -59,7 +60,29 @@ export function ProductPrice({priceRange}) {
 export function ProductImageSet({product}) {
   let elementRef = useRef(null);
 
-  let imageCount = product.images.nodes.length;
+  useEffect(() => {
+    elementRef.current.scrollLeft = 0;
+    elementRef.current.scrollTop = 0;
+
+    elementRef.current.addEventListener('scroll', () => {
+      let currentScroll = elementRef.current.scrollTop;
+      let scrollInterval = elementRef.current.scrollHeight / elementRef.current.childNodes.length;
+
+      if (isMobile) {
+        currentScroll = elementRef.current.scrollLeft;
+        scrollInterval = elementRef.current.scrollWidth / elementRef.current.childNodes.length;
+      }
+
+      setCurrentDot(Math.round(currentScroll / scrollInterval));
+    });
+  }, []);
+
+  useEffect(() => {
+    elementRef.current.scrollLeft = 0;
+    elementRef.current.scrollTop = 0;
+  }, [product]);
+
+  let imageCount = product.images.length;
 
   const [currentDot, setCurrentDot] = useState(0);
   let dots = [];
@@ -68,13 +91,8 @@ export function ProductImageSet({product}) {
     dots.push(
       <button
         onClick={() => {
-          setCurrentDot(i);
-          if (isMobile)
-            elementRef.current.scrollLeft =
-              i * (elementRef.current.scrollWidth / imageCount);
-          else
-            elementRef.current.scrollTop =
-              i * (elementRef.current.scrollHeight / imageCount);
+          if (isMobile) elementRef.current.scrollLeft = i * (elementRef.current.scrollWidth  / imageCount);
+          else          elementRef.current.scrollTop  = i * (elementRef.current.scrollHeight / imageCount);
         }}
       >
         <img
@@ -88,20 +106,19 @@ export function ProductImageSet({product}) {
   if (product === undefined) {
     return (
       <div className="product-image-panel-wrapper">
-        <div className="product-image-panel-empty">
           Please select a product to preview
-        </div>
       </div>
     );
   } else {
-    let images = product.images.nodes.map((image, index) => (
+    let images = product.images.map((image, index) => (
       <div key={index} className="carousel-item product-image">
+
         <Image
-          style={{width: '100%', height: '100%'}}
           aspectRatio="1/1"
           data={image}
           width={640}
           height={640}
+          loading='eager'
         />
       </div>
     ));
@@ -110,8 +127,8 @@ export function ProductImageSet({product}) {
       <div className="product-image-panel-wrapper">
         <div
           className={
-            'carousel product-image-panel' +
-            (isMobile ? '' : ' carousel-vertical')
+            'carousel ' +
+            (isMobile ? 'product-image-panel overflow-y-hidden' : 'carousel-vertical product-image-panel overflow-x-hidden')
           }
           ref={elementRef}
         >

@@ -5,12 +5,14 @@ import {
   Image,
 } from '@shopify/hydrogen';
 import * as React from 'react';
+import {useRef, useEffect} from 'react';
 import left from 'public/left.svg';
 import right from 'public/right.svg';
 
 import {
   constructProductSetFromCollection,
   ProductMain,
+  ProductImageSet
 } from '~/components/Product';
 
 export const meta = ({data}) => {
@@ -71,6 +73,7 @@ export default function Collection() {
   };
 
   const Swatch = ({product}) => {
+
     return (
       <div
         className={
@@ -86,6 +89,7 @@ export default function Collection() {
             data={product.featuredImage}
             width={64}
             height={64}
+            loading='eager'
           />
         )}
         {!product.available && (
@@ -156,14 +160,21 @@ export default function Collection() {
     }
   };
 
-  const SwatchSet = ({currentSwatchSet}) => {
-    const elementRef = React.useRef(null);
+  const SwatchSet = () => {
+    let elementRef = useRef(null);
+
+    useEffect(() => {
+      elementRef.current.addEventListener('wheel', (event) => {
+        if (event.deltaY != 0)
+          elementRef.current.scrollLeft += event.deltaY;
+      });
+    }, []);
 
     return currentSwatchSet.length > 0 ? (
       <>
         <button
           className="swatch-scroll-button"
-          onClick={() => {
+          onMouseDown={() => {
             elementRef.current.scrollLeft -= 64;
           }}
         >
@@ -174,7 +185,7 @@ export default function Collection() {
         </div>
         <button
           className="swatch-scroll-button"
-          onClick={() => {
+          onMouseDown={() => {
             elementRef.current.scrollLeft += 64;
           }}
         >
@@ -222,7 +233,7 @@ export default function Collection() {
   return (
     <>
       <div className="collection-panel">
-        {selectedProduct.element}
+        <ProductImageSet product={selectedProduct} />
 
         <div className="product-filter">
           <div className="product-selector">

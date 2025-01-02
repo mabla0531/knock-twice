@@ -25,6 +25,7 @@ export default function Index() {
         crop="center"
         width={320}
         height={320}
+        loading='eager'
       />
     ));
 

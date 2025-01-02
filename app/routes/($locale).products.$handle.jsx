@@ -132,6 +132,7 @@ function ProductImage({ image }) {
         data={image}
         key={image.id}
         sizes="(min-width: 45em) 50vw, 100vw"
+        loading='eager'
       />
     </div>
   );
