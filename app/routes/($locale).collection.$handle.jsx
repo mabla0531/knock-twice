@@ -138,8 +138,7 @@ export default function Collection() {
     productSet,
   );
 
-  const [currentSwatchSet, setCurrentSwatchSet] =
-    React.useState(defaultSwatchSet);
+  const [currentSwatchSet, setCurrentSwatchSet] = React.useState(defaultSwatchSet);
 
   const modifyActiveSizes = (size) => {
     flipSize(size);
@@ -162,13 +161,6 @@ export default function Collection() {
 
   const SwatchSet = () => {
     let elementRef = useRef(null);
-
-    useEffect(() => {
-      elementRef.current.addEventListener('wheel', (event) => {
-        if (event.deltaY != 0)
-          elementRef.current.scrollLeft += event.deltaY;
-      });
-    }, []);
 
     return currentSwatchSet.length > 0 ? (
       <>
