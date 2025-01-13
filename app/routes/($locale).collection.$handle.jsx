@@ -1,3 +1,5 @@
+/* eslint-disable react/prop-types */
+import {isMobile} from 'react-device-detect';
 import {json, redirect} from '@shopify/remix-oxygen';
 import {useLoaderData} from '@remix-run/react';
 import {
@@ -5,7 +7,7 @@ import {
   Image,
 } from '@shopify/hydrogen';
 import * as React from 'react';
-import {useRef, useEffect} from 'react';
+import { useRef } from 'react';
 import left from 'public/left.svg';
 import right from 'public/right.svg';
 
@@ -48,6 +50,9 @@ export default function Collection() {
   const productSet = constructProductSetFromCollection(collection);
 
   const [selectedProduct, setSelectedProduct] = React.useState(productSet[0]);
+
+  let selectedSwatch = productSet[0].id;
+
   const [currentSizeSet, setCurrentSizeSet] = React.useState(
     new Map([
       ['XS', false],
@@ -73,22 +78,24 @@ export default function Collection() {
   };
 
   const Swatch = ({product}) => {
+    const setProduct = () => {
+      setSelectedProduct(product);
+      selectedSwatch = product.id;
+    }
 
     return (
       <div
         className={
-          'carousel-item swatch-container' +
+          'swatch-container carousel-item' +
           (product.available ? '' : ' swatch-unavailable')
         }
-        onClick={() => setSelectedProduct(product)}
+        onClick={setProduct}
       >
         {product.featuredImage && (
           <Image
-            className="swatch-image"
+            className={"swatch-image" + (selectedSwatch == product.id ? " highlighted-swatch-image" : "")}
             aspectRatio="1/1"
             data={product.featuredImage}
-            width={64}
-            height={64}
             loading='eager'
           />
         )}
@@ -112,7 +119,7 @@ export default function Collection() {
         )}
       </div>
     );
-  };
+  }
 
   const createSwatchSet = (sizes) => {
     // this set of distinctions is a workaround for JS not having any form of reduce
@@ -133,12 +140,12 @@ export default function Collection() {
     return distinctSwatches;
   };
 
-  const defaultSwatchSet = createSwatchSet(
-    ['XS', 'S', 'M', 'L', 'XL', 'XXL', '3XL'],
-    productSet,
+  const [currentSwatchSet, setCurrentSwatchSet] = React.useState(
+    createSwatchSet(
+      ['XS', 'S', 'M', 'L', 'XL', 'XXL', '3XL'],
+      productSet,
+    )
   );
-
-  const [currentSwatchSet, setCurrentSwatchSet] = React.useState(defaultSwatchSet);
 
   const modifyActiveSizes = (size) => {
     flipSize(size);
@@ -153,7 +160,12 @@ export default function Collection() {
       !currentSizeSet.get('XXL') &&
       !currentSizeSet.get('3XL')
     ) {
-      setCurrentSwatchSet(defaultSwatchSet);
+      setCurrentSwatchSet(
+        createSwatchSet(
+          ['XS', 'S', 'M', 'L', 'XL', 'XXL', '3XL'],
+          productSet,
+        )
+      );
     } else {
       setCurrentSwatchSet(createSwatchSet(getEnabledSizes()));
     }
@@ -163,27 +175,9 @@ export default function Collection() {
     let elementRef = useRef(null);
 
     return currentSwatchSet.length > 0 ? (
-      <>
-        <button
-          className="swatch-scroll-button"
-          onMouseDown={() => {
-            elementRef.current.scrollLeft -= 64;
-          }}
-        >
-          <img src={left} />
-        </button>
-        <div ref={elementRef} className="carousel mx-2">
-          {currentSwatchSet}
-        </div>
-        <button
-          className="swatch-scroll-button"
-          onMouseDown={() => {
-            elementRef.current.scrollLeft += 64;
-          }}
-        >
-          <img src={right} />
-        </button>
-      </>
+      <div ref={elementRef} className="swatch-panel carousel mx-2">
+        {currentSwatchSet}
+      </div>
     ) : (
       <div>{'No items available for this filter'}</div>
     );
@@ -216,28 +210,23 @@ export default function Collection() {
     return (
       <div className="tab-list">
         {relevantSizes.map((size) => (
-          <TabButton name={size} buttonCount={relevantSizes.length} />
+          <TabButton key={size} name={size} buttonCount={relevantSizes.length} />
         ))}
       </div>
     );
   };
 
   return (
-    <>
-      <div className="collection-panel">
-        <ProductImageSet product={selectedProduct} />
-
-        <div className="product-filter">
-          <div className="product-selector">
-            <TabList />
-          </div>
-          <div className="swatch-panel">
-            <SwatchSet currentSwatchSet={currentSwatchSet} />
-          </div>
-          <ProductMain product={selectedProduct} />
+    <div className="collection-panel">
+      <ProductImageSet product={selectedProduct} />
+      <div className="product-filter">
+        <div className="product-selector">
+          <TabList />
         </div>
+        <SwatchSet currentSwatchSet={currentSwatchSet} />
+        {isMobile && <ProductMain product={selectedProduct} />}
       </div>
-    </>
+    </div>
   );
 }
 

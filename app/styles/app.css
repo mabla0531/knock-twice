@@ -1,3 +1,8 @@
+@font-face {
+  font-family: 'Enrique';
+  src: url('../../public/Enrique.ttf');
+}
+
 :root {
   --aside-width: 400px;
   --cart-aside-summary-height-with-discount: 300px;
@@ -12,6 +17,7 @@
 html,
 body {
   height: 100%;
+  font-family: 'Enrique';
 }
 
 .btn {
@@ -23,16 +29,13 @@ a:hover {
 }
 
 .main {
-  position: absolute; /* I am sorry for whoever has to read this, I know it's retarded, please don't be mean to me :( */
+  position: absolute;
   top: 0;
   left: 0;
   padding-top: 64px;
-  min-height: 100%;
   height: 100%;
-  max-height: 100%;
-  min-width: 100%;
   width: 100%;
-  max-width: 100%;
+  overflow-x: hidden;
   overflow-y: scroll;
 }
 
@@ -170,8 +173,8 @@ img {
 
   padding: 0.15em 0.5em;
 
-  background: rgba(255, 255, 255, 0.4);
-  backdrop-filter: blur(16px);
+  background: rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(8px);
 
   position: absolute;
   bottom: 4px;
@@ -188,6 +191,7 @@ img {
   display: flex;
   width: 100%;
   height: auto;
+  max-height: 100%;
 
   @media (max-width: 45em) {
     display: block;
@@ -210,9 +214,8 @@ img {
 
 .swatch-panel {
   display: flex;
-  width: 384px;
-  height: 64px;
-  max-width: 100%;
+  width: 100%;
+  min-height: 48px;
   overflow-x: scroll;
 
   align-items: center;
@@ -224,18 +227,20 @@ img {
   scrollbar-width: none;
 
   @media (min-width: 45em) {
-    width: 640px;
+    flex-wrap: wrap;
+    max-height: calc(100% - 48px);
+    overflow-y: scroll;
+    -ms-overflow-style: initial;
+    scrollbar-width: initial;
   }
 }
 
 .swatch-panel::-webkit-scrollbar {
   display: none;
-}
 
-.swatch-container {
-  position: relative;
-  margin-left: 4px;
-  margin-right: 4px;
+  @media (min-width: 45em) {
+    display: initial;
+  }
 }
 
 .swatch-unavailable {
@@ -246,40 +251,68 @@ img {
   position: absolute;
   top: 0;
   left: 0;
-  width: 64px;
-  min-width: 64px;
-  height: 64px;
-  min-height: 64px;
+
+  cursor: pointer;
+
+  aspect-ratio: 1/1;
+  width: 100%;
+  height: auto;
   opacity: 50%;
 }
 
+.swatch-container {
+  aspect-ratio: 1/1;
+  width: calc(22.5% - 4px);
+  min-width: 48px;
+  margin-left: 2px;
+  margin-right: 2px;
+  height: auto;
+
+  @media (min-width: 45em) {
+    width: calc(calc(100% / 6) - 4px);
+  }
+}
+
 .swatch-image {
-  width: 64px;
-  min-width: 64px;
-  height: 64px;
-  min-height: 64px;
+  aspect-ratio: 1/1;
+  border:rgba(0, 0, 0, 0) 1px solid;
   cursor: pointer;
 }
 
-.swatch-scroll-button {
-  width: 24px;
-  min-width: 24px;
-  height: 24px;
-  min-height: 24px;
+.highlighted-swatch-image {
+  border:rgb(60, 120, 210) 1px solid;
 }
 
 /* Product View */
+
+.product-main {
+  @media (min-width: 45em) {
+    display: flex;
+    flex-direction: column;
+    height: calc(50% - 12px);
+    max-height: calc(50% - 12px);
+  }
+}
 
 .product-filter {
   padding: 3%;
   @media (min-width: 45em) {
     width: 50%;
+    max-width: 720px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+.product-filter > * {
+  @media (min-width: 45em) {
+    width: 100%;
+    max-width: 720px;
   }
 }
 
 .product-image-panel-wrapper {
   width: 100%;
-  max-height: 736px; /* max image size + (48px * 2) padding */
 
   overflow: hidden;
 
@@ -287,7 +320,13 @@ img {
 
   @media (min-width: 45em) {
     width: 50%;
+    max-height: 50%;
   }
+}
+
+.form-width-fixer-fuck-you-shopify > form {
+  width: 100%;
+  max-width: 100%;
 }
 
 .product-image-panel {
@@ -303,8 +342,8 @@ img {
   margin-right: auto;
 
   @media (min-width: 45em) {
-    max-width: 640px;
-    max-height: 640px;
+    max-width: 500px;
+    max-height: 500px;
   }
 }
 
@@ -320,7 +359,13 @@ img {
   height: auto;
 
   @media (min-width: 45em) {
-    max-width: 640px;
-    max-height: 640px;
+    max-width: 500px;
+    max-height: 500px;
+  }
+}
+
+.product-description {
+  @media (min-width: 45em) {
+    overflow-y: scroll;
   }
 }

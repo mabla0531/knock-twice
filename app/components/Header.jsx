@@ -9,8 +9,6 @@ import {
   InfoIcon,
 } from '@shopify/polaris-icons';
 
-import {isMobile} from 'react-device-detect';
-
 /**
  * @param {HeaderProps}
  */
@@ -19,7 +17,8 @@ export function Header({header, cart}) {
 
   return (
     <div className="navbar header">
-      <div className="flex-1">
+      <div className="flex-1"></div>
+      <div className="flex-1 justify-center">
         <div className="k2t-logo-container">
           <NavLink prefetch="intent" to="/" end>
             <div style={{display: 'flex'}}>
@@ -44,7 +43,7 @@ export function Header({header, cart}) {
           </NavLink>
         </div>
       </div>
-      <div className="flex-none">
+      <div className="flex-1 justify-end">
         <CartToggle cart={cart} />
       </div>
     </div>

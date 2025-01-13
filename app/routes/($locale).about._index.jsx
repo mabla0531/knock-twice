@@ -13,9 +13,7 @@ export default function Contact() {
       <div className="text-center">
         <h1>About</h1>
         <div>
-          WE IS OUT HERE THUGGIN ON GOD
-          JITARONI STRAIGHT TRIPARONI
-          plus plus
+          
         </div>
       </div>
     </>

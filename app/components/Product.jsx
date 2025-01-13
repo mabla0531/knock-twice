@@ -77,67 +77,50 @@ export function ProductImageSet({product}) {
     });
   }, []);
 
+  const [currentDot, setCurrentDot] = useState(0);
+
   useEffect(() => {
-    elementRef.current.scrollLeft = 0;
-    elementRef.current.scrollTop = 0;
+    elementRef.current.scrollTo(0, 0);
   }, [product]);
 
   let imageCount = product.images.length;
-
-  const [currentDot, setCurrentDot] = useState(0);
   let dots = [];
 
   for (let i = 0; i < imageCount; i++) {
     dots.push(
-      <button
-        onClick={() => {
-          if (isMobile) elementRef.current.scrollLeft = i * (elementRef.current.scrollWidth  / imageCount);
-          else          elementRef.current.scrollTop  = i * (elementRef.current.scrollHeight / imageCount);
-        }}
+      <img
+        src={dot}
+        style={currentDot === i ? {} : {filter: 'invert(75%)'}}
+      />
+    );
+  }
+
+  return (
+    <div className="product-image-panel-wrapper">
+      <div
+        className={
+          'carousel ' +
+          (isMobile ? 'product-image-panel overflow-y-hidden' : 'carousel-vertical product-image-panel overflow-x-hidden')
+        }
+        ref={elementRef}
       >
-        <img
-          src={dot}
-          style={currentDot === i ? {} : {filter: 'invert(75%)'}}
-        />
-      </button>,
-    );
-  }
+        {product.images.map((image, index) => (
+          <div key={index} className="carousel-item product-image">
 
-  if (product === undefined) {
-    return (
-      <div className="product-image-panel-wrapper">
-          Please select a product to preview
+            <Image
+              aspectRatio="1/1"
+              data={image}
+              width={720}
+              height={720}
+              loading='eager'
+            />
+          </div>
+        ))}
       </div>
-    );
-  } else {
-    let images = product.images.map((image, index) => (
-      <div key={index} className="carousel-item product-image">
-
-        <Image
-          aspectRatio="1/1"
-          data={image}
-          width={640}
-          height={640}
-          loading='eager'
-        />
-      </div>
-    ));
-
-    return (
-      <div className="product-image-panel-wrapper">
-        <div
-          className={
-            'carousel ' +
-            (isMobile ? 'product-image-panel overflow-y-hidden' : 'carousel-vertical product-image-panel overflow-x-hidden')
-          }
-          ref={elementRef}
-        >
-          {images}
-        </div>
-        <div className="product-image-dot-panel">{dots}</div>
-      </div>
-    );
-  }
+      <div className="product-image-dot-panel">{dots}</div>
+      {!isMobile && <ProductMain product={product} />}
+    </div>
+  );
 }
 
 export function ProductMain({product}) {
@@ -147,11 +130,11 @@ export function ProductMain({product}) {
 
   return (
     <div className="product-main">
-      <h3 className="my-4">{product.title}</h3>
-      <div className="my-4">
+      <h3 className="my-2">{product.title}</h3>
+      <div className="my-2">
         <ProductPrice priceRange={product.priceRange} />
       </div>
-      <div className="my-4">
+      <div className="my-2 form-width-fixer-fuck-you-shopify">
         <AddToCartButton
           lines={[
             {
@@ -162,15 +145,10 @@ export function ProductMain({product}) {
           disabled={!product.available}
         />
       </div>
-      <div className="my-4 collapse collapse-arrow border-base-300 border">
+      <div className="my-2 collapse collapse-arrow border-base-300 border">
         <input type="checkbox" />
         <div className="collapse-title text-l font-medium">Description</div>
-        <div className="collapse-content">
-          <div
-            className="my-4"
-            dangerouslySetInnerHTML={{__html: product.descriptionHtml}}
-          />
-        </div>
+        <div className="collapse-content product-description" dangerouslySetInnerHTML={{__html: product.descriptionHtml}} />
       </div>
     </div>
   );
