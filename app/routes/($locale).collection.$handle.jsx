@@ -7,9 +7,6 @@ import {
   Image,
 } from '@shopify/hydrogen';
 import * as React from 'react';
-import { useRef } from 'react';
-import left from 'public/left.svg';
-import right from 'public/right.svg';
 
 import {
   constructProductSetFromCollection,
@@ -47,11 +44,10 @@ export async function loader({request, params, context}) {
 export default function Collection() {
   const {collection} = useLoaderData();
 
+  const defaultSizeSet = ['XS', 'S', 'M', 'L', 'XL', 'XXL', '3XL'];
   const productSet = constructProductSetFromCollection(collection);
-
   const [selectedProduct, setSelectedProduct] = React.useState(productSet[0]);
-
-  let selectedSwatch = productSet[0].id;
+  const [selectedSwatch, setSelectedSwatch] = React.useState(productSet[0].id);
 
   const [currentSizeSet, setCurrentSizeSet] = React.useState(
     new Map([
@@ -65,22 +61,11 @@ export default function Collection() {
     ]),
   );
 
-  const getEnabledSizes = () => {
-    return [...currentSizeSet]
-      .filter(([_, value]) => value)
-      .map(([key, _]) => {
-        return key;
-      });
-  };
-
-  const flipSize = (size) => {
-    setCurrentSizeSet(currentSizeSet.set(size, !currentSizeSet.get(size)));
-  };
-
   const Swatch = ({product}) => {
     const setProduct = () => {
+      console.log("setting product id to " + product.id);
       setSelectedProduct(product);
-      selectedSwatch = product.id;
+      setSelectedSwatch(product.id);
     }
 
     return (
@@ -121,34 +106,10 @@ export default function Collection() {
     );
   }
 
-  const createSwatchSet = (sizes) => {
-    // this set of distinctions is a workaround for JS not having any form of reduce
-    let distinctIDs = [];
-    let distinctSwatches = [];
-
-    productSet
-      .filter((product) => sizes.includes(product.size))
-      .forEach((product) => {
-        if (!distinctIDs.includes(product.id)) {
-          distinctIDs.push(product.id);
-          distinctSwatches.push(
-            <Swatch key={product.id} product={product}></Swatch>,
-          );
-        }
-      });
-
-    return distinctSwatches;
-  };
-
-  const [currentSwatchSet, setCurrentSwatchSet] = React.useState(
-    createSwatchSet(
-      ['XS', 'S', 'M', 'L', 'XL', 'XXL', '3XL'],
-      productSet,
-    )
-  );
+  const [activeSizes, setActiveSizes] = React.useState(defaultSizeSet);
 
   const modifyActiveSizes = (size) => {
-    flipSize(size);
+    setCurrentSizeSet(currentSizeSet.set(size, !currentSizeSet.get(size)))
 
     // if all are false, show all swatches
     if (
@@ -160,27 +121,35 @@ export default function Collection() {
       !currentSizeSet.get('XXL') &&
       !currentSizeSet.get('3XL')
     ) {
-      setCurrentSwatchSet(
-        createSwatchSet(
-          ['XS', 'S', 'M', 'L', 'XL', 'XXL', '3XL'],
-          productSet,
-        )
-      );
+      setActiveSizes(defaultSizeSet);
     } else {
-      setCurrentSwatchSet(createSwatchSet(getEnabledSizes()));
+      setActiveSizes(
+        [...currentSizeSet]
+          .filter(([_, value]) => value) // get trues
+          .map(([key, _]) => key)        // transmute size strings
+      );
     }
   };
 
-  const SwatchSet = () => {
-    let elementRef = useRef(null);
+  const SwatchSet = ({activeSizes}) => {
 
-    return currentSwatchSet.length > 0 ? (
-      <div ref={elementRef} className="swatch-panel carousel mx-2">
-        {currentSwatchSet}
-      </div>
-    ) : (
-      <div>{'No items available for this filter'}</div>
-    );
+    // this set of distinctions is a workaround for JS not having any form of reduce
+    let distinctIDs = [];
+    let distinctSwatches = [];
+
+    productSet
+      .filter((product) => activeSizes.includes(product.size))
+      .forEach((product) => {
+        if (!distinctIDs.includes(product.id)) {
+          distinctIDs.push(product.id);
+          distinctSwatches.push(
+            <Swatch key={product.id} product={product}></Swatch>,
+          );
+        }
+      });
+
+    return distinctSwatches;
+
   };
 
   let TabButton = ({name, buttonCount}) => {
@@ -200,21 +169,16 @@ export default function Collection() {
   };
 
   const TabList = () => {
-    let sizes = ['XS', 'S', 'M', 'L', 'XL', 'XXL', '3XL'];
 
-    let relevantSizes = sizes.filter(
-      (size) =>
-        productSet.filter((product) => product.size === size).length > 0,
-    );
+    let relevantSizes = defaultSizeSet.filter(size => productSet.filter((product) => product.size === size).length > 0);
 
     return (
       <div className="tab-list">
-        {relevantSizes.map((size) => (
-          <TabButton key={size} name={size} buttonCount={relevantSizes.length} />
-        ))}
+        {relevantSizes.map(size => <TabButton key={size} name={size} buttonCount={relevantSizes.length} />)}
       </div>
     );
   };
+
 
   return (
     <div className="collection-panel">
@@ -223,7 +187,9 @@ export default function Collection() {
         <div className="product-selector">
           <TabList />
         </div>
-        <SwatchSet currentSwatchSet={currentSwatchSet} />
+        <div className="swatch-panel carousel mx-2">
+          <SwatchSet activeSizes={activeSizes}/>
+        </div>
         {isMobile && <ProductMain product={selectedProduct} />}
       </div>
     </div>

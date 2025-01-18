@@ -7,7 +7,6 @@ import {
   Money,
   VariantSelector,
   getSelectedProductOptions,
-  CartForm,
 } from '@shopify/hydrogen';
 import { getVariantUrl } from '~/utils';
 
