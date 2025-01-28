@@ -36,7 +36,7 @@ a:hover {
   height: 100%;
   width: 100%;
   overflow-x: hidden;
-  overflow-y: scroll;
+  overflow-y: auto;
 }
 
 img {
@@ -216,7 +216,7 @@ img {
   display: flex;
   width: 100%;
   min-height: 48px;
-  overflow-x: scroll;
+  overflow-x: auto;
 
   align-items: center;
 
@@ -224,18 +224,18 @@ img {
   margin-right: auto;
 
   -ms-overflow-style: none;
-  scrollbar-width: none;
+  autobar-width: none;
 
   @media (min-width: 45em) {
     flex-wrap: wrap;
     max-height: calc(100% - 48px);
-    overflow-y: scroll;
+    overflow-y: auto;
     -ms-overflow-style: initial;
-    scrollbar-width: initial;
+    autobar-width: initial;
   }
 }
 
-.swatch-panel::-webkit-scrollbar {
+.swatch-panel::-webkit-autobar {
   display: none;
 
   @media (min-width: 45em) {
@@ -287,12 +287,14 @@ img {
 
 .product-main {
   @media (min-width: 45em) {
+    padding-left: 16px;
+    padding-right: 16px;
     display: flex;
     flex-direction: column;
     min-height: calc(40% - 12px);
     height: calc(40% - 12px);
     width: auto;
-    overflow-y: scroll;
+    overflow-y: auto;
   }
 }
 

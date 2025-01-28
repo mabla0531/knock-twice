@@ -77,12 +77,7 @@ export default function Collection() {
         onClick={setProduct}
       >
         {product.featuredImage && (
-          <Image
-            className={"swatch-image" + (selectedSwatch == product.id ? " highlighted-swatch-image" : "")}
-            aspectRatio="1/1"
-            data={product.featuredImage}
-            loading='eager'
-          />
+          <img className={"swatch-image" + (selectedSwatch == product.id ? " highlighted-swatch-image" : "")} src={product.featuredImage.url + "&width=128&height=128"}/>
         )}
         {!product.available && (
           <svg

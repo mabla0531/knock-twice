@@ -95,6 +95,7 @@ export function ProductImageSet({product}) {
     );
   }
 
+
   return (
     <div className="product-image-panel-wrapper">
       <div
@@ -104,18 +105,13 @@ export function ProductImageSet({product}) {
         }
         ref={elementRef}
       >
-        {product.images.map((image, index) => (
-          <div key={index} className="carousel-item product-image">
-
-            <Image
-              aspectRatio="1/1"
-              data={image}
-              width={720}
-              height={720}
-              loading='eager'
-            />
-          </div>
-        ))}
+        {product.images.map((image, index) => {
+          return(
+            <div key={index} className="carousel-item product-image">
+              <img onLoad={(_) => {console.log("image loaded")}} src={image.url + "&width=720&height=720"}/>
+            </div>
+          )
+        })}
       </div>
       <div className="product-image-dot-panel">{dots}</div>
       {!isMobile && <ProductMain className="product-main-mobile" product={product} />}

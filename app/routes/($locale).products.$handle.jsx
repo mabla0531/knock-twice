@@ -126,13 +126,7 @@ function ProductImage({ image }) {
   }
   return (
     <div className="product-image">
-      <Image
-        aspectRatio="1/1"
-        data={image}
-        key={image.id}
-        sizes="(min-width: 45em) 50vw, 100vw"
-        loading='eager'
-      />
+      <img src={image.url + "&width=720&height=720"}/>
     </div>
   );
 }

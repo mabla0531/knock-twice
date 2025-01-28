@@ -19,14 +19,7 @@ export default function Index() {
 
   const CollectionTile = ({collection}) => {
     let images = collection.products.nodes.map((product) => (
-      <Image
-        data={product.featuredImage}
-        className="w-full h-full"
-        crop="center"
-        width={320}
-        height={320}
-        loading='eager'
-      />
+      <img className="w-full h-full" src={product.featuredImage.url + "&width=320&height=320"}/>
     ));
 
     const [imageIndex, setImageIndex] = useState(0);

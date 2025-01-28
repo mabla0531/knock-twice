@@ -70,13 +70,7 @@ function CartLineItem({layout, line}) {
   return (
     <li key={id} className="cart-line">
       {image && (
-        <Image
-          aspectRatio="1/1"
-          data={image}
-          width={100}
-          height={100}
-          loading="eager"
-        />
+        <img src={image.url + "&width=100&height=100"}/>
       )}
 
       <div>
