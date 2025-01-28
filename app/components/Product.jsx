@@ -118,7 +118,7 @@ export function ProductImageSet({product}) {
         ))}
       </div>
       <div className="product-image-dot-panel">{dots}</div>
-      {!isMobile && <ProductMain product={product} />}
+      {!isMobile && <ProductMain className="product-main-mobile" product={product} />}
     </div>
   );
 }
@@ -145,11 +145,7 @@ export function ProductMain({product}) {
           disabled={!product.available}
         />
       </div>
-      <div className="my-2 collapse collapse-arrow border-base-300 border">
-        <input type="checkbox" />
-        <div className="collapse-title text-l font-medium">Description</div>
-        <div className="collapse-content product-description" dangerouslySetInnerHTML={{__html: product.descriptionHtml}} />
-      </div>
+      <div className='my-2 mt-5' dangerouslySetInnerHTML={{__html: product.descriptionHtml}}></div>
     </div>
   );
 }
