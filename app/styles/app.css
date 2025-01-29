@@ -352,9 +352,14 @@ img {
 
 .product-image-dot-panel {
   display: flex;
-  height: 12px;
-  min-height: 12px;
   justify-content: center;
+}
+
+.product-image-dot-panel-icon {
+  display: flex;
+
+  width: 32px;
+  height: 32px;
 }
 
 .product-image {

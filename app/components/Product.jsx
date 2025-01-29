@@ -3,6 +3,7 @@ import {useRef, useState, useEffect} from 'react';
 import {Image, Money, CartForm} from '@shopify/hydrogen';
 import ReactImageZoom from 'react-image-zoom';
 import dot from 'public/dot.svg';
+import scroll from 'public/scroll.svg';
 
 export function constructProductSetFromCollection(collection) {
   return [].concat.apply(
@@ -113,7 +114,11 @@ export function ProductImageSet({product}) {
           )
         })}
       </div>
-      <div className="product-image-dot-panel">{dots}</div>
+      <div className="product-image-dot-panel">
+        {!isMobile && <div className='product-image-dot-panel-icon' />}
+        {dots}
+        {!isMobile && <img src={scroll} className='product-image-dot-panel-icon' />}
+      </div>
       {!isMobile && <ProductMain className="product-main-mobile" product={product} />}
     </div>
   );
