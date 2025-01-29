@@ -65,7 +65,9 @@ export default function Index() {
   return (
     <>
       <div role="tablist" className="tabs tabs-lifted my-16">
-        <div className="tab tab-active">SHOP</div>
+        <div className="tab tab-active">
+          SHOP
+        </div>
         <a role="tab" className="tab" href="/about">
           ABOUT
         </a>
