@@ -353,6 +353,7 @@ img {
 .product-image-dot-panel {
   display: flex;
   justify-content: center;
+  margin-top: 8px;
 }
 
 .product-image-dot-panel-icon {

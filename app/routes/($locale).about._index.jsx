@@ -1,7 +1,22 @@
 import { json } from '@shopify/remix-oxygen';
 import { useLoaderData, Link } from '@remix-run/react';
 
-export default function Contact() {
+
+export async function loader({context}) {
+
+
+  const {content, errors} = await context.storefront.query(CONTENT_QUERY);
+
+  if ((errors && errors.length) || !(content && content.page)) {
+    throw new Error("page not found");
+  }
+
+  return {content: content.page.body};
+}
+
+export default function About() {
+
+  const {content} = useLoaderData();
 
   return (
     <>
@@ -12,9 +27,7 @@ export default function Contact() {
       </div>
       <div className="text-center">
         <h1>About</h1>
-        <div>
-          
-        </div>
+        <div dangerouslySetInnerHTML={content}></div>
       </div>
     </>
   );
@@ -22,3 +35,12 @@ export default function Contact() {
 
 /** @typedef {import('@shopify/remix-oxygen').LoaderFunctionArgs} LoaderFunctionArgs */
 /** @typedef {import('@shopify/remix-oxygen').SerializeFrom<typeof loader>} LoaderReturnData */
+
+
+const CONTENT_QUERY = `#graphql
+  query About {
+    page(handle: \"about-us\") {
+      body
+    }
+  }
+`;

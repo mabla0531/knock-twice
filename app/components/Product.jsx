@@ -107,7 +107,7 @@ export function ProductImageSet({product}) {
         ref={elementRef}
       >
         {product.images.map((image, index) => {
-          return(
+          return (
             <div key={index} className="carousel-item product-image">
               <img onLoad={(_) => {console.log("image loaded")}} src={image.url + "&width=720&height=720"}/>
             </div>
