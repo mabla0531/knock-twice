@@ -64,16 +64,10 @@ export default function Index() {
 
   return (
     <>
-      <div role="tablist" className="tabs tabs-lifted my-16">
-        <div className="tab tab-active">
-          SHOP
-        </div>
-        <a role="tab" className="tab" href="/about">
-          ABOUT
-        </a>
-        <a role="tab" className="tab" href="/passport">
-          PASSPORT
-        </a>
+      <div className="tab-container mt-16 mb-12">
+        <div className="tab-member tab-member-active">SHOP</div>
+        <a className="tab-member" href="/about">ABOUT</a>
+        <a className="tab-member" href="/passport">PASSPORT</a>
       </div>
       <div className="index-grid">{collectionTiles}</div>
     </>

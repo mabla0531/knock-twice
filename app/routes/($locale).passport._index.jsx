@@ -1,6 +1,7 @@
 import { json } from '@shopify/remix-oxygen';
 import { useLoaderData, Link } from '@remix-run/react';
 import { useState } from 'react';
+import buildge from 'public/buildge.jpg';
 
 export default function Passport() {
 
@@ -22,19 +23,19 @@ export default function Passport() {
 
   return (
     <>
-      <div role="tablist" className="tabs tabs-lifted my-16">
-        <a role="tab" className="tab" href="/">SHOP</a>
-        <a role="tab" className="tab" href="/about">ABOUT</a>
-        <div className="tab tab-active">PASSPORT</div>
+      <div className="tab-container mt-16 mb-12">
+        <a className="tab-member" href="/">SHOP</a>
+        <a className="tab-member" href="/about">ABOUT</a>
+        <div className="tab-member tab-member-active">PASSPORT</div>
       </div>
       <div className="text-center">
-        <h1>Passport</h1>
         <div className='m-4'>
-          <input 
+          We are currently working on a new feature called Passport. This will allow you to find and track your KT goods. Please check back later!
+          {/*<input 
             type="text"
             onChange={(e) => setPassportBoxContent(e.target.value)}
             onKeyDown={(e) => (e.key === "Enter") ? processPassportToken() : {}}
-          />
+          />*/}
         </div>
         <div className='m-4' dangerouslySetInnerHTML={{ __html: passportInfoContent }} />
       </div>

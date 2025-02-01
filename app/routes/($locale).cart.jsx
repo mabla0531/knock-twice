@@ -93,7 +93,7 @@ export default function Cart() {
 
   return (
     <div className="cart m-8">
-      <h1>Cart</h1>
+      <h1 style={{marginLeft: "auto", marginRight: "auto"}}>Cart</h1>
       <Suspense fallback={<p>Loading cart ...</p>}>
         <Await
           resolve={cartPromise}

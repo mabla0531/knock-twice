@@ -5,13 +5,13 @@ import { useLoaderData, Link } from '@remix-run/react';
 export async function loader({context}) {
 
 
-  const {content, errors} = await context.storefront.query(CONTENT_QUERY);
+  let {page, errors} = await context.storefront.query(CONTENT_QUERY);
 
-  if ((errors && errors.length) || !(content && content.page)) {
+  if (errors && errors.length) {
     throw new Error("page not found");
   }
 
-  return {content: content.page.body};
+  return {content: {__html: page.body}};
 }
 
 export default function About() {
@@ -20,15 +20,12 @@ export default function About() {
 
   return (
     <>
-      <div role="tablist" className="tabs tabs-lifted my-16">
-        <a role="tab" className="tab" href="/">SHOP</a>
-        <div className="tab tab-active">ABOUT</div>
-        <a role="tab" className="tab" href="/passport">PASSPORT</a>
+      <div className="tab-container mt-16 mb-12">
+        <a className="tab-member" href="/">SHOP</a>
+        <div className="tab-member tab-member-active">ABOUT</div>
+        <a className="tab-member" href="/passport">PASSPORT</a>
       </div>
-      <div className="text-center">
-        <h1>About</h1>
-        <div dangerouslySetInnerHTML={content}></div>
-      </div>
+      <div className="text-center m-4" dangerouslySetInnerHTML={content} />
     </>
   );
 }

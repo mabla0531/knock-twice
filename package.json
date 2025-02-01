@@ -25,7 +25,7 @@
     "@shopify/hydrogen-cli": "^0.12.1",
     "@shopify/hydrogen-codegen": "^0.3.1",
     "@shopify/hydrogen-react": "^2024.7.2",
-    "@shopify/mini-oxygen": "^3.0.4",
+    "@shopify/mini-oxygen": "^3.1.1",
     "@shopify/polaris": "^13.9.0",
     "@shopify/polaris-icons": "^9.3.0",
     "@shopify/remix-oxygen": "^2.0.9",

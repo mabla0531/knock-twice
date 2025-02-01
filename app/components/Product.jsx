@@ -6,7 +6,7 @@ import dot from 'public/dot.svg';
 import scroll from 'public/scroll.svg';
 
 export function constructProductSetFromCollection(collection) {
-  return [].concat.apply(
+  let products = [].concat.apply(
     [],
     collection.products.nodes.map((product) => {
       let products = [];
@@ -46,6 +46,16 @@ export function constructProductSetFromCollection(collection) {
       return products;
     }),
   );
+
+  return products.sort((a, b) => {
+    if (a.available && !b.available)
+      return -1;
+    
+    if (!a.available && b.available)
+      return 1;
+      
+    return 0;
+  });
 }
 
 export function ProductPrice({priceRange}) {
@@ -162,7 +172,7 @@ function AddToCartButton({analytics, disabled, lines}) {
             value={JSON.stringify(analytics)}
           />
           <button
-            className="btn btn-primary w-full"
+            className="btn btn-primary my-4 w-full"
             type="submit"
             disabled={disabled ?? fetcher.state !== 'idle'}
           >
