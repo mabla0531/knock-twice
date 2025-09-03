@@ -2,8 +2,8 @@ import {Await} from '@remix-run/react';
 import {Suspense} from 'react';
 import {CartForm} from '@shopify/hydrogen';
 import {json} from '@shopify/remix-oxygen';
-import {CartMain} from '~/components/Cart';
-import {useRootLoaderData} from '~/root';
+import {CartMain} from 'src/components/Cart';
+import {useRootLoaderData} from 'src/root';
 
 /**
  * @type {MetaFunction}
@@ -92,7 +92,7 @@ export default function Cart() {
   const cartPromise = rootData.cart;
 
   return (
-    <div className="cart m-8">
+    <div className="flex flex-col p-8">
       <h1 style={{marginLeft: "auto", marginRight: "auto"}}>Cart</h1>
       <Suspense fallback={<p>Loading cart ...</p>}>
         <Await

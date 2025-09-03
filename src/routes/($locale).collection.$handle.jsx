@@ -12,7 +12,7 @@ import {
   constructProductSetFromCollection,
   ProductMain,
   ProductImageSet
-} from '~/components/Product';
+} from 'src/components/Product';
 
 export const meta = ({data}) => {
   return [{title: `KT | ${data?.collection.title ?? ''}`}];
@@ -71,19 +71,19 @@ export default function Collection() {
     return (
       <div
         className={
-          'swatch-container carousel-item' +
-          (product.available ? '' : ' swatch-unavailable')
+          'aspect-square w-[calc(22.5%-4px)] min-w-12 m-0.5 md:w-[calc(100%/6-4px)] max-w-24 carousel-item' +
+          (product.available ? '' : ' grayscale')
         }
         onClick={setProduct}
       >
         {product.featuredImage && (
-          <img className={"swatch-image" + (selectedSwatch == product.id ? " highlighted-swatch-image" : "")} src={product.featuredImage.url + "&width=128&height=128"}/>
+          <img className={"aspect-square cursor-pointer border border-solid " + (selectedSwatch == product.id ? "border-blue-500" : "border-transparent")} src={product.featuredImage.url + "&width=128&height=128"}/>
         )}
         {!product.available && (
           <svg
             version="1.1"
             id="Layer_1"
-            className="soldout-strikethrough"
+            className="absolute top-0 left-0 cursor-pointer aspect-square w-full opacity-50"
             x="0px"
             y="0px"
             viewBox="0 0 64 64"
@@ -168,7 +168,7 @@ export default function Collection() {
     let relevantSizes = defaultSizeSet.filter(size => productSet.filter((product) => product.size === size).length > 0);
 
     return (
-      <div className="tab-list">
+      <div className="flex w-full justify-center">
         {relevantSizes.map(size => <TabButton key={size} name={size} buttonCount={relevantSizes.length} />)}
       </div>
     );
@@ -176,13 +176,11 @@ export default function Collection() {
 
 
   return (
-    <div className="collection-panel">
+    <div className="flex flex-col gap-4 md:flex-row w-full h-full p-4">
       <ProductImageSet product={selectedProduct} />
-      <div className="product-filter">
-        <div className="product-selector">
-          <TabList />
-        </div>
-        <div className="swatch-panel carousel mx-2">
+      <div className="flex flex-col gap-4 md:w-1/2 p-4">
+        <TabList />
+        <div className="flex w-full min-h-12 overflow-x-auto items-center scrollbar-hide carousel md:flex-wrap md:max-h-[calc(100%-48px)] md:overflow-y-auto">
           <SwatchSet activeSizes={activeSizes}/>
         </div>
         {isMobile && <ProductMain product={selectedProduct} />}

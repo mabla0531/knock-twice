@@ -13,9 +13,8 @@ import {
   isRouteErrorResponse,
 } from '@remix-run/react';
 import favicon from '../public/favicon.svg';
-import resetStyles from './styles/reset.css';
 import appStyles from './styles/app.css';
-import {Layout} from '~/components/Layout';
+import {Layout} from 'src/components/Layout';
 
 /**
  * This is important to avoid re-fetching root queries on sub-navigations
@@ -37,8 +36,7 @@ export const shouldRevalidate = ({formMethod, currentUrl, nextUrl}) => {
 
 export function links() {
   return [
-    {rel: 'stylesheet', href: resetStyles},
-    {rel: 'stylesheet', href: "/tailwind.css"},
+    {rel: 'stylesheet', href: '/tailwind.css'},
     {rel: 'stylesheet', href: appStyles},
     {
       rel: 'preconnect',
@@ -154,7 +152,7 @@ export function ErrorBoundary() {
       </head>
       <body>
         <Layout {...rootData}>
-          <div className="route-error">
+          <div>
             <h1>Oops</h1>
             <h2>{errorStatus}</h2>
             {errorMessage && (

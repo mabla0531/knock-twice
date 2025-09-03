@@ -3,6 +3,108 @@
 /* eslint-disable */
 import type * as StorefrontAPI from '@shopify/hydrogen/storefront-api-types';
 
+export type MoneyFragment = Pick<
+  StorefrontAPI.MoneyV2,
+  'currencyCode' | 'amount'
+>;
+
+export type CartLineFragment = Pick<
+  StorefrontAPI.CartLine,
+  'id' | 'quantity'
+> & {
+  attributes: Array<Pick<StorefrontAPI.Attribute, 'key' | 'value'>>;
+  cost: {
+    totalAmount: Pick<StorefrontAPI.MoneyV2, 'currencyCode' | 'amount'>;
+    amountPerQuantity: Pick<StorefrontAPI.MoneyV2, 'currencyCode' | 'amount'>;
+    compareAtAmountPerQuantity?: StorefrontAPI.Maybe<
+      Pick<StorefrontAPI.MoneyV2, 'currencyCode' | 'amount'>
+    >;
+  };
+  merchandise: Pick<
+    StorefrontAPI.ProductVariant,
+    'id' | 'availableForSale' | 'requiresShipping' | 'title'
+  > & {
+    compareAtPrice?: StorefrontAPI.Maybe<
+      Pick<StorefrontAPI.MoneyV2, 'currencyCode' | 'amount'>
+    >;
+    price: Pick<StorefrontAPI.MoneyV2, 'currencyCode' | 'amount'>;
+    image?: StorefrontAPI.Maybe<
+      Pick<StorefrontAPI.Image, 'id' | 'url' | 'altText' | 'width' | 'height'>
+    >;
+    product: Pick<StorefrontAPI.Product, 'handle' | 'title' | 'id'>;
+    selectedOptions: Array<
+      Pick<StorefrontAPI.SelectedOption, 'name' | 'value'>
+    >;
+  };
+};
+
+export type CartApiQueryFragment = Pick<
+  StorefrontAPI.Cart,
+  'id' | 'checkoutUrl' | 'totalQuantity' | 'note'
+> & {
+  buyerIdentity: Pick<
+    StorefrontAPI.CartBuyerIdentity,
+    'countryCode' | 'email' | 'phone'
+  > & {
+    customer?: StorefrontAPI.Maybe<
+      Pick<
+        StorefrontAPI.Customer,
+        'id' | 'email' | 'firstName' | 'lastName' | 'displayName'
+      >
+    >;
+  };
+  lines: {
+    nodes: Array<
+      Pick<StorefrontAPI.CartLine, 'id' | 'quantity'> & {
+        attributes: Array<Pick<StorefrontAPI.Attribute, 'key' | 'value'>>;
+        cost: {
+          totalAmount: Pick<StorefrontAPI.MoneyV2, 'currencyCode' | 'amount'>;
+          amountPerQuantity: Pick<
+            StorefrontAPI.MoneyV2,
+            'currencyCode' | 'amount'
+          >;
+          compareAtAmountPerQuantity?: StorefrontAPI.Maybe<
+            Pick<StorefrontAPI.MoneyV2, 'currencyCode' | 'amount'>
+          >;
+        };
+        merchandise: Pick<
+          StorefrontAPI.ProductVariant,
+          'id' | 'availableForSale' | 'requiresShipping' | 'title'
+        > & {
+          compareAtPrice?: StorefrontAPI.Maybe<
+            Pick<StorefrontAPI.MoneyV2, 'currencyCode' | 'amount'>
+          >;
+          price: Pick<StorefrontAPI.MoneyV2, 'currencyCode' | 'amount'>;
+          image?: StorefrontAPI.Maybe<
+            Pick<
+              StorefrontAPI.Image,
+              'id' | 'url' | 'altText' | 'width' | 'height'
+            >
+          >;
+          product: Pick<StorefrontAPI.Product, 'handle' | 'title' | 'id'>;
+          selectedOptions: Array<
+            Pick<StorefrontAPI.SelectedOption, 'name' | 'value'>
+          >;
+        };
+      }
+    >;
+  };
+  cost: {
+    subtotalAmount: Pick<StorefrontAPI.MoneyV2, 'currencyCode' | 'amount'>;
+    totalAmount: Pick<StorefrontAPI.MoneyV2, 'currencyCode' | 'amount'>;
+    totalDutyAmount?: StorefrontAPI.Maybe<
+      Pick<StorefrontAPI.MoneyV2, 'currencyCode' | 'amount'>
+    >;
+    totalTaxAmount?: StorefrontAPI.Maybe<
+      Pick<StorefrontAPI.MoneyV2, 'currencyCode' | 'amount'>
+    >;
+  };
+  attributes: Array<Pick<StorefrontAPI.Attribute, 'key' | 'value'>>;
+  discountCodes: Array<
+    Pick<StorefrontAPI.CartDiscountCode, 'code' | 'applicable'>
+  >;
+};
+
 export type MenuItemFragment = Pick<
   StorefrontAPI.MenuItem,
   'id' | 'resourceId' | 'tags' | 'title' | 'type' | 'url'
@@ -161,6 +263,12 @@ export type FeaturedCollectionsQuery = {
       }
     >;
   };
+};
+
+export type AboutQueryVariables = StorefrontAPI.Exact<{[key: string]: never}>;
+
+export type AboutQuery = {
+  page?: StorefrontAPI.Maybe<Pick<StorefrontAPI.Page, 'body'>>;
 };
 
 export type MoneyProductItemFragment = Pick<
@@ -498,108 +606,6 @@ export type StoreRobotsQueryVariables = StorefrontAPI.Exact<{
 
 export type StoreRobotsQuery = {shop: Pick<StorefrontAPI.Shop, 'id'>};
 
-export type MoneyFragment = Pick<
-  StorefrontAPI.MoneyV2,
-  'currencyCode' | 'amount'
->;
-
-export type CartLineFragment = Pick<
-  StorefrontAPI.CartLine,
-  'id' | 'quantity'
-> & {
-  attributes: Array<Pick<StorefrontAPI.Attribute, 'key' | 'value'>>;
-  cost: {
-    totalAmount: Pick<StorefrontAPI.MoneyV2, 'currencyCode' | 'amount'>;
-    amountPerQuantity: Pick<StorefrontAPI.MoneyV2, 'currencyCode' | 'amount'>;
-    compareAtAmountPerQuantity?: StorefrontAPI.Maybe<
-      Pick<StorefrontAPI.MoneyV2, 'currencyCode' | 'amount'>
-    >;
-  };
-  merchandise: Pick<
-    StorefrontAPI.ProductVariant,
-    'id' | 'availableForSale' | 'requiresShipping' | 'title'
-  > & {
-    compareAtPrice?: StorefrontAPI.Maybe<
-      Pick<StorefrontAPI.MoneyV2, 'currencyCode' | 'amount'>
-    >;
-    price: Pick<StorefrontAPI.MoneyV2, 'currencyCode' | 'amount'>;
-    image?: StorefrontAPI.Maybe<
-      Pick<StorefrontAPI.Image, 'id' | 'url' | 'altText' | 'width' | 'height'>
-    >;
-    product: Pick<StorefrontAPI.Product, 'handle' | 'title' | 'id'>;
-    selectedOptions: Array<
-      Pick<StorefrontAPI.SelectedOption, 'name' | 'value'>
-    >;
-  };
-};
-
-export type CartApiQueryFragment = Pick<
-  StorefrontAPI.Cart,
-  'id' | 'checkoutUrl' | 'totalQuantity' | 'note'
-> & {
-  buyerIdentity: Pick<
-    StorefrontAPI.CartBuyerIdentity,
-    'countryCode' | 'email' | 'phone'
-  > & {
-    customer?: StorefrontAPI.Maybe<
-      Pick<
-        StorefrontAPI.Customer,
-        'id' | 'email' | 'firstName' | 'lastName' | 'displayName'
-      >
-    >;
-  };
-  lines: {
-    nodes: Array<
-      Pick<StorefrontAPI.CartLine, 'id' | 'quantity'> & {
-        attributes: Array<Pick<StorefrontAPI.Attribute, 'key' | 'value'>>;
-        cost: {
-          totalAmount: Pick<StorefrontAPI.MoneyV2, 'currencyCode' | 'amount'>;
-          amountPerQuantity: Pick<
-            StorefrontAPI.MoneyV2,
-            'currencyCode' | 'amount'
-          >;
-          compareAtAmountPerQuantity?: StorefrontAPI.Maybe<
-            Pick<StorefrontAPI.MoneyV2, 'currencyCode' | 'amount'>
-          >;
-        };
-        merchandise: Pick<
-          StorefrontAPI.ProductVariant,
-          'id' | 'availableForSale' | 'requiresShipping' | 'title'
-        > & {
-          compareAtPrice?: StorefrontAPI.Maybe<
-            Pick<StorefrontAPI.MoneyV2, 'currencyCode' | 'amount'>
-          >;
-          price: Pick<StorefrontAPI.MoneyV2, 'currencyCode' | 'amount'>;
-          image?: StorefrontAPI.Maybe<
-            Pick<
-              StorefrontAPI.Image,
-              'id' | 'url' | 'altText' | 'width' | 'height'
-            >
-          >;
-          product: Pick<StorefrontAPI.Product, 'handle' | 'title' | 'id'>;
-          selectedOptions: Array<
-            Pick<StorefrontAPI.SelectedOption, 'name' | 'value'>
-          >;
-        };
-      }
-    >;
-  };
-  cost: {
-    subtotalAmount: Pick<StorefrontAPI.MoneyV2, 'currencyCode' | 'amount'>;
-    totalAmount: Pick<StorefrontAPI.MoneyV2, 'currencyCode' | 'amount'>;
-    totalDutyAmount?: StorefrontAPI.Maybe<
-      Pick<StorefrontAPI.MoneyV2, 'currencyCode' | 'amount'>
-    >;
-    totalTaxAmount?: StorefrontAPI.Maybe<
-      Pick<StorefrontAPI.MoneyV2, 'currencyCode' | 'amount'>
-    >;
-  };
-  attributes: Array<Pick<StorefrontAPI.Attribute, 'key' | 'value'>>;
-  discountCodes: Array<
-    Pick<StorefrontAPI.CartDiscountCode, 'code' | 'applicable'>
-  >;
-};
-
 interface GeneratedQueryTypes {
   '#graphql\n  fragment Shop on Shop {\n    id\n    name\n    description\n    primaryDomain {\n      url\n    }\n    brand {\n      logo {\n        image {\n          url\n        }\n      }\n    }\n  }\n  query Header(\n    $country: CountryCode\n    $headerMenuHandle: String!\n    $language: LanguageCode\n  ) @inContext(language: $language, country: $country) {\n    shop {\n      ...Shop\n    }\n    menu(handle: $headerMenuHandle) {\n      ...Menu\n    }\n  }\n  #graphql\n  fragment MenuItem on MenuItem {\n    id\n    resourceId\n    tags\n    title\n    type\n    url\n  }\n  fragment ChildMenuItem on MenuItem {\n    ...MenuItem\n  }\n  fragment ParentMenuItem on MenuItem {\n    ...MenuItem\n    items {\n      ...ChildMenuItem\n    }\n  }\n  fragment Menu on Menu {\n    id\n    items {\n      ...ParentMenuItem\n    }\n  }\n\n': {
     return: HeaderQuery;
@@ -616,6 +622,10 @@ interface GeneratedQueryTypes {
   '#graphql\n  query FeaturedCollections {\n    collections(first: 250) {\n      nodes {\n        id\n        title\n        handle\n        products(first: 5) {\n          nodes {\n            featuredImage {\n              altText\n              width\n              height\n              url\n            }\n          }\n        }\n      }\n    }\n  }\n': {
     return: FeaturedCollectionsQuery;
     variables: FeaturedCollectionsQueryVariables;
+  };
+  '#graphql\n  query About {\n    page(handle: "about-us") {\n      body\n    }\n  }\n': {
+    return: AboutQuery;
+    variables: AboutQueryVariables;
   };
   '#graphql\n  #graphql\n  fragment MoneyProductItem on MoneyV2 {\n    amount\n    currencyCode\n  }\n  fragment ProductItem on Product {\n    id\n    title\n    handle\n    descriptionHtml\n    description\n    featuredImage {\n      id\n      altText\n      url\n      width\n      height\n    }\n    images(first: 249) {\n      nodes {\n        altText\n        width\n        height\n        url\n      }\n    }\n    priceRange {\n      minVariantPrice {\n        ...MoneyProductItem\n      }\n      maxVariantPrice {\n        ...MoneyProductItem\n      }\n    }\n    variants(first: 5) {\n      nodes {\n        id,\n        selectedOptions {\n          name\n          value\n        }\n      }\n    }\n    availableForSale\n  }\n\n  query Collection(\n    $handle: String!\n    $country: CountryCode\n    $language: LanguageCode\n    $first: Int\n    $last: Int\n    $startCursor: String\n    $endCursor: String\n  ) @inContext(country: $country, language: $language) {\n    collection(handle: $handle) {\n      id\n      handle\n      title\n      description\n      products(\n        first: $first,\n        last: $last,\n        before: $startCursor,\n        after: $endCursor\n      ) {\n        nodes {\n          ...ProductItem\n        }\n        pageInfo {\n          hasPreviousPage\n          hasNextPage\n          endCursor\n          startCursor\n        }\n      }\n    }\n  }\n': {
     return: CollectionQuery;

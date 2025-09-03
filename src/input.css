@@ -1,0 +1,25 @@
+@import "tailwindcss";
+@plugin "daisyui" {
+  themes: wireframe --default;
+}
+
+@plugin "tailwind-scrollbar-hide";
+
+@font-face {
+  font-family: 'Enrique';
+  src: url('Enrique.ttf');
+}
+
+html,
+body {
+  height: 100%;
+  font-family: 'Enrique';
+}
+
+.btn {
+  min-height: unset;
+}
+
+a:hover {
+  text-decoration: none;
+}

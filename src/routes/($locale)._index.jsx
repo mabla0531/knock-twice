@@ -19,7 +19,7 @@ export default function Index() {
 
   const CollectionTile = ({collection}) => {
     let images = collection.products.nodes.map((product) => (
-      <img className="w-full h-full" src={product.featuredImage.url + "&width=320&height=320"}/>
+      <img className="w-full aspect-square" src={product.featuredImage.url + "&width=320&height=320"}/>
     ));
 
     const [imageIndex, setImageIndex] = useState(0);
@@ -42,14 +42,14 @@ export default function Index() {
 
     return (
       <div
-        className="collection-tile-wrapper"
+        className="w-1/2 md:w-64 rounded-md overflow-hidden"
         onMouseOver={(e) => tryCycleImage()}
         onMouseLeave={(e) => allowCycleImage()}
       >
         <Link to={`/collection/${collection.handle}`}>
-          <div className="collection-tile">
+          <div className="flex relative">
             {images[imageIndex]}
-            <div className="index-collection-title">
+            <div className="absolute bottom-0 left-0 w-full p-2 truncate whitespace-nowrap bg-black/0.5 backdrop-blur-sm">
               {collection.products.nodes.length > 0 && collection.title}
             </div>
           </div>
@@ -64,12 +64,22 @@ export default function Index() {
 
   return (
     <>
-      <div className="tab-container mt-16 mb-12">
-        <div className="tab-member tab-member-active">SHOP</div>
-        <a className="tab-member" href="/about">ABOUT</a>
-        <a className="tab-member" href="/passport">PASSPORT</a>
+      <div className="flex *:flex-1 gap-8 w-3/4 h-32 min-h-32 mx-auto items-center">
+        <div className="flex justify-center border-solid border-b-2">
+          <a href="/">SHOP</a>
+        </div>
+        <div className="flex justify-center">
+          <a className="flex justify-center" href="/about">
+            ABOUT
+          </a>
+        </div>
+        <div className="flex justify-center">
+          <a className="flex justify-center" href="/passport">
+            PASSPORT
+          </a>
+        </div>
       </div>
-      <div className="index-grid">{collectionTiles}</div>
+      <div className="flex flex-wrap gap-2 w-full justify-center p-8">{collectionTiles}</div>
     </>
   );
 }

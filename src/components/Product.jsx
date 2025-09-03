@@ -39,7 +39,7 @@ export function constructProductSetFromCollection(collection) {
           rawSelectedOptions: product.variants.nodes[i].selectedOptions, // needs to be intact for link retrieval
           size: size,
           featuredImage: product.featuredImage,
-          images: product.images.nodes
+          images: product.images.nodes,
         });
       }
 
@@ -48,12 +48,10 @@ export function constructProductSetFromCollection(collection) {
   );
 
   return products.sort((a, b) => {
-    if (a.available && !b.available)
-      return -1;
-    
-    if (!a.available && b.available)
-      return 1;
-      
+    if (a.available && !b.available) return -1;
+
+    if (!a.available && b.available) return 1;
+
     return 0;
   });
 }
@@ -69,29 +67,31 @@ export function ProductPrice({priceRange}) {
 }
 
 export function ProductImageSet({product}) {
-  let elementRef = useRef(null);
+  let carouselRef = useRef(null);
+
+  const [currentDot, setCurrentDot] = useState(0);
 
   useEffect(() => {
-    elementRef.current.scrollLeft = 0;
-    elementRef.current.scrollTop = 0;
+    carouselRef.current.scrollLeft = 0;
+    carouselRef.current.scrollTop = 0;
 
-    elementRef.current.addEventListener('scroll', () => {
-      let currentScroll = elementRef.current.scrollTop;
-      let scrollInterval = elementRef.current.scrollHeight / elementRef.current.childNodes.length;
+    carouselRef.current.addEventListener('scroll', () => {
+      let currentScroll = carouselRef.current.scrollTop;
+      let scrollInterval =
+        carouselRef.current.scrollHeight / carouselRef.current.childNodes.length;
 
       if (isMobile) {
-        currentScroll = elementRef.current.scrollLeft;
-        scrollInterval = elementRef.current.scrollWidth / elementRef.current.childNodes.length;
+        currentScroll = carouselRef.current.scrollLeft;
+        scrollInterval =
+          carouselRef.current.scrollWidth / carouselRef.current.childNodes.length;
       }
 
       setCurrentDot(Math.round(currentScroll / scrollInterval));
     });
   }, []);
 
-  const [currentDot, setCurrentDot] = useState(0);
-
   useEffect(() => {
-    elementRef.current.scrollTo(0, 0);
+    carouselRef.current.scrollTo(0, 0);
   }, [product]);
 
   let imageCount = product.images.length;
@@ -99,37 +99,43 @@ export function ProductImageSet({product}) {
 
   for (let i = 0; i < imageCount; i++) {
     dots.push(
-      <img
-        src={dot}
-        style={currentDot === i ? {} : {filter: 'invert(75%)'}}
-      />
+      <img src={dot} class="h-3" style={currentDot === i ? {} : {filter: 'invert(75%)'}} />,
     );
   }
 
-
   return (
-    <div className="product-image-panel-wrapper">
+    <div className="flex flex-col gap-4 items-center w-full md:w-1/2 md:h-full md:max-h-full">
       <div
-        className={
-          'carousel ' +
-          (isMobile ? 'product-image-panel overflow-y-hidden' : 'carousel-vertical product-image-panel overflow-x-hidden')
-        }
-        ref={elementRef}
+        className='carousel md:carousel-vertical md:max-h-1/2 md:aspect-square md:overflow-x-hidden'
+        ref={carouselRef}
       >
         {product.images.map((image, index) => {
           return (
-            <div key={index} className="carousel-item product-image">
-              <img onLoad={(_) => {console.log("image loaded")}} src={image.url + "&width=720&height=720"}/>
+            <div
+              key={index}
+              className="carousel-item aspect-square w-full justify-center"
+            >
+              <img
+                onLoad={(_) => {
+                  console.log('image loaded');
+                }}
+                src={image.url + '&width=720&height=720'}
+              />
             </div>
-          )
+          );
         })}
       </div>
-      <div className="product-image-dot-panel">
-        {!isMobile && <div className='product-image-dot-panel-icon' />}
+
+      {product.images.length > 1 && <div className="flex justify-center items-center">
         {dots}
-        {!isMobile && <img src={scroll} className='product-image-dot-panel-icon' />}
-      </div>
-      {!isMobile && <ProductMain className="product-main-mobile" product={product} />}
+        {!isMobile && (
+          <img src={scroll} className="flex w-8 h-8" />
+        )}
+      </div>}
+
+      {!isMobile && (
+        <ProductMain className="product-main-mobile" product={product} />
+      )}
     </div>
   );
 }
@@ -140,23 +146,23 @@ export function ProductMain({product}) {
   }
 
   return (
-    <div className="product-main">
-      <h3 className="my-2">{product.title}</h3>
-      <div className="my-2">
+    <div className="flex flex-col gap-4">
+      <h3>{product.title}</h3>
+      <div>
         <ProductPrice priceRange={product.priceRange} />
       </div>
-      <div className="my-2 form-width-fixer-fuck-you-shopify">
-        <AddToCartButton
-          lines={[
-            {
-              merchandiseId: product.variantId,
-              quantity: 1,
-            },
-          ]}
-          disabled={!product.available}
-        />
-      </div>
-      <div className='my-2 mt-5' dangerouslySetInnerHTML={{__html: product.descriptionHtml}}></div>
+      <AddToCartButton
+        lines={[
+          {
+            merchandiseId: product.variantId,
+            quantity: 1,
+          },
+        ]}
+        disabled={!product.available}
+      />
+      <div
+        dangerouslySetInnerHTML={{__html: product.descriptionHtml}}
+      />
     </div>
   );
 }

@@ -1,14 +1,14 @@
 import {CartForm, Image, Money} from '@shopify/hydrogen';
 import {NavLink} from '@remix-run/react';
 import {Link} from '@remix-run/react';
-import {useVariantUrl} from '~/utils';
+import {useVariantUrl} from 'src/utils';
 
 /**
  * @param {CartMainProps}
  */
 export function CartMain({layout, cart}) {
   return (
-    <div className="cart-main flex">
+    <div className="flex justify-center p-4 gap-2 w-full h-full">
       {cart?.lines?.nodes?.length > 0 ? (
         <CartDetails cart={cart} />
       ) : (
@@ -68,39 +68,41 @@ function CartLineItem({layout, line}) {
   const lineItemUrl = useVariantUrl(product.handle, selectedOptions);
 
   return (
-    <li key={id} className="cart-line">
-      {image && (
-        <img src={image.url + "&width=100&height=100"}/>
-      )}
+    <div class="card bg-base-200 p-2 shadow-lg">
+      <div key={id} className="flex gap-2 p-2">
+        {image && (
+          <img className="h-full rounded-md" src={image.url + "&width=100&height=100"}/>
+        )}
 
-      <div>
-        <Link
-          prefetch="intent"
-          to={lineItemUrl}
-          onClick={() => {
-            if (layout === 'aside') {
-              // close the drawer
-              window.location.href = lineItemUrl;
-            }
-          }}
-        >
-          <strong>{product.title}</strong>
-        </Link>
         <div>
-          <CartLinePrice line={line} as="span" />
+          <Link
+            prefetch="intent"
+            to={lineItemUrl}
+            onClick={() => {
+              if (layout === 'aside') {
+                // close the drawer
+                window.location.href = lineItemUrl;
+              }
+            }}
+          >
+            <strong>{product.title}</strong>
+          </Link>
+          <div>
+            <CartLinePrice line={line} as="span" />
+          </div>
+          <ul>
+            {selectedOptions.map((option) => (
+              <li key={option.name}>
+                <small>
+                  {option.name}: {option.value}
+                </small>
+              </li>
+            ))}
+          </ul>
+          <CartLineRemoveButton lineIds={[line.id]} />
         </div>
-        <ul>
-          {selectedOptions.map((option) => (
-            <li key={option.name}>
-              <small>
-                {option.name}: {option.value}
-              </small>
-            </li>
-          ))}
-        </ul>
-        <CartLineRemoveButton lineIds={[line.id]} />
       </div>
-    </li>
+    </div>
   );
 }
 

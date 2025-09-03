@@ -23,10 +23,18 @@ export default function Passport() {
 
   return (
     <>
-      <div className="tab-container mt-16 mb-12">
-        <a className="tab-member" href="/">SHOP</a>
-        <a className="tab-member" href="/about">ABOUT</a>
-        <div className="tab-member tab-member-active">PASSPORT</div>
+      <div className="flex *:flex-1 gap-8 w-3/4 h-32 min-h-32 mx-auto items-center">
+        <div className="flex justify-center">
+          <a href="/">SHOP</a>
+        </div>
+        <div className="flex justify-center">
+          <a className="flex justify-center" href="/about">
+            ABOUT
+          </a>
+        </div>
+        <div className="flex justify-center border-solid border-b-2">
+          PASSPORT
+        </div>
       </div>
       <div className="text-center">
         <div className='m-4'>
