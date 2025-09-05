@@ -13,7 +13,6 @@ import {
   isRouteErrorResponse,
 } from '@remix-run/react';
 import favicon from '../public/favicon.svg';
-import appStyles from './styles/app.css';
 import {Layout} from 'src/components/Layout';
 
 export const shouldRevalidate = ({formMethod, currentUrl, nextUrl}) => {
@@ -33,7 +32,6 @@ export const shouldRevalidate = ({formMethod, currentUrl, nextUrl}) => {
 export function links() {
   return [
     {rel: 'stylesheet', href: '/tailwind.css'},
-    {rel: 'stylesheet', href: appStyles},
     {
       rel: 'preconnect',
       href: 'https://cdn.shopify.com',

@@ -77,13 +77,11 @@ export function ProductImageSet({product}) {
 
     carouselRef.current.addEventListener('scroll', () => {
       let currentScroll = carouselRef.current.scrollTop;
-      let scrollInterval =
-        carouselRef.current.scrollHeight / carouselRef.current.childNodes.length;
+      let scrollInterval = carouselRef.current.scrollHeight / carouselRef.current.childNodes.length;
 
       if (isMobile) {
         currentScroll = carouselRef.current.scrollLeft;
-        scrollInterval =
-          carouselRef.current.scrollWidth / carouselRef.current.childNodes.length;
+        scrollInterval = carouselRef.current.scrollWidth / carouselRef.current.childNodes.length;
       }
 
       setCurrentDot(Math.round(currentScroll / scrollInterval));
