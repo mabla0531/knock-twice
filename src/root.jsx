@@ -16,10 +16,6 @@ import favicon from '../public/favicon.svg';
 import appStyles from './styles/app.css';
 import {Layout} from 'src/components/Layout';
 
-/**
- * This is important to avoid re-fetching root queries on sub-navigations
- * @type {ShouldRevalidateFunction}
- */
 export const shouldRevalidate = ({formMethod, currentUrl, nextUrl}) => {
   // revalidate when a mutation is performed e.g add to cart, login...
   if (formMethod && formMethod !== 'GET') {
@@ -50,17 +46,11 @@ export function links() {
   ];
 }
 
-/**
- * @return {LoaderReturnData}
- */
 export const useRootLoaderData = () => {
   const [root] = useMatches();
   return root?.data;
 };
 
-/**
- * @param {LoaderFunctionArgs}
- */
 export async function loader({context}) {
   const {storefront, session, cart} = context;
   const customerAccessToken = await session.get('customerAccessToken');
@@ -105,7 +95,6 @@ export async function loader({context}) {
 
 export default function App() {
   const nonce = useNonce();
-  /** @type {LoaderReturnData} */
   const data = useLoaderData();
 
   return (
@@ -170,20 +159,6 @@ export function ErrorBoundary() {
   );
 }
 
-/**
- * Validates the customer access token and returns a boolean and headers
- * @see https://shopify.dev/docs/api/storefront/latest/objects/CustomerAccessToken
- *
- * @example
- * ```js
- * const {isLoggedIn, headers} = await validateCustomerAccessToken(
- *  customerAccessToken,
- *  session,
- * );
- * ```
- * @param {LoaderFunctionArgs['context']['session']} session
- * @param {CustomerAccessToken} [customerAccessToken]
- */
 async function validateCustomerAccessToken(session, customerAccessToken) {
   let isLoggedIn = false;
   const headers = new Headers();
@@ -274,8 +249,3 @@ const FOOTER_QUERY = `#graphql
   }
   ${MENU_FRAGMENT}
 `;
-
-/** @typedef {import('@shopify/remix-oxygen').LoaderFunctionArgs} LoaderFunctionArgs */
-/** @typedef {import('@remix-run/react').ShouldRevalidateFunction} ShouldRevalidateFunction */
-/** @typedef {import('@shopify/hydrogen/storefront-api-types').CustomerAccessToken} CustomerAccessToken */
-/** @typedef {import('@shopify/remix-oxygen').SerializeFrom<typeof loader>} LoaderReturnData */

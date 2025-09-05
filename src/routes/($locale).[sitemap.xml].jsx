@@ -6,9 +6,6 @@ import {flattenConnection} from '@shopify/hydrogen';
  */
 const MAX_URLS = 250;
 
-/**
- * @param {LoaderFunctionArgs}
- */
 export async function loader({request, context: {storefront}}) {
   const data = await storefront.query(SITEMAP_QUERY, {
     variables: {
@@ -32,19 +29,10 @@ export async function loader({request, context: {storefront}}) {
   });
 }
 
-/**
- * @param {string} string
- */
 function xmlEncode(string) {
   return string.replace(/[&<>'"]/g, (char) => `&#${char.charCodeAt(0)};`);
 }
 
-/**
- * @param {{
- *   data: SitemapQuery;
- *   baseUrl: string;
- * }}
- */
 function generateSitemap({data, baseUrl}) {
   const products = flattenConnection(data.products)
     .filter((product) => product.onlineStoreUrl)
@@ -109,9 +97,6 @@ function generateSitemap({data, baseUrl}) {
     </urlset>`;
 }
 
-/**
- * @param {Entry}
- */
 function renderUrlTag({url, lastMod, changeFreq, image}) {
   const imageTag = image
     ? `<image:image>
@@ -168,20 +153,3 @@ const SITEMAP_QUERY = `#graphql
     }
   }
 `;
-
-/**
- * @typedef {{
- *   url: string;
- *   lastMod?: string;
- *   changeFreq?: string;
- *   image?: {
- *     url: string;
- *     title?: string;
- *     caption?: string;
- *   };
- * }} Entry
- */
-
-/** @typedef {import('@shopify/remix-oxygen').LoaderFunctionArgs} LoaderFunctionArgs */
-/** @typedef {import('storefrontapi.generated').SitemapQuery} SitemapQuery */
-/** @typedef {import('@shopify/remix-oxygen').SerializeFrom<typeof loader>} LoaderReturnData */

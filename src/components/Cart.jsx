@@ -3,9 +3,6 @@ import {NavLink} from '@remix-run/react';
 import {Link} from '@remix-run/react';
 import {useVariantUrl} from 'src/utils';
 
-/**
- * @param {CartMainProps}
- */
 export function CartMain({layout, cart}) {
   return (
     <div className="flex justify-center p-4 gap-2 w-full h-full">
@@ -18,9 +15,6 @@ export function CartMain({layout, cart}) {
   );
 }
 
-/**
- * @param {CartMainProps}
- */
 function CartDetails({layout, cart}) {
   const cartHasItems = !!cart && cart.totalQuantity > 0;
 
@@ -36,12 +30,6 @@ function CartDetails({layout, cart}) {
   );
 }
 
-/**
- * @param {{
- *   layout: CartMainProps['layout'];
- *   lines: CartApiQueryFragment['lines'] | undefined;
- * }}
- */
 function CartLines({lines, layout}) {
   if (!lines) return null;
 
@@ -56,12 +44,6 @@ function CartLines({lines, layout}) {
   );
 }
 
-/**
- * @param {{
- *   layout: CartMainProps['layout'];
- *   line: CartLine;
- * }}
- */
 function CartLineItem({layout, line}) {
   const {id, merchandise} = line;
   const {product, title, image, selectedOptions} = merchandise;
@@ -106,9 +88,6 @@ function CartLineItem({layout, line}) {
   );
 }
 
-/**
- * @param {{checkoutUrl: string}}
- */
 function CartCheckoutActions({checkoutUrl}) {
   if (!checkoutUrl) return null;
 
@@ -119,13 +98,6 @@ function CartCheckoutActions({checkoutUrl}) {
   );
 }
 
-/**
- * @param {{
- *   children?: React.ReactNode;
- *   cost: CartApiQueryFragment['cost'];
- *   layout: CartMainProps['layout'];
- * }}
- */
 export function CartSummary({cost, layout, children = null}) {
   return (
     <div aria-labelledby="cart-summary">
@@ -142,9 +114,6 @@ export function CartSummary({cost, layout, children = null}) {
   );
 }
 
-/**
- * @param {{lineIds: string[]}}
- */
 function CartLineRemoveButton({lineIds}) {
   return (
     <CartForm
@@ -157,13 +126,6 @@ function CartLineRemoveButton({lineIds}) {
   );
 }
 
-/**
- * @param {{
- *   line: CartLine;
- *   priceType?: 'regular' | 'compareAt';
- *   [key: string]: any;
- * }}
- */
 function CartLinePrice({line, priceType = 'regular', ...passthroughProps}) {
   if (!line?.cost?.amountPerQuantity || !line?.cost?.totalAmount) return null;
 
@@ -179,12 +141,6 @@ function CartLinePrice({line, priceType = 'regular', ...passthroughProps}) {
   return <Money withoutTrailingZeros {...passthroughProps} data={moneyV2} />;
 }
 
-/**
- * @param {{
- *   hidden: boolean;
- *   layout?: CartMainProps['layout'];
- * }}
- */
 export function CartEmpty() {
   return (
     <div className="my-8">
@@ -198,12 +154,6 @@ export function CartEmpty() {
   );
 }
 
-/**
- * @param {{
- *   children: React.ReactNode;
- *   lines: CartLineUpdateInput[];
- * }}
- */
 function CartLineUpdateButton({children, lines}) {
   return (
     <CartForm
@@ -215,14 +165,3 @@ function CartLineUpdateButton({children, lines}) {
     </CartForm>
   );
 }
-
-/** @typedef {CartApiQueryFragment['lines']['nodes'][0]} CartLine */
-/**
- * @typedef {{
- *   cart: CartApiQueryFragment | null;
- *   layout: 'page' | 'aside';
- * }} CartMainProps
- */
-
-/** @typedef {import('@shopify/hydrogen/storefront-api-types').CartLineUpdateInput} CartLineUpdateInput */
-/** @typedef {import('storefrontapi.generated').CartApiQueryFragment} CartApiQueryFragment */

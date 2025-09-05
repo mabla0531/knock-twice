@@ -4,9 +4,6 @@ import {Suspense} from 'react';
 import {Header} from 'src/components/Header';
 import {CartMain} from 'src/components/Cart';
 
-/**
- * @param {LayoutProps}
- */
 export function Layout({cart, children = null, header, isLoggedIn}) {
   return (
     <>
@@ -15,17 +12,3 @@ export function Layout({cart, children = null, header, isLoggedIn}) {
     </>
   );
 }
-
-/**
- * @typedef {{
- *   cart: Promise<CartApiQueryFragment | null>;
- *   children?: React.ReactNode;
- *   footer: Promise<FooterQuery>;
- *   header: HeaderQuery;
- *   isLoggedIn: boolean;
- * }} LayoutProps
- */
-
-/** @typedef {import('storefrontapi.generated').CartApiQueryFragment} CartApiQueryFragment */
-/** @typedef {import('storefrontapi.generated').FooterQuery} FooterQuery */
-/** @typedef {import('storefrontapi.generated').HeaderQuery} HeaderQuery */

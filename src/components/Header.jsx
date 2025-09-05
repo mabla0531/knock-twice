@@ -9,9 +9,6 @@ import {
   InfoIcon,
 } from '@shopify/polaris-icons';
 
-/**
- * @param {HeaderProps}
- */
 export function Header({header, cart}) {
   const {shop, _} = header;
 
@@ -48,9 +45,6 @@ export function Header({header, cart}) {
   );
 }
 
-/**
- * @param {{count: number}}
- */
 function CartBadge({count}) {
   return (
     <a href="/cart">
@@ -66,9 +60,6 @@ function CartBadge({count}) {
   );
 }
 
-/**
- * @param {Pick<HeaderProps, 'cart'>}
- */
 function CartToggle({cart}) {
   return (
     <Suspense fallback={<CartBadge count={0} />}>

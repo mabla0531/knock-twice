@@ -51,9 +51,6 @@ export default function About() {
   );
 }
 
-/** @typedef {import('@shopify/remix-oxygen').LoaderFunctionArgs} LoaderFunctionArgs */
-/** @typedef {import('@shopify/remix-oxygen').SerializeFrom<typeof loader>} LoaderReturnData */
-
 const CONTENT_QUERY = `#graphql
   query About {
     page(handle: "about-us") {

@@ -5,16 +5,10 @@ import {json} from '@shopify/remix-oxygen';
 import {CartMain} from 'src/components/Cart';
 import {useRootLoaderData} from 'src/root';
 
-/**
- * @type {MetaFunction}
- */
 export const meta = () => {
   return [{title: `Hydrogen | Cart`}];
 };
 
-/**
- * @param {ActionFunctionArgs}
- */
 export async function action({request, context}) {
   const {session, cart} = context;
 
@@ -107,8 +101,3 @@ export default function Cart() {
     </div>
   );
 }
-
-/** @template T @typedef {import('@remix-run/react').MetaFunction<T>} MetaFunction */
-/** @typedef {import('@shopify/hydrogen').CartQueryData} CartQueryData */
-/** @typedef {import('@shopify/remix-oxygen').ActionFunctionArgs} ActionFunctionArgs */
-/** @typedef {import('@shopify/remix-oxygen').SerializeFrom<typeof action>} ActionReturnData */
