@@ -114,6 +114,7 @@ export function ProductImageSet({product}) {
               className="carousel-item aspect-square w-full justify-center"
             >
               <img
+                className='rounded-md'
                 onLoad={(_) => {
                   console.log('image loaded');
                 }}
@@ -132,20 +133,20 @@ export function ProductImageSet({product}) {
       </div>}
 
       {!isMobile && (
-        <ProductMain className="product-main-mobile" product={product} />
+        <ProductInfo className="product-main-mobile" product={product} />
       )}
     </div>
   );
 }
 
-export function ProductMain({product}) {
+export function ProductInfo({product}) {
   if (product === undefined) {
     return <></>;
   }
 
   return (
-    <div className="flex flex-col gap-4">
-      <h3>{product.title}</h3>
+    <div className="flex flex-col gap-4 w-full px-32">
+      <div className="text-xl">{product.title}</div>
       <div>
         <ProductPrice priceRange={product.priceRange} />
       </div>

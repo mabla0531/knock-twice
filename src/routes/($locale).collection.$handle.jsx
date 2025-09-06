@@ -10,7 +10,7 @@ import * as React from 'react';
 
 import {
   constructProductSetFromCollection,
-  ProductMain,
+  ProductInfo,
   ProductImageSet
 } from 'src/components/Product';
 
@@ -77,7 +77,7 @@ export default function Collection() {
         onClick={setProduct}
       >
         {product.featuredImage && (
-          <img className={"aspect-square cursor-pointer border border-solid " + (selectedSwatch == product.id ? "border-blue-500" : "border-transparent")} src={product.featuredImage.url + "&width=128&height=128"}/>
+          <img className={"aspect-square cursor-pointer border border-solid rounded-md " + (selectedSwatch == product.id ? "border-blue-500" : "border-transparent")} src={product.featuredImage.url + "&width=128&height=128"}/>
         )}
         {!product.available && (
           <svg
@@ -127,7 +127,6 @@ export default function Collection() {
   };
 
   const SwatchSet = ({activeSizes}) => {
-
     // this set of distinctions is a workaround for JS not having any form of reduce
     let distinctIDs = [];
     let distinctSwatches = [];
@@ -164,7 +163,6 @@ export default function Collection() {
   };
 
   const TabList = () => {
-
     let relevantSizes = defaultSizeSet.filter(size => productSet.filter((product) => product.size === size).length > 0);
 
     return (
@@ -183,7 +181,7 @@ export default function Collection() {
         <div className="flex w-full min-h-12 overflow-x-auto items-center scrollbar-hide carousel md:flex-wrap md:max-h-[calc(100%-48px)] md:overflow-y-auto">
           <SwatchSet activeSizes={activeSizes}/>
         </div>
-        {isMobile && <ProductMain product={selectedProduct} />}
+        {isMobile && <ProductInfo product={selectedProduct} />}
       </div>
     </div>
   );

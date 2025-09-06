@@ -28,7 +28,7 @@ export default function About() {
         </div>
       </div>
 
-      <div className="h-[calc(100%-240px-128px)] text-center overflow-y-auto" dangerouslySetInnerHTML={content} />
+      <div className="h-[calc(100%-240px-128px)] w-108 mx-auto text-center overflow-y-auto" dangerouslySetInnerHTML={content} />
 
       <div className="h-70 p-8">
         <div className="card bg-base-200 w-96 mx-auto max-w-full shadow-xl">
