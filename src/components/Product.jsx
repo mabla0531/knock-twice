@@ -145,8 +145,8 @@ export function ProductInfo({product}) {
   }
 
   return (
-    <div className="flex flex-col gap-4 w-full px-32">
-      <div className="text-xl">{product.title}</div>
+    <div className="flex flex-col gap-4 w-full items-center px-2">
+      <div className="text-xl text-center">{product.title}</div>
       <div>
         <ProductPrice priceRange={product.priceRange} />
       </div>
@@ -177,7 +177,7 @@ function AddToCartButton({analytics, disabled, lines}) {
             value={JSON.stringify(analytics)}
           />
           <button
-            className="btn btn-primary my-4 w-full"
+            className="btn btn-primary my-4 w-96 max-w-full mx-auto"
             type="submit"
             disabled={disabled ?? fetcher.state !== 'idle'}
           >
