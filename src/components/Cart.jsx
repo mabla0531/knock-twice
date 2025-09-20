@@ -5,7 +5,7 @@ import {useVariantUrl} from 'src/utils';
 
 export function CartMain({layout, cart}) {
   return (
-    <div className="flex justify-center p-4 gap-2 w-full h-full">
+    <div class="flex justify-center p-4 gap-2 w-full h-full">
       {cart?.lines?.nodes?.length > 0 ? (
         <CartDetails cart={cart} />
       ) : (
@@ -51,9 +51,9 @@ function CartLineItem({layout, line}) {
 
   return (
     <div class="card bg-base-200 p-2 shadow-lg">
-      <div key={id} className="flex gap-2 p-2">
+      <div key={id} class="flex gap-2 p-2">
         {image && (
-          <img className="h-full rounded-md" src={image.url + "&width=100&height=100"}/>
+          <img class="h-full rounded-md" src={image.url + "&width=100&height=100"}/>
         )}
 
         <div>
@@ -93,7 +93,7 @@ function CartCheckoutActions({checkoutUrl}) {
 
   return (
     <a href={checkoutUrl} target="_self">
-      <button className="btn btn-primary w-full">Continue to Checkout</button>
+      <button class="btn btn-primary w-full">Continue to Checkout</button>
     </a>
   );
 }
@@ -101,7 +101,7 @@ function CartCheckoutActions({checkoutUrl}) {
 export function CartSummary({cost, layout, children = null}) {
   return (
     <div aria-labelledby="cart-summary">
-      <div className="my-8">
+      <div class="my-8">
         Subtotal:&nbsp;
         {cost?.subtotalAmount?.amount ? (
           <Money data={cost?.subtotalAmount} />
@@ -143,11 +143,11 @@ function CartLinePrice({line, priceType = 'regular', ...passthroughProps}) {
 
 export function CartEmpty() {
   return (
-    <div className="my-8">
-      <div className="my-2">Looks like you haven't added anything yet!</div>
+    <div class="my-8">
+      <div class="my-2">Looks like you haven't added anything yet!</div>
       <div>
         <NavLink prefetch="intent" to="/" end>
-          <button className="btn btn-primary w-full">Continue Shopping</button>
+          <button class="btn btn-primary w-full">Continue Shopping</button>
         </NavLink>
       </div>
     </div>

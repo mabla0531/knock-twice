@@ -49,6 +49,7 @@ export default function Collection() {
   const [selectedProduct, setSelectedProduct] = React.useState(productSet[0]);
   const [selectedSwatch, setSelectedSwatch] = React.useState(productSet[0].id);
 
+  const [zoomProductImage, setZoomProductImage] = React.useState(false);
   const [currentSizeSet, setCurrentSizeSet] = React.useState(
     new Map([
       ['XS', false],
@@ -70,26 +71,26 @@ export default function Collection() {
 
     return (
       <div
-        className={
+        class={
           'aspect-square w-[calc(22.5%-4px)] min-w-12 m-0.5 md:w-[calc(100%/6-4px)] max-w-24 carousel-item' +
           (product.available ? '' : ' grayscale')
         }
         onClick={setProduct}
       >
         {product.featuredImage && (
-          <img className={"aspect-square cursor-pointer border border-solid rounded-md " + (selectedSwatch == product.id ? "border-blue-500" : "border-transparent")} src={product.featuredImage.url + "&width=128&height=128"}/>
+          <img class={"aspect-square cursor-pointer border border-solid rounded-md " + (selectedSwatch == product.id ? "border-blue-500" : "border-transparent")} src={product.featuredImage.url + "&width=128&height=128"}/>
         )}
         {!product.available && (
           <svg
             version="1.1"
             id="Layer_1"
-            className="absolute top-0 left-0 cursor-pointer aspect-square w-full opacity-50"
+            class="absolute top-0 left-0 cursor-pointer aspect-square w-full opacity-50"
             x="0px"
             y="0px"
             viewBox="0 0 64 64"
           >
-            <g className="st0">
-              <line className="st1" x1="58.25" y1="5.75" x2="5.75" y2="58.25" />
+            <g class="st0">
+              <line class="st1" x1="58.25" y1="5.75" x2="5.75" y2="58.25" />
               <path
                 d="M5.75,58.66c-0.1,0-0.21-0.04-0.29-0.12c-0.16-0.16-0.16-0.42,0-0.58L57.96,5.46c0.16-0.16,0.42-0.16,0.58,0
               c0.16,0.16,0.16,0.42,0,0.58L6.04,58.54C5.96,58.62,5.86,58.66,5.75,58.66z"
@@ -151,7 +152,7 @@ export default function Collection() {
 
     return (
       <button
-        className={
+        class={
           'btn h-8 mx-1' + (currentSizeSet.get(name) ? ' btn-primary' : '')
         }
         onClick={() => modifyActiveSizes(name)}
@@ -166,19 +167,34 @@ export default function Collection() {
     let relevantSizes = defaultSizeSet.filter(size => productSet.filter((product) => product.size === size).length > 0);
 
     return (
-      <div className="flex w-full justify-center">
+      <div class="flex w-full justify-center">
         {relevantSizes.map(size => <TabButton key={size} name={size} buttonCount={relevantSizes.length} />)}
       </div>
     );
   };
 
+  let carouselRef = useRef(null);
 
   return (
-    <div className="flex flex-col gap-4 md:flex-row w-full h-full p-4">
-      <ProductImageSet product={selectedProduct} />
-      <div className="flex flex-col gap-4 md:w-1/2 p-4">
-        <TabList />
-        <div className="flex w-full min-h-12 overflow-x-auto items-center scrollbar-hide carousel md:flex-wrap md:max-h-[calc(100%-48px)] md:overflow-y-auto">
+    <div 
+      class="relative flex flex-col gap-4 md:flex-row w-full h-full p-4"
+      onMouseMove={(e) => {
+        if carouselRef.
+      }}
+    >
+      {zoomProductImage && 
+        <>
+          <div class="absolute top-0 left-0 flex flex-col w-full h-full justify-center items-center p-8 backdrop-blur-sm bg-base-100/10 z-1">
+            <div class="flex rounded-md bg-base-300 justify-center items-center">
+              <img src={selectedProduct.images[0].url + '&width=2048&height=2048'} />
+            </div>
+          </div>
+        </>
+      }
+      <ProductImageSet product={selectedProduct} carouselRef={carouselRef} />
+      <div class="flex flex-col gap-4 md:w-1/2 p-4">
+        <TabList/>
+        <div class="flex w-full min-h-12 overflow-x-auto items-center scrollbar-hide carousel md:flex-wrap md:max-h-[calc(100%-48px)] md:overflow-y-auto">
           <SwatchSet activeSizes={activeSizes}/>
         </div>
         {isMobile && <ProductInfo product={selectedProduct} />}

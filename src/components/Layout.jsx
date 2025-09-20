@@ -8,7 +8,7 @@ export function Layout({cart, children = null, header, isLoggedIn}) {
   return (
     <>
       <Header header={header} cart={cart} isLoggedIn={isLoggedIn} />
-      <div className="absolute top-0 left-0 pt-16 w-full h-full overflow-x-hidden overflow-y-auto">{children}</div>
+      <div class="absolute top-0 left-0 pt-16 w-full h-full overflow-x-hidden overflow-y-auto">{children}</div>
     </>
   );
 }

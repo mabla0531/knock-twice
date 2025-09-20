@@ -86,7 +86,7 @@ export default function Cart() {
   const cartPromise = rootData.cart;
 
   return (
-    <div className="flex flex-col p-8">
+    <div class="flex flex-col p-8">
       <h1 style={{marginLeft: "auto", marginRight: "auto"}}>Cart</h1>
       <Suspense fallback={<p>Loading cart ...</p>}>
         <Await

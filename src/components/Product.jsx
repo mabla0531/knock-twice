@@ -58,7 +58,7 @@ export function constructProductSetFromCollection(collection) {
 
 export function ProductPrice({priceRange}) {
   return (
-    <div className="product-price">
+    <div class="product-price">
       {priceRange.minVariantPrice && (
         <Money data={priceRange.minVariantPrice} />
       )}
@@ -66,8 +66,7 @@ export function ProductPrice({priceRange}) {
   );
 }
 
-export function ProductImageSet({product}) {
-  let carouselRef = useRef(null);
+export function ProductImageSet({product, carouselRef}) {
 
   const [currentDot, setCurrentDot] = useState(0);
 
@@ -88,33 +87,32 @@ export function ProductImageSet({product}) {
     });
   }, []);
 
+  // reset scroll of product images once new product is selected
   useEffect(() => {
     carouselRef.current.scrollTo(0, 0);
   }, [product]);
 
-  let imageCount = product.images.length;
   let dots = [];
-
-  for (let i = 0; i < imageCount; i++) {
+  for (let i = 0; i < product.images.length; i++) {
     dots.push(
       <img src={dot} class="h-3" style={currentDot === i ? {} : {filter: 'invert(75%)'}} />,
     );
   }
 
   return (
-    <div className="flex flex-col gap-4 items-center w-full md:w-1/2 md:h-full md:max-h-full">
+    <div class="flex flex-col gap-4 items-center w-full md:w-1/2 md:h-full md:max-h-full">
       <div
-        className='carousel md:carousel-vertical md:max-h-1/2 md:aspect-square md:overflow-x-hidden'
+        class='carousel md:carousel-vertical md:max-h-1/2 md:aspect-square md:overflow-x-hidden md:cursor-zoom-in'
         ref={carouselRef}
       >
         {product.images.map((image, index) => {
           return (
             <div
               key={index}
-              className="carousel-item aspect-square w-full justify-center"
+              class="carousel-item aspect-square w-full justify-center"
             >
               <img
-                className='rounded-md'
+                class='rounded-md'
                 onLoad={(_) => {
                   console.log('image loaded');
                 }}
@@ -125,15 +123,15 @@ export function ProductImageSet({product}) {
         })}
       </div>
 
-      {product.images.length > 1 && <div className="flex justify-center items-center">
+      {product.images.length > 1 && <div class="flex justify-center items-center">
         {dots}
         {!isMobile && (
-          <img src={scroll} className="flex w-8 h-8" />
+          <img src={scroll} class="flex w-8 h-8" />
         )}
       </div>}
 
       {!isMobile && (
-        <ProductInfo className="product-main-mobile" product={product} />
+        <ProductInfo product={product} />
       )}
     </div>
   );
@@ -145,8 +143,8 @@ export function ProductInfo({product}) {
   }
 
   return (
-    <div className="flex flex-col gap-4 w-full items-center px-2">
-      <div className="text-xl text-center">{product.title}</div>
+    <div class="flex flex-col gap-4 w-full items-center px-2">
+      <div class="text-xl text-center">{product.title}</div>
       <div>
         <ProductPrice priceRange={product.priceRange} />
       </div>
@@ -177,7 +175,7 @@ function AddToCartButton({analytics, disabled, lines}) {
             value={JSON.stringify(analytics)}
           />
           <button
-            className="btn btn-primary my-4 w-96 max-w-full mx-auto"
+            class="btn btn-primary my-4 w-96 max-w-full mx-auto"
             type="submit"
             disabled={disabled ?? fetcher.state !== 'idle'}
           >

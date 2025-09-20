@@ -13,15 +13,15 @@ export function Header({header, cart}) {
   const {shop, _} = header;
 
   return (
-    <div className="navbar sticky w-full z-1 top-0 bg-black/0.25 backdrop-blur-lg">
-      <div className="flex-1"></div>
-      <div className="flex-1 flex justify-center items-center">
+    <div class="navbar sticky w-full z-1 top-0 bg-black/0.25 backdrop-blur-lg">
+      <div class="flex-1"></div>
+      <div class="flex-1 flex justify-center items-center">
         <NavLink prefetch="intent" to="/" end>
           <div style={{display: 'flex'}}>
             <svg
               id="Layer_1"
               data-name="Layer 1"
-              className="w-32 h-8"
+              class="w-32 h-8"
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 460 143"
             >
@@ -38,7 +38,7 @@ export function Header({header, cart}) {
           </div>
         </NavLink>
       </div>
-      <div className="flex-1 justify-end">
+      <div class="flex-1 justify-end">
         <CartToggle cart={cart} />
       </div>
     </div>
@@ -48,13 +48,13 @@ export function Header({header, cart}) {
 function CartBadge({count}) {
   return (
     <a href="/cart">
-      <div className="relative ml-auto w-8 h-8">
+      <div class="relative ml-auto w-8 h-8">
         <Icon
-          className=""
+          class=""
           source={CartIcon}
           tone="base"
         />
-        <div className="flex absolute top-0 right-0 text-xs justify-center items-center w-4 h-4 bg-base-300 rounded-lg">{count}</div>
+        <div class="flex absolute top-0 right-0 text-xs justify-center items-center w-4 h-4 bg-base-300 rounded-lg">{count}</div>
       </div>
     </a>
   );
