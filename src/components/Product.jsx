@@ -66,9 +66,10 @@ export function ProductPrice({priceRange}) {
   );
 }
 
-export function ProductImageSet({product, carouselRef}) {
-
+export function ProductImageSet({product, setProductZoom}) {
   const [currentDot, setCurrentDot] = useState(0);
+
+  const carouselRef = useRef(null);
 
   useEffect(() => {
     carouselRef.current.scrollLeft = 0;
@@ -76,11 +77,15 @@ export function ProductImageSet({product, carouselRef}) {
 
     carouselRef.current.addEventListener('scroll', () => {
       let currentScroll = carouselRef.current.scrollTop;
-      let scrollInterval = carouselRef.current.scrollHeight / carouselRef.current.childNodes.length;
+      let scrollInterval =
+        carouselRef.current.scrollHeight /
+        carouselRef.current.childNodes.length;
 
       if (isMobile) {
         currentScroll = carouselRef.current.scrollLeft;
-        scrollInterval = carouselRef.current.scrollWidth / carouselRef.current.childNodes.length;
+        scrollInterval =
+          carouselRef.current.scrollWidth /
+          carouselRef.current.childNodes.length;
       }
 
       setCurrentDot(Math.round(currentScroll / scrollInterval));
@@ -95,15 +100,20 @@ export function ProductImageSet({product, carouselRef}) {
   let dots = [];
   for (let i = 0; i < product.images.length; i++) {
     dots.push(
-      <img src={dot} class="h-3" style={currentDot === i ? {} : {filter: 'invert(75%)'}} />,
+      <img
+        src={dot}
+        class="h-3"
+        style={currentDot === i ? {} : {filter: 'invert(75%)'}}
+      />,
     );
   }
 
   return (
     <div class="flex flex-col gap-4 items-center w-full md:w-1/2 md:h-full md:max-h-full">
       <div
-        class='carousel md:carousel-vertical md:max-h-1/2 md:aspect-square md:overflow-x-hidden md:cursor-zoom-in'
+        class="carousel md:carousel-vertical md:max-h-1/2 md:aspect-square md:overflow-x-hidden md:cursor-zoom-in"
         ref={carouselRef}
+        onClick={() => setProductZoom(product.images)}
       >
         {product.images.map((image, index) => {
           return (
@@ -112,7 +122,7 @@ export function ProductImageSet({product, carouselRef}) {
               class="carousel-item aspect-square w-full justify-center"
             >
               <img
-                class='rounded-md'
+                class="rounded-md"
                 onLoad={(_) => {
                   console.log('image loaded');
                 }}
@@ -123,16 +133,14 @@ export function ProductImageSet({product, carouselRef}) {
         })}
       </div>
 
-      {product.images.length > 1 && <div class="flex justify-center items-center">
-        {dots}
-        {!isMobile && (
-          <img src={scroll} class="flex w-8 h-8" />
-        )}
-      </div>}
-
-      {!isMobile && (
-        <ProductInfo product={product} />
+      {product.images.length > 1 && (
+        <div class="flex justify-center items-center">
+          {dots}
+          {!isMobile && <img src={scroll} class="flex w-8 h-8" />}
+        </div>
       )}
+
+      {!isMobile && <ProductInfo product={product} />}
     </div>
   );
 }
@@ -157,9 +165,7 @@ export function ProductInfo({product}) {
         ]}
         disabled={!product.available}
       />
-      <div
-        dangerouslySetInnerHTML={{__html: product.descriptionHtml}}
-      />
+      <div dangerouslySetInnerHTML={{__html: product.descriptionHtml}} />
     </div>
   );
 }

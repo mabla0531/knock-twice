@@ -12,8 +12,14 @@ import {
 export function Header({header, cart}) {
   const {shop, _} = header;
 
+  const headerColor = navigator.userAgent.includes('Safari')
+    ? 'bg-base-300/50'
+    : 'bg-black/0.25'; // safari is highly regarded
+  console.log('headerColor: ' + headerColor);
   return (
-    <div class="navbar sticky w-full z-1 top-0 bg-black/0.25 backdrop-blur-lg">
+    <div
+      class={'navbar sticky w-full z-1 top-0 backdrop-blur-lg ' + headerColor}
+    >
       <div class="flex-1"></div>
       <div class="flex-1 flex justify-center items-center">
         <NavLink prefetch="intent" to="/" end>
@@ -47,16 +53,14 @@ export function Header({header, cart}) {
 
 function CartBadge({count}) {
   return (
-    <a href="/cart">
-      <div class="relative ml-auto w-8 h-8">
-        <Icon
-          class=""
-          source={CartIcon}
-          tone="base"
-        />
-        <div class="flex absolute top-0 right-0 text-xs justify-center items-center w-4 h-4 bg-base-300 rounded-lg">{count}</div>
-      </div>
-    </a>
+    <div class="relative ml-auto w-8 h-8">
+      <a href="/cart">
+        <Icon class="" source={CartIcon} tone="base" />
+        <div class="flex absolute top-0 right-0 text-xs justify-center items-center w-4 h-4 bg-base-300 rounded-lg">
+          {count}
+        </div>
+      </a>
+    </div>
   );
 }
 

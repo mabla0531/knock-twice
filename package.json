@@ -5,7 +5,7 @@
   "version": "1.0.0",
   "scripts": {
     "build": "shopify hydrogen build",
-    "tw": "npx tailwindcss -i ./src/input.css -o ./public/tailwind.css --watch",
+    "tw": "tailwindcss -i ./src/input.css -o ./public/tailwind.css --watch",
     "dev": "shopify hydrogen dev --codegen",
     "preview": "npm run build && shopify hydrogen preview",
     "lint": "eslint --no-error-on-unmatched-pattern --ext .js,.ts,.jsx,.tsx .",

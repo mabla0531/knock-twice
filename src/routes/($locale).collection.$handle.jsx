@@ -2,16 +2,13 @@
 import {isMobile} from 'react-device-detect';
 import {json, redirect} from '@shopify/remix-oxygen';
 import {useLoaderData} from '@remix-run/react';
-import {
-  getPaginationVariables,
-  Image,
-} from '@shopify/hydrogen';
+import {getPaginationVariables, Image} from '@shopify/hydrogen';
 import * as React from 'react';
 
 import {
   constructProductSetFromCollection,
   ProductInfo,
-  ProductImageSet
+  ProductImageSet,
 } from 'src/components/Product';
 
 export const meta = ({data}) => {
@@ -49,7 +46,7 @@ export default function Collection() {
   const [selectedProduct, setSelectedProduct] = React.useState(productSet[0]);
   const [selectedSwatch, setSelectedSwatch] = React.useState(productSet[0].id);
 
-  const [zoomProductImage, setZoomProductImage] = React.useState(false);
+  const [productZoom, setProductZoom] = React.useState(null);
   const [currentSizeSet, setCurrentSizeSet] = React.useState(
     new Map([
       ['XS', false],
@@ -64,21 +61,28 @@ export default function Collection() {
 
   const Swatch = ({product}) => {
     const setProduct = () => {
-      console.log("setting product id to " + product.id);
       setSelectedProduct(product);
       setSelectedSwatch(product.id);
-    }
+    };
 
     return (
       <div
         class={
-          'aspect-square w-[calc(22.5%-4px)] min-w-12 m-0.5 md:w-[calc(100%/6-4px)] max-w-24 carousel-item' +
+          'relative aspect-square w-[calc(22.5%-4px)] min-w-12 m-0.5 md:w-[calc(100%/6-4px)] max-w-24 carousel-item' +
           (product.available ? '' : ' grayscale')
         }
         onClick={setProduct}
       >
         {product.featuredImage && (
-          <img class={"aspect-square cursor-pointer border border-solid rounded-md " + (selectedSwatch == product.id ? "border-blue-500" : "border-transparent")} src={product.featuredImage.url + "&width=128&height=128"}/>
+          <img
+            class={
+              'aspect-square cursor-pointer border border-solid rounded-md ' +
+              (selectedSwatch == product.id
+                ? 'border-blue-500'
+                : 'border-transparent')
+            }
+            src={product.featuredImage.url + '&width=128&height=128'}
+          />
         )}
         {!product.available && (
           <svg
@@ -100,12 +104,12 @@ export default function Collection() {
         )}
       </div>
     );
-  }
+  };
 
   const [activeSizes, setActiveSizes] = React.useState(defaultSizeSet);
 
   const modifyActiveSizes = (size) => {
-    setCurrentSizeSet(currentSizeSet.set(size, !currentSizeSet.get(size)))
+    setCurrentSizeSet(currentSizeSet.set(size, !currentSizeSet.get(size)));
 
     // if all are false, show all swatches
     if (
@@ -122,7 +126,7 @@ export default function Collection() {
       setActiveSizes(
         [...currentSizeSet]
           .filter(([_, value]) => value) // get trues
-          .map(([key, _]) => key)        // transmute size strings
+          .map(([key, _]) => key), // transmute size strings
       );
     }
   };
@@ -144,7 +148,6 @@ export default function Collection() {
       });
 
     return distinctSwatches;
-
   };
 
   let TabButton = ({name, buttonCount}) => {
@@ -164,38 +167,106 @@ export default function Collection() {
   };
 
   const TabList = () => {
-    let relevantSizes = defaultSizeSet.filter(size => productSet.filter((product) => product.size === size).length > 0);
+    let relevantSizes = defaultSizeSet.filter(
+      (size) =>
+        productSet.filter((product) => product.size === size).length > 0,
+    );
 
     return (
       <div class="flex w-full justify-center">
-        {relevantSizes.map(size => <TabButton key={size} name={size} buttonCount={relevantSizes.length} />)}
+        {relevantSizes.map((size) => (
+          <TabButton
+            key={size}
+            name={size}
+            buttonCount={relevantSizes.length}
+          />
+        ))}
       </div>
     );
   };
 
-  let carouselRef = useRef(null);
+  const ProductZoom = ({productZoom, setProductZoom}) => {
+    let [current, setCurrent] = React.useState(0);
+
+    React.useEffect(() => {
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') setProductZoom(null);
+      });
+    });
+
+    React.useEffect(() => setCurrent(0), [productZoom]);
+
+    let images = productZoom.map((product, index) => (
+      <img
+        key={index}
+        class="w-auto h-7/8 aspect-square rounded-md shadow-md"
+        src={productZoom[current].url + '&width=2048&height=2048'}
+      />
+    ));
+
+    return (
+      <div class="absolute top-0 left-0 flex flex-col w-full h-full justify-center items-center p-8 gap-4 backdrop-blur-sm bg-base-100/50 z-1">
+        <div class="absolute top-0 right-0 p-4">
+          <button
+            class="btn btn-primary btn-square"
+            onClick={() => setProductZoom(null)}
+          >
+            <svg
+              class="fill-current"
+              fill="#000000"
+              height="24px"
+              width="24px"
+              version="1.1"
+              id="Capa_1"
+              xmlns="http://www.w3.org/2000/svg"
+              xmlns:xlink="http://www.w3.org/1999/xlink"
+              viewBox="0 0 460.775 460.775"
+              xml:space="preserve"
+            >
+              <path d="M285.08,230.397L456.218,59.27c6.076-6.077,6.076-15.911,0-21.986L423.511,4.565c-2.913-2.911-6.866-4.55-10.992-4.55  c-4.127,0-8.08,1.639-10.993,4.55l-171.138,171.14L59.25,4.565c-2.913-2.911-6.866-4.55-10.993-4.55  c-4.126,0-8.08,1.639-10.992,4.55L4.558,37.284c-6.077,6.075-6.077,15.909,0,21.986l171.138,171.128L4.575,401.505  c-6.074,6.077-6.074,15.911,0,21.986l32.709,32.719c2.911,2.911,6.865,4.55,10.992,4.55c4.127,0,8.08-1.639,10.994-4.55  l171.117-171.12l171.118,171.12c2.913,2.911,6.866,4.55,10.993,4.55c4.128,0,8.081-1.639,10.992-4.55l32.709-32.719  c6.074-6.075,6.074-15.909,0-21.986L285.08,230.397z" />
+            </svg>
+          </button>
+        </div>
+        {images[current]}
+        <div class="flex gap-2">
+          {productZoom.map((product, index) => {
+            return (
+              <div
+                key={index}
+                class={
+                  'rounded-md w-16 h-16 border border-solid ' +
+                  (current == index ? 'border-blue-500' : 'border-transparent')
+                }
+                onClick={() => setCurrent(index)}
+              >
+                <img
+                  class="rounded-md"
+                  src={product.url + '&width=256&height=256'}
+                />
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    );
+  };
 
   return (
-    <div 
-      class="relative flex flex-col gap-4 md:flex-row w-full h-full p-4"
-      onMouseMove={(e) => {
-        if carouselRef.
-      }}
-    >
-      {zoomProductImage && 
-        <>
-          <div class="absolute top-0 left-0 flex flex-col w-full h-full justify-center items-center p-8 backdrop-blur-sm bg-base-100/10 z-1">
-            <div class="flex rounded-md bg-base-300 justify-center items-center">
-              <img src={selectedProduct.images[0].url + '&width=2048&height=2048'} />
-            </div>
-          </div>
-        </>
-      }
-      <ProductImageSet product={selectedProduct} carouselRef={carouselRef} />
+    <div class="relative flex flex-col gap-4 md:flex-row w-full h-full p-4">
+      {productZoom && (
+        <ProductZoom
+          productZoom={productZoom}
+          setProductZoom={setProductZoom}
+        />
+      )}
+      <ProductImageSet
+        product={selectedProduct}
+        setProductZoom={setProductZoom}
+      />
       <div class="flex flex-col gap-4 md:w-1/2 p-4">
-        <TabList/>
+        <TabList />
         <div class="flex w-full min-h-12 overflow-x-auto items-center scrollbar-hide carousel md:flex-wrap md:max-h-[calc(100%-48px)] md:overflow-y-auto">
-          <SwatchSet activeSizes={activeSizes}/>
+          <SwatchSet activeSizes={activeSizes} />
         </div>
         {isMobile && <ProductInfo product={selectedProduct} />}
       </div>
