@@ -6,7 +6,6 @@ import {getPaginationVariables, Image} from '@shopify/hydrogen';
 import * as React from 'react';
 
 import {
-  constructProductSetFromCollection,
   ProductInfo,
   ProductImageSet,
 } from 'src/components/Product';
@@ -38,45 +37,84 @@ export async function loader({request, params, context}) {
   return json({collection});
 }
 
+function createInitialSizeSet(productSet) {
+  const SIZE_ORDER = ['XS', 'S', 'M', 'L', 'XL', 'XXL', '3XL', '4XL', 'OS'];
+  
+  // Map sizes in SIZE_ORDER to their index for priority
+  const orderMap = SIZE_ORDER.reduce((map, size, idx) => {
+    map[size] = idx;
+    return map;
+  }, {});
+
+  // Comparator to sort by custom order first, then by numeric sizes
+  const compareSizes = (a, b) => {
+    const aOrder = orderMap[a.size];
+    const bOrder = orderMap[b.size];
+
+    // If both a and b are in custom order, compare by that order
+    if (aOrder !== undefined && bOrder !== undefined) {
+      return aOrder - bOrder;
+    }
+    // If only a is in custom order, it comes before b
+    if (aOrder !== undefined) return -1;
+    // If only b is in custom order, it comes before a
+    if (bOrder !== undefined) return 1;
+
+    // Otherwise, try numeric comparison
+    const aNum = Number(a.size);
+    const bNum = Number(b.size);
+    // If both can convert to numbers, sort numerically
+    if (!isNaN(aNum) && !isNaN(bNum)) {
+      return aNum - bNum;
+    }
+    // If only a is a number, a goes after
+    if (!isNaN(aNum)) return 1;
+    // If only b is a number, b goes after
+    if (!isNaN(bNum)) return -1;
+
+    // Fallback: string comparison
+    return a.size.localeCompare(b.size);
+  };
+
+  // Sort productSet by compareSizes comparator
+  const sortedProducts = [...productSet].sort(compareSizes);
+
+  let mapSet = new Map();
+  sortedProducts.forEach((product) => {
+    mapSet.set(product.size, false);
+  });
+
+  return mapSet;
+}
+
 export default function Collection() {
   const {collection} = useLoaderData();
 
-  const defaultSizeSet = ['XS', 'S', 'M', 'L', 'XL', 'XXL', '3XL'];
   const productSet = constructProductSetFromCollection(collection);
   const [selectedProduct, setSelectedProduct] = React.useState(productSet[0]);
   const [selectedSwatch, setSelectedSwatch] = React.useState(productSet[0].id);
 
   const [productZoom, setProductZoom] = React.useState(null);
-  const [currentSizeSet, setCurrentSizeSet] = React.useState(
-    new Map([
-      ['XS', false],
-      ['S', false],
-      ['M', false],
-      ['L', false],
-      ['XL', false],
-      ['XXL', false],
-      ['3XL', false],
-    ]),
-  );
+  
+  const initialSizeSet = createInitialSizeSet(productSet);
+  const [sizeSet, setSizeSet] = React.useState(initialSizeSet);
 
   const Swatch = ({product}) => {
-    const setProduct = () => {
-      setSelectedProduct(product);
-      setSelectedSwatch(product.id);
-    };
-
     return (
       <div
         class={
-          'relative aspect-square w-[calc(22.5%-4px)] min-w-12 m-0.5 md:w-[calc(100%/6-4px)] max-w-24 carousel-item' +
+          'relative aspect-square w-[calc(22.5%-4px)] md:w-auto carousel-item' +
           (product.available ? '' : ' grayscale')
         }
-        onClick={setProduct}
+        onClick={() => {
+          setSelectedProduct(product);
+          setSelectedSwatch(product.id);
+        }}
       >
         {product.featuredImage && (
           <img
             class={
-              'aspect-square cursor-pointer border border-solid rounded-md ' +
+              'skeleton aspect-square cursor-pointer border border-solid rounded-md ' +
               (selectedSwatch == product.id
                 ? 'border-blue-500'
                 : 'border-transparent')
@@ -106,38 +144,13 @@ export default function Collection() {
     );
   };
 
-  const [activeSizes, setActiveSizes] = React.useState(defaultSizeSet);
+  const SwatchSet = () => {
+    let filteredProducts = (sizeSet.values().every(val => !val)) ? (productSet) : (productSet.filter((product) => sizeSet.get(product.size)));
 
-  const modifyActiveSizes = (size) => {
-    setCurrentSizeSet(currentSizeSet.set(size, !currentSizeSet.get(size)));
-
-    // if all are false, show all swatches
-    if (
-      !currentSizeSet.get('XS') &&
-      !currentSizeSet.get('S') &&
-      !currentSizeSet.get('M') &&
-      !currentSizeSet.get('L') &&
-      !currentSizeSet.get('XL') &&
-      !currentSizeSet.get('XXL') &&
-      !currentSizeSet.get('3XL')
-    ) {
-      setActiveSizes(defaultSizeSet);
-    } else {
-      setActiveSizes(
-        [...currentSizeSet]
-          .filter(([_, value]) => value) // get trues
-          .map(([key, _]) => key), // transmute size strings
-      );
-    }
-  };
-
-  const SwatchSet = ({activeSizes}) => {
-    // this set of distinctions is a workaround for JS not having any form of reduce
     let distinctIDs = [];
     let distinctSwatches = [];
 
-    productSet
-      .filter((product) => activeSizes.includes(product.size))
+    filteredProducts
       .forEach((product) => {
         if (!distinctIDs.includes(product.id)) {
           distinctIDs.push(product.id);
@@ -150,38 +163,16 @@ export default function Collection() {
     return distinctSwatches;
   };
 
-  let TabButton = ({name, buttonCount}) => {
-    let width_percent = ((1 / buttonCount) * 100).toFixed(2);
-
+  const TabButton = ({name}) => {
     return (
       <button
         class={
-          'btn h-8 mx-1' + (currentSizeSet.get(name) ? ' btn-primary' : '')
+          'carousel-item btn h-8 w-6 mx-1' + (sizeSet.get(name) ? ' btn-primary' : '')
         }
-        onClick={() => modifyActiveSizes(name)}
-        style={{width: 'calc(' + width_percent + '% - 10px)', maxWidth: '96px'}}
+        onClick={() => setSizeSet(new Map(sizeSet.set(name, !sizeSet.get(name))))}
       >
         {name}
       </button>
-    );
-  };
-
-  const TabList = () => {
-    let relevantSizes = defaultSizeSet.filter(
-      (size) =>
-        productSet.filter((product) => product.size === size).length > 0,
-    );
-
-    return (
-      <div class="flex w-full justify-center">
-        {relevantSizes.map((size) => (
-          <TabButton
-            key={size}
-            name={size}
-            buttonCount={relevantSizes.length}
-          />
-        ))}
-      </div>
     );
   };
 
@@ -199,13 +190,17 @@ export default function Collection() {
     let images = productZoom.map((product, index) => (
       <img
         key={index}
-        class="w-auto h-7/8 aspect-square rounded-md shadow-md"
-        src={productZoom[current].url + '&width=2048&height=2048'}
+        class={(index != current ? "hidden" : "") + " skeleton w-auto h-7/8 aspect-square rounded-md shadow-md"}
+        onClick={(e) => e.stopPropagation()}
+        src={productZoom[current].url + '&width=1024&height=1024'}
       />
     ));
 
     return (
-      <div class="absolute top-0 left-0 flex flex-col w-full h-full justify-center items-center p-8 gap-4 backdrop-blur-sm bg-base-100/50 z-1">
+      <div 
+        class="absolute top-0 left-0 flex flex-col w-full h-full justify-center items-center p-8 gap-4 backdrop-blur-sm bg-base-100/50 z-1"
+        onClick={() => setProductZoom(null)}
+      >
         <div class="absolute top-0 right-0 p-4">
           <button
             class="btn btn-primary btn-square"
@@ -227,20 +222,23 @@ export default function Collection() {
             </svg>
           </button>
         </div>
-        {images[current]}
+        {images}
         <div class="flex gap-2">
           {productZoom.map((product, index) => {
             return (
               <div
                 key={index}
                 class={
-                  'rounded-md w-16 h-16 border border-solid ' +
+                  'rounded-md w-16 h-16 cursor-pointer border border-solid ' +
                   (current == index ? 'border-blue-500' : 'border-transparent')
                 }
-                onClick={() => setCurrent(index)}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setCurrent(index);
+                }}
               >
                 <img
-                  class="rounded-md"
+                  class="skeleton rounded-md"
                   src={product.url + '&width=256&height=256'}
                 />
               </div>
@@ -252,7 +250,7 @@ export default function Collection() {
   };
 
   return (
-    <div class="relative flex flex-col gap-4 md:flex-row w-full h-full p-4">
+    <div class="relative flex flex-col gap-4 md:flex-row w-full h-full p-4 md:p-16">
       {productZoom && (
         <ProductZoom
           productZoom={productZoom}
@@ -263,15 +261,72 @@ export default function Collection() {
         product={selectedProduct}
         setProductZoom={setProductZoom}
       />
-      <div class="flex flex-col gap-4 md:w-1/2 p-4">
-        <TabList />
-        <div class="flex w-full min-h-12 overflow-x-auto items-center scrollbar-hide carousel md:flex-wrap md:max-h-[calc(100%-48px)] md:overflow-y-auto">
-          <SwatchSet activeSizes={activeSizes} />
+      {
+        !([...sizeSet.keys()].length <= 1 && [...sizeSet.keys()].includes("OS") && productSet.length <= 1) && 
+        <div class="flex flex-col gap-4 md:w-1/2 p-4">
+          <div class="mx-auto max-w-full overflow-x-auto scrollbar-hide carousel">
+            {!([...sizeSet.keys()].length <= 1 && [...sizeSet.keys()].includes("OS")) && [...sizeSet.keys()].map((size) => <TabButton key={size} name={size} />)}
+          </div>
+          <div class="md:grid md:grid-cols-6 md:gap-4 gap-1 w-full overflow-x-auto items-center scrollbar-hide carousel">
+            <SwatchSet />
+          </div>
         </div>
-        {isMobile && <ProductInfo product={selectedProduct} />}
-      </div>
+      }
+      {isMobile && <ProductInfo product={selectedProduct} />}
     </div>
   );
+}
+
+export function constructProductSetFromCollection(collection) {
+  let products = [].concat.apply(
+    [],
+    collection.products.nodes.map((product) => {
+      let products = [];
+
+      for (let i = 0; i < product.variants.nodes.length; i++) {
+        let size = 'NONE';
+        for (
+          let j = 0;
+          j < product.variants.nodes[i].selectedOptions.length;
+          j++
+        ) {
+          // shopify API response model is abysmally designed
+          if (
+            product.variants.nodes[i].selectedOptions[j] !== undefined &&
+            product.variants.nodes[i].selectedOptions[j].name.toUpperCase() ===
+              'SIZE'
+          ) {
+            size = product.variants.nodes[i].selectedOptions[j].value;
+          }
+        }
+
+        products.push({
+          id: product.id,
+          available: product.availableForSale,
+          handle: product.handle,
+          title: product.title,
+          descriptionHtml: product.descriptionHtml,
+          priceRange: product.priceRange,
+          variantId: product.variants.nodes[i].id,
+          rawSelectedOptions: product.variants.nodes[i].selectedOptions, // needs to be intact for link retrieval
+          size: size,
+          featuredImage: product.featuredImage,
+          images: product.images.nodes,
+          collection: collection.handle
+        });
+      }
+
+      return products;
+    }),
+  );
+
+  return products.sort((a, b) => {
+    if (a.available && !b.available) return -1;
+
+    if (!a.available && b.available) return 1;
+
+    return 0;
+  });
 }
 
 const PRODUCT_ITEM_FRAGMENT = `#graphql

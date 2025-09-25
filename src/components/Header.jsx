@@ -15,7 +15,6 @@ export function Header({header, cart}) {
   const headerColor = navigator.userAgent.includes('Safari')
     ? 'bg-base-300/50'
     : 'bg-black/0.25'; // safari is highly regarded
-  console.log('headerColor: ' + headerColor);
   return (
     <div
       class={'navbar sticky w-full z-1 top-0 backdrop-blur-lg ' + headerColor}

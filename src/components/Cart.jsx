@@ -45,6 +45,7 @@ function CartLines({lines, layout}) {
 }
 
 function CartLineItem({layout, line}) {
+  console.log(line);
   const {id, merchandise} = line;
   const {product, title, image, selectedOptions} = merchandise;
   const lineItemUrl = useVariantUrl(product.handle, selectedOptions);
@@ -53,22 +54,11 @@ function CartLineItem({layout, line}) {
     <div class="card bg-base-200 p-2 shadow-lg">
       <div key={id} class="flex gap-2 p-2">
         {image && (
-          <img class="h-full rounded-md" src={image.url + "&width=100&height=100"}/>
+          <img class="skeleton h-full rounded-md" src={image.url + "&width=100&height=100"}/>
         )}
 
         <div>
-          <Link
-            prefetch="intent"
-            to={lineItemUrl}
-            onClick={() => {
-              if (layout === 'aside') {
-                // close the drawer
-                window.location.href = lineItemUrl;
-              }
-            }}
-          >
-            <strong>{product.title}</strong>
-          </Link>
+          <strong>{product.title}</strong>
           <div>
             <CartLinePrice line={line} as="span" />
           </div>

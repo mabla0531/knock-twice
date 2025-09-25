@@ -19,7 +19,7 @@ export default function Index() {
 
   const CollectionTile = ({collection}) => {
     let images = collection.products.nodes.map((product) => (
-      <img class="w-full aspect-square" src={product.featuredImage.url + "&width=320&height=320"}/>
+      <img class="skeleton w-full aspect-square rounded-md" src={product.featuredImage.url + "&width=512&height=512"}/>
     ));
 
     const [imageIndex, setImageIndex] = useState(0);
@@ -42,14 +42,14 @@ export default function Index() {
 
     return (
       <div
-        class="w-1/2 md:w-64 rounded-md overflow-hidden"
+        class="w-full"
         onMouseOver={(e) => tryCycleImage()}
         onMouseLeave={(e) => allowCycleImage()}
       >
         <Link to={`/collection/${collection.handle}`}>
-          <div class="flex relative">
+          <div class="flex flex-col">
             {images[imageIndex]}
-            <div class="absolute bottom-0 left-0 w-full p-2 truncate whitespace-nowrap bg-black/0.5 backdrop-blur-sm">
+            <div class="text-center w-full p-2">
               {collection.products.nodes.length > 0 && collection.title}
             </div>
           </div>
@@ -79,7 +79,7 @@ export default function Index() {
           </a>
         </div>
       </div>
-      <div class="flex flex-wrap gap-2 w-full justify-center p-8">{collectionTiles}</div>
+      <div class="grid grid-cols-2 md:grid-cols-5 gap-4 w-full justify-center p-8 md:w-9/10 mx-auto">{collectionTiles}</div>
     </>
   );
 }

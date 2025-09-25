@@ -37,7 +37,7 @@ export default function Passport() {
         </div>
       </div>
       <div class="text-center">
-        <div class='w-108 mx-auto'>
+        <div class='w-96 max-w-full mx-auto'>
           We are currently working on a new feature called Passport. This will allow you to find and track your KT goods. Please check back later!
           {/*<input 
             type="text"
