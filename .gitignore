@@ -4,7 +4,8 @@ node_modules/
 .cache/
 dist/
 .env
-.idea/*
+.idea/
+.cursor/
 .DS_Store
 package-lock.json
 storefrontapi.generated.d.ts

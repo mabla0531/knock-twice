@@ -2,8 +2,8 @@ import {isMobile} from 'react-device-detect';
 import {useRef, useState, useEffect} from 'react';
 import {Image, Money, CartForm} from '@shopify/hydrogen';
 import ReactImageZoom from 'react-image-zoom';
-import dot from 'public/dot.svg';
-import scroll from 'public/scroll.svg';
+import dot from 'src/dot.svg';
+import scroll from 'src/scroll.svg';
 
 export function ProductImageSet({product, setProductZoom}) {
   const [currentDot, setCurrentDot] = useState(0);

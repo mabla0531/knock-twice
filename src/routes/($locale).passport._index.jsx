@@ -1,7 +1,6 @@
 import { json } from '@shopify/remix-oxygen';
 import { useLoaderData, Link } from '@remix-run/react';
 import { useState } from 'react';
-import buildge from 'public/buildge.jpg';
 
 export default function Passport() {
 

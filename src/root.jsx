@@ -5,14 +5,13 @@ import {
   Meta,
   Outlet,
   Scripts,
-  LiveReload,
   useMatches,
   useRouteError,
   useLoaderData,
   ScrollRestoration,
   isRouteErrorResponse,
 } from '@remix-run/react';
-import favicon from '../public/favicon.svg';
+import favicon from 'src/favicon.svg';
 import {Layout} from 'src/components/Layout';
 
 export const shouldRevalidate = ({formMethod, currentUrl, nextUrl}) => {
@@ -31,7 +30,7 @@ export const shouldRevalidate = ({formMethod, currentUrl, nextUrl}) => {
 
 export function links() {
   return [
-    {rel: 'stylesheet', href: '/tailwind.css'},
+    {rel: 'stylesheet', href: "/tailwind.css"},
     {rel: 'preconnect', href: 'https://cdn.shopify.com'},
     {rel: 'preconnect', href: 'https://shop.app'},
     {rel: 'icon', type: 'image/svg+xml', href: favicon},
@@ -103,7 +102,6 @@ export default function App() {
         </Layout>
         <ScrollRestoration nonce={nonce} />
         <Scripts nonce={nonce} />
-        <LiveReload nonce={nonce} />
       </body>
     </html>
   );
@@ -145,7 +143,6 @@ export function ErrorBoundary() {
         </Layout>
         <ScrollRestoration nonce={nonce} />
         <Scripts nonce={nonce} />
-        <LiveReload nonce={nonce} />
       </body>
     </html>
   );
