@@ -12,7 +12,7 @@ export async function loader({context}) {
 }
 
 async function updateCustomerEmailMarketingConsent(email) {
-  const response = await context.storefront.query("", {
+  const response = await context.storefront.query(, {
     variables: {
       customerId: "gid://shopify/Customer/" + email,
       emailMarketingConsent: {
@@ -28,7 +28,7 @@ async function updateCustomerEmailMarketingConsent(email) {
 }
 
 
-async function subscribeRequest(email) {
+function subscribeRequest(email) {
   console.log("Processing subscribe request for email " + email);
   let result = await updateCustomerEmailMarketingConsent(email);
   console.log(result);
