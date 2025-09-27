@@ -1,6 +1,6 @@
 import {json} from '@shopify/remix-oxygen';
-import {useLoaderData, Link, useActionData, useNavigation} from '@remix-run/react';
-import {useState} from 'react';
+import {useLoaderData, Link} from '@remix-run/react';
+import { useState } from 'react';
 
 export async function loader({context}) {
   let {page, errors} = await context.storefront.query(CONTENT_QUERY);
@@ -12,40 +12,32 @@ export async function loader({context}) {
   return {content: {__html: page.body}};
 }
 
-export async function action({request, context}) {
-  const formData = await request.formData();
-  const email = formData.get('email');
+async function updateCustomerEmailMarketingConsent(email) {
+  const response = await context.storefront.query("", {
+    variables: {
+      customerId: "gid://shopify/Customer/" + email,
+      emailMarketingConsent: {
+        marketingState: "SUBSCRIBED",
+        marketingOptInLevel: "CONFIRMED_OPT_IN",
+        consentUpdatedAt: new Date().toISOString
+      }
+    },
+  });
 
-  if (!email) {
-    return json({error: 'Email is required'}, {status: 400});
-  }
-
-  try {
-    const response = await context.storefront.query(CUSTOMER_UPDATE_MUTATION, {
-      variables: {
-        customerId: `gid://shopify/Customer/${email}`,
-        emailMarketingConsent: {
-          marketingState: "SUBSCRIBED",
-          marketingOptInLevel: "CONFIRMED_OPT_IN",
-          consentUpdatedAt: new Date().toISOString()
-        }
-      },
-    });
-
-    return json({success: true, message: 'Successfully subscribed!'});
-  } catch (error) {
-    console.error('Subscription error:', error);
-    return json({error: 'Failed to subscribe. Please try again.'}, {status: 500});
-  }
+  const result = await response.json();
+  return result.data.customerEmailMarketingConsentUpdate;
 }
 
 
+async function subscribeRequest(email) {
+  console.log("Processing subscribe request for email " + email);
+  let result = await updateCustomerEmailMarketingConsent(email);
+  console.log(result);
+}
+
 export default function About() {
   const {content} = useLoaderData();
-  const actionData = useActionData();
-  const navigation = useNavigation();
   const [email, setEmail] = useState("");
-  const isSubmitting = navigation.state === 'submitting';
 
   return (
     <div class="flex flex-col w-full h-full">
@@ -69,34 +61,16 @@ export default function About() {
             Sign up for our newsletter and get first looks on new items!
           </div>
           <div class="card-body justify-end">
-            <form method="post">
-              <input
-                type="email"
-                name="email"
-                placeholder="Email Address"
-                class="input input-bordered w-full"
-                value={email}
-                onChange={(event) => setEmail(event.target.value)}
-                required
-              />
-              <button 
-                type="submit"
-                class="btn btn-primary w-full"
-                disabled={isSubmitting}
-              >
-                {isSubmitting ? 'SUBSCRIBING...' : 'SUBSCRIBE'}
-              </button>
-            </form>
-            {actionData?.success && (
-              <div class="alert alert-success mt-2">
-                {actionData.message}
-              </div>
-            )}
-            {actionData?.error && (
-              <div class="alert alert-error mt-2">
-                {actionData.error}
-              </div>
-            )}
+            <input
+              type="text"
+              placeholder="Email Address"
+              class="input input-bordered w-full"
+              value={email}
+              onChange={(event) => setEmail(event.target.value)}
+            />
+            <button class={'btn btn-primary w-full'} onClick={() => subscribeRequest(email)}>
+              SUBSCRIBE
+            </button>
           </div>
         </div>
       </div>
