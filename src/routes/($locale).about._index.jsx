@@ -49,7 +49,7 @@ export default function About() {
       //       </button>
       //     </div>
       //   </div>
-      </div>
+      // </div>
     </div>
   );
 }
