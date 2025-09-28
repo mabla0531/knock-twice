@@ -2,12 +2,7 @@ import {Await, NavLink} from '@remix-run/react';
 import {useState, Suspense} from 'react';
 import {useRootLoaderData} from 'src/root';
 import {Form, Icon} from '@shopify/polaris';
-import {
-  CartIcon,
-  SearchIcon,
-  PersonLockIcon,
-  InfoIcon,
-} from '@shopify/polaris-icons';
+import {CartIcon} from '@shopify/polaris-icons';
 
 export function Header({header, cart}) {
   const {shop, _} = header;
