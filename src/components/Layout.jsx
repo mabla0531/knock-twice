@@ -5,14 +5,6 @@ import {Header} from 'src/components/Header';
 import {CartMain} from 'src/components/Cart';
 
 export function Layout({cart, children = null, header, isLoggedIn}) {
-  let render = true;
-  fetch('http://127.0.0.1:6969/auth').then((response) => {
-    render = response.body != 'forbidden';
-  });
-
-  if (!render) {
-    return <div class="text-3xl">Disabled</div>;
-  }
   return (
     <>
       <Header header={header} cart={cart} isLoggedIn={isLoggedIn} />
