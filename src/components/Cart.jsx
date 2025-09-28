@@ -45,7 +45,6 @@ function CartLines({lines, layout}) {
 }
 
 function CartLineItem({layout, line}) {
-  console.log(line);
   const {id, merchandise} = line;
   const {product, title, image, selectedOptions} = merchandise;
   const lineItemUrl = useVariantUrl(product.handle, selectedOptions);
