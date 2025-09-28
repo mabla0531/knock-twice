@@ -30,26 +30,27 @@ export default function About() {
       </div>
 
       <div class="w-96 max-w-full mx-auto text-center overflow-y-auto" dangerouslySetInnerHTML={content} />
-      //
-      // <div class="my-auto">
-      //   <div class="card bg-base-200 w-96 h-56 mx-auto max-w-full shadow-xl">
-      //     <div class="card-title text-center mt-6">
-      //       Sign up for our newsletter and get first looks on new items!
-      //     </div>
-      //     <div class="card-body justify-end">
-      //       <input
-      //         type="text"
-      //         placeholder="Email Address"
-      //         class="input input-bordered w-full"
-      //         value={email}
-      //         onChange={(event) => setEmail(event.target.value)}
-      //       />
-      //       <button class={'btn btn-primary w-full'} onClick={() => subscribeRequest(email)}>
-      //         SUBSCRIBE
-      //       </button>
-      //     </div>
-      //   </div>
-      // </div>
+      {/*
+      <div class="my-auto">
+        <div class="card bg-base-200 w-96 h-56 mx-auto max-w-full shadow-xl">
+          <div class="card-title text-center mt-6">
+            Sign up for our newsletter and get first looks on new items!
+          </div>
+          <div class="card-body justify-end">
+            <input
+              type="text"
+              placeholder="Email Address"
+              class="input input-bordered w-full"
+              value={email}
+              onChange={(event) => setEmail(event.target.value)}
+            />
+            <button class={'btn btn-primary w-full'} onClick={() => subscribeRequest(email)}>
+              SUBSCRIBE
+            </button>
+          </div>
+        </div>
+      </div>
+      */}
     </div>
   );
 }
