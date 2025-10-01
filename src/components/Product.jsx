@@ -64,6 +64,11 @@ export function ProductImageSet({product, setProductZoom}) {
                 class="skeleton rounded-md"
                 src={image.url + '&width=720&height=720'}
               />
+              <Image
+                data={image}
+                width={720}
+                height={720}
+              />
             </div>
           );
         })}
