@@ -30,9 +30,10 @@ export const shouldRevalidate = ({formMethod, currentUrl, nextUrl}) => {
 
 export function links() {
   return [
-    {rel: 'stylesheet', href: "/tailwind.css"},
     {rel: 'preconnect', href: 'https://cdn.shopify.com'},
     {rel: 'preconnect', href: 'https://shop.app'},
+    {rel: 'stylesheet', href: "/font.css"},
+    {rel: 'stylesheet', href: "/tailwind.css"},
     {rel: 'icon', type: 'image/svg+xml', href: favicon},
   ];
 }

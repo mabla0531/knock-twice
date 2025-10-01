@@ -1,0 +1,9 @@
+
+@font-face {
+  font-family: 'Enrique';
+  src: url('Enrique.ttf');
+}
+
+html, body {
+  font-family: 'Enrique';
+}
