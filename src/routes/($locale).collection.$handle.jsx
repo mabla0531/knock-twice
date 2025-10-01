@@ -188,11 +188,13 @@ export default function Collection() {
     React.useEffect(() => setCurrent(0), [productZoom]);
 
     let images = productZoom.map((product, index) => (
-      <img
+      <Image
         key={index}
         class={(index != current ? "hidden" : "") + " skeleton w-auto h-7/8 aspect-square rounded-md shadow-md"}
+        data={productZoom[current]}
         onClick={(e) => e.stopPropagation()}
-        src={productZoom[current].url + '&width=1024&height=1024'}
+        width={720}
+        height={720}
       />
     ));
 

@@ -61,6 +61,7 @@ export function ProductImageSet({product, setProductZoom}) {
               class="carousel-item aspect-square w-full justify-center"
             >
               <Image
+                class="skeleton rounded-md"
                 data={image}
                 width={720}
                 height={720}
