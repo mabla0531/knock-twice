@@ -91,10 +91,13 @@ export function ProductInfo({product}) {
   return (
     <div class="flex flex-col gap-4 w-full items-center px-2 *:w-full md:w-96 md:max-h-1/2"> {/* shopify uses forms, forms constrict their children, shopify is regarded */}
       <div class="text-xl text-center">{product.title}</div>
+      <div class="text-lg text-center">Size: {product.size}</div>
       <div class="flex justify-center">
-        {product.priceRange.minVariantPrice && (
-          <Money data={product.priceRange.minVariantPrice} />
-        )}
+        {product.priceRange.minVariantPrice && 
+          <>
+            <Money data={product.priceRange.minVariantPrice} withoutCurrency={true} />&nbsp;USD
+          </>
+        }
       </div>
       <AddToCartButton
         lines={[
