@@ -1681,32 +1681,11 @@
   .h-56 {
     height: calc(var(--spacing) * 56);
   }
-  .h-\[calc\(100\%-64px\)\] {
-    height: calc(100% - 64px);
-  }
-  .h-\[calc\(100\%-128px\)\] {
-    height: calc(100% - 128px);
-  }
   .h-auto {
     height: auto;
   }
   .h-full {
     height: 100%;
-  }
-  .h-screen {
-    height: 100vh;
-  }
-  .max-h-\[calc\(100\%-64px\)\] {
-    max-height: calc(100% - 64px);
-  }
-  .max-h-\[calc\(100\%-128px\)\] {
-    max-height: calc(100% - 128px);
-  }
-  .max-h-full {
-    max-height: 100%;
-  }
-  .max-h-screen {
-    max-height: 100vh;
   }
   .min-h-32 {
     min-height: calc(var(--spacing) * 32);
@@ -1744,14 +1723,8 @@
   .w-full {
     width: 100%;
   }
-  .w-screen {
-    width: 100vw;
-  }
   .max-w-full {
     max-width: 100%;
-  }
-  .max-w-screen {
-    max-width: 100vw;
   }
   .flex-1 {
     flex: 1;
@@ -1835,9 +1808,6 @@
   .gap-8 {
     gap: calc(var(--spacing) * 8);
   }
-  .overflow-hidden {
-    overflow: hidden;
-  }
   .overflow-x-auto {
     overflow-x: auto;
   }
@@ -1846,6 +1816,9 @@
   }
   .overflow-y-auto {
     overflow-y: auto;
+  }
+  .overflow-y-hidden {
+    overflow-y: hidden;
   }
   .overscroll-y-none {
     overscroll-behavior-y: none;
@@ -1867,6 +1840,21 @@
   .border-solid {
     --tw-border-style: solid;
     border-style: solid;
+  }
+  .border-base-300 {
+    border-color: var(--color-base-300);
+  }
+  .border-base-300\/50 {
+    border-color: var(--color-base-300);
+    @supports (color: color-mix(in lab, red, red)) {
+      border-color: color-mix(in oklab, var(--color-base-300) 50%, transparent);
+    }
+  }
+  .border-base-300\/75 {
+    border-color: var(--color-base-300);
+    @supports (color: color-mix(in lab, red, red)) {
+      border-color: color-mix(in oklab, var(--color-base-300) 75%, transparent);
+    }
   }
   .border-blue-500 {
     border-color: var(--color-blue-500);
@@ -2026,9 +2014,39 @@
       max-height: calc(1/2 * 100%);
     }
   }
+  .md\:max-h-1\/3 {
+    @media (width >= 48rem) {
+      max-height: calc(1/3 * 100%);
+    }
+  }
+  .md\:max-h-1\/4 {
+    @media (width >= 48rem) {
+      max-height: calc(1/4 * 100%);
+    }
+  }
+  .md\:max-h-1\/6 {
+    @media (width >= 48rem) {
+      max-height: calc(1/6 * 100%);
+    }
+  }
+  .md\:max-h-1\/8 {
+    @media (width >= 48rem) {
+      max-height: calc(1/8 * 100%);
+    }
+  }
+  .md\:max-h-\[25\%\] {
+    @media (width >= 48rem) {
+      max-height: 25%;
+    }
+  }
   .md\:max-h-full {
     @media (width >= 48rem) {
       max-height: 100%;
+    }
+  }
+  .md\:min-h-1\/4 {
+    @media (width >= 48rem) {
+      min-height: calc(1/4 * 100%);
     }
   }
   .md\:w-1\/2 {

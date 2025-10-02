@@ -89,7 +89,7 @@ export function ProductInfo({product}) {
   }
 
   return (
-    <div class="flex flex-col gap-4 w-full items-center px-2 *:w-full md:w-96"> {/* shopify uses forms, forms constrict their children, shopify is regarded */}
+    <div class="flex flex-col gap-4 w-full items-center px-2 *:w-full md:w-96 md:max-h-1/2"> {/* shopify uses forms, forms constrict their children, shopify is regarded */}
       <div class="text-xl text-center">{product.title}</div>
       <div class="flex justify-center">
         {product.priceRange.minVariantPrice && (
@@ -106,7 +106,7 @@ export function ProductInfo({product}) {
         ]}
         disabled={!product.available}
       />
-      <div dangerouslySetInnerHTML={{__html: product.descriptionHtml}} />
+      <div class="overflow-y-auto rounded-md border border-base-300/75 p-2" dangerouslySetInnerHTML={{__html: product.descriptionHtml}} />
     </div>
   );
 }
