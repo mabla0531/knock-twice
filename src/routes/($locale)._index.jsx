@@ -1,6 +1,7 @@
 import {useLoaderData, Link} from '@remix-run/react';
 import {Image} from '@shopify/hydrogen';
-import {useState} from 'react';
+import {useState, useEffect} from 'react';
+import {isMobile} from 'react-device-detect';
 
 export function meta() {
   return [
@@ -57,12 +58,30 @@ const CollectionTile = ({collection}) => {
 export default function Index() {
   const {collections} = useLoaderData();
 
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => setMounted(true), []);
+
   let collectionTiles = collections.nodes
     .filter((collection) => collection.products.nodes.length > 0)
     .map((collection) => <CollectionTile collection={collection} />);
 
   return (
     <>
+      {mounted && !isMobile &&
+        collections.nodes
+          .filter((collection) => collection.products.nodes.length > 0)
+          .map((collection) =>
+            collection.products.nodes.map((product) =>
+              <link
+                rel="preload"
+                href={product.featuredImage.url + "&width=512&height=512"}
+                as="image"
+                fetchpriority="high"
+              />
+            )
+          )
+      }
       <div class="flex *:flex-1 gap-8 w-3/4 h-32 min-h-32 mx-auto items-center">
         <div class="flex justify-center border-solid border-b-2">
           <a href="/">SHOP</a>

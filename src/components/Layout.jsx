@@ -1,14 +1,30 @@
 import {Await} from '@remix-run/react';
 import {Icon} from '@shopify/polaris';
-import {Suspense} from 'react';
+import {useRef, Suspense, useLayoutEffect} from 'react';
 import {Header} from 'src/components/Header';
 import {CartMain} from 'src/components/Cart';
 
 export function Layout({cart, children = null, header, isLoggedIn}) {
+  
+  let screenRef = useRef(null);
+
+  useLayoutEffect(() => {
+    if (screenRef.current) {
+      console.log("Fixing scroll");
+      screenRef.current.scrollTop = 0;
+      screenRef.current.scrollLeft = 0;
+    } else {
+      console.log("ref was null");
+    }
+  });
+  
   return (
     <>
       <Header header={header} cart={cart} isLoggedIn={isLoggedIn} />
-      <div class="absolute top-0 left-0 pt-16 w-full h-full overflow-x-hidden overflow-y-auto">
+      <div 
+        class="absolute top-0 left-0 pt-16 w-full h-full overflow-x-hidden overflow-y-auto"
+        ref={screenRef}
+      >
         {children}
       </div>
     </>

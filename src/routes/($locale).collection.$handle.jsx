@@ -88,6 +88,8 @@ function createInitialSizeSet(productSet) {
 }
 
 export default function Collection() {
+
+
   const {collection} = useLoaderData();
 
   const productSet = constructProductSetFromCollection(collection);
@@ -252,7 +254,9 @@ export default function Collection() {
   };
 
   return (
-    <div class="relative flex flex-col gap-4 md:flex-row w-full h-full p-4 md:p-16">
+    <div 
+      class="relative flex flex-col gap-4 md:flex-row w-full h-full p-4 md:p-16"
+    >
       {productZoom && (
         <ProductZoom
           productZoom={productZoom}
@@ -266,7 +270,7 @@ export default function Collection() {
       {
         !([...sizeSet.keys()].length <= 1 && [...sizeSet.keys()].includes("OS") && productSet.length <= 1) && 
         <div class="flex flex-col gap-4 md:w-1/2 p-4">
-          <div class="mx-auto max-w-full overflow-x-auto scrollbar-hide carousel">
+          <div class="mx-auto max-w-full overflow-x-auto scrollbar-hide carousel overscroll-y-none">
             {!([...sizeSet.keys()].length <= 1 && [...sizeSet.keys()].includes("OS")) && [...sizeSet.keys()].map((size) => <TabButton key={size} name={size} />)}
           </div>
           <div class="md:grid md:grid-cols-6 md:gap-4 gap-1 w-full overflow-x-auto items-center scrollbar-hide carousel">
