@@ -48,7 +48,7 @@ export function ProductImageSet({product, setProductZoom}) {
   }
 
   return (
-    <div class="flex flex-col gap-4 mx-auto items-center w-full md:max-w-[472px] md:h-full md:max-h-full md:overflow-y-auto">
+    <div class="flex flex-col gap-4 mx-auto items-center w-full md:h-full md:max-h-full md:overflow-y-auto crossbrowser-product-image-constrictor">
       <div class="w-full md:w-5/8 aspect-square md:max-h-full">
         <div
           class="carousel md:carousel-vertical md:aspect-square md:overflow-x-hidden md:cursor-zoom-in"

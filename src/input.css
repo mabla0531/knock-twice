@@ -17,3 +17,9 @@ body {
 a:hover {
   text-decoration: none;
 }
+
+.crossbrowser-product-image-constrictor {
+  @media (width >= 48rem) {
+    max-width: 472px;
+  }
+}
