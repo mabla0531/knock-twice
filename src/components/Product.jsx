@@ -49,26 +49,28 @@ export function ProductImageSet({product, setProductZoom}) {
 
   return (
     <div class="flex flex-col gap-4 mx-auto items-center w-full md:w-fit md:h-full md:max-h-full md:overflow-y-auto">
-      <div
-        class="carousel md:carousel-vertical md:max-h-1/2 md:aspect-square md:overflow-x-hidden md:cursor-zoom-in"
-        ref={carouselRef}
-        onClick={() => { if (!isMobile) setProductZoom(product.images) }}
-      >
-        {product.images.map((image, index) => {
-          return (
-            <div
-              key={index}
-              class="carousel-item aspect-square w-full justify-center"
-            >
-              <Image
-                class="skeleton rounded-md"
-                data={image}
-                width={720}
-                height={720}
-              />
-            </div>
-          );
-        })}
+      <div class="w-full md:w-5/8 aspect-square md:max-h-full">
+        <div
+          class="carousel md:carousel-vertical md:aspect-square md:overflow-x-hidden md:cursor-zoom-in"
+          ref={carouselRef}
+          onClick={() => { if (!isMobile) setProductZoom(product.images) }}
+        >
+          {product.images.map((image, index) => {
+            return (
+              <div
+                key={index}
+                class="carousel-item aspect-square w-full justify-center"
+              >
+                <Image
+                  class="skeleton rounded-md"
+                  data={image}
+                  width={720}
+                  height={720}
+                />
+              </div>
+            );
+          })}
+        </div>
       </div>
 
       {product.images.length > 1 && (

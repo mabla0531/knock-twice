@@ -105,7 +105,7 @@ export default function Collection() {
     return (
       <div
         class={
-          'relative aspect-square w-[calc(22.5%-4px)] md:w-auto carousel-item' +
+          'relative aspect-square w-[calc(22.5%-4px)] md:w-auto max-w-24 carousel-item' +
           (product.available ? '' : ' grayscale')
         }
         onClick={() => {
@@ -121,7 +121,7 @@ export default function Collection() {
                 ? 'border-blue-500'
                 : 'border-transparent')
             }
-            src={product.featuredImage.url + '&width=128&height=128'}
+            src={product.featuredImage.url + '&width=96&height=96'}
           />
         )}
         {!product.available && (
@@ -162,7 +162,11 @@ export default function Collection() {
         }
       });
 
-    return distinctSwatches;
+    return (
+      <div class="md:grid md:grid-cols-6 md:gap-4 gap-1 w-full overflow-x-auto items-center scrollbar-hide carousel">
+        {distinctSwatches}
+      </div>
+    );
   };
 
   const TabButton = ({name}) => {
@@ -269,13 +273,11 @@ export default function Collection() {
       />
       {
         !([...sizeSet.keys()].length <= 1 && [...sizeSet.keys()].includes("OS") && productSet.length <= 1) && 
-        <div class="flex flex-col gap-4 md:w-1/2 p-4">
+        <div class="flex flex-col gap-4 md:w-3/8 p-4">
           <div class="mx-auto max-w-full overflow-x-auto overflow-y-hidden scrollbar-hide carousel overscroll-y-none">
             {!([...sizeSet.keys()].length <= 1 && [...sizeSet.keys()].includes("OS")) && [...sizeSet.keys()].map((size) => <TabButton key={size} name={size} />)}
           </div>
-          <div class="md:grid md:grid-cols-6 md:gap-4 gap-1 w-full overflow-x-auto items-center scrollbar-hide carousel">
-            <SwatchSet />
-          </div>
+          <SwatchSet />
         </div>
       }
       {isMobile && <ProductInfo product={selectedProduct} />}
