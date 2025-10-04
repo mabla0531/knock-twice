@@ -48,7 +48,7 @@ export function ProductImageSet({product, setProductZoom}) {
   }
 
   return (
-    <div class="flex flex-col gap-4 mx-auto items-center w-full md:w-1/2 md:h-full md:max-h-full">
+    <div class="flex flex-col gap-4 mx-auto items-center w-full md:w-fit md:h-full md:max-h-full md:overflow-y-auto">
       <div
         class="carousel md:carousel-vertical md:max-h-1/2 md:aspect-square md:overflow-x-hidden md:cursor-zoom-in"
         ref={carouselRef}
@@ -109,7 +109,7 @@ export function ProductInfo({product}) {
         ]}
         disabled={!product.available}
       />
-      <div class="overflow-y-auto rounded-md border border-base-300/75 p-2" dangerouslySetInnerHTML={{__html: product.descriptionHtml}} />
+      <div class="p-2" dangerouslySetInnerHTML={{__html: product.descriptionHtml}} />
     </div>
   );
 }

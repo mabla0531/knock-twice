@@ -147,8 +147,8 @@ export default function Collection() {
   };
 
   const SwatchSet = () => {
-    let filteredProducts = (sizeSet.values().every(val => !val)) ? (productSet) : (productSet.filter((product) => sizeSet.get(product.size)));
-
+    let filteredProducts = ([...sizeSet.values()].every(val => !val)) ? (productSet) : (productSet.filter((product) => sizeSet.get(product.size)));
+    
     let distinctIDs = [];
     let distinctSwatches = [];
 

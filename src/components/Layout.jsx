@@ -10,11 +10,8 @@ export function Layout({cart, children = null, header, isLoggedIn}) {
 
   useLayoutEffect(() => {
     if (screenRef.current) {
-      console.log("Fixing scroll");
       screenRef.current.scrollTop = 0;
       screenRef.current.scrollLeft = 0;
-    } else {
-      console.log("ref was null");
     }
   });
   

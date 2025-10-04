@@ -12,6 +12,8 @@
     --spacing: 0.25rem;
     --text-xs: 0.75rem;
     --text-xs--line-height: calc(1 / 0.75);
+    --text-lg: 1.125rem;
+    --text-lg--line-height: calc(1.75 / 1.125);
     --text-xl: 1.25rem;
     --text-xl--line-height: calc(1.75 / 1.25);
     --radius-md: 0.375rem;
@@ -1844,12 +1846,6 @@
   .border-base-300 {
     border-color: var(--color-base-300);
   }
-  .border-base-300\/50 {
-    border-color: var(--color-base-300);
-    @supports (color: color-mix(in lab, red, red)) {
-      border-color: color-mix(in oklab, var(--color-base-300) 50%, transparent);
-    }
-  }
   .border-base-300\/75 {
     border-color: var(--color-base-300);
     @supports (color: color-mix(in lab, red, red)) {
@@ -1912,6 +1908,10 @@
   }
   .text-center {
     text-align: center;
+  }
+  .text-lg {
+    font-size: var(--text-lg);
+    line-height: var(--tw-leading, var(--text-lg--line-height));
   }
   .text-xl {
     font-size: var(--text-xl);
@@ -2014,39 +2014,9 @@
       max-height: calc(1/2 * 100%);
     }
   }
-  .md\:max-h-1\/3 {
-    @media (width >= 48rem) {
-      max-height: calc(1/3 * 100%);
-    }
-  }
-  .md\:max-h-1\/4 {
-    @media (width >= 48rem) {
-      max-height: calc(1/4 * 100%);
-    }
-  }
-  .md\:max-h-1\/6 {
-    @media (width >= 48rem) {
-      max-height: calc(1/6 * 100%);
-    }
-  }
-  .md\:max-h-1\/8 {
-    @media (width >= 48rem) {
-      max-height: calc(1/8 * 100%);
-    }
-  }
-  .md\:max-h-\[25\%\] {
-    @media (width >= 48rem) {
-      max-height: 25%;
-    }
-  }
   .md\:max-h-full {
     @media (width >= 48rem) {
       max-height: 100%;
-    }
-  }
-  .md\:min-h-1\/4 {
-    @media (width >= 48rem) {
-      min-height: calc(1/4 * 100%);
     }
   }
   .md\:w-1\/2 {
@@ -2067,6 +2037,11 @@
   .md\:w-auto {
     @media (width >= 48rem) {
       width: auto;
+    }
+  }
+  .md\:w-fit {
+    @media (width >= 48rem) {
+      width: fit-content;
     }
   }
   .md\:cursor-zoom-in {
@@ -2106,9 +2081,20 @@
       overflow-x: hidden;
     }
   }
+  .md\:overflow-y-auto {
+    @media (width >= 48rem) {
+      overflow-y: auto;
+    }
+  }
   .md\:p-16 {
     @media (width >= 48rem) {
       padding: calc(var(--spacing) * 16);
+    }
+  }
+  .md\:shadow-md {
+    @media (width >= 48rem) {
+      --tw-shadow: 0 4px 6px -1px var(--tw-shadow-color, rgb(0 0 0 / 0.1)), 0 2px 4px -2px var(--tw-shadow-color, rgb(0 0 0 / 0.1));
+      box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
     }
   }
 }
